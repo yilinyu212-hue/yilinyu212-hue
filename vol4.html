@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全球女性商业趋势简报 · 2026 第四期 · 她的选择</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #17120f;
+  --deep: #2b1d14;
+  --copper: #9e5a2a;
+  --copper-light: #c47a48;
+  --blush: #f0ddd0;
+  --cream: #faf6f2;
+  --warm: #f3ede5;
+  --rule: #ddd0c4;
+  --teal: #2a5f5f;
+  --teal-light: #4a8f8a;
+  --mint: #d0eae8;
+  --gold: #b8903a;
+  --gold-light: #d4aa58;
+  --warm-grey: #887870;
+  --text-body: #3d3028;
+  --p1: #2a5f5f;
+  --p1-light: #d0eae8;
+  --p2: #7a3a20;
+  --p2-light: #f5e0d4;
+  --p3: #4a3070;
+  --p3-light: #e8e0f5;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'Outfit','PingFang SC','Microsoft YaHei',sans-serif;font-weight:300;line-height:1.7;}
+
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--copper),var(--gold-light));width:0%;z-index:300;transition:width .1s;}
+
+.sticky-nav{position:sticky;top:0;z-index:100;background:var(--deep);border-bottom:2px solid var(--copper-light);display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;}
+.sticky-nav::-webkit-scrollbar{display:none;}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:700;color:var(--blush);padding:0 20px;border-right:1px solid rgba(255,255,255,.1);white-space:nowrap;height:44px;display:flex;align-items:center;flex-shrink:0;}
+.nav-links{display:flex;}
+.nav-link{font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);padding:0 14px;height:44px;display:flex;align-items:center;text-decoration:none;border-right:1px solid rgba(255,255,255,.06);white-space:nowrap;transition:all .2s;background:none;border-top:none;border-bottom:none;border-left:none;cursor:pointer;}
+.nav-link.p1:hover,.nav-link.p1.active{color:var(--mint);background:rgba(42,95,95,.25);}
+.nav-link.p2:hover,.nav-link.p2.active{color:#f5c8a8;background:rgba(122,58,32,.25);}
+.nav-link.p3:hover,.nav-link.p3.active{color:#d0c8f0;background:rgba(74,48,112,.25);}
+
+.masthead{background:var(--deep);position:relative;overflow:hidden;}
+.masthead::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%, rgba(158,90,42,.12) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(42,95,95,.1) 0%, transparent 50%);}
+.masthead-deco{position:absolute;right:-20px;bottom:-40px;font-family:'Cormorant Garamond',serif;font-size:280px;font-weight:700;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;user-select:none;}
+.masthead-inner{max-width:920px;margin:0 auto;padding:56px 48px 48px;position:relative;z-index:1;}
+.masthead-vol{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;}
+.vol-badge{background:var(--copper);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:5px 12px;}
+.vol-sub{font-size:10.5px;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;}
+.masthead h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,6vw,64px);font-weight:700;color:#fff;line-height:1.03;margin-bottom:6px;}
+.masthead h1 .accent{font-style:italic;color:var(--copper-light);}
+.masthead-en{font-size:11.5px;letter-spacing:.2em;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:28px;}
+.masthead-audience{display:inline-flex;align-items:center;gap:14px;border:1px solid rgba(255,255,255,.12);padding:12px 20px;margin-bottom:28px;}
+.aud-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600;}
+.aud-text{font-size:13px;color:var(--blush);font-weight:600;}
+.aud-divider{width:1px;height:20px;background:rgba(255,255,255,.15);}
+.masthead-meta{display:flex;gap:20px;flex-wrap:wrap;align-items:center;}
+.meta-item{font-size:10.5px;color:rgba(255,255,255,.28);letter-spacing:.08em;text-transform:uppercase;}
+.meta-item strong{color:var(--copper-light);font-weight:700;}
+.issue-ticker{background:var(--copper);padding:10px 48px;max-width:920px;margin:0 auto;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;position:relative;z-index:1;}
+
+.container{max-width:920px;margin:0 auto;padding:0 48px;}
+
+.pillars-intro{padding:52px 0 0;}
+.section-eyebrow{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.section-eyebrow::after{content:'';flex:1;height:1px;background:var(--rule);}
+.eyebrow-copper{color:var(--copper);}
+.intro-lead{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.4vw,23px);font-style:italic;line-height:1.62;max-width:700px;margin-bottom:16px;}
+.intro-body{font-size:13.5px;color:var(--text-body);max-width:660px;margin-bottom:40px;line-height:1.88;}
+.intro-body strong{color:var(--copper);font-weight:700;}
+
+.pillar-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:56px;}
+.pillar-card{background:var(--cream);padding:28px 24px;position:relative;overflow:hidden;cursor:pointer;transition:background .25s;}
+.pillar-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;}
+.pillar-card.p1::before{background:var(--p1);}
+.pillar-card.p2::before{background:var(--p2);}
+.pillar-card.p3::before{background:var(--p3);}
+.pillar-card.p1:hover{background:var(--p1-light);}
+.pillar-card.p2:hover{background:var(--p2-light);}
+.pillar-card.p3:hover{background:var(--p3-light);}
+.pillar-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;line-height:1;margin-bottom:8px;}
+.pillar-card.p1 .pillar-num{color:var(--p1);}
+.pillar-card.p2 .pillar-num{color:var(--p2);}
+.pillar-card.p3 .pillar-num{color:var(--p3);}
+.pillar-tag{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+.pillar-card.p1 .pillar-tag{color:var(--p1);}
+.pillar-card.p2 .pillar-tag{color:var(--p2);}
+.pillar-card.p3 .pillar-tag{color:var(--p3);}
+.pillar-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;line-height:1.2;margin-bottom:10px;color:var(--ink);}
+.pillar-slogan{font-size:12px;font-style:italic;color:var(--warm-grey);line-height:1.5;border-top:1px solid var(--rule);padding-top:10px;margin-top:10px;}
+
+.trend-section{padding-top:52px;border-top:1px solid var(--rule);}
+.trend-header{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:start;margin-bottom:24px;cursor:pointer;user-select:none;}
+.trend-number{font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:var(--rule);line-height:1;transition:color .3s;}
+.trend-section:hover .trend-number,.trend-section.open .trend-number{color:var(--copper);}
+.trend-tag-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--warm-grey);margin-bottom:5px;}
+.trend-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,30px);font-weight:700;line-height:1.12;color:var(--ink);}
+.trend-subtitle{font-size:12px;font-style:italic;color:var(--warm-grey);margin-top:5px;}
+.pillar-badge{display:inline-flex;align-items:center;gap:5px;font-size:8.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:3px 9px;margin-top:7px;}
+.badge-p1{background:var(--p1-light);color:var(--p1);}
+.badge-p2{background:var(--p2-light);color:var(--p2);}
+.badge-p3{background:var(--p3-light);color:var(--p3);}
+.expand-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--rule);background:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;flex-shrink:0;margin-top:8px;color:var(--warm-grey);font-size:18px;}
+.trend-section.open .expand-btn{border-color:var(--copper);background:var(--copper);color:#fff;}
+.expand-btn::after{content:'+';}
+.trend-section.open .expand-btn::after{content:'−';}
+
+.summary-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:0;}
+.summary-card{background:var(--cream);padding:20px 18px;transition:background .2s;}
+.summary-card:hover{background:var(--warm);}
+.summary-card.wide{grid-column:span 2;}
+.summary-tag{font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:7px;}
+.tag-copper{color:var(--copper);}
+.tag-p1{color:var(--p1);}
+.tag-p2{color:var(--p2);}
+.tag-p3{color:var(--p3);}
+.summary-card h4{font-family:'Cormorant Garamond',serif;font-size:15.5px;font-weight:600;line-height:1.3;color:var(--ink);margin-bottom:7px;}
+.summary-card p{font-size:12.5px;color:var(--text-body);line-height:1.65;}
+
+.deep-dive{max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.4,0,.2,1);}
+.trend-section.open .deep-dive{max-height:4000px;}
+.deep-dive-inner{padding:36px 40px;margin-top:1px;opacity:0;transform:translateY(-8px);transition:opacity .4s .1s,transform .4s .1s;}
+.deep-dive-inner.p1-bg{background:#1a3c3c;border-left:4px solid var(--teal-light);}
+.deep-dive-inner.p2-bg{background:#3a1a0c;border-left:4px solid var(--copper-light);}
+.deep-dive-inner.p3-bg{background:#1e1430;border-left:4px solid #8a70c0;}
+.trend-section.open .deep-dive-inner{opacity:1;transform:translateY(0);}
+
+.dive-heading{font-size:9px;letter-spacing:.25em;text-transform:uppercase;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.p1-bg .dive-heading{color:var(--teal-light);}
+.p2-bg .dive-heading{color:var(--copper-light);}
+.p3-bg .dive-heading{color:#a090d8;}
+.dive-heading::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08);}
+
+.dive-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-bottom:24px;}
+.dive-block h5{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#fff;margin-bottom:9px;line-height:1.3;}
+.dive-block p{font-size:13px;line-height:1.82;color:rgba(255,255,255,.6);}
+.dive-block.full{grid-column:span 2;}
+
+.action-box{padding:24px 28px;margin-top:20px;border-radius:0;}
+.p1-bg .action-box{background:rgba(42,95,95,.25);border:1px solid rgba(74,143,138,.3);}
+.p2-bg .action-box{background:rgba(158,90,42,.2);border:1px solid rgba(196,122,72,.3);}
+.p3-bg .action-box{background:rgba(74,48,112,.25);border:1px solid rgba(138,112,192,.3);}
+.action-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.p1-bg .action-label{color:var(--teal-light);}
+.p2-bg .action-label{color:var(--copper-light);}
+.p3-bg .action-label{color:#a090d8;}
+.action-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.1);}
+.action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.action-step{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:5px;}
+.action-text{font-size:12.5px;color:rgba(255,255,255,.72);line-height:1.6;}
+.action-text strong{color:#fff;}
+
+.dive-callout{padding:20px 24px;margin-top:16px;}
+.p1-bg .dive-callout{background:rgba(42,95,95,.3);border:1px solid rgba(74,143,138,.25);}
+.p2-bg .dive-callout{background:rgba(158,90,42,.25);border:1px solid rgba(196,122,72,.25);}
+.p3-bg .dive-callout{background:rgba(74,48,112,.3);border:1px solid rgba(138,112,192,.25);}
+.dive-callout p{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.65;}
+.p1-bg .dive-callout p{color:#b0dcd8;}
+.p2-bg .dive-callout p{color:#f0c8a0;}
+.p3-bg .dive-callout p{color:#c8b8f0;}
+.dive-callout .src{font-family:'Outfit',sans-serif;font-style:normal;font-size:10px;color:rgba(255,255,255,.28);letter-spacing:.1em;text-transform:uppercase;margin-top:10px;display:block;}
+
+.dive-stat-row{display:flex;gap:28px;margin-top:18px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.08);padding-top:18px;}
+.dive-stat-num{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;line-height:1;}
+.p1-bg .dive-stat-num{color:var(--teal-light);}
+.p2-bg .dive-stat-num{color:var(--copper-light);}
+.p3-bg .dive-stat-num{color:#a090d8;}
+.dive-stat-lbl{font-size:11px;color:rgba(255,255,255,.32);margin-top:2px;}
+
+/* VOICE QUOTE */
+.voice-block{background:var(--warm);border-left:3px solid var(--copper);padding:28px 32px;margin:40px 0;max-width:920px;}
+.voice-block .voice-who{font-size:9px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--copper);margin-bottom:12px;}
+.voice-block blockquote{font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;line-height:1.65;color:var(--deep);margin-bottom:12px;}
+.voice-block .voice-bio{font-size:12px;color:var(--warm-grey);line-height:1.6;}
+
+.pullquote{padding:40px 0;border-top:1px solid var(--rule);}
+.pq-mark{font-family:'Cormorant Garamond',serif;font-size:80px;font-weight:700;color:var(--rule);line-height:.8;flex-shrink:0;}
+.pq-text{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;line-height:1.6;color:var(--deep);margin-bottom:10px;}
+.pq-src{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--warm-grey);}
+
+.editors-note{background:var(--warm);padding:32px 36px;margin-bottom:32px;display:flex;gap:24px;align-items:flex-start;}
+.ed-avatar{width:44px;height:44px;background:var(--copper);color:#fff;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ed-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--copper);margin-bottom:10px;}
+.ed-text{font-size:13px;color:var(--text-body);line-height:1.88;}
+.ed-sig{font-size:10.5px;color:var(--warm-grey);margin-top:12px;letter-spacing:.06em;}
+
+.issue-nav{display:flex;align-items:center;gap:20px;padding:20px 0;border-top:1px solid var(--rule);}
+.issue-nav-link{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--copper);text-decoration:none;}
+.issue-nav-link:hover{text-decoration:underline;}
+.issue-divider{color:var(--rule);}
+
+footer{background:var(--deep);padding:40px 48px;margin-top:0;}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.1em;margin-bottom:12px;}
+.footer-rule{height:1px;background:rgba(255,255,255,.08);margin:16px 0;}
+.footer-tagline{font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;}
+.footer-note{font-size:11px;color:rgba(255,255,255,.18);line-height:1.8;}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 680px) {
+  .container { padding: 0 20px; }
+  .masthead-inner { padding: 36px 20px 32px; }
+  .issue-ticker { padding: 10px 20px; font-size: 10px; }
+  footer { padding: 32px 20px; }
+  .footer-brand { font-size: 16px; }
+
+  .nav-brand { font-size: 11px; padding: 0 12px; }
+  .nav-link { font-size: 9px; padding: 0 10px; }
+
+  .masthead h1 { font-size: 44px; }
+  .masthead-en { font-size: 10px; letter-spacing: .12em; }
+
+  .masthead-audience {
+    display: flex; flex-direction: column;
+    align-items: flex-start; gap: 6px; padding: 12px 16px;
+  }
+  .aud-divider { display: none; }
+  .aud-text { font-size: 12px; }
+  .masthead-meta { flex-direction: column; gap: 6px; }
+  .meta-item { font-size: 10px; }
+
+  /* 三大支柱：竖排 */
+  .pillar-cards { grid-template-columns: 1fr; gap: 2px; }
+  .pillar-card { padding: 22px 20px; }
+  .pillar-card::before { left:0;top:0;right:0;bottom:auto;width:auto;height:4px; }
+  .pillar-num { font-size: 40px; }
+  .pillar-title { font-size: 17px; }
+
+  /* 趋势标题 */
+  .trend-header { gap: 12px; }
+  .trend-number { font-size: 40px; }
+  .trend-title { font-size: 20px; }
+  .trend-subtitle { font-size: 11px; }
+  .trend-section { padding-top: 36px; }
+
+  /* summary 单列 */
+  .summary-row { grid-template-columns: 1fr; }
+  .summary-card.wide { grid-column: span 1; }
+  .summary-card { padding: 16px; }
+  .summary-card h4 { font-size: 14px; }
+  .summary-card p { font-size: 12px; }
+
+  /* 深度解析 */
+  .deep-dive-inner { padding: 24px 20px; }
+  .dive-grid { grid-template-columns: 1fr; gap: 20px; }
+  .dive-block.full { grid-column: span 1; }
+  .dive-block h5 { font-size: 15px; }
+  .dive-block p { font-size: 12.5px; }
+  .action-grid { grid-template-columns: 1fr; gap: 14px; }
+  .action-text { font-size: 12px; }
+  .dive-stat-num { font-size: 28px; }
+  .dive-callout p { font-size: 14px; }
+
+  /* 历史声音 */
+  .voice-block { padding: 20px; }
+  .voice-block blockquote { font-size: 18px; }
+  .voice-block .voice-bio { font-size: 11.5px; }
+
+  /* 大引言 */
+  .pullquote .container { flex-direction: column; gap: 0; }
+  .pq-mark { font-size: 56px; line-height: 1; margin-bottom: -8px; }
+  .pq-text { font-size: 18px; }
+
+  /* 编辑手记 */
+  .editors-note { flex-direction: column; gap: 16px; padding: 24px 20px; }
+  .ed-text { font-size: 12.5px; }
+
+  /* 期刊导航 */
+  .issue-nav { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .issue-divider { display: none; }
+  .issue-nav-link { font-size: 12px; }
+
+  /* 文字 */
+  .intro-lead { font-size: 18px; }
+  .intro-body { font-size: 13px; }
+  .section-eyebrow { font-size: 9px; }
+}
+</style>
+</head>
+<body>
+<div id="progressBar" class="progress-bar"></div>
+
+<nav class="sticky-nav">
+  <div class="nav-brand">她说了算 · Vol.4</div>
+  <div class="nav-links">
+    <button class="nav-link p1" onclick="document.getElementById('t1').scrollIntoView({behavior:'smooth'})">🧠 认知</button>
+    <button class="nav-link p1" onclick="document.getElementById('t2').scrollIntoView({behavior:'smooth'})">🌐 全球</button>
+    <button class="nav-link p2" onclick="document.getElementById('t3').scrollIntoView({behavior:'smooth'})">🔥 选择</button>
+    <button class="nav-link p2" onclick="document.getElementById('t4').scrollIntoView({behavior:'smooth'})">✍️ 叙事</button>
+    <button class="nav-link p3" onclick="document.getElementById('t5').scrollIntoView({behavior:'smooth'})">⚡ 放弃</button>
+    <button class="nav-link p3" onclick="document.getElementById('t6').scrollIntoView({behavior:'smooth'})">💜 波伏瓦</button>
+  </div>
+</nav>
+
+<div class="masthead">
+  <div class="masthead-deco">她</div>
+  <div class="masthead-inner">
+    <div class="masthead-vol">
+      <span class="vol-badge">Vol.4 · 2026</span>
+      <span class="vol-sub">She Decides · 她说了算</span>
+    </div>
+    <h1>她的<span class="accent">选择</span></h1>
+    <div class="masthead-en">The Art of Deciding · When More Options Mean Less Clarity</div>
+    <div class="masthead-audience">
+      <span class="aud-label">写给</span>
+      <span class="aud-text">高成长心态女性</span>
+      <span class="aud-divider"></span>
+      <span class="aud-label">本期主题</span>
+      <span class="aud-text">决策质量 · 战略性放弃 · 噪音里的信号</span>
+    </div>
+    <div class="masthead-meta">
+      <span class="meta-item"><strong>May 2026</strong> · 第四期</span>
+      <span class="meta-item">数据来源：<strong>Grant Thornton · LinkedIn · McKinsey</strong></span>
+      <span class="meta-item">历史声音：<strong>西蒙娜·波伏瓦</strong></span>
+    </div>
+  </div>
+  <div class="issue-ticker">本期核心：在选项爆炸的时代，决策质量才是最稀缺的能力 · The quality of your decisions defines the quality of your life</div>
+</div>
+
+<main>
+<div class="container">
+  <div class="pillars-intro reveal">
+    <div class="section-eyebrow eyebrow-copper">本期核心洞察 · Core Insight</div>
+    <p class="intro-lead">「选择」是这个时代给女性的礼物，也是负担。当所有路都打开，她们反而更容易迷失。</p>
+    <p class="intro-body">2026年的全球数据揭示了一个悖论：<strong>女性的机会从未如此之多，但女性的决策焦虑也从未如此之深。</strong>越来越多女性在「做什么都对」的时代，感觉「什么都没做好」。<br><br>本期简报从全球最新研究出发，带你重新理解「选择」这件事——不是让你更果断，而是让你选得更清晰。</p>
+    <div class="pillar-cards">
+      <div class="pillar-card p1">
+        <div class="pillar-num">01</div>
+        <div class="pillar-tag">认知套利</div>
+        <div class="pillar-title">决策质量：<br>为什么聪明人反而选错</div>
+        <div class="pillar-slogan">信息越多，噪音越大——<br>认知工具才是护城河</div>
+      </div>
+      <div class="pillar-card p2">
+        <div class="pillar-num">02</div>
+        <div class="pillar-tag">身份重塑</div>
+        <div class="pillar-title">战略性放弃：<br>「不做」也是一种选择</div>
+        <div class="pillar-slogan">真正的自我定义，<br>从拒绝开始</div>
+      </div>
+      <div class="pillar-card p3">
+        <div class="pillar-num">03</div>
+        <div class="pillar-tag">精力主权</div>
+        <div class="pillar-title">注意力预算：<br>把稀缺资源用在值得的地方</div>
+        <div class="pillar-slogan">你的注意力去了哪里，<br>你就成为了谁</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TREND 1 -->
+<section class="trend-section reveal" id="t1">
+  <div class="container">
+    <div class="trend-header" onclick="toggleTrend(this)">
+      <div class="trend-number">01</div>
+      <div class="trend-header-text">
+        <div class="trend-tag-label">Pillar 1 · 认知套利</div>
+        <h2 class="trend-title">选择悖论：为什么选项越多，女性越焦虑？</h2>
+        <p class="trend-subtitle">Grant Thornton 2026: Women's Representation Declined Even as Choices Expanded — The Hidden Cost of Optionality</p>
+        <span class="pillar-badge badge-p1">🧠 认知套利 · 决策质量</span>
+      </div>
+      <button class="expand-btn"></button>
+    </div>
+    <div class="summary-row">
+      <div class="summary-card wide">
+        <div class="summary-tag tag-p1">◆ 全球数据</div>
+        <h4>机会增加，焦虑也在增加——这不是矛盾，这是规律</h4>
+        <p>Grant Thornton 2026报告显示，尽管企业对性别平等的承诺达到历史高点，美国女性高管比例却从35%降至31%。机会的门打开了，但真正走进去的人变少了——原因不是能力，是选择疲劳。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-tag tag-p1">◆ 你的策略</div>
+        <h4>决策质量不是「做更多决定」而是「做更少、更对的决定」</h4>
+        <p>认知科学的核心发现：减少选项，往往比增加信息更能提升决策质量。</p>
+      </div>
+    </div>
+    <div class="deep-dive">
+      <div class="deep-dive-inner p1-bg">
+        <div class="dive-heading">深度解析 · 选择悖论：为什么聪明女性反而更容易陷入决策困境</div>
+        <div class="dive-grid">
+          <div class="dive-block">
+            <h5>📊 数据背后的真相：机会多了，为什么走进去的人少了？</h5>
+            <p>Grant Thornton 2026《女性在商业中》报告揭示了一个令人意外的数字：尽管91.9%的中端市场领导者在求职时会主动考察公司的性别平等政策，女性高管比例却在两年内从35%降至31%。<br><br>这不是能力问题。这是「选择过载」的系统性结果：<strong>当所有路都看起来可行，人反而容易原地不动。</strong><br><br>心理学家Barry Schwartz在《选择的悖论》中早已指出——选项越多，满意度越低，后悔感越强。这个规律对女性尤为突出，因为社会对女性的「正确选择」有更多隐性期待，每一个选项背后都附带着额外的评判成本。</p>
+          </div>
+          <div class="dive-block">
+            <h5>🧠 认知工具：如何在噪音中找到自己的信号</h5>
+            <p>LinkedIn《2026女性领导力状态》报告指出，<strong>进入第一个管理层级仍然是女性最大的卡点</strong>——不是因为能力不足，而是因为在「是否要争取」这个决定上，女性花了太多时间在内部辩论。<br><br>高效决策者的共同特征：<br>· <strong>明确「不可谈判」清单</strong>：先定义什么是绝对不做的，再在剩下的空间里选<br>· <strong>设置决策截止时间</strong>：不是仓促，而是给大脑一个「足够了」的信号<br>· <strong>区分「可逆」与「不可逆」决策</strong>：90%的决定是可逆的，却被当作不可逆来对待</p>
+          </div>
+          <div class="dive-block">
+            <h5>💡 信息差如何成为决策优势</h5>
+            <p>掌握全球数据，不只是长见识——它直接提升你的决策质量：<br><br>· 当你知道「全球女性高管比例在经理层就开始流失」，你就明白为什么要在这个阶段主动争取可见度，而不是等待被发现<br>· 当你知道「91.9%的求职者会考察公司性别平等政策」，你就有了在谈判桌上使用的数据筹码<br>· <strong>信息不对称，是决策质量最大的敌人。掌握全球趋势，就是在缩小这个差距。</strong></p>
+          </div>
+          <div class="dive-block">
+            <h5>⚡ 快速决策框架：10分钟做出70分的决定</h5>
+            <p>完美决策是决策效率的敌人。以下是全球高效女性领导者使用的简化框架：<br><br><strong>第一步（2分钟）：这个决定可逆吗？</strong><br>如果可逆——直接选，不要花超过10分钟。<br><br><strong>第二步（3分钟）：「未来的自己」会怎么看这个选择？</strong><br>想象5年后回望，哪个选择让你更少后悔？<br><br><strong>第三步（5分钟）：我在为谁做这个决定？</strong><br>如果答案里有别人的期待多于自己的需要，重新考虑。</p>
+          </div>
+          <div class="dive-block full">
+            <div class="dive-callout">
+              <p>「女性面临的最大障碍，不是缺乏机会，而是在面对机会时，她们被训练成要先问'我够格吗'，而男性被训练成要先问'我怎么拿到它'。这一个问题的差距，就是职业发展的差距。」</p>
+              <span class="src">— 综合 Grant Thornton Women in Business 2026 · LinkedIn State of Women in Leadership March 2026</span>
+            </div>
+          </div>
+        </div>
+        <div class="action-box">
+          <div class="action-label">🛠️ 决策质量训练 · 本周三步走</div>
+          <div class="action-grid">
+            <div class="action-item">
+              <div class="action-step">第1步 · 今天</div>
+              <div class="action-text"><strong>列出你目前「悬而未决」的3个选择</strong><br>不是分析它们，而是先写下来。大脑把未完成的事情放在「工作记忆」里持续耗能——把它们清出来，是减少决策疲劳的第一步。</div>
+            </div>
+            <div class="action-item">
+              <div class="action-step">第2步 · 这周</div>
+              <div class="action-text"><strong>给每个决定标注「可逆/不可逆」</strong><br>你会发现大多数都是可逆的。把可逆决定的思考时间上限设为24小时，然后执行，观察结果，调整。</div>
+            </div>
+            <div class="action-item">
+              <div class="action-step">第3步 · 这个月</div>
+              <div class="action-text"><strong>建立你的「不做清单」</strong><br>写下3件你在未来3个月内，无论如何不会去做的事。边界清晰，选择才有意义。这份清单比任何待办清单都更有力量。</div>
+            </div>
+          </div>
+        </div>
+        <div class="dive-stat-row">
+          <div class="dive-stat-item"><div class="dive-stat-num">31%</div><div class="dive-stat-lbl">美国女性高管比例<br>两年内从35%降至31%</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">91.9%</div><div class="dive-stat-lbl">求职者会考察<br>公司性别平等政策</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">90%</div><div class="dive-stat-lbl">的决定是可逆的<br>却被当作不可逆来对待</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TREND 2 -->
+<section class="trend-section reveal" id="t2">
+  <div class="container">
+    <div class="trend-header" onclick="toggleTrend(this)">
+      <div class="trend-number">02</div>
+      <div class="trend-header-text">
+        <div class="trend-tag-label">Pillar 1 · 全球数据背景</div>
+        <h2 class="trend-title">全球女性领导力停滞之谜：当「选择权」遇上「玻璃悬崖」</h2>
+        <p class="trend-subtitle">LinkedIn 2026 + Women in Workplace Progress Report: The Broken Rung Is Still Broken</p>
+        <span class="pillar-badge badge-p1">🧠 认知套利 · 全球视野</span>
+      </div>
+      <button class="expand-btn"></button>
+    </div>
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="summary-tag tag-p1">◆ 全球数据</div>
+        <h4>女性领导力全球停滞：每100个晋升男性，只有93个女性被晋升</h4>
+        <p>LinkedIn 2026报告：全球女性领导层比例刚刚超过30%，且进展已连续两年放缓。第一步晋升仍是最大卡点。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-tag tag-p1">◆ 结构原因</div>
+        <h4>文化壁垒比能力差距更顽固</h4>
+        <p>49%的受访者将「公司文化」列为最大障碍。主动盟友行为连续下降——从18%降至15%。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-tag tag-p1">◆ 你的机会</div>
+        <h4>知道系统怎么运转，是最有价值的认知资产</h4>
+        <p>当你了解漏斗在哪里漏，就知道在哪里重点投入，而不是等待「被发现」。</p>
+      </div>
+    </div>
+    <div class="deep-dive">
+      <div class="deep-dive-inner p1-bg">
+        <div class="dive-heading">全球数据解读 · 停滞的背后是什么，你能从中拿走什么</div>
+        <div class="dive-grid">
+          <div class="dive-block">
+            <h5>📊 数据不说谎：系统是怎么运作的</h5>
+            <p>LinkedIn《2026女性领导力状态》报告（3月发布）描绘了一幅清晰的图景：全球女性领导层比例刚过30%，但增速已经连续两年放缓。<br><br><strong>「断裂的台阶」现象依然存在</strong>：每100个被晋升为经理的男性，只有93个女性同等晋升。这个差距看起来不大，但它是漏斗最顶端的起点——每一层的差距都在这里被放大。<br><br>Women in Workplace Progress Report 2026进一步指出：57%的受访者认为女性在领导层中仍然代表性不足；67%认为「弹性工作」将是最大的改变因素。</p>
+          </div>
+          <div class="dive-block">
+            <h5>🎯 对个人的启示：在结构里聪明地走</h5>
+            <p>了解这些数据，不是为了抱怨系统，而是为了在系统内做出更聪明的选择：<br><br>· <strong>「第一步晋升」是关键节点</strong>——如果你正处于从执行层向管理层过渡的阶段，现在是最值得主动投入可见度的时刻<br>· <strong>盟友行为正在下降</strong>——等待有人自动为你背书的可能性在降低。主动建立赞助人关系，不是投机，是现实主义<br>· <strong>弹性是谈判筹码，不是福利</strong>——67%的人认为弹性最重要，这意味着这是一个有共识基础的谈判议题</p>
+          </div>
+          <div class="dive-block full">
+            <div class="dive-callout">
+              <p>「进步没有停止，但它正在以令人沮丧的速度爬行——像一只被按时薪付钱的固执蜗牛，证明玻璃天花板虽然不再是一整块，但它已经进化成了一个多层的、特定于行业的强化玻璃迷宫。」</p>
+              <span class="src">— 综合 LinkedIn State of Women in Leadership March 2026 · Women in Workplace Progress Report 2026</span>
+            </div>
+          </div>
+        </div>
+        <div class="action-box">
+          <div class="action-label">🛠️ 职场位置诊断 · 你在漏斗的哪里</div>
+          <div class="action-grid">
+            <div class="action-item">
+              <div class="action-step">可见度检测</div>
+              <div class="action-text"><strong>过去3个月，你的直属上级之外，还有谁知道你做了什么重要工作？</strong><br>如果答案是「没有」，可见度策略是你现在最值得投入的事。</div>
+            </div>
+            <div class="action-item">
+              <div class="action-step">赞助人地图</div>
+              <div class="action-text"><strong>你能说出3个在会议室里会主动提到你名字的人吗？</strong><br>如果不能，建立赞助人关系是你的优先项——不是导师，是真正会在关键时刻为你发声的人。</div>
+            </div>
+            <div class="action-item">
+              <div class="action-step">弹性谈判</div>
+              <div class="action-text"><strong>你的工作安排真的满足你的最高效率需求吗？</strong><br>67%的人认为弹性最重要——这是一个有数据支撑的谈判起点，不是个人要求，是全球趋势。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TREND 3 -->
+<section class="trend-section reveal" id="t3">
+  <div class="container">
+    <div class="trend-header" onclick="toggleTrend(this)">
+      <div class="trend-number">03</div>
+      <div class="trend-header-text">
+        <div class="trend-tag-label">Pillar 2 · 身份重塑</div>
+        <h2 class="trend-title">战略性放弃：「不做」也是一种最高级的选择</h2>
+        <p class="trend-subtitle">The Global Shift from "Doing More" to "Choosing Better" — Why Strategic Subtraction Defines 2026 Women Leaders</p>
+        <span class="pillar-badge badge-p2">🔥 身份重塑 · 自我定义</span>
+      </div>
+      <button class="expand-btn"></button>
+    </div>
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="summary-tag tag-p2">◆ 全球趋势</div>
+        <h4>「她经济」转向：从悦他到悦己，消费决策主权回归</h4>
+        <p>CBNData：女性消费动机从「悦TA」转向「悦己」。这不只是消费观的变化，是整个人生优先级的重新排列。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-tag tag-p2">◆ 创业洞察</div>
+        <h4>女性创业者的「精算主义」：她们比任何人都更懂得聚焦</h4>
+        <p>LBS研究：高能力女性进入创业的路径是精密的优先级计算——她们清楚知道哪条路不走。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-tag tag-p2">◆ 行动原则</div>
+        <h4>真正的自我定义，从「不」开始</h4>
+        <p>每一个清晰的「不」，都在为一个更有力量的「是」创造空间。边界是自由的前提，不是限制。</p>
+      </div>
+    </div>
+    <div class="deep-dive">
+      <div class="deep-dive-inner p2-bg">
+        <div class="dive-heading">深度解析 · 战略性放弃：聚焦是2026年女性最稀缺的能力</div>
+        <div class="dive-grid">
+          <div class="dive-block">
+            <h5>🎯 为什么「不做」比「多做」更难？</h5>
+            <p>对于很多女性来说，拒绝比接受更难——不是因为软弱，而是因为我们被训练成「够体贴、够全面、够照顾到所有人」。<br><br>CBNData 2026调研发现，女性的自我表达意愿在2025-2026年间显著增强，消费动机从「悦TA」向「悦己」全面转型。<strong>这个趋势的深层含义是：女性开始用自己的标准来定义什么值得做、什么不值得做。</strong><br><br>这正是「战略性放弃」的本质——不是消极的回避，而是主动的选择：我把稀缺的时间和精力，只给那些真正符合我核心目标的事情。</p>
+          </div>
+          <div class="dive-block">
+            <h5>🌿 女性创业者的聚焦密码</h5>
+            <p>London Business School研究揭示，成功的女性创业者有一个共同特征：她们极善于「不做」。<br><br>具体体现在：<br>· <strong>不追风口，只做「她真正理解的市场」</strong>：她们不进入自己无法真正创造价值的领域<br>· <strong>不接受所有合作机会</strong>：每一次合作都要经过严格的「这符合我的核心路径吗」的筛选<br>· <strong>不用别人的时间表</strong>：她们清楚自己的节奏，不因为「别人都在动」而乱了自己的步伐<br><br>这种「精算主义」看起来保守，实际上是最高效的资源配置策略。</p>
+          </div>
+          <div class="dive-block">
+            <h5>✂️ 战略减法的实践框架</h5>
+            <p>「加法容易，减法才考验真正的判断力。」以下是全球高效女性领导者如何实践战略减法的：<br><br><strong>「20%规则」</strong>：识别出你所有活动中，真正创造80%价值的那20%。把时间和精力集中在这里，其他的想办法外包、委托或放弃。<br><br><strong>「6个月测试」</strong>：面对一个新机会时问自己：「6个月后，这件事对我的核心目标还有价值吗？」如果答案不确定，默认说不。<br><br><strong>「成本可见化」</strong>：每次答应一件事时，明确写下它的「隐性成本」——需要多少时间、精力、注意力。让代价可见，才能做出真正的选择。</p>
+          </div>
+          <div class="dive-block">
+            <h5>💫 从「全能女性」神话中解脱</h5>
+            <p>社会对女性有一种隐性期待：既要在职场出色，又要在家庭完美，还要在社交中游刃有余，同时还要持续「自我成长」。<br><br>这个「全能女性」神话，是选择疲劳最大的来源。<br><br>全球女性消费研究发现，2025-2026年间，「与身体和解」的「体适哲学」正在女性群体中快速蔓延——<strong>这是一种集体性的「战略减法」：不再用外部标准来评判自己，而是回到内部标准。</strong><br><br>这不是放弃追求，是更聪明地追求。</p>
+          </div>
+          <div class="dive-block full">
+            <div class="dive-callout">
+              <p>「我一直对那些声称我们可以'全都拥有'的书感到怀疑。这不是关于拥有一切，而是关于选择什么对你真正重要，然后全力以赴地追求它——同时对其他事情说不，而不必为此道歉。」</p>
+              <span class="src">— 综合 CBNData 2026 · London Business School Female Entrepreneurship Research · Female Entrepreneurship Trends 2026</span>
+            </div>
+          </div>
+        </div>
+        <div class="action-box">
+          <div class="action-label">🛠️ 战略减法工具 · 建立你的「不做清单」</div>
+          <div class="action-grid">
+            <div class="action-item">
+              <div class="action-step">立即 · 「能量漏洞」审计</div>
+              <div class="action-text"><strong>写下过去一个月，哪3件事让你感觉最消耗——不是工作量，而是感觉最空、最不值得的事。</strong><br>这就是你的「战略放弃候选名单」。</div>
+            </div>
+            <div class="action-item">
+              <div class="action-step">本月 · 说一次「不」</div>
+              <div class="action-text"><strong>找一件你一直在做但其实不符合你核心目标的事，主动停止或委托出去。</strong><br>观察：你的精力在哪里得到了释放？那个释放的空间，就是真正属于你的方向。</div>
+            </div>
+            <div class="action-item">
+              <div class="action-step">这个季度 · 重写优先级</div>
+              <div class="action-text"><strong>写下你这个季度最重要的「一件事」——只有一件。</strong><br>然后检查你的日历：实际时间分配和这「一件事」的比例是多少？这个差距，就是你需要用「战略减法」来弥合的。</div>
+            </div>
+          </div>
+        </div>
+        <div class="dive-stat-row">
+          <div class="dive-stat-item"><div class="dive-stat-num">悦己</div><div class="dive-stat-lbl">女性消费动机2026年<br>全面从「悦TA」转向「悦己」</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">20%</div><div class="dive-stat-lbl">真正创造80%价值的<br>活动比例——找到它</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">1件</div><div class="dive-stat-lbl">这个季度最重要的<br>只有一件事</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TREND 4 -->
+<section class="trend-section reveal" id="t4">
+  <div class="container">
+    <div class="trend-header" onclick="toggleTrend(this)">
+      <div class="trend-number">04</div>
+      <div class="trend-header-text">
+        <div class="trend-tag-label">Pillar 2 · 叙事与选择</div>
+        <h2 class="trend-title">你如何「讲述」自己的选择，决定了别人如何「看见」你</h2>
+        <p class="trend-subtitle">In an Age of Abundant Options, the Ability to Narrate Your Choices Becomes a Leadership Superpower</p>
+        <span class="pillar-badge badge-p2">🔥 身份重塑 · 叙事力</span>
+      </div>
+      <button class="expand-btn"></button>
+    </div>
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="summary-tag tag-p2">◆ 关键洞察</div>
+        <h4>「我选择了」vs「我不得不」：同一件事，两种叙事，两种命运</h4>
+        <p>选择的叙事方式，比选择本身更能影响你的职业形象和心理状态。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-tag tag-p2">◆ 职场应用</div>
+        <h4>把「妥协」讲成「战略」——不是粉饰，是重新定框</h4>
+        <p>高效女性领导者不描述「我被迫如何」，她们描述「我决定了什么，以及为什么」。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-tag tag-p2">◆ 数字时代</div>
+        <h4>「No-AI认证」运动：当真实选择成为最稀缺的品牌资产</h4>
+        <p>Aerie的「100% Human, 0% Prompt」引发全球共鸣——真实的选择，在AI时代价值倍增。</p>
+      </div>
+    </div>
+    <div class="deep-dive">
+      <div class="deep-dive-inner p2-bg">
+        <div class="dive-heading">深度解析 · 选择叙事：如何把你的决定变成你的品牌</div>
+        <div class="dive-grid">
+          <div class="dive-block">
+            <h5>🗣️ 叙事框架：「主体性语言」vs「被动性语言」</h5>
+            <p>同样一个决定，不同的叙事方式，传递出完全不同的领导力信号：<br><br>· 被动：「我没得选，只能做这个」<br>· 主动：「在评估了所有选项之后，我认为这是目前最符合我们目标的路径」<br><br>这不是要粉饰困难。<strong>而是在承认困难的同时，保留你作为决策者的主体性。</strong><br><br>Women in Workplace Progress Report 2026指出，主动盟友行为（包括为他人的决策发声）正在下降——这意味着，你需要更主动地为自己的选择「建立叙事」，而不是等待别人来解读它。</p>
+          </div>
+          <div class="dive-block">
+            <h5>✍️ 三种必须掌握的「选择叙事」</h5>
+            <p><strong>1. 职业转折叙事</strong>：当你换赛道、降薪、或做了「不按常规」的选择时，如何让对方看见你的战略逻辑而非随机<br><br><strong>2. 拒绝叙事</strong>：当你说「不」时，如何让对方感觉你在给出一个有分量的选择，而非单纯推脱<br><br><strong>3. 失败叙事</strong>：当一个决定没有达到预期时，如何把它讲成「学习与修正」的一部分，而非「失败证明」<br><br>这三种叙事能力，是职场女性最值得打磨的软实力。</p>
+          </div>
+          <div class="dive-block full">
+            <div class="dive-callout">
+              <p>「在AI可以生成无数个选项的时代，你真实做出的每一个选择——那个经过思考、有代价、有放弃的选择——都变得更有价值。因为它是人类的，它是你的。」</p>
+              <span class="src">— 她说了算编辑部 · 综合 CBNData 2026 · Women in Workplace Progress Report 2026</span>
+            </div>
+          </div>
+        </div>
+        <div class="action-box">
+          <div class="action-label">🛠️ 叙事训练 · 重写你的三个选择故事</div>
+          <div class="action-grid">
+            <div class="action-item">
+              <div class="action-step">练习 01</div>
+              <div class="action-text"><strong>找一个你曾经「不得不」做的决定，用主体性语言重写它。</strong><br>把「我没有选择」替换成「我选择了X，因为我优先考虑了Y」。感受这两种叙事方式对你自己的影响。</div>
+            </div>
+            <div class="action-item">
+              <div class="action-step">练习 02</div>
+              <div class="action-text"><strong>准备一个「拒绝模板」。</strong><br>下次需要说「不」时，用这个句式：「谢谢你想到我。在认真考虑后，我决定这次不参与，因为我现在把精力集中在[X]上。」这是一个有力量的拒绝，不是道歉。</div>
+            </div>
+            <div class="action-item">
+              <div class="action-step">练习 03</div>
+              <div class="action-text"><strong>讲一个「失败转化」故事给信任的人听。</strong><br>从「发生了什么」→「我做了什么决定」→「我学到了什么」→「我现在会怎么做」。这个四步结构，是最有说服力的成长叙事框架。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TREND 5 -->
+<section class="trend-section reveal" id="t5">
+  <div class="container">
+    <div class="trend-header" onclick="toggleTrend(this)">
+      <div class="trend-number">05</div>
+      <div class="trend-header-text">
+        <div class="trend-tag-label">Pillar 3 · 精力主权</div>
+        <h2 class="trend-title">注意力预算：你把精力给了谁，你就成为了谁</h2>
+        <p class="trend-subtitle">2026 Research Confirms: Attention Is the New Currency — How Women Are Reclaiming Their Most Non-Renewable Resource</p>
+        <span class="pillar-badge badge-p3">⚡ 精力主权 · 注意力管理</span>
+      </div>
+      <button class="expand-btn"></button>
+    </div>
+    <div class="summary-row">
+      <div class="summary-card wide">
+        <div class="summary-tag tag-p3">◆ 核心洞察</div>
+        <h4>选择疲劳的根源：不是选项太多，是注意力被无效消耗</h4>
+        <p>每一个「未关闭的选项」都在后台持续消耗你的认知资源。决策效率低，往往不是你不够聪明，而是你的注意力已经被分散到太多事情上。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-tag tag-p3">◆ 数据支撑</div>
+        <h4>知识工作者每天只有3-4小时真正高效</h4>
+        <p>ICSB 2026：创始人健康成为商业趋势——精力管理直接影响决策质量。</p>
+      </div>
+    </div>
+    <div class="deep-dive">
+      <div class="deep-dive-inner p3-bg">
+        <div class="dive-heading">深度解析 · 注意力预算：把你最稀缺的资源用在最值得的地方</div>
+        <div class="dive-grid">
+          <div class="dive-block">
+            <h5>🔋 为什么「选择疲劳」本质是「注意力透支」</h5>
+            <p>心理学研究一致表明：做决定本身就会消耗认知资源。这被称为「决策疲劳」——越到一天后半段，你做出的决定质量越低。<br><br>但对女性而言，还有一层额外的消耗：<strong>「应不应该」的内部辩论。</strong>在做每一个决定之前，许多女性会先进行一轮「我这样做会不会被怎么看」的评估——这是额外的认知成本，男性几乎不需要承担。<br><br>识别这个模式是第一步。认识到它是系统性的，而非个人软弱，是真正释放注意力的起点。</p>
+          </div>
+          <div class="dive-block">
+            <h5>⚡ 注意力预算的实践：三个保护策略</h5>
+            <p><strong>策略一：「重要决定早上做」</strong><br>把需要最高质量判断的决定放在一天中精力最充沛的时段。用日历锁定这段时间，不开会、不回消息。<br><br><strong>策略二：「日常决定常规化」</strong><br>对于重复性的低价值决定（穿什么、吃什么、用什么模板），建立固定规则，省去每次重新判断的成本。这就是为什么很多高效领导者会简化自己的日常选择。<br><br><strong>策略三：「未完成事项清零」</strong><br>每天用10分钟把所有「悬而未决」的事情写下来，给每一件事一个「下一步行动」或「主动放弃」的标注。关闭大脑的「后台程序」。</p>
+          </div>
+          <div class="dive-block full">
+            <div class="dive-callout">
+              <p>「你的注意力是你最不可再生的资源。睡眠可以补充精力，金钱可以被赚回来，但那些被无意义的选项和无效内耗消耗掉的时间，永远回不来。守护你的注意力，是2026年最重要的个人战略。」</p>
+              <span class="src">— 她说了算编辑部 · 综合 ICSB 2026 Trend #9 · Women in Workplace Progress Report 2026</span>
+            </div>
+          </div>
+        </div>
+        <div class="action-box">
+          <div class="action-label">🛠️ 注意力审计 · 这周能量地图</div>
+          <div class="action-grid">
+            <div class="action-item">
+              <div class="action-step">识别 · 注意力漏洞</div>
+              <div class="action-text"><strong>今天花15分钟，列出所有「还没决定的事」。</strong><br>不是要解决它们，而是把它们从大脑里请出来，放到纸上。你会感到立刻轻松——这就是「认知卸载」的效果。</div>
+            </div>
+            <div class="action-item">
+              <div class="action-step">保护 · 高质量时段</div>
+              <div class="action-text"><strong>你一天中精力最好的2小时是什么时候？</strong><br>现在就在日历上标出这两小时为「深度工作保护区」。这个时段：不开会、不回消息、只做一件最重要的事。</div>
+            </div>
+            <div class="action-item">
+              <div class="action-step">简化 · 日常决定</div>
+              <div class="action-text"><strong>列出你每天重复做的5个小决定，给每一个制定一个「默认规则」。</strong><br>比如：「周一到周五午饭在固定3个选择中轮换」。看起来很小，累积起来是巨大的认知解放。</div>
+            </div>
+          </div>
+        </div>
+        <div class="dive-stat-row">
+          <div class="dive-stat-item"><div class="dive-stat-num">3-4h</div><div class="dive-stat-lbl">知识工作者每天<br>真正高效的时间</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">10min</div><div class="dive-stat-lbl">每天清零「未完成事项」<br>所需要的时间</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">∞</div><div class="dive-stat-lbl">守护注意力的<br>长期复利效应</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE: 波伏瓦 -->
+<section id="t6">
+<div class="container">
+  <div class="voice-block reveal">
+    <div class="voice-who">本期历史声音 · 西蒙娜·德·波伏瓦 Simone de Beauvoir（1908–1986）</div>
+    <blockquote>「人不是生来就是女人的，而是变成女人的。」<br>「自由不是被给予的，它是被夺取的。」</blockquote>
+    <p class="voice-bio">波伏瓦是20世纪最重要的女性主义哲学家之一。她的《第二性》（1949）从存在主义出发，指出女性的「他者」地位不是天生的，而是由社会建构的。她终其一生的思想核心，正是本期的主题：<strong>选择权不是被赋予的，是被主动争取和行使的。</strong><br><br>在2026年的语境下，她的声音依然刺耳而清醒：当我们说「我没有选择」时，我们往往是在放弃一种本来存在的主体性。认识到这一点，是真正行使选择权的起点。</p>
+  </div>
+</div>
+</section>
+
+<!-- PULLQUOTE -->
+<div class="pullquote reveal">
+  <div class="container" style="display:flex;gap:18px;align-items:flex-start;">
+    <div class="pq-mark">"</div>
+    <div>
+      <p class="pq-text">选择的质量，定义了生活的质量。不是你拥有多少选项，而是你有多清晰地知道自己想要什么——以及有多勇敢地放弃其他的一切。</p>
+      <p class="pq-src">— 她说了算编辑部 · 2026年第四期 · 她的选择</p>
+    </div>
+  </div>
+</div>
+
+<!-- EDITOR'S NOTE -->
+<section>
+  <div class="container">
+    <div class="editors-note reveal">
+      <div class="ed-avatar">她</div>
+      <div>
+        <div class="ed-label">编辑手记 · Editor's Note</div>
+        <p class="ed-text">做这期简报的时候，我们自己也在经历选择。「她说了算」刚刚起步，每天都有新的方向看起来值得追。这期关于「选择」的内容，某种程度上是写给我们自己的。<br><br>波伏瓦说得对——自由不是被给予的。但她没说的是：真正的自由，不是拥有无限选项，而是有能力对大多数选项说「不」，然后把全部的力量，投入那个你真正选择的「是」。<br><br>愿你这期读完，不是多了几个选项，而是少了几个不必要的纠结。</p>
+        <p class="ed-sig">— 她说了算编辑部 · Janet & Yilin &nbsp;|&nbsp; 2026年5月 · 第四期 · 她的选择</p>
+      </div>
+    </div>
+    <div class="issue-nav">
+      <a class="issue-nav-link" href="#" onclick="return false;">← 第三期：她的底气</a>
+      <div class="issue-divider">◆</div>
+      <a class="issue-nav-link" href="#" onclick="return false;">第五期：她的钱 Coming Soon →</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container" style="max-width:920px;margin:0 auto;padding:0 48px;">
+    <div class="footer-brand">她说了算 · She Decides</div>
+    <div class="footer-rule"></div>
+    <div class="footer-tagline">全球女性商业趋势简报 · Global Women's Business Intelligence</div>
+    <div class="footer-rule"></div>
+    <p class="footer-note">
+      Vol.4 · 2026第四期 · 她的选择 · May 2026<br>
+      三大核心支柱：认知套利 · 身份重塑 · 精力主权<br>
+      数据来源：Grant Thornton Women in Business 2026 · LinkedIn State of Women in Leadership 2026 · Women in Workplace Progress Report 2026 · CBNData 2026 · ICSB 2026 · London Business School Research<br>
+      本刊为内容研究参考 · 转载请注明：她说了算 She Decides
+    </p>
+  </div>
+</footer>
+
+<script>
+function toggleTrend(h){
+  const s=h.closest('.trend-section');
+  const was=s.classList.contains('open');
+  s.classList.toggle('open',!was);
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('progressBar').style.width=
+    (window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100+'%';
+});
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>她说了算 · 知识库</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#17120f;--deep:#2b1d14;
+  --copper:#9e5a2a;--copper-light:#c47a48;
+  --blush:#f0ddd0;--cream:#faf6f2;--warm:#f3ede5;
+  --rule:#ddd0c4;--teal:#2a5f5f;--plum:#4a3070;
+  --warm-grey:#887870;--text-body:#3d3028;
+  --gold:#b8903a;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'Outfit','PingFang SC',sans-serif;font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+/* ══ LOCK OVERLAY ══ */
+.lock-overlay{
+  position:fixed;inset:0;z-index:9999;background:var(--deep);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 28px;
+}
+.lock-overlay::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 25% 65%,rgba(158,90,42,.1) 0%,transparent 55%),
+             radial-gradient(ellipse at 85% 15%,rgba(42,95,95,.07) 0%,transparent 50%);
+}
+.lock-inner{position:relative;z-index:1;width:100%;max-width:340px;display:flex;flex-direction:column;align-items:center;}
+.lock-logo{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:8px;}
+.lock-section-name{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:4px 14px;border:1px solid;margin-bottom:28px;}
+.lock-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,8vw,40px);font-weight:700;color:#fff;line-height:1;text-align:center;margin-bottom:8px;}
+.lock-title .ac{font-style:italic;}
+.lock-sub{font-size:13px;color:rgba(255,255,255,.38);text-align:center;margin-bottom:36px;line-height:1.6;}
+.lock-label{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28);display:block;margin-bottom:10px;width:100%;}
+.lock-input{
+  width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  color:#fff;font-family:'Outfit',sans-serif;font-size:18px;font-weight:400;
+  letter-spacing:.18em;padding:15px 20px;outline:none;-webkit-appearance:none;
+  transition:border-color .2s;text-align:center;margin-bottom:12px;
+}
+.lock-input:focus{border-color:var(--copper-light);}
+.lock-input::placeholder{color:rgba(255,255,255,.18);letter-spacing:.08em;font-size:14px;}
+.lock-btn{
+  width:100%;border:none;color:#fff;font-family:'Outfit',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  padding:16px;cursor:pointer;transition:background .2s,transform .1s;-webkit-appearance:none;
+}
+.lock-error{font-size:12px;text-align:center;margin-top:10px;min-height:16px;opacity:0;transition:opacity .2s;letter-spacing:.04em;}
+.lock-error.show{opacity:1;}
+.lock-back{font-size:12px;color:rgba(255,255,255,.28);margin-top:24px;cursor:pointer;letter-spacing:.06em;background:none;border:none;text-decoration:underline;}
+.lock-hint{font-size:11px;color:rgba(255,255,255,.18);text-align:center;margin-top:20px;line-height:1.65;}
+.lock-hint a{color:var(--copper-light);text-decoration:none;}
+@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-6px);}80%{transform:translateX(6px);}
+}
+.shake{animation:shake .4s ease;}
+
+/* ── 简报区配色 ── */
+.lock-overlay.brief .lock-section-name{color:var(--copper-light);border-color:rgba(196,122,72,.35);}
+.lock-overlay.brief .lock-title .ac{color:var(--copper-light);}
+.lock-overlay.brief .lock-btn{background:var(--copper);}
+.lock-overlay.brief .lock-btn:active{background:#7a3a20;}
+.lock-overlay.brief .lock-error{color:#f0a090;}
+
+/* ── 读书会区配色 ── */
+.lock-overlay.book .lock-section-name{color:#a090d8;border-color:rgba(138,112,192,.35);}
+.lock-overlay.book .lock-title .ac{color:#a090d8;}
+.lock-overlay.book .lock-btn{background:var(--plum);}
+.lock-overlay.book .lock-btn:active{background:#32204e;}
+.lock-overlay.book .lock-error{color:#c8b8f0;}
+
+/* ══ HOMEPAGE ══ */
+#home{display:none;}
+
+/* HEADER */
+.hdr{background:var(--deep);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:200;border-bottom:2px solid var(--copper-light);}
+.hdr-brand{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--blush);letter-spacing:.08em;}
+.hdr-tag{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--copper-light);border:1px solid rgba(196,122,72,.3);padding:4px 10px;}
+
+/* HERO */
+.hero{background:var(--deep);padding:48px 24px 40px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 70%,rgba(158,90,42,.12) 0%,transparent 55%),radial-gradient(ellipse at 90% 10%,rgba(42,95,95,.08) 0%,transparent 50%);}
+.hero-deco{position:absolute;right:-8px;bottom:-20px;font-family:'Cormorant Garamond',serif;font-size:160px;font-weight:700;color:rgba(255,255,255,.02);line-height:1;pointer-events:none;}
+.hero-inner{position:relative;z-index:1;max-width:600px;}
+.hero-eye{font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--copper-light);margin-bottom:14px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,9vw,52px);font-weight:700;color:#fff;line-height:.95;margin-bottom:14px;}
+.hero-title .ac{font-style:italic;color:var(--copper-light);}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.42);line-height:1.65;max-width:480px;}
+
+/* MAIN */
+.main{padding:36px 20px 80px;max-width:700px;margin:0 auto;}
+
+/* SECTION LABEL */
+.ew{font-size:9px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--warm-grey);display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.ew::after{content:'';flex:1;height:1px;background:var(--rule);}
+
+/* ══ SECTION CARDS (两个入口) ══ */
+.sections{display:flex;flex-direction:column;gap:12px;margin-bottom:40px;}
+
+.sec-card{
+  border:1.5px solid var(--rule);background:#fff;
+  display:flex;flex-direction:column;overflow:hidden;
+  transition:border-color .2s,box-shadow .2s;
+  cursor:pointer;-webkit-user-select:none;user-select:none;
+  text-decoration:none;color:inherit;
+}
+.sec-card:active{opacity:.92;}
+@media(hover:hover){.sec-card:hover{box-shadow:0 2px 18px rgba(0,0,0,.07);}}
+
+.sec-card.brief{border-left:4px solid var(--copper);}
+.sec-card.brief:hover{border-color:var(--copper);}
+.sec-card.book{border-left:4px solid var(--plum);}
+.sec-card.book:hover{border-color:var(--plum);}
+
+.sec-top{padding:22px 22px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.sec-info{flex:1;}
+.sec-badge{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;margin-bottom:10px;display:inline-block;}
+.brief .sec-badge{background:rgba(158,90,42,.1);color:var(--copper);}
+.book .sec-badge{background:rgba(74,48,112,.1);color:var(--plum);}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--ink);line-height:1.1;margin-bottom:6px;}
+.sec-sub{font-size:13px;color:var(--warm-grey);line-height:1.55;}
+.sec-arrow{font-size:22px;color:var(--rule);flex-shrink:0;margin-top:4px;transition:color .2s,transform .2s;}
+.brief:hover .sec-arrow{color:var(--copper);transform:translateX(3px);}
+.book:hover .sec-arrow{color:var(--plum);transform:translateX(3px);}
+
+.sec-bottom{
+  padding:14px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid var(--rule);
+}
+.brief .sec-bottom{background:rgba(158,90,42,.03);}
+.book .sec-bottom{background:rgba(74,48,112,.03);}
+.sec-stats{display:flex;gap:20px;}
+.sec-stat-n{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ink);line-height:1;}
+.brief .sec-stat-n{color:var(--copper);}
+.book .sec-stat-n{color:var(--plum);}
+.sec-stat-l{font-size:10px;color:var(--warm-grey);letter-spacing:.06em;margin-top:1px;}
+.sec-lock{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border:1px solid;}
+.brief .sec-lock{color:var(--copper);border-color:rgba(158,90,42,.3);}
+.book .sec-lock{color:var(--plum);border-color:rgba(74,48,112,.3);}
+
+/* PILLARS */
+.pillars-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:40px;}
+.pc{background:var(--warm);padding:13px 16px;display:flex;align-items:center;gap:8px;}
+.pd{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.pc.t1 .pd{background:var(--teal);}
+.pc.t2 .pd{background:var(--copper);}
+.pc.t3 .pd{background:var(--plum);}
+.pn{font-size:11px;font-weight:700;letter-spacing:.06em;}
+.pc.t1 .pn{color:var(--teal);}
+.pc.t2 .pn{color:var(--copper);}
+.pc.t3 .pn{color:var(--plum);}
+
+/* NOTICE */
+.notice{background:var(--warm);border:1px solid var(--rule);padding:18px 20px;display:flex;gap:12px;align-items:flex-start;}
+.notice-text{font-size:13px;color:var(--text-body);line-height:1.75;}
+.notice-text a{color:var(--copper);font-weight:600;text-decoration:none;}
+
+/* FOOTER */
+footer{background:var(--deep);padding:36px 24px;text-align:center;}
+.fb{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.1em;margin-bottom:10px;}
+.fr{height:1px;background:rgba(255,255,255,.07);margin:12px auto;max-width:260px;}
+.fn{font-size:10.5px;color:rgba(255,255,255,.18);line-height:1.85;letter-spacing:.05em;}
+
+/* ══ 简报内容库页面 ══ */
+#brief-page{display:none;}
+#book-page{display:none;}
+
+.sub-hdr{background:var(--deep);height:52px;display:flex;align-items:center;padding:0 24px;gap:16px;position:sticky;top:0;z-index:200;border-bottom:2px solid var(--copper-light);}
+.sub-hdr.book-hdr{border-bottom-color:#6a50a8;}
+.back-btn{background:none;border:none;color:rgba(255,255,255,.45);font-size:20px;cursor:pointer;padding:0 4px;flex-shrink:0;transition:color .2s;}
+.back-btn:hover{color:#fff;}
+.sub-hdr-brand{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--blush);letter-spacing:.06em;}
+.sub-hdr-tag{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border:1px solid;margin-left:auto;}
+.sub-hdr .sub-hdr-tag{color:var(--copper-light);border-color:rgba(196,122,72,.3);}
+.book-hdr .sub-hdr-tag{color:#a090d8;border-color:rgba(138,112,192,.3);}
+
+/* 简报 hero */
+.brief-hero{background:var(--deep);padding:40px 24px 32px;position:relative;overflow:hidden;}
+.brief-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 70%,rgba(158,90,42,.12) 0%,transparent 55%);}
+.brief-hero-inner{position:relative;z-index:1;}
+.brief-hero-eye{font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--copper-light);margin-bottom:12px;}
+.brief-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,8vw,46px);font-weight:700;color:#fff;line-height:.95;margin-bottom:10px;}
+.brief-hero-title .ac{font-style:italic;color:var(--copper-light);}
+.brief-hero-sub{font-size:13px;color:rgba(255,255,255,.4);line-height:1.6;max-width:480px;}
+.brief-stats{display:flex;gap:22px;margin-top:18px;}
+.bstat-n{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#fff;line-height:1;}
+.bstat-l{font-size:10px;color:rgba(255,255,255,.28);letter-spacing:.1em;text-transform:uppercase;margin-top:1px;}
+
+/* 读书会 hero */
+.book-hero{background:var(--plum);padding:40px 24px 32px;position:relative;overflow:hidden;}
+.book-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 70%,rgba(138,112,192,.2) 0%,transparent 55%);}
+.book-hero-inner{position:relative;z-index:1;}
+.book-hero-eye{font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px;}
+.book-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,8vw,46px);font-weight:700;color:#fff;line-height:.95;margin-bottom:10px;}
+.book-hero-title .ac{font-style:italic;color:#c8b8f0;}
+.book-hero-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6;max-width:480px;}
+
+/* 内容列表（复用） */
+.content-main{padding:28px 20px 72px;max-width:700px;margin:0 auto;}
+.list{display:flex;flex-direction:column;gap:2px;margin-bottom:32px;}
+.card{background:#fff;border:1px solid var(--rule);display:flex;align-items:stretch;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:border-color .18s,box-shadow .18s,background .18s;-webkit-user-select:none;user-select:none;}
+.card:active{background:var(--warm);}
+@media(hover:hover){.card:hover{border-color:var(--copper);box-shadow:0 2px 14px rgba(158,90,42,.08);background:var(--warm);}
+.card:hover .arr{color:var(--copper);transform:translateX(4px);}}
+.book-card:active{background:#f0ecfa;}
+@media(hover:hover){.book-card:hover{border-color:var(--plum);box-shadow:0 2px 14px rgba(74,48,112,.08);background:#f5f2fc;}
+.book-card:hover .arr{color:var(--plum);transform:translateX(4px);}}
+.strip{width:4px;flex-shrink:0;}
+.card.c1 .strip{background:var(--teal);}
+.card.c2 .strip{background:var(--copper);}
+.card.c3 .strip{background:var(--plum);}
+.card.cx .strip{background:linear-gradient(180deg,var(--teal) 33%,var(--copper) 33% 66%,var(--plum) 66%);}
+.card.cbook .strip{background:var(--plum);}
+.cbody{flex:1;padding:18px 20px;display:flex;flex-direction:column;gap:5px;}
+.cmeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.cvol{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
+.card.c1 .cvol,.card.cx .cvol{color:var(--teal);}
+.card.c2 .cvol{color:var(--copper);}
+.card.c3 .cvol,.card.cbook .cvol{color:var(--plum);}
+.cdate{font-size:10px;color:var(--warm-grey);letter-spacing:.04em;}
+.cbadge{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;}
+.b-new{background:var(--copper);color:#fff;}
+.b-pub{background:rgba(42,95,95,.1);color:var(--teal);}
+.b-book{background:rgba(74,48,112,.1);color:var(--plum);}
+.ctitle{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--ink);line-height:1.2;}
+.csub{font-size:12.5px;color:var(--warm-grey);line-height:1.5;}
+.ctags{display:flex;gap:5px;flex-wrap:wrap;margin-top:3px;}
+.ctag{font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid var(--rule);color:var(--warm-grey);}
+.cvoice{font-size:11px;color:var(--warm-grey);font-style:italic;}
+.cvoice b{color:var(--copper);font-style:normal;font-weight:600;}
+.arr{display:flex;align-items:center;padding:0 16px;font-size:18px;color:var(--rule);flex-shrink:0;transition:color .18s,transform .18s;}
+
+/* coming soon */
+.coming{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:32px;}
+.cc{background:var(--cream);border:1px dashed var(--rule);padding:16px 18px;}
+.cc-vol{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--warm-grey);margin-bottom:5px;}
+.cc-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:rgba(23,18,15,.35);line-height:1.2;margin-bottom:3px;}
+.cc-voice{font-size:10.5px;color:var(--warm-grey);font-style:italic;opacity:.7;}
+
+/* ── 书房 tab 导航 ── */
+.book-tab{
+  flex:1;padding:13px 8px;font-size:12px;font-weight:600;
+  letter-spacing:.06em;border:none;background:none;
+  color:var(--warm-grey);cursor:pointer;
+  border-bottom:2px solid transparent;transition:all .2s;
+}
+.book-tab.active{color:var(--plum);border-bottom-color:var(--plum);}
+.book-tab:hover:not(.active){color:var(--ink);}
+.book-tab-content{}
+.book-intro{background:rgba(74,48,112,.05);border:1px solid rgba(74,48,112,.15);padding:18px 20px;margin-bottom:24px;font-size:13px;color:var(--text-body);line-height:1.75;}
+.book-intro strong{color:var(--plum);}
+
+@media(max-width:420px){
+  .brief-hero,.book-hero{padding:32px 20px 26px;}
+  .brief-hero-title,.book-hero-title{font-size:32px;}
+  .coming{grid-template-columns:1fr;}
+  .cbody{padding:15px;}
+  .ctitle{font-size:19px;}
+  .sec-title{font-size:22px;}
+  .sections .sec-bottom{flex-direction:column;align-items:flex-start;gap:12px;}
+  .pillars-strip{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     锁屏层 A：简报会员
+══════════════════════════════════ -->
+<div id="lock-brief" class="lock-overlay brief" style="display:none;">
+  <div class="lock-inner">
+    <div class="lock-logo">她说了算 · She Decides</div>
+    <div class="lock-section-name">简报会员专区</div>
+    <h1 class="lock-title">全球女性<br><span class="ac">趋势简报</span></h1>
+    <p class="lock-sub">输入会员密码进入<br>付款后 Janet 私信告诉你</p>
+    <label class="lock-label">访问密码</label>
+    <input class="lock-input" id="pw-brief" type="password" placeholder="请输入密码" maxlength="20" inputmode="text">
+    <button class="lock-btn" onclick="checkPw('brief')">进入简报库 →</button>
+    <div class="lock-error" id="err-brief">密码不正确，请联系 Janet 确认</div>
+    <button class="lock-back" onclick="showHome()">← 返回首页</button>
+    <div class="lock-hint">还不是会员？<a href="weixin://contacts/profile/Zrh13076010552">微信联系 Janet</a><br>¥9.9 试读 · 首批年费 ¥139</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     锁屏层 B：读书会会员
+══════════════════════════════════ -->
+<div id="lock-book" class="lock-overlay book" style="display:none;">
+  <div class="lock-inner">
+    <div class="lock-logo">她说了算 · She Decides</div>
+    <div class="lock-section-name">读书会专区</div>
+    <h1 class="lock-title">书房<br><span class="ac">读书会</span></h1>
+    <p class="lock-sub">输入读书会会员密码<br>付款后 Janet 私信告诉你</p>
+    <label class="lock-label">访问密码</label>
+    <input class="lock-input" id="pw-book" type="password" placeholder="请输入密码" maxlength="20" inputmode="text">
+    <button class="lock-btn" onclick="checkPw('book')">进入书房 →</button>
+    <div class="lock-error" id="err-book">密码不正确，请联系 Janet 确认</div>
+    <button class="lock-back" onclick="showHome()">← 返回首页</button>
+    <div class="lock-hint">还不是读书会会员？<a href="weixin://contacts/profile/Zrh13076010552">微信联系 Janet</a></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     首页
+══════════════════════════════════ -->
+<div id="home">
+  <header class="hdr">
+    <div class="hdr-brand">她说了算 · She Decides</div>
+    <div class="hdr-tag">知识库</div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-deco">知</div>
+    <div class="hero-inner">
+      <div class="hero-eye">Knowledge Library · 2026</div>
+      <h1 class="hero-title">她说了算<br><span class="ac">知识库</span></h1>
+      <p class="hero-sub">为对自己认真的女性而建。选择你的专区，输入密码，直接开始。</p>
+    </div>
+  </div>
+
+  <main class="main">
+
+    <div class="ew">选择你的专区</div>
+    <div class="sections">
+
+      <!-- 简报专区 -->
+      <div class="sec-card brief" onclick="enterSection('brief')">
+        <div class="sec-top">
+          <div class="sec-info">
+            <div class="sec-badge">全球趋势简报</div>
+            <div class="sec-title">简报会员专区</div>
+            <div class="sec-sub">每半月一期 · 全球女性商业趋势 · 有据可查的认知升级<br>三大支柱：认知套利 · 身份重塑 · 精力主权</div>
+          </div>
+          <div class="sec-arrow">→</div>
+        </div>
+        <div class="sec-bottom">
+          <div class="sec-stats">
+            <div><div class="sec-stat-n">4</div><div class="sec-stat-l">已发布</div></div>
+            <div><div class="sec-stat-n">24</div><div class="sec-stat-l">全年计划</div></div>
+            <div><div class="sec-stat-n">3</div><div class="sec-stat-l">核心支柱</div></div>
+          </div>
+          <div class="sec-lock">🔒 需要密码</div>
+        </div>
+      </div>
+
+      <!-- 读书会专区 -->
+      <div class="sec-card book" onclick="enterSection('book')">
+        <div class="sec-top">
+          <div class="sec-info">
+            <div class="sec-badge">书房 · 读书会</div>
+            <div class="sec-title">读书会专区</div>
+            <div class="sec-sub">每期精选书目 · 导读文章 · 书单推荐<br>连接内容，让阅读真正改变思考</div>
+          </div>
+          <div class="sec-arrow">→</div>
+        </div>
+        <div class="sec-bottom">
+          <div class="sec-stats">
+            <div><div class="sec-stat-n" style="color:var(--plum);">持续</div><div class="sec-stat-l">更新中</div></div>
+            <div><div class="sec-stat-n" style="color:var(--plum);">精选</div><div class="sec-stat-l">书目</div></div>
+          </div>
+          <div class="sec-lock" style="color:var(--plum);border-color:rgba(74,48,112,.3);">🔒 需要密码</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="ew">三大核心支柱</div>
+    <div class="pillars-strip">
+      <div class="pc t1"><div class="pd"></div><span class="pn">认知套利</span></div>
+      <div class="pc t2"><div class="pd"></div><span class="pn">身份重塑</span></div>
+      <div class="pc t3"><div class="pd"></div><span class="pn">精力主权</span></div>
+    </div>
+
+    <div class="notice">
+      <div style="font-size:18px;flex-shrink:0;">💬</div>
+      <div class="notice-text">
+        每期更新后 Janet 会在会员群通知。有问题请微信联系：<a href="weixin://contacts/profile/Zrh13076010552">Janet（Zrh13076010552）</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="fb">她说了算 · She Decides</div>
+    <div class="fr"></div>
+    <div class="fn">全球女性商业趋势简报 · 2026<br>认知套利 · 身份重塑 · 精力主权<br>遇见不同，创造可能 · Shanghai</div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════
+     简报内容页
+══════════════════════════════════ -->
+<div id="brief-page">
+  <header class="sub-hdr">
+    <button class="back-btn" onclick="goBack('brief')">←</button>
+    <div class="sub-hdr-brand">她说了算 · 简报库</div>
+    <div class="sub-hdr-tag">会员专属</div>
+  </header>
+
+  <div class="brief-hero">
+    <div class="brief-hero-inner">
+      <div class="brief-hero-eye">Member Library · 2026</div>
+      <h1 class="brief-hero-title">全球女性<br><span class="ac">趋势简报</span></h1>
+      <p class="brief-hero-sub">点击任意一期，直接开始阅读</p>
+      <div class="brief-stats">
+        <div><div class="bstat-n">4</div><div class="bstat-l">已发布</div></div>
+        <div><div class="bstat-n">24</div><div class="bstat-l">全年计划</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-main">
+    <div class="ew">已发布 · Published</div>
+    <div class="list">
+
+      <a class="card cx" href="vol4.html">
+        <div class="strip"></div>
+        <div class="cbody">
+          <div class="cmeta"><span class="cvol">Vol.4</span><span class="cdate">2026年5月</span><span class="cbadge b-new">最新</span></div>
+          <div class="ctitle">她的选择</div>
+          <div class="csub">在噪音爆炸的时代，决策质量才是最稀缺的能力</div>
+          <div class="ctags">
+            <span class="ctag" style="color:var(--teal);border-color:rgba(42,95,95,.2)">决策质量</span>
+            <span class="ctag" style="color:var(--copper);border-color:rgba(158,90,42,.2)">战略性放弃</span>
+            <span class="ctag" style="color:var(--plum);border-color:rgba(74,48,112,.2)">注意力预算</span>
+          </div>
+          <div class="cvoice">历史声音：<b>西蒙娜·波伏瓦</b></div>
+        </div>
+        <div class="arr">→</div>
+      </a>
+
+      <a class="card cx" href="vol3.html">
+        <div class="strip"></div>
+        <div class="cbody">
+          <div class="cmeta"><span class="cvol">Vol.3</span><span class="cdate">2026年4月</span><span class="cbadge b-pub">已发布</span></div>
+          <div class="ctitle">她的底气</div>
+          <div class="csub">认知套利 · 身份重塑 · 精力主权——职场女性特刊</div>
+          <div class="ctags">
+            <span class="ctag" style="color:var(--teal);border-color:rgba(42,95,95,.2)">认知套利</span>
+            <span class="ctag" style="color:var(--copper);border-color:rgba(158,90,42,.2)">叙事资本</span>
+            <span class="ctag" style="color:var(--plum);border-color:rgba(74,48,112,.2)">精力主权</span>
+          </div>
+        </div>
+        <div class="arr">→</div>
+      </a>
+
+      <a class="card c2" href="vol2.html">
+        <div class="strip"></div>
+        <div class="cbody">
+          <div class="cmeta"><span class="cvol">Vol.2</span><span class="cdate">2026年4月</span><span class="cbadge b-pub">已发布</span></div>
+          <div class="ctitle">她们如何重新定价自己的价值</div>
+          <div class="csub">薪酬鸿沟 · 女性体育经济 · 绿色领导力 · Fortune 500困境</div>
+          <div class="ctags">
+            <span class="ctag">定价权</span><span class="ctag">薪酬谈判</span><span class="ctag">体育经济</span>
+          </div>
+        </div>
+        <div class="arr">→</div>
+      </a>
+
+      <a class="card c1" href="vol1.html">
+        <div class="strip"></div>
+        <div class="cbody">
+          <div class="cmeta"><span class="cvol">Vol.1</span><span class="cdate">2026年4月</span><span class="cbadge b-pub">已发布</span></div>
+          <div class="ctitle">颠覆正在发生，女性正在引领</div>
+          <div class="csub">董事会革命 · 创业生态 · AI她时代 · 消费主权——创刊号</div>
+          <div class="ctags">
+            <span class="ctag" style="color:var(--teal);border-color:rgba(42,95,95,.2)">创刊号</span>
+            <span class="ctag" style="color:var(--teal);border-color:rgba(42,95,95,.2)">董事会</span>
+            <span class="ctag" style="color:var(--teal);border-color:rgba(42,95,95,.2)">AI</span>
+          </div>
+        </div>
+        <div class="arr">→</div>
+      </a>
+
+    </div>
+
+    <div class="ew">即将发布 · Coming Soon</div>
+    <div class="coming">
+      <div class="cc"><div class="cc-vol">Vol.5 · 6月</div><div class="cc-title">她的钱</div><div class="cc-voice">历史声音 · 可可·香奈儿</div></div>
+      <div class="cc"><div class="cc-vol">Vol.6 · 7月</div><div class="cc-title">她的出海</div><div class="cc-voice">历史声音 · 宋庆龄</div></div>
+      <div class="cc"><div class="cc-vol">Vol.7 · 7月</div><div class="cc-title">她的可见度</div><div class="cc-voice">历史声音 · 玛丽·居里</div></div>
+      <div class="cc"><div class="cc-vol">Vol.8–16</div><div class="cc-title">持续更新中…</div><div class="cc-voice">每半月一期，群里通知</div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     读书会内容页
+══════════════════════════════════ -->
+<div id="book-page">
+  <header class="sub-hdr book-hdr">
+    <button class="back-btn" onclick="goBack('book')">←</button>
+    <div class="sub-hdr-brand">她说了算 · 书房</div>
+    <div class="sub-hdr-tag" style="color:#a090d8;border-color:rgba(138,112,192,.3);">读书会专属</div>
+  </header>
+
+  <div class="book-hero">
+    <div class="book-hero-inner">
+      <div class="book-hero-eye">Book Club · 书房 · 2026</div>
+      <h1 class="book-hero-title">书房<br><span class="ac">读书会</span></h1>
+      <p class="book-hero-sub">导读文章 · 书单推荐 · 直播回放<br>让每一本书真正改变你看问题的方式</p>
+      <div class="brief-stats" style="margin-top:18px;">
+        <div><div class="bstat-n" style="color:#c8b8f0;">3</div><div class="bstat-l">内容类型</div></div>
+        <div><div class="bstat-n" style="color:#c8b8f0;">持续</div><div class="bstat-l">更新中</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 书房导航 tab -->
+  <div style="background:#fff;border-bottom:1px solid var(--rule);display:flex;position:sticky;top:52px;z-index:100;">
+    <button class="book-tab active" id="tab-guide" onclick="switchBookTab('guide')">导读文章</button>
+    <button class="book-tab" id="tab-booklist" onclick="switchBookTab('booklist')">书单推荐</button>
+    <button class="book-tab" id="tab-replay" onclick="switchBookTab('replay')">直播回放</button>
+  </div>
+
+  <!-- ── 导读文章 ── -->
+  <div id="book-guide" class="book-tab-content content-main">
+
+    <div class="book-intro">
+      <strong>书籍导读</strong> · 每期读书会结束后，Yilin 会整理成一篇导读文章，包含核心论点、Yilin 的解读视角，以及 Janet 的教练框架应用。
+    </div>
+
+    <div class="ew">已发布导读</div>
+    <div class="list">
+      <!-- ★ 每期读书会结束后，复制下面的卡片，把 href 改成对应文件名，修改期数/书名/简介 -->
+      <div class="card cbook book-card" style="opacity:.55;cursor:default;">
+        <div class="strip"></div>
+        <div class="cbody">
+          <div class="cmeta">
+            <span class="cvol" style="color:var(--plum)">导读 · 第01期</span>
+            <span class="cdate">2026年</span>
+            <span class="cbadge b-book">即将发布</span>
+          </div>
+          <div class="ctitle">第一期导读文章</div>
+          <div class="csub">正在整理中，Yilin 导读 + Janet 教练视角</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ew">即将发布</div>
+    <div class="coming">
+      <div class="cc" style="border-color:rgba(74,48,112,.15);">
+        <div class="cc-vol" style="color:var(--plum);">第02期导读</div>
+        <div class="cc-title">待定</div>
+        <div class="cc-voice">读书会结束后整理上线</div>
+      </div>
+      <div class="cc" style="border-color:rgba(74,48,112,.15);">
+        <div class="cc-vol" style="color:var(--plum);">第03期导读</div>
+        <div class="cc-title">待定</div>
+        <div class="cc-voice">读书会结束后整理上线</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── 书单推荐 ── -->
+  <div id="book-booklist" class="book-tab-content content-main" style="display:none;">
+
+    <div class="book-intro">
+      <strong>精选书单</strong> · 每期读书会的核心选书，加上 Yilin 延伸推荐。每本书都有一句话说明「为什么这本书值得你花时间」。
+    </div>
+
+    <div class="ew">当期选书</div>
+    <div class="list">
+      <!-- ★ 每期新增书单，复制下面卡片，修改书名/作者/推荐语 -->
+      <!-- 书单卡片不需要链接到别的页面，信息都在卡片里 -->
+      <div class="card cbook" style="cursor:default;">
+        <div class="strip"></div>
+        <div class="cbody">
+          <div class="cmeta">
+            <span class="cvol" style="color:var(--plum)">第01期选书</span>
+            <span class="cbadge b-book">即将公布</span>
+          </div>
+          <div class="ctitle">待定</div>
+          <div class="csub">第一期读书会选书正在确认中</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ew" style="margin-top:8px;">Yilin 延伸推荐书单</div>
+    <div style="background:#fff;border:1px solid var(--rule);padding:20px 22px;margin-bottom:24px;">
+      <div style="font-size:13px;color:var(--warm-grey);line-height:1.8;font-style:italic;">
+        每期读书会后，Yilin 会在这里更新3-5本延伸阅读推荐，帮你把一本书的思考扩展成一个知识体系。
+      </div>
+      <!-- ★ 更新方式：在这里直接写书名和一句推荐语，例如：
+      <div style="padding:10px 0;border-bottom:1px solid var(--rule);">
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">《蛤蟆先生去看心理医生》</div>
+        <div style="font-size:12px;color:var(--warm-grey);margin-top:3px;">罗伯特·戴博德 · 理解情绪从哪里来，是一切改变的起点</div>
+      </div>
+      -->
+      <div style="font-size:12px;color:var(--rule);margin-top:12px;text-align:center;">延伸书单更新中…</div>
+    </div>
+
+  </div>
+
+  <!-- ── 直播回放 ── -->
+  <div id="book-replay" class="book-tab-content content-main" style="display:none;">
+
+    <div class="book-intro">
+      <strong>直播回放</strong> · 每期读书会直播结束后，回放会存档在这里。只有读书会会员可以访问。
+    </div>
+
+    <div class="ew">直播回放存档</div>
+    <div class="list">
+      <!-- ★ 直播结束后，把回放链接填入 href（视频号/腾讯视频/其他平台链接均可）-->
+      <div class="card cbook" style="opacity:.55;cursor:default;">
+        <div class="strip"></div>
+        <div class="cbody">
+          <div class="cmeta">
+            <span class="cvol" style="color:var(--plum)">第01期直播</span>
+            <span class="cdate">2026年</span>
+            <span class="cbadge b-book">待更新</span>
+          </div>
+          <div class="ctitle">第一期读书会直播回放</div>
+          <div class="csub">直播结束后上传，约1-2天内可见</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:rgba(74,48,112,.04);border:1px solid rgba(74,48,112,.15);padding:18px 20px;margin-top:8px;">
+      <div style="font-size:12px;color:var(--plum);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">关于回放</div>
+      <div style="font-size:13px;color:var(--text-body);line-height:1.75;">
+        直播回放通常在活动结束后 1-2 天上线。<br>
+        如有问题请联系 Janet：<a href="weixin://contacts/profile/Zrh13076010552" style="color:var(--plum);font-weight:600;text-decoration:none;">微信 Zrh13076010552</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// ★★★ 密码设置区 ★★★
+// ══════════════════════════════════════════
+const PASSWORDS = {
+  brief: '2026shedecides',   // 简报会员密码
+  book:  'book2026'          // 读书会密码 ← Janet可以改成自己想要的
+};
+const SESSION_DAYS = 7;
+
+// ── 工具函数 ──
+function saveSession(type) {
+  localStorage.setItem('tsls_'+type, Date.now() + SESSION_DAYS*86400000);
+}
+function hasSession(type) {
+  const exp = localStorage.getItem('tsls_'+type);
+  return exp && Date.now() < parseInt(exp);
+}
+function showOnly(id) {
+  ['home','lock-brief','lock-book','brief-page','book-page'].forEach(i => {
+    document.getElementById(i).style.display = 'none';
+  });
+  document.getElementById(id).style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+// ── 首页 ──
+function showHome() { showOnly('home'); }
+
+// ── 点击进入某专区 ──
+function enterSection(type) {
+  if (hasSession(type)) {
+    showOnly(type+'-page');
+  } else {
+    showOnly('lock-'+type);
+    setTimeout(()=>document.getElementById('pw-'+type).focus(), 100);
+  }
+}
+
+// ── 验证密码 ──
+function checkPw(type) {
+  const input = document.getElementById('pw-'+type).value.trim();
+  const err = document.getElementById('err-'+type);
+  const inp = document.getElementById('pw-'+type);
+  if (input === PASSWORDS[type]) {
+    saveSession(type);
+    showOnly(type+'-page');
+  } else {
+    err.classList.add('show');
+    inp.classList.add('shake');
+    inp.value = '';
+    inp.focus();
+    setTimeout(()=>inp.classList.remove('shake'), 400);
+    setTimeout(()=>err.classList.remove('show'), 3000);
+  }
+}
+
+// ── 返回首页 ──
+function goBack(type) {
+  showOnly('home');
+}
+
+// ── 回车键支持 ──
+['brief','book'].forEach(type => {
+  document.getElementById('pw-'+type).addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkPw(type);
+  });
+});
+
+// ── 读书会 tab 切换 ──
+function switchBookTab(tab) {
+  ['guide','booklist','replay'].forEach(t => {
+    document.getElementById('book-'+t).style.display = t===tab ? 'block' : 'none';
+    document.getElementById('tab-'+t).classList.toggle('active', t===tab);
+  });
+  window.scrollTo(0, document.querySelector('.book-hdr').offsetTop - 10);
+}
+
+// ── 启动：检查已有 session ──
+showOnly('home');
+</script>
+</body>
+</html>

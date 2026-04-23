@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全球女性商业趋势简报 · 2026 第二期</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0f1a14;
+  --forest: #1d4a35;
+  --sage: #3a7a58;
+  --sage-light: #5a9e78;
+  --mint: #d6ede0;
+  --cream: #f8f5ee;
+  --warm: #f0ebe0;
+  --rule: #c8d8c0;
+  --gold: #c49a3c;
+  --gold-light: #e0b85a;
+  --terra: #8b3a2a;
+  --warm-grey: #7a8070;
+  --text-body: #3a4035;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'Outfit','PingFang SC','Microsoft YaHei',sans-serif;
+  font-weight:300;
+  line-height:1.7;
+}
+
+/* ── PROGRESS ── */
+.progress-bar{
+  position:fixed;top:0;left:0;height:3px;
+  background:linear-gradient(90deg,var(--sage),var(--gold-light));
+  width:0%;z-index:300;transition:width .1s linear;
+}
+
+/* ── NAV ── */
+.sticky-nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--forest);
+  border-bottom:2px solid var(--sage-light);
+  display:flex;align-items:center;gap:0;
+  overflow-x:auto;scrollbar-width:none;
+}
+.sticky-nav::-webkit-scrollbar{display:none;}
+.nav-brand{
+  font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;
+  color:#d6ede0;padding:0 20px;
+  border-right:1px solid rgba(255,255,255,0.1);
+  white-space:nowrap;height:44px;display:flex;align-items:center;flex-shrink:0;
+}
+.nav-links{display:flex;flex:1;}
+.nav-link{
+  font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,0.4);padding:0 16px;height:44px;
+  display:flex;align-items:center;text-decoration:none;
+  border-right:1px solid rgba(255,255,255,0.06);
+  white-space:nowrap;transition:all .2s;background:none;
+  border-top:none;border-bottom:none;border-left:none;cursor:pointer;
+}
+.nav-link:first-child{border-left:1px solid rgba(255,255,255,0.06);}
+.nav-link:hover,.nav-link.active{color:#d6ede0;background:rgba(90,158,120,0.2);}
+
+/* ── MASTHEAD ── */
+.masthead{
+  background:var(--forest);
+  position:relative;overflow:hidden;
+}
+.masthead::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 80% 50%, rgba(90,158,120,0.15) 0%, transparent 60%),
+    repeating-linear-gradient(135deg, transparent, transparent 30px, rgba(255,255,255,0.015) 30px, rgba(255,255,255,0.015) 31px);
+}
+.masthead-leaf{
+  position:absolute;right:-40px;top:-60px;
+  font-size:320px;line-height:1;color:rgba(255,255,255,0.025);
+  font-family:'Cormorant Garamond',serif;font-weight:700;
+  pointer-events:none;
+}
+.masthead-inner{
+  max-width:900px;margin:0 auto;
+  padding:56px 48px 44px;
+  position:relative;z-index:1;
+}
+.masthead-vol{
+  display:inline-flex;align-items:center;gap:12px;
+  margin-bottom:24px;
+}
+.vol-badge{
+  background:var(--sage);
+  color:#fff;font-size:10px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:5px 12px;
+}
+.vol-text{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;}
+.masthead h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(38px,6vw,62px);font-weight:700;
+  color:#fff;line-height:1.05;margin-bottom:10px;
+}
+.masthead h1 em{font-style:italic;color:var(--sage-light);}
+.masthead-en{
+  font-size:12px;letter-spacing:.18em;
+  color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:32px;
+}
+.masthead-theme{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  padding:10px 18px;margin-bottom:28px;
+}
+.theme-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:600;}
+.theme-text{font-size:13px;color:#d6ede0;font-weight:600;}
+.masthead-meta{display:flex;gap:20px;flex-wrap:wrap;align-items:center;}
+.meta-item{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.08em;text-transform:uppercase;}
+.meta-item strong{color:var(--sage-light);font-weight:700;}
+.meta-dot{color:rgba(255,255,255,.1);}
+
+.issue-bar{
+  background:linear-gradient(90deg, var(--sage), var(--sage-light));
+  padding:10px 48px;max-width:900px;margin:0 auto;
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:#fff;position:relative;z-index:1;
+}
+
+/* ── CONTAINER ── */
+.container{max-width:900px;margin:0 auto;padding:0 48px;}
+
+/* ── INTRO ── */
+.intro-block{padding:52px 0 0;}
+.section-eyebrow{
+  font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--sage);font-weight:700;
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
+}
+.section-eyebrow::after{content:'';flex:1;height:1px;background:var(--rule);}
+.intro-lead{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(18px,2.5vw,23px);font-style:italic;
+  line-height:1.6;max-width:680px;margin-bottom:18px;color:var(--ink);
+}
+.intro-body{font-size:14px;color:var(--text-body);max-width:640px;margin-bottom:44px;line-height:1.85;}
+
+/* ── STAT BAR ── */
+.stat-bar{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:3px solid var(--forest);border-bottom:1px solid var(--rule);
+  margin-bottom:60px;
+}
+.stat-cell{padding:24px 28px 24px 0;border-right:1px solid var(--rule);}
+.stat-cell:last-child{border-right:none;}
+.stat-cell:not(:first-child){padding-left:28px;}
+.stat-num{
+  font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;
+  color:var(--sage);line-height:1;margin-bottom:4px;
+}
+.stat-unit{font-size:24px;font-weight:400;}
+.stat-lbl{font-size:11.5px;color:var(--warm-grey);line-height:1.45;}
+.stat-lbl strong{display:block;color:var(--ink);font-weight:700;font-size:12px;margin-bottom:2px;}
+
+/* ── TREND SECTION ── */
+.trend-section{padding-top:52px;border-top:1px solid var(--rule);}
+
+.trend-header{
+  display:grid;grid-template-columns:auto 1fr auto;
+  gap:20px;align-items:start;margin-bottom:28px;
+  cursor:pointer;user-select:none;
+}
+.trend-number{
+  font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:700;
+  color:var(--mint);line-height:1;transition:color .3s;
+}
+.trend-section:hover .trend-number,.trend-section.open .trend-number{color:var(--sage);}
+.trend-tag-label{font-size:9px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;color:var(--warm-grey);margin-bottom:6px;}
+.trend-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(22px,3.5vw,32px);font-weight:700;line-height:1.12;color:var(--ink);
+}
+.trend-subtitle{font-size:12px;font-style:italic;color:var(--warm-grey);margin-top:5px;letter-spacing:.03em;}
+
+.expand-btn{
+  width:36px;height:36px;border-radius:50%;
+  border:1.5px solid var(--rule);background:none;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .3s;flex-shrink:0;margin-top:8px;
+  color:var(--warm-grey);font-size:18px;font-weight:300;
+}
+.trend-section.open .expand-btn{border-color:var(--sage);background:var(--sage);color:#fff;}
+.expand-btn::after{content:'+';}
+.trend-section.open .expand-btn::after{content:'−';}
+
+/* ── SUMMARY ROW ── */
+.summary-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
+.summary-card{background:var(--cream);padding:22px 20px;transition:background .2s;}
+.summary-card:hover{background:var(--mint);}
+.summary-card.wide{grid-column:span 2;}
+.summary-card-tag{font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--sage);margin-bottom:8px;}
+.summary-card h4{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;line-height:1.3;color:var(--ink);margin-bottom:8px;}
+.summary-card p{font-size:12.5px;color:var(--text-body);line-height:1.65;}
+
+/* ── DEEP DIVE ── */
+.deep-dive{max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.4,0,.2,1);}
+.trend-section.open .deep-dive{max-height:3200px;}
+
+.deep-dive-inner{
+  background:var(--forest);border-left:4px solid var(--sage-light);
+  padding:40px 44px;margin-top:1px;
+  opacity:0;transform:translateY(-8px);
+  transition:opacity .4s .1s,transform .4s .1s;
+}
+.trend-section.open .deep-dive-inner{opacity:1;transform:translateY(0);}
+
+.dive-heading{
+  font-size:9px;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--sage-light);font-weight:700;margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
+}
+.dive-heading::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08);}
+
+.dive-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:28px;}
+.dive-block h5{
+  font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;
+  color:#fff;margin-bottom:10px;line-height:1.3;
+}
+.dive-block p{font-size:13px;line-height:1.82;color:rgba(255,255,255,.6);}
+.dive-block.full{grid-column:span 2;}
+
+.dive-callout{
+  background:rgba(90,158,120,.12);border:1px solid rgba(90,158,120,.3);
+  padding:20px 24px;margin-top:4px;
+}
+.dive-callout p{
+  font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;
+  color:#b8e0c8;line-height:1.65;
+}
+.dive-callout .src{
+  font-family:'Outfit',sans-serif;font-style:normal;font-size:10px;
+  color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;
+  margin-top:10px;display:block;
+}
+
+.dive-stat-row{
+  display:flex;gap:32px;margin-top:20px;flex-wrap:wrap;
+  border-top:1px solid rgba(255,255,255,.08);padding-top:20px;
+}
+.dive-stat-num{
+  font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;
+  color:var(--sage-light);line-height:1;
+}
+.dive-stat-lbl{font-size:11px;color:rgba(255,255,255,.35);margin-top:3px;}
+
+.dive-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+.dive-tag{
+  font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;
+  padding:4px 10px;border:1px solid rgba(90,158,120,.35);color:var(--sage-light);
+}
+
+.dive-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:12px;}
+.dive-table th{
+  text-align:left;padding:8px 12px;font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);border-bottom:1px solid rgba(255,255,255,.1);font-weight:700;
+}
+.dive-table td{
+  padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06);
+  color:rgba(255,255,255,.65);line-height:1.5;
+}
+.dive-table td:first-child{color:#fff;font-weight:700;}
+.dive-table tr:last-child td{border-bottom:none;}
+
+/* ── BAR CHART ── */
+.bar-section{background:var(--mint);padding:28px;margin-bottom:36px;border-left:4px solid var(--sage);}
+.bar-title{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--forest);margin-bottom:20px;}
+.bar-row{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.bar-lbl{font-size:11.5px;font-weight:700;color:var(--ink);width:82px;flex-shrink:0;text-align:right;}
+.bar-track{flex:1;height:10px;background:rgba(29,74,53,.12);position:relative;overflow:hidden;}
+.bar-fill{height:100%;background:var(--sage);width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+.bar-fill.terra{background:var(--terra);}
+.bar-fill.gold{background:var(--gold);}
+.bar-pct{font-size:11.5px;font-weight:700;color:var(--ink);width:44px;flex-shrink:0;}
+.bar-caption{font-size:11px;color:var(--warm-grey);font-style:italic;margin-top:16px;line-height:1.55;}
+
+/* ── SPECIAL BLOCKS ── */
+.sports-block{
+  background:var(--ink);padding:40px 48px;
+  position:relative;overflow:hidden;
+}
+.sports-block::before{
+  content:'⚡';position:absolute;right:-10px;top:-30px;
+  font-size:220px;color:rgba(255,255,255,.02);line-height:1;pointer-events:none;
+}
+.sports-label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:700;margin-bottom:10px;}
+.sports-block h3{
+  font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;
+  color:#fff;margin-bottom:14px;line-height:1.15;
+}
+.sports-block>p{font-size:13.5px;line-height:1.85;color:rgba(255,255,255,.65);max-width:640px;}
+.sports-stats{display:flex;gap:32px;margin-top:26px;flex-wrap:wrap;}
+.sports-stat{border-left:2px solid rgba(255,255,255,.15);padding-left:16px;}
+.sports-stat-num{
+  font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;
+  color:var(--gold-light);line-height:1;
+}
+.sports-stat-lbl{font-size:11px;color:rgba(255,255,255,.38);margin-top:3px;}
+
+/* ── EMERGING MARKETS ── */
+.em-block{
+  background:var(--terra);padding:40px 48px;
+  position:relative;overflow:hidden;
+}
+.em-block::before{
+  content:'🌍';position:absolute;right:24px;top:24px;
+  font-size:100px;opacity:.08;pointer-events:none;
+}
+.em-label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:700;margin-bottom:10px;}
+.em-block h3{
+  font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;
+  color:#fff;margin-bottom:14px;line-height:1.2;
+}
+.em-block>p{font-size:13.5px;line-height:1.85;color:rgba(255,255,255,.65);max-width:640px;}
+.em-stats{display:flex;gap:32px;margin-top:26px;flex-wrap:wrap;}
+.em-stat{border-left:2px solid rgba(255,255,255,.2);padding-left:16px;}
+.em-stat-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:#f5c97a;line-height:1;}
+.em-stat-lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px;}
+
+/* ── PULLQUOTE ── */
+.pullquote{
+  border-top:3px solid var(--sage);border-bottom:1px solid var(--rule);
+  padding:32px 0;margin:48px 0;display:flex;gap:20px;
+}
+.pq-mark{font-family:'Cormorant Garamond',serif;font-size:90px;color:var(--sage);line-height:.7;flex-shrink:0;margin-top:8px;}
+.pq-text{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2.2vw,21px);font-style:italic;line-height:1.62;color:var(--ink);}
+.pq-src{font-family:'Outfit',sans-serif;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--warm-grey);margin-top:14px;font-style:normal;font-weight:700;}
+
+/* ── PAY GAP VISUAL ── */
+.paygap-visual{
+  background:#fff;border:1px solid var(--rule);padding:32px;margin-bottom:36px;
+}
+.paygap-title{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--warm-grey);margin-bottom:24px;}
+.coin-row{display:flex;align-items:center;gap:16px;margin-bottom:18px;}
+.coin-label{font-size:12px;font-weight:700;color:var(--ink);width:90px;flex-shrink:0;}
+.coins{display:flex;gap:4px;flex-wrap:wrap;align-items:center;flex:1;}
+.coin{
+  width:18px;height:18px;border-radius:50%;
+  background:var(--gold);display:inline-block;
+  transition:transform .2s;
+}
+.coin:hover{transform:scale(1.2);}
+.coin.empty{background:rgba(196,154,60,.15);border:1px dashed rgba(196,154,60,.3);}
+.coin-note{font-size:11px;color:var(--warm-grey);margin-left:8px;}
+.paygap-caption{font-size:11px;color:var(--warm-grey);font-style:italic;margin-top:12px;line-height:1.55;}
+
+/* ── SCENARIO CARDS (pay gap compounding) ── */
+.scenario-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--rule);margin-bottom:36px;}
+.scenario-card{background:var(--cream);padding:20px 18px;}
+.scenario-label{font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--sage);margin-bottom:6px;}
+.scenario-num{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:var(--terra);line-height:1;margin-bottom:4px;}
+.scenario-desc{font-size:11.5px;color:var(--text-body);line-height:1.55;}
+
+/* ── EDITOR'S NOTE ── */
+.editors-note{
+  border:1px solid var(--rule);padding:36px;background:#fff;
+  display:grid;grid-template-columns:auto 1fr;gap:24px;
+  align-items:start;margin:52px 0;
+}
+.ed-avatar{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--mint);border:2px solid var(--sage-light);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;
+  color:var(--forest);flex-shrink:0;
+}
+.ed-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--sage);margin-bottom:8px;}
+.ed-text{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;line-height:1.78;color:var(--ink);}
+.ed-sig{font-size:10.5px;color:var(--warm-grey);margin-top:12px;letter-spacing:.05em;}
+
+/* ── ISSUE NAV ── */
+.issue-nav{
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--rule);padding:28px 0;margin:0 0 0;
+}
+.issue-nav-link{
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--sage);text-decoration:none;display:flex;align-items:center;gap:8px;
+}
+.issue-nav-link:hover{color:var(--forest);}
+.issue-divider{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--rule);}
+
+/* ── FOOTER ── */
+footer{background:var(--forest);padding:36px 48px;text-align:center;}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--mint);margin-bottom:8px;}
+.footer-rule{width:40px;height:1px;background:var(--sage-light);margin:14px auto;}
+.footer-tagline{font-size:10.5px;color:rgba(255,255,255,.3);letter-spacing:.14em;text-transform:uppercase;}
+.footer-note{font-size:10px;color:rgba(255,255,255,.18);line-height:1.7;margin-top:14px;}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .container{padding:0 20px;}
+  .masthead-inner,.issue-bar{padding-left:20px;padding-right:20px;}
+  .stat-bar{grid-template-columns:1fr;}
+  .stat-cell{border-right:none;border-bottom:1px solid var(--rule);padding:16px 0;}
+  .summary-row{grid-template-columns:1fr;}
+  .summary-card.wide{grid-column:span 1;}
+  .dive-grid{grid-template-columns:1fr;}
+  .dive-block.full{grid-column:span 1;}
+  .sports-block,.em-block{padding:28px 20px;}
+  .editors-note{grid-template-columns:1fr;}
+  .trend-header{gap:12px;}
+  .trend-number{font-size:44px;}
+  .deep-dive-inner{padding:24px 20px;}
+  .scenario-row{grid-template-columns:1fr;}
+  .paygap-visual{padding:20px;}
+  footer{padding:28px 20px;}
+  .issue-nav{flex-direction:column;gap:12px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- NAV -->
+<nav class="sticky-nav">
+  <div class="nav-brand">她说了算 Vol.2</div>
+  <div class="nav-links">
+    <a class="nav-link" href="#trend1">01 薪酬鸿沟</a>
+    <a class="nav-link" href="#trend2">02 女性体育经济</a>
+    <a class="nav-link" href="#trend3">03 绿色领导力</a>
+    <a class="nav-link" href="#trend4">04 新兴市场崛起</a>
+    <a class="nav-link" href="#trend5">05 价值观品牌</a>
+    <a class="nav-link" href="#trend6">06 Fortune 500困境</a>
+  </div>
+</nav>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-leaf">她</div>
+  <div class="masthead-inner">
+    <div class="masthead-vol">
+      <div class="vol-badge">Vol.2 · 第二期</div>
+      <div class="vol-text">2026 · Q2 · 春夏刊</div>
+    </div>
+    <h1>全球女性<br>商业趋势简报<br><em>She Decides</em></h1>
+    <p class="masthead-en">Global Women in Business · Intelligence Report · Issue 2</p>
+    <div class="masthead-theme">
+      <span class="theme-label">本期主题</span>
+      <span class="theme-text">从薪资谈判到体育经济——她们如何重新定价自己的价值</span>
+    </div>
+    <div class="masthead-meta">
+      <div class="meta-item"><strong>April 2026</strong></div>
+      <div class="meta-dot">·</div>
+      <div class="meta-item">6大趋势 · 点击展开深度解析</div>
+      <div class="meta-dot">·</div>
+      <div class="meta-item">基于 <strong>12+</strong> 最新全球报告</div>
+    </div>
+  </div>
+  <div class="issue-bar">◆ 第二期聚焦：薪酬鸿沟 · 体育经济黄金时代 · 绿色经济新引擎 · 新兴市场力量 · 价值观品牌 · Fortune 500困境</div>
+</header>
+
+<main>
+
+<!-- INTRO -->
+<section class="intro-block">
+  <div class="container">
+    <div class="section-eyebrow">编辑导语 · Opening</div>
+    <p class="intro-lead reveal">第一期我们问：女性在哪里？第二期我们问：她们值多少钱——以及，谁在决定这个答案？</p>
+    <p class="intro-body reveal">2026年，一个悖论正在全球范围内被清晰呈现：女性创造的经济价值在快速增长，但她们拿到的那份报酬，依然停留在男性的83%。女性体育市场以4.5倍速度跑赢男性赛事，但运动员收入却被远远甩在身后。女性正在主导绿色经济的创新前线，却在资本桌上依然被边缘化。<br><br>这一期，我们不只记录趋势——我们探究<strong>定价权</strong>的本质：在一个女性价值正在被重新发现的时代，谁在说了算？<strong>点击各板块，展开完整分析。</strong></p>
+
+    <div class="stat-bar reveal">
+      <div class="stat-cell">
+        <div class="stat-num">83<span class="stat-unit">¢</span></div>
+        <div class="stat-lbl"><strong>女性薪酬中位数</strong>每挣1美元，女性只收到83美分——且差距在申请前就已形成</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">$3<span class="stat-unit">B</span></div>
+        <div class="stat-lbl"><strong>女性体育2026年全球收入</strong>Deloitte预测，女性精英体育首次突破30亿美元大关</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">11<span class="stat-unit">%</span></div>
+        <div class="stat-lbl"><strong>Fortune 500女性CEO占比</strong>史上最高，但C-Suite女性整体占比仍仅29%，停滞不前</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TREND 1: PAY GAP
+══════════════════════════════════════════ -->
+<section class="trend-section reveal" id="trend1">
+  <div class="container">
+    <div class="trend-header" onclick="toggleTrend(this)">
+      <div class="trend-number">01</div>
+      <div class="trend-header-text">
+        <div class="trend-tag-label">Gender Pay Gap · 薪酬鸿沟</div>
+        <h2 class="trend-title">差距，在你投递简历之前就已经存在了</h2>
+        <p class="trend-subtitle">The Pay Gap Starts Before the Offer — Inside Women's Salary Expectations in 2026</p>
+      </div>
+      <button class="expand-btn"></button>
+    </div>
+
+    <!-- COIN VISUAL -->
+    <div class="paygap-visual reveal">
+      <div class="paygap-title">图解薪酬差距 · 每挣1美元，女性实际到手（美国，2026）</div>
+      <div class="coin-row">
+        <div class="coin-label">男性</div>
+        <div class="coins">
+          <div class="coin"></div><div class="coin"></div><div class="coin"></div><div class="coin"></div><div class="coin"></div>
+          <div class="coin"></div><div class="coin"></div><div class="coin"></div><div class="coin"></div><div class="coin"></div>
+          <span class="coin-note">= $1.00</span>
+        </div>
+      </div>
+      <div class="coin-row">
+        <div class="coin-label">女性（全体）</div>
+        <div class="coins">
+          <div class="coin"></div><div class="coin"></div><div class="coin"></div><div class="coin"></div><div class="coin"></div>
+          <div class="coin"></div><div class="coin"></div><div class="coin"></div>
+          <div class="coin empty"></div><div class="coin empty"></div>
+          <span class="coin-note">= $0.83</span>
+        </div>
+      </div>
+      <div class="coin-row">
+        <div class="coin-label">有色人种女性</div>
+        <div class="coins">
+          <div class="coin"></div><div class="coin"></div><div class="coin"></div><div class="coin"></div><div class="coin"></div>
+          <div class="coin"></div><div class="coin"></div>
+          <div class="coin empty"></div><div class="coin empty"></div><div class="coin empty"></div>
+          <span class="coin-note">≈ $0.67–0.72</span>
+        </div>
+      </div>
+      <p class="paygap-caption">数据来源：JobLeads Research, Women on Business 2026 · 圆圈为视觉示意，空心代表"消失的收入"</p>
+    </div>
+
+    <!-- COMPOUNDING SCENARIOS -->
+    <div class="scenario-row reveal">
+      <div class="scenario-card">
+        <div class="scenario-label">年薪差距</div>
+        <div class="scenario-num">$12,667</div>
+        <div class="scenario-desc">女性申请职位的薪资中位数比男性低约1.27万美元——差距在求职前就已锁定</div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-label">职业生涯累计损失</div>
+        <div class="scenario-num">$50万+</div>
+        <div class="scenario-desc">30年内，即使是8-10%的薪差，经复利计算可造成逾50万美元的财富鸿沟（不含投资损失）</div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-label">女性薪酬预期差</div>
+        <div class="scenario-num">-9.5%</div>
+        <div class="scenario-desc">女性在提交申请前，薪酬预期就比男性低9.5%——这是薪资谈判失败的根源</div>
+      </div>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 核心发现</div>
+        <h4>差距始于期望，而非谈判</h4>
+        <p>研究揭示女性在申请前已自我降价，这是系统性的，不是个人选择。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 行业分化</div>
+        <h4>法律与金融领域差距超20%</h4>
+        <p>即便在同一行业，男女薪酬差距在专业服务领域尤为突出。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 政策进展</div>
+        <h4>薪酬透明化立法正在推进</h4>
+        <p>英国2025年缩小了史上最大薪酬差距，巴西、冰岛相继立法。</p>
+      </div>
+    </div>
+
+    <div class="deep-dive">
+      <div class="deep-dive-inner">
+        <div class="dive-heading">深度解析 · Deep Dive — 薪酬鸿沟的真相：它在你投简历前就开始了</div>
+        <div class="dive-grid">
+          <div class="dive-block">
+            <h5>📊 最新数据：差距为何从期望开始？</h5>
+            <p>JobLeads 2026年基于近百万用户的研究揭示了一个令人不安的结构性发现：<br><br><strong>女性的薪资期望，平均比男性低9.5%——在任何面试或谈判发生之前。</strong><br><br>这意味着：雇主甚至不需要主动压价，系统就已经帮他们完成了这一步。当你的期望就是你薪资的天花板，谈判的起点就已经低了。<br><br>更深层的问题是：这种"自我降价"从哪里来？研究者认为，这是多年社会化的结果——女性被训练来"合理估计"而非"大胆要求"，这种内化的谦逊在职场上变成了真实的财务损失。</p>
+          </div>
+          <div class="dive-block">
+            <h5>⏱️ 30年：一个关于复利的残酷故事</h5>
+            <p>假设你和同事做着完全相同的工作。你每年少拿10%。<br><br>第一年：差距是1万美元，不大。<br>第十年：差距已经累计到10万美元，加上这笔钱本可带来的投资回报，财富差距开始几何式放大。<br><br>30年职业生涯结束时，仅这8-10%的薪资差，就可以造成<strong>逾50万美元的终身财富差距</strong>——而这还不包括退休金积累、股权、促销奖金等次生影响。<br><br>薪酬不平等不只是当下的不公平，它是一台跨越几十年持续运转的财富剥夺机器。</p>
+          </div>
+          <div class="dive-block">
+            <h5>⚖️ 立法改变了什么？全球政策地图</h5>
+            <p>好消息：多个国家正在以法律强制推动透明度：<br><br><strong>英国：</strong>薪酬透明化报告规则于2025年推动了史上最大单年薪酬差距收窄<br><strong>冰岛：</strong>通过HeForShe承诺引入"同工同酬认证"，要求企业接受薪酬审计<br><strong>巴西：</strong>2023年通过薪酬数据公开披露法，要求企业共享薪酬数据<br><strong>玻利维亚：</strong>BancoSol发行了该国首只性别债券<br><br>这些政策的共同逻辑是：<strong>透明度是平等的前提。</strong>看不见的差距，没有人会去修复它。</p>
+          </div>
+          <div class="dive-block">
+            <h5>💪 对每一位女性的实操建议</h5>
+            <p>数据是杠杆，但杠杆需要你来用：<br><br><strong>① 研究市场薪资范围，瞄准中位数以上：</strong>Glassdoor、LinkedIn Salary都能提供参考基准<br><strong>② 先报数字，设立锚点：</strong>研究表明先开口定价的人，最终薪资更高<br><strong>③ 主动争取弹性薪酬（股权、绩效奖金）：</strong>这些往往是真正拉开差距的地方<br><strong>④ 为自己建立"贡献档案"：</strong>用数字记录你创造的价值，谈判时让数据说话<br><strong>⑤ 了解同岗薪酬（在透明化立法国家这变得更容易）</strong></p>
+          </div>
+          <div class="dive-block full">
+            <div class="dive-callout">
+              <p>"性别薪酬差距不只是个人薪资问题——它是退休储蓄、投资能力和代际财富积累的系统性障碍。当我们允许它存在，我们是在对女性进行几十年维度的财富剥夺。"</p>
+              <span class="src">— UN Women, Unfinished Business Report · 2025 性别快照报告</span>
+            </div>
+          </div>
+        </div>
+
+        <table class="dive-table">
+          <tr><th>行业</th><th>平均薪酬差距</th><th>主要原因</th></tr>
+          <tr><td>专业服务 / 法律</td><td>>20%</td><td>晋升路径不均等，弹性安排惩罚</td></tr>
+          <tr><td>金融 / 投资</td><td>约18-22%</td><td>奖金文化以男性网络为中心</td></tr>
+          <tr><td>科技</td><td>约15-18%</td><td>技术薪资谈判文化不利于女性</td></tr>
+          <tr><td>教育 / 医疗</td><td>约10-14%</td><td>领导层性别倾斜，护理工作低估</td></tr>
+          <tr><td>创意 / 媒体</td><td>约12-16%</td><td>项目制薪资不透明，谈判力弱</td></tr>
+        </table>
+
+        <div class="dive-stat-row">
+          <div class="dive-stat-item"><div class="dive-stat-num">$4万亿</div><div class="dive-stat-lbl">消除性别薪酬差距可为<br>全球经济新增价值（至2030年）</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">82¢</div><div class="dive-stat-lbl">女性体育薪资差距更大<br>远低于此水平</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">68+</div><div class="dive-stat-lbl">经济体在2年内推进了<br>薪酬相关立法改革</div></div>
+        </div>
+        <div class="dive-tags">
+          <span class="dive-tag">薪酬透明化</span><span class="dive-tag">期望锚定效应</span>
+          <span class="dive-tag">复利财富差距</span><span class="dive-tag">谈判策略</span>
+          <span class="dive-tag">立法驱动</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TREND 2: WOMEN'S SPORTS ECONOMY
+══════════════════════════════════════════ -->
+<section class="trend-section reveal" id="trend2">
+  <div class="container">
+    <div class="trend-header" onclick="toggleTrend(this)">
+      <div class="trend-number">02</div>
+      <div class="trend-header-text">
+        <div class="trend-tag-label">Women's Sports Economy · 体育经济</div>
+        <h2 class="trend-title">女性体育的黄金时代：观众来了，资本来了，薪酬呢？</h2>
+        <p class="trend-subtitle">Women's Elite Sports Hit $3 Billion in 2026 — But Athletes Are Still Left Behind</p>
+      </div>
+      <button class="expand-btn"></button>
+    </div>
+
+    <div class="sports-block reveal">
+      <div class="sports-label">Sports Economy Focus · 体育经济焦点</div>
+      <h3>一个市场以4.5倍速度增长，<br>而它的主角们却在打第二份工</h3>
+      <p>Deloitte 2026年4月发布的《游戏变革者》报告预测，女性精英体育全球收入将首次突破30亿美元。观众记录接连被打破，WNBA签下历史最大转播协议。然而，在这片欣欣向荣背后，58%的女性职业运动员年收入不足2.5万美元，许多人要靠第二甚至第三份工作维系对梦想的追逐。</p>
+      <div class="sports-stats">
+        <div class="sports-stat"><div class="sports-stat-num">$3B</div><div class="sports-stat-lbl">女性精英体育2026年全球收入<br>（Deloitte预测）</div></div>
+        <div class="sports-stat"><div class="sports-stat-num">4.5×</div><div class="sports-stat-lbl">女性体育增速超越<br>男性赛事的倍数（2022-2024）</div></div>
+        <div class="sports-stat"><div class="sports-stat-num">58%</div><div class="sports-stat-lbl">女性职业运动员<br>年收入不足$25,000</div></div>
+        <div class="sports-stat"><div class="sports-stat-num">86%</div><div class="sports-stat-lbl">品牌表示女性体育赞助<br>达到或超出ROI预期</div></div>
+      </div>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 市场爆发</div>
+        <h4>足球+篮球占70%市场</h4>
+        <p>女子足球与WNBA合计占2026年女性体育总收入的70%，各占35%。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 资本入场</div>
+        <h4>私募股权正在买进</h4>
+        <p>Sixth Street、Carlyle、Monarch Collective等PE机构相继入局女性球队所有权。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 薪资悖论</div>
+        <h4>Caitlin Clark赚的是No.100的零头</h4>
+        <p>WNBA顶薪 vs NHL新秀底薪：$100,000 对 $775,000，同为顶级职业体育。</p>
+      </div>
+    </div>
+
+    <div class="deep-dive">
+      <div class="deep-dive-inner">
+        <div class="dive-heading">深度解析 · Deep Dive — 女性体育：商业黄金时代的结构性矛盾</div>
+        <div class="dive-grid">
+          <div class="dive-block">
+            <h5>📈 市场在爆发——但钱去哪了？</h5>
+            <p>Deloitte《游戏变革者》报告（2026年4月）是迄今最全面的女性体育商业评估报告，覆盖赛日收入、转播权和商业赞助三大板块。<br><br>数据令人振奋：女性体育收入在短短两年内增长了4.5倍。但关键问题是：这些增长的收益，并未等比例流向运动员。<br><br>目前，女性体育的商业收益主要被联赛机构、球队所有者和转播商分享。运动员薪酬结构的改革，远落后于市场的扩张速度。这是一个经典的"价值创造者被低估"的结构性问题。</p>
+          </div>
+          <div class="dive-block">
+            <h5>💰 WNBA转播大单：改变游戏规则的时刻</h5>
+            <p>2026年，WNBA启动了一项11年期的转播协议，在USA Network和多个流媒体平台获得黄金时段播出——这是女性体育史上规模最大的媒体权利协议之一。<br><br>这笔协议的意义超越金额本身：<strong>它代表着女性体育终于被纳入主流媒体的核心内容战略，而不再是边缘安排。</strong><br><br>尼尔森数据显示，WNBA、女子足球、网球和大学女子篮球的观众创历史新高——观众已经在这里，平台在跟进，接下来要解决的是运动员分配机制的公平问题。</p>
+          </div>
+          <div class="dive-block">
+            <h5>🏗️ PE入场：双刃剑还是结构升级？</h5>
+            <p>私募股权正在以前所未有的速度涌入女性体育：<br><br>· Sixth Street持有Bay FC多数股权<br>· Carlyle Group持有Seattle Reign FC多数股权<br>· Monarch Collective（女性创立的PE）投资了Angel City FC、San Diego Wave FC<br>· Chelsea FC Women估值达2亿英镑，Alexis Ohanian（Reddit联创）持有少数股权<br><br>投资者在这个"初期阶段"的机会中嗅到了超额回报。但女性体育投资者峰会上的讨论也点出了风险：PE的高估值导向可能与女性体育需要耐心培育的发展规律相冲突。</p>
+          </div>
+          <div class="dive-block">
+            <h5>🎾 平等已实现的角落，和还在等待的地方</h5>
+            <p>部分赛事已经实现了同工同酬：<br><br><strong>已实现：</strong>网球四大满贯 · 世界冲浪联盟全系列赛事 · 排球/沙排FIVB系列赛 · Billie Jean King Cup与Davis Cup奖金拉平<br><br><strong>仍有差距：</strong>WNBA vs NBA · PWHL vs NHL · 女子足球 vs 男子足球<br><br>网球的路径提供了最清晰的参照：Billie Jean King用了十年坚持，将平等奖金推进到全部四大满贯。改变是可以发生的——但它需要组织的意志、运动员的集体行动，以及持续的公众关注。</p>
+          </div>
+          <div class="dive-block full">
+            <div class="dive-callout">
+              <p>"女性体育迎来了它的'到来时刻'——观众涌现，投资者关注，女性运动员肩负着运动员与倡导者的双重角色。但这场可持续的繁荣，需要数据、耐心和持续的结构性投入来支撑。"</p>
+              <span class="src">— Deloitte, Game Changers: Unlocking the Potential of Women's Sports, April 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <table class="dive-table">
+          <tr><th>项目</th><th>女性薪酬水平</th><th>对比男性</th></tr>
+          <tr><td>WNBA顶薪球员</td><td>约$10万/年</td><td>NBA新秀底薪$180万/年</td></tr>
+          <tr><td>PWHL最高薪</td><td>约$10万/年</td><td>NHL新秀底薪$77.5万/年</td></tr>
+          <tr><td>Caitlin Clark（2024年选秀第一）</td><td>$76,535（基础年薪）</td><td>男篮选秀第一：$1200万</td></tr>
+          <tr><td>网球（四大满贯）</td><td>等额奖金</td><td>✓ 已实现平等</td></tr>
+          <tr><td>女子世界杯（足球）</td><td>FIFA正在缩小差距</td><td>仍有显著差距</td></tr>
+        </table>
+
+        <div class="dive-stat-row">
+          <div class="dive-stat-item"><div class="dive-stat-num">2.8×</div><div class="dive-stat-lbl">女性体育粉丝购买女运动员<br>代言产品的可能性高出倍数</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">54%</div><div class="dive-stat-lbl">北美占女性体育全球收入<br>（欧洲14%，增长最快）</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">$200M</div><div class="dive-stat-lbl">Chelsea FC Women估值<br>（独立团队，2026）</div></div>
+        </div>
+        <div class="dive-tags">
+          <span class="dive-tag">WNBA转播革命</span><span class="dive-tag">PE入局</span>
+          <span class="dive-tag">薪酬不对等</span><span class="dive-tag">女性球队估值</span>
+          <span class="dive-tag">网球平等模板</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TREND 3: GREEN ECONOMY
+══════════════════════════════════════════ -->
+<section class="trend-section reveal" id="trend3">
+  <div class="container">
+    <div class="trend-header" onclick="toggleTrend(this)">
+      <div class="trend-number">03</div>
+      <div class="trend-header-text">
+        <div class="trend-tag-label">Green Economy · 绿色领导力</div>
+        <h2 class="trend-title">绿色经济最前线，女性既是建设者，也是最脆弱的承受者</h2>
+        <p class="trend-subtitle">Women Are at the Heart of the Green Economy — But Still Left Out of Its Capital Flows</p>
+      </div>
+      <button class="expand-btn"></button>
+    </div>
+
+    <div class="bar-section reveal" id="bars3">
+      <div class="bar-title">ICSB 2026 · 女性创业五大高速增长赛道</div>
+      <div class="animated-bars">
+        <div class="bar-row"><div class="bar-lbl">健康科技</div><div class="bar-track"><div class="bar-fill" data-width="88"></div></div><div class="bar-pct">↑ 极快</div></div>
+        <div class="bar-row"><div class="bar-lbl">绿色科技</div><div class="bar-track"><div class="bar-fill" data-width="76"></div></div><div class="bar-pct">↑ 快速</div></div>
+        <div class="bar-row"><div class="bar-lbl">教育内容</div><div class="bar-track"><div class="bar-fill gold" data-width="70"></div></div><div class="bar-pct">↑ 快速</div></div>
+        <div class="bar-row"><div class="bar-lbl">社会影响力</div><div class="bar-track"><div class="bar-fill gold" data-width="65"></div></div><div class="bar-pct">↑ 稳健</div></div>
+        <div class="bar-row"><div class="bar-lbl">循环经济</div><div class="bar-track"><div class="bar-fill terra" data-width="58"></div></div><div class="bar-pct">↑ 新兴</div></div>
+      </div>
+      <p class="bar-caption">数据综合整理自：ICSB 2026女性创业趋势报告 · GHWCC 2026 · 绿色赛道在女性创业者中的增长指数仅供趋势参考</p>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 可持续创业</div>
+        <h4>使命优先的企业更能活</h4>
+        <p>女性主导的社会企业中，女性占全球社会企业创始人的50%，展现出极强的韧性。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 非洲绿色浪潮</div>
+        <h4>尼日利亚女性领导30%绿色创业</h4>
+        <p>非洲绿色经济中，女性创始人在可再生能源和循环经济领域正扮演重要角色。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 资本困境</div>
+        <h4>绿色投资仍以男性为主导</h4>
+        <p>尽管女性创造了大量绿色创新，主流绿色投资的资本配置依然存在性别偏见。</p>
+      </div>
+    </div>
+
+    <div class="deep-dive">
+      <div class="deep-dive-inner">
+        <div class="dive-heading">深度解析 · Deep Dive — 女性与绿色经济：双重角色，双重挑战</div>
+        <div class="dive-grid">
+          <div class="dive-block">
+            <h5>🌱 为什么女性天然适合绿色创业？</h5>
+            <p>ICSB 2026报告将"可持续商业"列为女性创业核心趋势之一，指出女性企业主更倾向于将可持续实践嵌入核心运营，而非作为公关包装。<br><br>这背后有深层逻辑：<strong>女性承担着与自然资源管理最直接相关的劳动</strong>——农业、水资源、林业和食物系统。在气候变化最前线，女性是最早感受到影响、最懂得如何应对的人。<br><br>将这种"在地知识"转化为商业解决方案，是女性绿色创业的天然优势，也是许多创新案例的起源。</p>
+          </div>
+          <div class="dive-block">
+            <h5>🌍 非洲：女性绿色创业的全球最佳实验室</h5>
+            <p>在撒哈拉以南非洲，女性主导着50%的社会企业。在绿色经济具体案例中：<br><br>· <strong>Solar Sister（坦桑尼亚、乌干达、尼日利亚）：</strong>招募女性企业家销售清洁能源产品，将能源普及与女性创业融为一体<br>· <strong>Pine Kazi（肯尼亚）：</strong>用菠萝叶废料制造环保鞋，创建循环农业价值链<br>· <strong>尼日利亚：</strong>女性主导该国30%的绿色创业企业，其中一家将电子废料转化为手机，雇用了150名女性<br><br>非洲绿色经济2026年GDP增速达3.8%，到2030年预计创造330万个绿色就业岗位。</p>
+          </div>
+          <div class="dive-block">
+            <h5>💡 FemTech：绿色健康经济的交叉地带</h5>
+            <p>2026年2月，The Business Narrative播客曝光了一个"FemTech巨大融资缺口"——这个针对女性健康需求的科技赛道，在可持续健康解决方案领域正快速成长，但融资额与市场潜力严重不匹配。<br><br>FemTech与绿色经济的交叉地带正在形成一个新的机会区间：<strong>绿色健康产品（月经杯、环保卫生巾、可持续孕产品）、精准农业女性健康、清洁能源与生育健康</strong>等领域，都是待开发的蓝海。</p>
+          </div>
+          <div class="dive-block">
+            <h5>🏦 绿色债券、性别债券——新的融资工具正在出现</h5>
+            <p>资本市场正在为女性绿色创业开发新工具：<br><br>· <strong>玻利维亚BancoSol</strong>发行了该国首只性别债券，为女性企业家提供低成本资金<br>· <strong>拉丁美洲企业</strong>开始与政府共同为育儿服务提供资金，将关怀经济纳入企业ESG框架<br>· <strong>UN Women亚太护理经济加速器</strong>帮助12家护理企业完成规模化融资<br><br>这些创新表明：将性别透镜嵌入绿色金融工具，是打通女性绿色创业"最后一公里"的关键路径。</p>
+          </div>
+          <div class="dive-block full">
+            <div class="dive-callout">
+              <p>"女性在应对气候变化的最前线——作为自然资源的管理者、食物系统的核心，以及绿色转型中最受影响的群体。然而，她们在绿色资本配置中的代表性，仍然严重落后于她们的贡献。"</p>
+              <span class="src">— UN Women Africa, Gender, Climate Change and the Green Economy, 2025</span>
+            </div>
+          </div>
+        </div>
+        <div class="dive-stat-row">
+          <div class="dive-stat-item"><div class="dive-stat-num">50%</div><div class="dive-stat-lbl">全球社会企业<br>由女性创立</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">3.3M</div><div class="dive-stat-lbl">非洲2030年绿色<br>就业岗位预测</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">$8.7B</div><div class="dive-stat-lbl">非洲绿色经济峰会<br>已展示投资项目总值</div></div>
+        </div>
+        <div class="dive-tags">
+          <span class="dive-tag">绿色创业</span><span class="dive-tag">FemTech</span>
+          <span class="dive-tag">社会影响力</span><span class="dive-tag">非洲新兴市场</span>
+          <span class="dive-tag">性别债券</span><span class="dive-tag">循环经济</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TREND 4: EMERGING MARKETS
+══════════════════════════════════════════ -->
+<section class="trend-section reveal" id="trend4">
+  <div class="container">
+    <div class="trend-header" onclick="toggleTrend(this)">
+      <div class="trend-number">04</div>
+      <div class="trend-header-text">
+        <div class="trend-tag-label">Emerging Markets · 新兴市场崛起</div>
+        <h2 class="trend-title">新兴市场的女性创业浪潮：全球最强的增长引擎之一</h2>
+        <p class="trend-subtitle">Africa, South Asia, Latin America — Where Women's Entrepreneurship Is Growing Fastest</p>
+      </div>
+      <button class="expand-btn"></button>
+    </div>
+
+    <div class="em-block reveal">
+      <div class="em-label">Emerging Markets Focus · 新兴市场焦点</div>
+      <h3>下一个女性创业的爆发点，<br>不在硅谷，在内罗毕、拉各斯和利雅得</h3>
+      <p>ICSB 2026报告明确指出，非洲、南亚和拉丁美洲正在成为全球女性创业增长最快的区域，"当地智慧推动全球机遇"是这一浪潮的核心特征。沙特阿拉伯的政策改革让女性创业加速度达到全球最快；南亚微金融模式正在被重新发掘；非洲女性社会企业家正在以最少资本创造最大社会价值。</p>
+      <div class="em-stats">
+        <div class="em-stat"><div class="em-stat-num">22%</div><div class="em-stat-lbl">亚太地区女性新创企业增长<br>2024年（GEM报告）</div></div>
+        <div class="em-stat"><div class="em-stat-num">30%</div><div class="em-stat-lbl">欧洲企业由女性拥有<br>医疗与教育领域尤为突出</div></div>
+        <div class="em-stat"><div class="em-stat-num">39%</div><div class="em-stat-lbl">全球雇佣员工中<br>由女性主导的企业占比</div></div>
+      </div>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 沙特变革</div>
+        <h4>中东最快速的创业改革</h4>
+        <p>沙特女性创业者享有全球最敏捷的监管环境之一，创业生态系统正在快速成型。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 非洲动能</div>
+        <h4>3.8% GDP增速，绿色创业密集</h4>
+        <p>非洲大陆2026年经济增速3.8%，女性在农业科技和清洁能源创业中扮演核心角色。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 韧性模型</div>
+        <h4>低收入地区女性创业动机更强烈</h4>
+        <p>GEM研究显示，低收入地区女性将创业视为战略性选择，而非机会主义——五年增长预期强烈。</p>
+      </div>
+    </div>
+
+    <div class="deep-dive">
+      <div class="deep-dive-inner">
+        <div class="dive-heading">深度解析 · Deep Dive — 新兴市场女性创业：三大地理引擎的深度解读</div>
+        <div class="dive-grid">
+          <div class="dive-block">
+            <h5>🌙 中东：最意外的女性创业加速区</h5>
+            <p>沙特阿拉伯正在成为2026年全球女性创业最值得关注的新市场之一。数年的结构性改革（Vision 2030框架下）为女性提供了独立开设银行账户、注册公司、担任公司董事的法律基础——这些在五年前还不存在。<br><br>GEM 2026报告显示，沙特及中东地区的女性新创企业增速位居全球前列，且创业方向非常成熟：经过多年准备后的精准入局，体现出高度的战略意识。<br><br>Lovable的SheBuilds活动也把资源（API积分、工具支持）带入了这个生态——技术创业的基础设施正在全球同步建立。</p>
+          </div>
+          <div class="dive-block">
+            <h5>🌏 南亚：微金融×数字平台，释放隐藏动能</h5>
+            <p>亚太地区女性新创企业2024年增长22%（GEM），其中南亚是增长最快的子区域。<br><br>关键驱动力的叠加：<br>· <strong>微金融2.0：</strong>传统小额贷款与数字金融科技的结合，为无银行账户女性提供创业启动资金<br>· <strong>电商平台下沉：</strong>农村女性通过移动端直接接入全国消费市场<br>· <strong>政府女性创业项目：</strong>印度、孟加拉国、斯里兰卡都在2025-2026年加大了对女性创业的系统性支持<br><br>UN Women亚太护理经济加速器帮助12家护理企业完成了规模化和融资，证明了护理经济是可以盈利的女性创业赛道。</p>
+          </div>
+          <div class="dive-block">
+            <h5>🌎 拉丁美洲：协作经济和社区驱动创业</h5>
+            <p>拉美女性创业的特点是高度的社区嵌入性——企业与家庭、社区的边界更模糊，但这反而带来了强韧性。<br><br>值得关注的结构创新：<br>· <strong>政府-企业共同支持育儿服务：</strong>巴西、哥伦比亚等国将育儿成本纳入企业ESG框架，降低了女性创业的机会成本<br>· <strong>女性小农经济升级：</strong>国际妇女农民年（2026年）带来了全球对女性农业创业的关注，这个群体正在从"食物生产者"转型为"食物科技创业者"<br>· <strong>数字出海：</strong>拉美女性时尚和食品品牌借助社交电商开始探索北美市场</p>
+          </div>
+          <div class="dive-block">
+            <h5>🔮 看不见的超级力量：Family Business的女性传承</h5>
+            <p>ICSB报告还专门提到了一个常被忽视的趋势：家族企业的女性传承者正在成为新兴市场中一股重要的创业力量。<br><br>这些女性将：<br>· 接管代代相传的家族生意，同时引入现代管理和数字化<br>· 在维护文化根基的同时，建立全球可触达的品牌<br>· 成为家族财富的创造者和守护者，同时也是社区的纽带<br><br>她们的故事少被书写，但她们创造的经济价值是真实的。她们代表着"隐性的女性商业力量"在新兴市场的具体形态。</p>
+          </div>
+          <div class="dive-block full">
+            <div class="dive-callout">
+              <p>"非洲、南亚和拉丁美洲女性创业的快速增长，正在向全球展示：创新不是富国的专利。当地洞察和本土智慧，是这些地区女性创始人最独特的竞争优势，也是最难被复制的护城河。"</p>
+              <span class="src">— ICSB 2026女性创业十大趋势报告 · Trend #4: Global Expansion & Emerging Markets</span>
+            </div>
+          </div>
+        </div>
+        <table class="dive-table">
+          <tr><th>地区</th><th>核心增长赛道</th><th>2026年标志性信号</th></tr>
+          <tr><td>中东（沙特为核心）</td><td>科技创业、零售、金融</td><td>Vision 2030推动女性商业法律全面落地</td></tr>
+          <tr><td>南亚（印度、孟加拉）</td><td>微型企业、电商、护理经济</td><td>亚太女性新创增长22%，UN Women加速器启动</td></tr>
+          <tr><td>撒哈拉以南非洲</td><td>绿色科技、农业、循环经济</td><td>非洲绿色经济峰会展示87亿美元投资管道</td></tr>
+          <tr><td>拉丁美洲</td><td>食品科技、社会影响、时尚</td><td>2026国际女性农民年聚焦女性农业创业</td></tr>
+          <tr><td>东南亚</td><td>电商、直播、美妆科技</td><td>跨境电商女性创始人加速布局</td></tr>
+        </table>
+        <div class="dive-stat-row">
+          <div class="dive-stat-item"><div class="dive-stat-num">22%</div><div class="dive-stat-lbl">亚太女性新创企业增速<br>2024年GEM数据</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">39%</div><div class="dive-stat-lbl">全球就业由女性主导<br>企业提供</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">2026</div><div class="dive-stat-lbl">国际女性农民年<br>聚焦农业女性创业</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TREND 5: VALUES-DRIVEN BRANDING
+══════════════════════════════════════════ -->
+<section class="trend-section reveal" id="trend5">
+  <div class="container">
+    <div class="trend-header" onclick="toggleTrend(this)">
+      <div class="trend-number">05</div>
+      <div class="trend-header-text">
+        <div class="trend-tag-label">Values-Driven Brand · 价值观品牌</div>
+        <h2 class="trend-title">价值观，是2026年最硬核的商业差异化工具</h2>
+        <p class="trend-subtitle">Purpose Is No Longer a "Nice-to-Have" — It's the Core Competitive Differentiator</p>
+      </div>
+      <button class="expand-btn"></button>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 消费者转向</div>
+        <h4>Z世代用钱包投票</h4>
+        <p>年轻消费者主动搜索价值观对齐的品牌，并愿意为此支付溢价。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 女性优势</div>
+        <h4>解决自己的问题，天然可信</h4>
+        <p>女性创始人"我就是你的用户"的创业逻辑，是AI生产内容无法复制的信任壁垒。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ AI时代悖论</div>
+        <h4>真实感，成了最稀缺的品牌资产</h4>
+        <p>内容泛滥时代，创始人的真实声音和生活经历是品牌溢价的核心来源。</p>
+      </div>
+    </div>
+
+    <div class="deep-dive">
+      <div class="deep-dive-inner">
+        <div class="dive-heading">深度解析 · Deep Dive — 价值观品牌：从营销策略到生存必需</div>
+        <div class="dive-grid">
+          <div class="dive-block">
+            <h5>🎯 为什么"目的"变成了商业武器？</h5>
+            <p>Entrepreneur 2026年3月的调查（作者本身是女性创始人教练兼企业主）指出，2026年商业的核心转变是：<strong>客户越来越擅长分辨"表演的价值观"和"真实的价值观"。</strong><br><br>在一个信息极度丰富、信任极度稀缺的市场里，品牌的价值观立场不能只存在于官网的About页面——它需要体现在雇佣谁、拒绝哪些客户、如何定价、危机时如何回应。<br><br>对女性创始人而言，这是一个天然的结构性优势：大多数女性创业的起点，就是她们真实体验过的问题——这种"亲历即使命"的创业逻辑，在价值观经济时代具有不可替代的说服力。</p>
+          </div>
+          <div class="dive-block">
+            <h5>🤖 AI时代，真实性变成了稀缺品</h5>
+            <p>当AI可以在30秒内生成任何风格的营销文案、任何调性的品牌故事，有一件事它无法模仿：<strong>创始人的真实体验和真实声音。</strong><br><br>这个逻辑对内容创业者和品牌主都成立：<br><br>· 你经历过的挣扎，比你"研究"出来的洞察更可信<br>· 你拒绝过的事情，比你宣称的价值观更有说服力<br>· 你对利润的态度（是否以人为代价），比你的ESG报告更直观<br><br>Rare Beauty的Selena Gomez讲的是自我接纳；Skims的Kim Kardashian讲的是身体包容——这些都是她们真实活过的故事。这就是为什么它们值数十亿美元。</p>
+          </div>
+          <div class="dive-block">
+            <h5>👥 从"目标用户"到"社群成员"</h5>
+            <p>价值观品牌的终极形态，是把用户从"消费者"转化为"社群成员"。<br><br>ICSB 2026报告指出，女性创始人最擅长的，是建立以信任为基础的社群生态——而这种社群，在2026年的商业竞争中，比任何付费流量都更具持续价值。<br><br>运营建议：<br>· <strong>用价值观框住你的品牌边界</strong>（你为谁，不为谁）<br>· <strong>让员工也成为品牌故事的一部分</strong>（对内，价值观必须落地）<br>· <strong>诚实地面对你的不足</strong>（完美的品牌形象在Z世代那里不可信）</p>
+          </div>
+          <div class="dive-block">
+            <h5>📣 价值观驱动的内容，才是长效流量池</h5>
+            <p>调查显示，女性创始人正在快速掌握一种新的内容逻辑：<strong>教育即营销。</strong><br><br>不是吆喝你的产品有多好，而是真正帮助你的用户解决问题——这种信任建立方式，在短视频和AI内容泛滥的时代，反而成了最难被超越的护城河。<br><br>具体而言：<br>· 分享你如何失败过（比成功故事更有共鸣）<br>· 解释你是怎么做决策的（过程比结论更建立信任）<br>· 主动回应负面声音（真实处理比沉默更有价值）</p>
+          </div>
+          <div class="dive-block full">
+            <div class="dive-callout">
+              <p>"2026年，在我指导的所有女性创始人和CEO中，取得突破的，不是那些反应最快的人，而是最早做出有意识的、植根于价值观的决策的人——她们愿意在需要时适应，但始终保持清晰的目的感。"</p>
+              <span class="src">— Entrepreneur.com, The Shifts Women Entrepreneurs Can't Ignore in 2026, March 2026</span>
+            </div>
+          </div>
+        </div>
+        <table class="dive-table">
+          <tr><th>品牌类型</th><th>价值观表现方式</th><th>商业效果</th></tr>
+          <tr><td>创始人型品牌</td><td>创始人亲历故事作为核心叙事</td><td>最高信任度，最难被复制</td></tr>
+          <tr><td>使命型社会企业</td><td>利润与社会价值双账本</td><td>忠诚度极高，吸引价值观资本</td></tr>
+          <tr><td>透明型品牌</td><td>公开供应链、薪酬结构、决策过程</td><td>Z世代强烈偏好，口碑传播力强</td></tr>
+          <tr><td>社群型品牌</td><td>用户即共创者，社群即护城河</td><td>最低获客成本，最高留存率</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TREND 6: FORTUNE 500 LEADERSHIP PIPELINE
+══════════════════════════════════════════ -->
+<section class="trend-section reveal" id="trend6">
+  <div class="container">
+    <div class="trend-header" onclick="toggleTrend(this)">
+      <div class="trend-number">06</div>
+      <div class="trend-header-text">
+        <div class="trend-tag-label">Corporate Leadership · Fortune 500困境</div>
+        <h2 class="trend-title">11%的CEO是女性，这是历史最高——也暴露了最深的结构问题</h2>
+        <p class="trend-subtitle">Record High, Record Frustration — The Corporate Leadership Pipeline Crisis in 2026</p>
+      </div>
+      <button class="expand-btn"></button>
+    </div>
+
+    <div class="bar-section reveal" id="bars6">
+      <div class="bar-title">企业领导力管道 · 女性在各层级的占比（麦肯锡，2026）</div>
+      <div class="animated-bars">
+        <div class="bar-row"><div class="bar-lbl">入门员工</div><div class="bar-track"><div class="bar-fill" data-width="48"></div></div><div class="bar-pct">~48%</div></div>
+        <div class="bar-row"><div class="bar-lbl">经理层</div><div class="bar-track"><div class="bar-fill" data-width="40"></div></div><div class="bar-pct">~40%</div></div>
+        <div class="bar-row"><div class="bar-lbl">总监层</div><div class="bar-track"><div class="bar-fill gold" data-width="35"></div></div><div class="bar-pct">~35%</div></div>
+        <div class="bar-row"><div class="bar-lbl">VP层</div><div class="bar-track"><div class="bar-fill gold" data-width="30"></div></div><div class="bar-pct">~30%</div></div>
+        <div class="bar-row"><div class="bar-lbl">C-Suite</div><div class="bar-track"><div class="bar-fill terra" data-width="29"></div></div><div class="bar-pct">29%</div></div>
+        <div class="bar-row"><div class="bar-lbl">Fortune 500 CEO</div><div class="bar-track"><div class="bar-fill terra" data-width="11"></div></div><div class="bar-pct">11%</div></div>
+      </div>
+      <p class="bar-caption">数据来源：McKinsey Women in the Workplace Report · CNBC Changemakers 2026 · 漏斗效应清晰可见：进入越多，留下越少</p>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 历史里程碑</div>
+        <h4>11% Fortune 500 CEO：史上最高</h4>
+        <p>首次突破10%大关，但第11年连续证明女性在每个管理层级都处于不足代表状态。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 停滞信号</div>
+        <h4>C-Suite 29%，连续两年未变</h4>
+        <p>麦肯锡数据显示，C层女性占比与上一年持平——进步停滞是最值得警惕的信号。</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-tag">◆ 漏斗问题</div>
+        <h4>从入门到CEO，女性在每级流失</h4>
+        <p>管道漏斗在经理层就开始出现，而非高层——改变必须从中层管理机制开始。</p>
+      </div>
+    </div>
+
+    <div class="deep-dive">
+      <div class="deep-dive-inner">
+        <div class="dive-heading">深度解析 · Deep Dive — 领导力管道危机：为什么入门时有她们，高层却没有</div>
+        <div class="dive-grid">
+          <div class="dive-block">
+            <h5>🔬 漏斗从哪里开始漏？</h5>
+            <p>麦肯锡的数据揭示了一个不被充分讨论的事实：<strong>管道断裂并不发生在高层，它从经理层就开始了。</strong><br><br>从员工到经理的晋升，是女性面对第一个明显不均等的关口。这个被称为"第一级台阶"的阶段，是整个管道漏失的源头。<br><br>背后的机制：<br>· 经理晋升往往依赖可见度和关系，而女性在这两者上的系统性劣势在此被放大<br>· 育儿和家庭责任在职业关键加速期（25-35岁）集中爆发<br>· "双重标准"：同样的直接表现方式，男性被视为"有领导力"，女性被视为"咄咄逼人"</p>
+          </div>
+          <div class="dive-block">
+            <h5>🏆 CNBC Changemakers 2026：改写规则的女性</h5>
+            <p>CNBC 2026年度改变者名单展示了一批正在打破天花板的女性，她们的路径提供了珍贵的参照：<br><br>· <strong>Tekedra Mawakana（Waymo联合CEO）：</strong>将自动驾驶扩展到新城市，完成多项交通合作——顶级科技公司最高层的女性身影<br>· <strong>Susie Wolff（F1学院创始人）：</strong>为女性方程式赛车建立完整的职业通道，从无到有<br>· <strong>Sophie Goldschmidt（美国滑雪及单板滑雪主席兼CEO）：</strong>领导美国奥运体育组织——女性在体育管理最高层的代表<br><br>这些案例的共同特征：<strong>她们不只是"进入"了领域，而是"重建"了领域的入口规则。</strong></p>
+          </div>
+          <div class="dive-block">
+            <h5>💡 什么样的组织正在打破这个漏斗？</h5>
+            <p>研究显示，真正在领导力多样性上取得进展的组织，有几个共同的干预点：<br><br>· <strong>针对经理层的赞助计划（而非仅导师计划）：</strong>导师给建议，赞助人给机会——后者更有效<br>· <strong>育儿政策对父亲和母亲同等适用：</strong>当男性也被鼓励使用育儿假，女性使用时不再被视为"不够投入"<br>· <strong>晋升标准透明化：</strong>消除"文化契合度"这种模糊标准对女性的隐性惩罚<br>· <strong>对包容性行为的绩效问责：</strong>领导者的多样性结果与其绩效评估挂钩</p>
+          </div>
+          <div class="dive-block">
+            <h5>🔮 2026-2030展望：何时能到20%？</h5>
+            <p>按照目前的进展速度（约每年增加0.5-1个百分点），Fortune 500女性CEO比例要到达20%，可能需要10-20年。<br><br>但有几个变量可能改变这条曲线：<br>· <strong>AI重构管理工作：</strong>如果AI替代了大量中层管理的"协调"职能，可能会改变晋升路径，为女性创造新的入口<br>· <strong>创业路径的吸引力增加：</strong>越来越多高能力女性选择创业而非攀爬公司梯子——这既是损失，也是重构<br>· <strong>董事会压力传导：</strong>随着董事会女性比例提升，对CEO多样性的要求会逐步增强</p>
+          </div>
+          <div class="dive-block full">
+            <div class="dive-callout">
+              <p>"我们在2026年的Changemakers名单中持续看到女性领导者——但女性仍仅占Fortune 500 CEO的11%，这是历史最高，也是11年连续不足代表状态的记录。问题不是能力，而是机会结构。"</p>
+              <span class="src">— CNBC Changemakers 2026 · McKinsey Women in the Workplace, 2026</span>
+            </div>
+          </div>
+        </div>
+        <div class="dive-stat-row">
+          <div class="dive-stat-item"><div class="dive-stat-num">11</div><div class="dive-stat-lbl">连续第X年，女性在每个<br>管理层级都代表不足</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">29%</div><div class="dive-stat-lbl">C-Suite女性占比<br>连续两年停滞</div></div>
+          <div class="dive-stat-item"><div class="dive-stat-num">11%</div><div class="dive-stat-lbl">Fortune 500女性CEO<br>2026年史上最高</div></div>
+        </div>
+        <div class="dive-tags">
+          <span class="dive-tag">管道漏斗</span><span class="dive-tag">第一级台阶</span>
+          <span class="dive-tag">赞助人机制</span><span class="dive-tag">晋升透明化</span>
+          <span class="dive-tag">CNBC Changemakers</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PULLQUOTE -->
+<div class="pullquote reveal">
+  <div class="container" style="display:flex;gap:20px;align-items:flex-start;">
+    <div class="pq-mark">"</div>
+    <div>
+      <p class="pq-text">定价权，是这个时代最深层的性别议题。当女性被训练为"合理期望"而非"大胆要求"，当女运动员的市场价值远超薪酬，当女性创造的绿色价值无法转化为资本话语权——改变，必须从重新定义自己值多少钱开始。</p>
+      <p class="pq-src">— 她说了算编辑部 · 2026年第二期 · 定价权专题</p>
+    </div>
+  </div>
+</div>
+
+<!-- EDITOR'S NOTE -->
+<section>
+  <div class="container">
+    <div class="editors-note reveal">
+      <div class="ed-avatar">她</div>
+      <div>
+        <div class="ed-label">编辑手记 · Editor's Note</div>
+        <p class="ed-text">做第二期，我们有意选择了一个更锐利的切入角：定价权。不是因为要愤怒，而是因为我们相信——看清楚数字，才是改变的第一步。<br><br>83美分、2%风险投资、11%的CEO比例、58%的运动员靠第二份工作维生——这些数字不是控诉，而是地图。它们告诉我们，还有哪些山可以移，哪些门还没有被推开。<br><br>我们做这份简报，是为了让每一位读到它的女性，能在更清晰的世界里做更大胆的决定。</p>
+        <p class="ed-sig">— 她说了算编辑部 · She Decides Editorial Team &nbsp;|&nbsp; 2026年4月 · 第二期</p>
+      </div>
+    </div>
+
+    <div class="issue-nav">
+      <a class="issue-nav-link" href="#" onclick="return false;">← 第一期：董事会革命 · AI她时代 · 中国焦点</a>
+      <div class="issue-divider">◆</div>
+      <a class="issue-nav-link" href="#" onclick="return false;">第三期 Coming Soon →</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-brand">她说了算 · She Decides</div>
+  <div class="footer-rule"></div>
+  <div class="footer-tagline">全球女性商业趋势简报 · Global Women's Business Intelligence</div>
+  <div class="footer-rule"></div>
+  <p class="footer-note">
+    Vol.2 · 2026第二期 · April 2026 · 本期主题：定价权<br>
+    数据综合整理自：Deloitte Game Changers Report · McKinsey Women in the Workplace · CNBC Changemakers 2026 · ICSB · UN Women · JobLeads Research · GEM Global Report · Sportico · RBC/Wasserman Research<br>
+    本刊为内容研究参考，不构成投资建议 · 转载请注明来源：她说了算 She Decides
+  </p>
+</footer>
+
+<script>
+function toggleTrend(header){
+  const section=header.closest('.trend-section');
+  const wasOpen=section.classList.contains('open');
+  section.classList.toggle('open',!wasOpen);
+  if(!wasOpen){
+    const bars=section.querySelectorAll('.bar-fill[data-width]');
+    setTimeout(()=>{bars.forEach(b=>{b.style.width=b.dataset.width+'%';});},80);
+  }
+}
+
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const pct=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100;
+  document.getElementById('progressBar').style.width=pct+'%';
+});
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Nav active
+const sections=document.querySelectorAll('[id^="trend"]');
+const navLinks=document.querySelectorAll('.nav-link');
+const navObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const a=document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if(a)a.classList.add('active');
+    }
+  });
+},{threshold:.3});
+sections.forEach(s=>navObs.observe(s));
+
+// Auto-animate bars on scroll into view
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.bar-fill[data-width]').forEach(b=>{b.style.width=b.dataset.width+'%';});
+      barObs.unobserve(e.target);
+    }
+  });
+},{threshold:.2});
+document.querySelectorAll('.bar-section').forEach(s=>barObs.observe(s));
+</script>
+</body>
+</html>
