@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>她说了算 · 会员知识库</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#3d1536;--plum-mid:#6b2560;--rose:#c4587a;--rose-light:#e07898;--blush:#f0dce8;--blush-pale:#faf3f7;--cream:#fdfaf5;--sand:#ede4d8;--rule:#e2d4dc;--text:#2e1a28;--mid:#6b4a60;--light:#9a7a8e;--teal:#1d4a35;--teal-light:#d6ede0;--amber:#b8862c;--amber-light:#f5edd8;--gold:#c49a3c;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
+/* Gate screen */
+#gateScreen{position:fixed;inset:0;background:var(--plum);z-index:9999;display:flex;align-items:center;justify-content:center;}
+.gate-box{text-align:center;padding:40px;max-width:320px;}
+.gate-logo{font-family:'Noto Serif SC',serif;font-size:48px;font-weight:700;color:rgba(255,255,255,.8);margin-bottom:8px;}
+.gate-checking{font-size:13px;color:rgba(255,255,255,.35);letter-spacing:.1em;}
+.gate-spinner{width:24px;height:24px;border:2px solid rgba(255,255,255,.15);border-top-color:var(--rose);border-radius:50%;animation:spin .8s linear infinite;margin:20px auto 0;}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* Main content - hidden until verified */
+#mainContent{display:none;}
+/* Progress */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--gold));width:0%;z-index:200;transition:width .1s;}
+/* Masthead */
+.masthead{background:var(--plum);position:relative;overflow:hidden;}
+.masthead-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 15% 50%,rgba(196,88,122,.18) 0%,transparent 50%),radial-gradient(ellipse at 85% 20%,rgba(107,37,96,.4) 0%,transparent 45%);}
+.masthead-deco{position:absolute;right:-40px;top:-60px;font-family:'Noto Serif SC',serif;font-size:320px;font-weight:700;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;}
+.masthead-inner{max-width:1000px;margin:0 auto;padding:48px 48px 40px;position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end;}
+.masthead-eyebrow{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.masthead-eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.15),transparent);}
+.masthead-title{font-family:'Noto Serif SC',serif;font-size:clamp(28px,4.5vw,46px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:8px;}
+.masthead-title em{font-style:italic;color:rgba(240,210,228,.8);}
+.masthead-sub{font-size:11.5px;letter-spacing:.14em;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:22px;}
+.masthead-pills{display:flex;gap:8px;flex-wrap:wrap;}
+.pill{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.5);}
+.pill.live{background:var(--rose);border-color:var(--rose);color:#fff;}
+.masthead-member{text-align:right;}
+.member-badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:16px 20px;display:inline-block;}
+.mb-label{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:4px;}
+.mb-name{font-size:14px;font-weight:700;color:#fff;}
+.mb-status{font-size:10.5px;color:var(--rose);margin-top:2px;}
+.btn-logout{background:none;border:none;font-size:10px;color:rgba(255,255,255,.25);cursor:pointer;margin-top:8px;letter-spacing:.06em;padding:0;transition:color .2s;}
+.btn-logout:hover{color:rgba(255,255,255,.5);}
+/* Nav */
+.sticky-nav{position:sticky;top:0;z-index:100;background:rgba(61,21,54,.96);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(10px);}
+.nav-inner{max-width:1000px;margin:0 auto;padding:0 48px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.nav-inner::-webkit-scrollbar{display:none;}
+.nav-tab{padding:12px 16px;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;text-decoration:none;display:flex;align-items:center;gap:6px;}
+.nav-tab:hover{color:rgba(255,255,255,.7);}
+.nav-tab.active{color:#fff;border-bottom-color:var(--rose);}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:var(--rose);flex-shrink:0;}
+/* Page */
+.page{max-width:1000px;margin:0 auto;padding:0 48px 80px;}
+/* Sec head */
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;padding-top:52px;margin-bottom:22px;border-top:1px solid var(--rule);}
+.sec-head.first{border-top:none;padding-top:44px;}
+.sec-eyebrow{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--rose);font-weight:700;margin-bottom:5px;}
+.sec-title{font-family:'Noto Serif SC',serif;font-size:clamp(19px,2.8vw,26px);font-weight:600;color:var(--plum);}
+.sec-action{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--light);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:2px;transition:all .2s;white-space:nowrap;}
+.sec-action:hover{color:var(--rose);border-color:var(--rose);}
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:48px;}
+.stat-cell{background:var(--cream);padding:20px 22px;display:flex;align-items:flex-start;gap:12px;}
+.stat-icon{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:2px;}
+.si-plum{background:rgba(61,21,54,.1);}
+.si-rose{background:var(--blush);}
+.si-teal{background:var(--teal-light);}
+.si-amber{background:var(--amber-light);}
+.stat-num{font-family:'Noto Serif SC',serif;font-size:26px;font-weight:700;color:var(--plum);line-height:1;margin-bottom:3px;}
+.stat-lbl{font-size:11px;color:var(--light);line-height:1.4;}
+.stat-sub{color:var(--rose);font-size:10.5px;}
+/* Latest issue */
+.latest{background:var(--plum);padding:30px 34px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;margin-bottom:1px;position:relative;overflow:hidden;}
+.latest::before{content:'她';position:absolute;right:-20px;top:-30px;font-family:'Noto Serif SC',serif;font-size:200px;font-weight:700;color:rgba(255,255,255,.03);line-height:1;}
+.issue-badge-new{display:inline-flex;align-items:center;gap:6px;background:var(--rose);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:4px 11px;border-radius:20px;margin-bottom:10px;}
+.latest-title{font-family:'Noto Serif SC',serif;font-size:clamp(16px,2.3vw,22px);font-weight:600;color:#fff;margin-bottom:7px;line-height:1.3;}
+.latest-desc{font-size:13px;color:rgba(255,255,255,.52);line-height:1.72;max-width:440px;}
+.latest-tags{display:flex;gap:7px;margin-top:13px;flex-wrap:wrap;}
+.latest-tag{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:3px 9px;border-radius:20px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);}
+.latest-cta{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;}
+.btn-read{background:#fff;color:var(--plum);border:none;padding:11px 22px;border-radius:6px;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;white-space:nowrap;}
+.btn-read:hover{background:var(--blush);}
+.latest-meta{font-size:10.5px;color:rgba(255,255,255,.25);text-align:right;line-height:1.5;}
+/* Issue grid */
+.issue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
+.issue-card{background:var(--cream);padding:20px 18px;transition:background .2s;cursor:pointer;text-decoration:none;color:inherit;display:block;}
+.issue-card:hover{background:var(--blush-pale);}
+.issue-card.locked{opacity:.5;cursor:default;}
+.ic-vol{font-family:'DM Mono',monospace;font-size:10px;color:var(--light);margin-bottom:7px;letter-spacing:.04em;}
+.ic-title{font-family:'Noto Serif SC',serif;font-size:14.5px;font-weight:600;color:var(--plum);margin-bottom:5px;line-height:1.3;}
+.ic-sub{font-size:12px;color:var(--mid);line-height:1.52;}
+.ic-foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--rule);}
+.ic-pillar{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
+.p-cog{background:rgba(61,21,54,.08);color:var(--plum-mid);}
+.p-id{background:var(--teal-light);color:var(--teal);}
+.p-en{background:var(--amber-light);color:var(--amber);}
+.ic-lock{font-size:11px;color:var(--light);}
+/* Tools */
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.tool-card{background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;transition:all .22s;cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column;}
+.tool-card:hover{border-color:var(--rose);transform:translateY(-2px);box-shadow:0 6px 20px rgba(61,21,54,.07);}
+.tool-card.soon{opacity:.5;cursor:default;pointer-events:none;}
+.tc-head{padding:18px 18px 14px;}
+.tc-head.rose-bg{background:var(--blush);}
+.tc-head.teal-bg{background:var(--teal-light);}
+.tc-head.amber-bg{background:var(--amber-light);}
+.tc-head.grey-bg{background:var(--sand);}
+.tc-icon{font-size:24px;margin-bottom:7px;display:block;}
+.tc-pillar{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:3px;}
+.tc-pillar.rose-t{color:var(--rose);}
+.tc-pillar.teal-t{color:var(--teal);}
+.tc-pillar.amber-t{color:var(--amber);}
+.tc-pillar.grey-t{color:var(--light);}
+.tc-name{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--plum);}
+.tc-body{padding:13px 18px 18px;flex:1;display:flex;flex-direction:column;}
+.tc-desc{font-size:12px;color:var(--mid);line-height:1.65;flex:1;}
+.tc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:13px;}
+.tc-issue{font-size:10px;color:var(--light);font-family:'DM Mono',monospace;}
+.tc-badge{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
+.b-live{background:rgba(196,88,122,.1);color:var(--rose);}
+.b-soon{background:var(--sand);color:var(--light);}
+/* Bookshelf */
+.bookshelf{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
+.book-card{background:var(--cream);padding:18px 16px;transition:background .2s;cursor:pointer;}
+.book-card:hover{background:var(--blush-pale);}
+.book-card.locked{opacity:.5;cursor:default;}
+.book-cover{width:100%;height:90px;border-radius:4px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;}
+.bc1{background:var(--plum);color:rgba(255,255,255,.7);}
+.bc2{background:var(--teal);color:rgba(255,255,255,.7);}
+.bc3{background:#2a1f3d;color:rgba(255,255,255,.7);}
+.bc4{background:var(--sand);color:var(--plum-mid);}
+.book-title{font-size:13px;font-weight:700;color:var(--plum);margin-bottom:3px;line-height:1.3;}
+.book-author{font-size:11px;color:var(--light);}
+.book-note{font-size:10.5px;color:var(--rose);margin-top:6px;font-style:italic;}
+/* Paths */
+.paths-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.path-card{border:1px solid var(--rule);border-radius:10px;overflow:hidden;}
+.path-head{padding:18px 18px 14px;}
+.path-head.ph-rose{background:var(--blush);}
+.path-head.ph-teal{background:var(--teal-light);}
+.path-head.ph-amber{background:var(--amber-light);}
+.path-num{font-family:'Noto Serif SC',serif;font-size:36px;font-weight:700;line-height:1;margin-bottom:4px;opacity:.2;}
+.ph-rose .path-num{color:var(--rose);}
+.ph-teal .path-num{color:var(--teal);}
+.ph-amber .path-num{color:var(--amber);}
+.path-name{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:var(--plum);margin-bottom:3px;}
+.path-en{font-size:11px;color:var(--light);}
+.path-steps{padding:14px 18px;background:#fff;}
+.path-step{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--blush-pale);}
+.path-step:last-child{border-bottom:none;padding-bottom:0;}
+.step-ic{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.s-done{background:var(--rose);color:#fff;}
+.s-now{background:var(--plum);color:#fff;}
+.s-todo{background:var(--sand);color:var(--light);}
+.step-txt{font-size:12px;color:var(--mid);line-height:1.5;}
+.step-txt strong{color:var(--plum);font-weight:700;}
+/* Founders */
+.founders-bar{background:var(--plum);padding:30px 48px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.fc{display:flex;gap:14px;align-items:flex-start;}
+.fa{width:44px;height:44px;border-radius:50%;border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:16px;font-weight:700;color:#fff;flex-shrink:0;}
+.fa.fa-rose{background:var(--rose);}
+.fa.fa-teal{background:var(--teal);}
+.fn{font-size:13.5px;font-weight:700;color:#fff;margin-bottom:2px;}
+.fr{font-size:10.5px;color:rgba(255,255,255,.4);margin-bottom:6px;line-height:1.5;}
+.ft{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:20px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);}
+/* Footer */
+footer{background:var(--plum);padding:28px 48px;text-align:center;border-top:1px solid rgba(255,255,255,.06);}
+.fb{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:6px;}
+.fr2{width:28px;height:1px;background:var(--rose);margin:10px auto;}
+.ft2{font-size:10px;color:rgba(255,255,255,.22);letter-spacing:.12em;text-transform:uppercase;}
+.fn2{font-size:10px;color:rgba(255,255,255,.14);margin-top:8px;line-height:1.7;}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(max-width:768px){
+  .masthead-inner{grid-template-columns:1fr;padding:28px 20px;gap:16px;}
+  .masthead-member{display:none;}
+  .nav-inner,.page{padding-left:20px;padding-right:20px;}
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .issue-grid,.tools-grid,.bookshelf,.paths-grid{grid-template-columns:1fr;}
+  .latest{grid-template-columns:1fr;}
+  .latest-cta{align-items:flex-start;}
+  .founders-bar{grid-template-columns:1fr;padding:24px 20px;}
+  footer{padding:24px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- GATE SCREEN -->
+<div id="gateScreen">
+  <div class="gate-box">
+    <div class="gate-logo">她说了算</div>
+    <div class="gate-checking">验证会员身份中</div>
+    <div class="gate-spinner"></div>
+  </div>
+</div>
+
+<div id="mainContent">
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-bg"></div>
+  <div class="masthead-deco">她</div>
+  <div class="masthead-inner">
+    <div>
+      <div class="masthead-eyebrow">她说了算 · She Decides · 会员知识库</div>
+      <h1 class="masthead-title">全球女性成长生态<br><em>Member Knowledge Base</em></h1>
+      <p class="masthead-sub">简报 · 工具箱 · 书房 · 学习路径 · 2026全年</p>
+      <div class="masthead-pills">
+        <span class="pill live">Vol.3 已更新</span>
+        <span class="pill">工具箱 3件上线</span>
+        <span class="pill">书房 精选4本</span>
+        <span class="pill">下期：她的选择 · 5月</span>
+      </div>
+    </div>
+    <div class="masthead-member">
+      <div class="member-badge">
+        <div class="mb-label">当前状态</div>
+        <div class="mb-name">会员已登录</div>
+        <div class="mb-status">✓ 全部内容已解锁</div>
+      </div>
+      <br>
+      <button class="btn-logout" onclick="logout()">退出登录</button>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a class="nav-tab active" href="#briefs"><span class="nav-dot"></span>简报</a>
+    <a class="nav-tab" href="#tools">工具箱</a>
+    <a class="nav-tab" href="#bookshelf">书房</a>
+    <a class="nav-tab" href="#paths">学习路径</a>
+    <a class="nav-tab" href="#founders">关于</a>
+  </div>
+</nav>
+
+<main class="page">
+
+<!-- STATS -->
+<div id="overview"></div>
+<div class="sec-head first reveal">
+  <div><div class="sec-eyebrow">知识库概览</div><div class="sec-title">你的全年成长资产</div></div>
+</div>
+<div class="stats-row reveal">
+  <div class="stat-cell"><div class="stat-icon si-plum">📋</div><div><div class="stat-num">3</div><div class="stat-lbl">期简报已发布<br><span class="stat-sub">全年计划24期</span></div></div></div>
+  <div class="stat-cell"><div class="stat-icon si-rose">🛠</div><div><div class="stat-num">3</div><div class="stat-lbl">件工具已上线<br><span style="font-size:10.5px;color:var(--light);">21件陆续发布</span></div></div></div>
+  <div class="stat-cell"><div class="stat-icon si-teal">📚</div><div><div class="stat-num">4</div><div class="stat-lbl">本书房精选<br><span style="font-size:10.5px;color:var(--light);">每月更新导读</span></div></div></div>
+  <div class="stat-cell"><div class="stat-icon si-amber">⚡</div><div><div class="stat-num">3</div><div class="stat-lbl">条成长路径<br><span style="font-size:10.5px;color:var(--light);">认知·身份·精力</span></div></div></div>
+</div>
+
+<!-- BRIEFS -->
+<div id="briefs"></div>
+<div class="sec-head reveal"><div><div class="sec-eyebrow">全球女性商业趋势简报</div><div class="sec-title">24期 · 24个她</div></div><a href="#" class="sec-action">查看全部 →</a></div>
+
+<div class="latest reveal">
+  <div>
+    <div class="issue-badge-new">最新 · Vol.3</div>
+    <div class="latest-title">给不打算创业的她——<br>底气、工具与主权</div>
+    <div class="latest-desc">第三期聚焦非创业者女性：如何用全球信息差赢回职场主动权，如何把10年经验重新定价，如何把精力管理从意志力问题变成系统设计问题。</div>
+    <div class="latest-tags">
+      <span class="latest-tag">认知套利</span>
+      <span class="latest-tag">身份重塑</span>
+      <span class="latest-tag">精力主权</span>
+      <span class="latest-tag">非创业者特辑</span>
+    </div>
+  </div>
+  <div class="latest-cta">
+    <a href="../vol3.html" class="btn-read">阅读本期 →</a>
+    <div class="latest-meta">2026年4月发布<br>下期：她的选择 · 5月</div>
+  </div>
+</div>
+
+<div class="issue-grid reveal">
+  <a href="../vol1.html" class="issue-card">
+    <div class="ic-vol">Vol.01 · 2026年4月</div>
+    <div class="ic-title">全球女性商业趋势 · 创刊号</div>
+    <div class="ic-sub">董事会革命 · AI她时代 · 中国焦点 · 消费主权</div>
+    <div class="ic-foot"><span class="ic-pillar p-cog">认知套利</span><span style="font-size:12px;color:var(--rose);">→</span></div>
+  </a>
+  <a href="../vol2.html" class="issue-card">
+    <div class="ic-vol">Vol.02 · 2026年4月</div>
+    <div class="ic-title">定价权——从薪资到体育经济</div>
+    <div class="ic-sub">薪酬鸿沟 · 女性体育$3B · 绿色经济 · Fortune 500</div>
+    <div class="ic-foot"><span class="ic-pillar p-cog">认知套利</span><span style="font-size:12px;color:var(--rose);">→</span></div>
+  </a>
+  <a href="../vol3.html" class="issue-card">
+    <div class="ic-vol">Vol.03 · 2026年4月</div>
+    <div class="ic-title">给不打算创业的她——底气·工具·主权</div>
+    <div class="ic-sub">AI工具 · 谈薪 · 第二曲线 · 叙事力 · 精力管理</div>
+    <div class="ic-foot"><span class="ic-pillar p-id">身份重塑</span><span style="font-size:12px;color:var(--rose);">→</span></div>
+  </a>
+  <div class="issue-card locked">
+    <div class="ic-vol">Vol.04 · 2026年5月</div>
+    <div class="ic-title">她的选择——决策质量与战略性放弃</div>
+    <div class="ic-sub">决策框架 · 战略性放弃 · 历史声音：西蒙娜·波伏瓦</div>
+    <div class="ic-foot"><span class="ic-pillar p-cog">认知套利</span><span class="ic-lock">🔒 5月发布</span></div>
+  </div>
+  <div class="issue-card locked">
+    <div class="ic-vol">Vol.05 · 2026年6月</div>
+    <div class="ic-title">她的钱——财务主权与薪资谈判</div>
+    <div class="ic-sub">财务主权 · 薪资谈判 · 女性与财富 · 历史声音：可可·香奈儿</div>
+    <div class="ic-foot"><span class="ic-pillar p-cog">认知套利</span><span class="ic-lock">🔒 6月发布</span></div>
+  </div>
+  <div class="issue-card locked">
+    <div class="ic-vol">Vol.06 · 2026年7月</div>
+    <div class="ic-title">她的出海——跨境机会与文化智慧</div>
+    <div class="ic-sub">跨境市场 · 全球女性电商 · 历史声音：宋美龄</div>
+    <div class="ic-foot"><span class="ic-pillar p-id">身份重塑</span><span class="ic-lock">🔒 7月发布</span></div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div id="tools"></div>
+<div class="sec-head reveal"><div><div class="sec-eyebrow">配套工具箱 · 会员专属</div><div class="sec-title">读完能用，用完有效</div></div></div>
+
+<div class="tools-grid reveal">
+  <a href="tool-salary.html" class="tool-card" target="_blank">
+    <div class="tc-head rose-bg"><span class="tc-icon">💬</span><div class="tc-pillar rose-t">认知套利</div><div class="tc-name">谈薪准备器</div></div>
+    <div class="tc-body"><div class="tc-desc">5步准备流程，自动生成专属谈薪话术脚本，今天填完明天就能用。</div><div class="tc-foot"><span class="tc-issue">配套 Vol.05</span><div style="display:flex;align-items:center;gap:6px;"><span class="tc-badge b-live">已上线</span><span style="color:var(--light);font-size:15px;">→</span></div></div></div>
+  </a>
+  <a href="tool-assets.html" class="tool-card" target="_blank">
+    <div class="tc-head teal-bg"><span class="tc-icon">🗺</span><div class="tc-pillar teal-t">身份重塑</div><div class="tc-name">个人资产盘点表</div></div>
+    <div class="tc-body"><div class="tc-desc">7个深度问题挖掘10年隐性资产，自动生成一句话定位和第二曲线方向。</div><div class="tc-foot"><span class="tc-issue">配套 Vol.04</span><div style="display:flex;align-items:center;gap:6px;"><span class="tc-badge b-live">已上线</span><span style="color:var(--light);font-size:15px;">→</span></div></div></div>
+  </a>
+  <a href="tool-energy.html" class="tool-card" target="_blank">
+    <div class="tc-head amber-bg"><span class="tc-icon">⚡</span><div class="tc-pillar amber-t">精力主权</div><div class="tc-name">精力泄漏诊断表</div></div>
+    <div class="tc-body"><div class="tc-desc">5大精力黑洞自测，实时热图可视化，自动生成这周就能执行的修复方案。</div><div class="tc-foot"><span class="tc-issue">配套 Vol.09</span><div style="display:flex;align-items:center;gap:6px;"><span class="tc-badge b-live">已上线</span><span style="color:var(--light);font-size:15px;">→</span></div></div></div>
+  </a>
+  <div class="tool-card soon"><div class="tc-head grey-bg"><span class="tc-icon">📊</span><div class="tc-pillar grey-t">认知套利</div><div class="tc-name">信息雷达周报</div></div><div class="tc-body"><div class="tc-desc">3个行业信号自测，每周定位值得关注的全球趋势。</div><div class="tc-foot"><span class="tc-issue">配套 Vol.08</span><span class="tc-badge b-soon">8月上线</span></div></div></div>
+  <div class="tool-card soon"><div class="tc-head grey-bg"><span class="tc-icon">✍️</span><div class="tc-pillar grey-t">身份重塑</div><div class="tc-name">一句话定位卡</div></div><div class="tc-body"><div class="tc-desc">叙事力三步公式，把职业经历变成一段让人记住的故事。</div><div class="tc-foot"><span class="tc-issue">配套 Vol.07</span><span class="tc-badge b-soon">7月上线</span></div></div></div>
+  <div class="tool-card soon"><div class="tc-head grey-bg"><span class="tc-icon">🔄</span><div class="tc-pillar grey-t">精力主权</div><div class="tc-name">边界设计工作表</div></div><div class="tc-body"><div class="tc-desc">3个高频边界场景的话术模板，设计你的边界系统。</div><div class="tc-foot"><span class="tc-issue">配套 Vol.11</span><span class="tc-badge b-soon">9月上线</span></div></div></div>
+</div>
+
+<!-- BOOKSHELF -->
+<div id="bookshelf"></div>
+<div class="sec-head reveal"><div><div class="sec-eyebrow">她说了算书房</div><div class="sec-title">精选 · 每本都有导读和行动笔记</div></div><a href="#" class="sec-action">进入书房 →</a></div>
+<div class="bookshelf reveal">
+  <div class="book-card"><div class="book-cover bc1">韧</div><div class="book-title">《韧性》</div><div class="book-author">Sheryl Sandberg</div><div class="book-note">Janet导读 · 精力主权篇</div></div>
+  <div class="book-card"><div class="book-cover bc2">叙</div><div class="book-title">《故事思维》</div><div class="book-author">Annette Simmons</div><div class="book-note">Yilin导读 · 叙事力篇</div></div>
+  <div class="book-card"><div class="book-cover bc3">薪</div><div class="book-title">《女性谈判力》</div><div class="book-author">Linda Babcock</div><div class="book-note">Janet导读 · 认知套利篇</div></div>
+  <div class="book-card locked"><div class="book-cover bc4">…</div><div class="book-title">下期书房</div><div class="book-author">5月更新</div><div class="book-note" style="color:var(--light);">配套 Vol.04</div></div>
+</div>
+
+<!-- PATHS -->
+<div id="paths"></div>
+<div class="sec-head reveal"><div><div class="sec-eyebrow">三大成长路径</div><div class="sec-title">按你的节奏，选一条先走</div></div></div>
+<div class="paths-grid reveal">
+  <div class="path-card">
+    <div class="path-head ph-rose"><div class="path-num">01</div><div class="path-name">认知套利路径</div><div class="path-en">Information Edge · Negotiation Power</div></div>
+    <div class="path-steps">
+      <div class="path-step"><div class="step-ic s-done">✓</div><div class="step-txt"><strong>读 Vol.01</strong>——建立全球女性商业视野</div></div>
+      <div class="path-step"><div class="step-ic s-done">✓</div><div class="step-txt"><strong>读 Vol.02</strong>——理解薪酬差距的真实机制</div></div>
+      <div class="path-step"><div class="step-ic s-now">→</div><div class="step-txt"><strong>用谈薪准备器</strong>——准备你的下次谈薪</div></div>
+      <div class="path-step"><div class="step-ic s-todo">○</div><div class="step-txt"><strong>等 Vol.05</strong>——她的钱，6月深度</div></div>
+    </div>
+  </div>
+  <div class="path-card">
+    <div class="path-head ph-teal"><div class="path-num">02</div><div class="path-name">身份重塑路径</div><div class="path-en">Second Curve · Narrative Capital</div></div>
+    <div class="path-steps">
+      <div class="path-step"><div class="step-ic s-done">✓</div><div class="step-txt"><strong>读 Vol.03</strong>——35岁不是终点，是起点</div></div>
+      <div class="path-step"><div class="step-ic s-now">→</div><div class="step-txt"><strong>用个人资产盘点表</strong>——看见你的隐性资产</div></div>
+      <div class="path-step"><div class="step-ic s-todo">○</div><div class="step-txt"><strong>等一句话定位卡</strong>——7月上线</div></div>
+      <div class="path-step"><div class="step-ic s-todo">○</div><div class="step-txt"><strong>参加叙事力工作坊</strong>——Yilin主理</div></div>
+    </div>
+  </div>
+  <div class="path-card">
+    <div class="path-head ph-amber"><div class="path-num">03</div><div class="path-name">精力主权路径</div><div class="path-en">Energy Design · Sustainable Growth</div></div>
+    <div class="path-steps">
+      <div class="path-step"><div class="step-ic s-done">✓</div><div class="step-txt"><strong>读 Vol.03</strong>——忙不是最累的，内耗才是</div></div>
+      <div class="path-step"><div class="step-ic s-now">→</div><div class="step-txt"><strong>用精力泄漏诊断表</strong>——找到最大漏洞</div></div>
+      <div class="path-step"><div class="step-ic s-todo">○</div><div class="step-txt"><strong>等边界设计工作表</strong>——9月上线</div></div>
+      <div class="path-step"><div class="step-ic s-todo">○</div><div class="step-txt"><strong>等 Vol.09</strong>——她的身体，9月深度</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOUNDERS -->
+<div id="founders"></div>
+<div class="sec-head reveal"><div><div class="sec-eyebrow">关于我们</div><div class="sec-title">Janet & Yilin</div></div></div>
+<div class="founders-bar reveal">
+  <div class="fc"><div class="fa fa-rose">J</div><div><div class="fn">Janet</div><div class="fr">Next Peak 创始人 · 企业教练 · 30年<br>服务100+企业管理团队</div><span class="ft">清晰力 · 叙事力 · 教练框架</span></div></div>
+  <div class="fc"><div class="fa fa-teal">Y</div><div><div class="fn">Yilin</div><div class="fr">通达·Articom 创始人 · 国际教育13年<br>叙事力 × 清晰力 × 沟通力方法论</div><span class="ft">国际视角 · 课堂逻辑表达</span></div></div>
+</div>
+
+</main>
+
+<footer>
+  <div class="fb">她说了算 · She Decides</div>
+  <div class="fr2"></div>
+  <div class="ft2">全球女性成长生态 · 会员知识库 · 2026</div>
+  <div class="fn2">「遇见不同，创造可能。」</div>
+</footer>
+</div><!-- end mainContent -->
+
+<script>
+// ── 密码验证（和 index.html 保持一致）─────────────────────
+const VALID_PASSWORDS = ['shedecides2026','SD2026','janet2026'];
+
+function verify() {
+  const stored = sessionStorage.getItem('sd_member');
+  const hash   = sessionStorage.getItem('sd_pw_hash');
+  if(stored === '1' && hash) {
+    try {
+      const pw = atob(hash);
+      if(VALID_PASSWORDS.includes(pw)) return true;
+    } catch(e){}
+  }
+  return false;
+}
+
+function logout() {
+  sessionStorage.removeItem('sd_member');
+  sessionStorage.removeItem('sd_pw_hash');
+  window.location.href = 'index.html';
+}
+
+// On load: check access
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    if(verify()) {
+      document.getElementById('gateScreen').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      initPage();
+    } else {
+      // Not verified — redirect to entry page
+      window.location.href = 'index.html';
+    }
+  }, 600); // Brief loading effect
+});
+
+function initPage() {
+  // Progress bar
+  window.addEventListener('scroll',()=>{
+    const pct=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100;
+    document.getElementById('progressBar').style.width=pct+'%';
+  });
+  // Reveal
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:.07});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  // Nav
+  const navObs=new IntersectionObserver(e=>{
+    e.forEach(x=>{
+      if(x.isIntersecting){
+        document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+        const a=document.querySelector(`.nav-tab[href="#${x.target.id}"]`);
+        if(a)a.classList.add('active');
+      }
+    });
+  },{threshold:.35});
+  ['briefs','tools','bookshelf','paths','founders'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)navObs.observe(el);
+  });
+}
+</script>
+</body>
+</html>
