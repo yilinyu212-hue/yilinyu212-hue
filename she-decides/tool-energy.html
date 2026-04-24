@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精力泄漏诊断表 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#4A1942;--rose:#C4587A;--blush:#F0DCE8;--cream:#FDF9F5;--sand:#EDE4D8;--rule:#DDD0D8;--text:#3A2838;--grey:#8A7888;--amber:#C49A3C;--amber-light:#F5EDD8;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;min-height:100vh;}
+.header{background:linear-gradient(135deg,#1c1018 60%,#4A1942);padding:28px 40px 24px;position:relative;overflow:hidden;}
+.header::before{content:'⚡';position:absolute;right:20px;top:10px;font-size:120px;opacity:.06;}
+.header-tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;}
+.header h1{font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:6px;}
+.header h1 em{color:#E8C97A;font-style:italic;}
+.header p{font-size:12px;color:rgba(255,255,255,.5);}
+.container{max-width:680px;margin:0 auto;padding:32px 24px;}
+.intro-card{background:var(--amber-light);border-left:4px solid var(--amber);padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:28px;}
+.intro-card p{font-size:13px;color:#5A3A10;line-height:1.75;}
+.intro-card p strong{font-weight:700;}
+.section-label{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.section-label::after{content:'';flex:1;height:1px;background:var(--rule);}
+.drain-card{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:20px;margin-bottom:16px;transition:all .3s;}
+.drain-card:hover{border-color:var(--amber);}
+.drain-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+.drain-title-row{flex:1;}
+.drain-icon{font-size:22px;margin-bottom:4px;}
+.drain-name{font-size:15px;font-weight:700;color:var(--plum);}
+.drain-sub{font-size:11.5px;color:var(--grey);margin-top:2px;line-height:1.5;}
+.drain-score-badge{background:var(--cream);border:1px solid var(--rule);border-radius:20px;padding:6px 14px;text-align:center;min-width:64px;flex-shrink:0;margin-left:12px;}
+.drain-score-badge .score-num{font-family:'Libre Baskerville',serif;font-size:22px;font-weight:700;color:var(--plum);line-height:1;}
+.drain-score-badge .score-lbl{font-size:9px;color:var(--grey);letter-spacing:.05em;}
+.slider-group{margin-bottom:12px;}
+.slider-label{display:flex;justify-content:space-between;font-size:11.5px;color:var(--grey);margin-bottom:6px;}
+.slider-label span:last-child{color:var(--plum);font-weight:700;}
+input[type=range]{width:100%;accent-color:var(--rose);height:4px;}
+.examples{margin-top:10px;padding-top:10px;border-top:1px solid var(--cream);}
+.examples-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-bottom:6px;}
+.example-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{font-size:11px;background:var(--cream);border:1px solid var(--rule);border-radius:20px;padding:3px 10px;color:var(--grey);cursor:pointer;transition:all .2s;}
+.chip:hover,.chip.active{background:var(--blush);border-color:var(--rose);color:var(--plum);}
+.summary-bar{background:var(--plum);border-radius:12px;padding:20px 24px;margin-bottom:24px;}
+.summary-title{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:14px;}
+.bars-visual{display:flex;flex-direction:column;gap:10px;}
+.bar-row{display:flex;align-items:center;gap:12px;}
+.bar-name{font-size:11.5px;color:rgba(255,255,255,.6);width:72px;flex-shrink:0;text-align:right;}
+.bar-track{flex:1;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;background:var(--rose);transition:width .8s cubic-bezier(.4,0,.2,1);width:0%;}
+.bar-val{font-size:11.5px;font-weight:700;color:#fff;width:32px;flex-shrink:0;}
+.total-row{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;}
+.total-label{font-size:11px;color:rgba(255,255,255,.4);}
+.total-val{font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;color:#fff;}
+.total-max{font-size:13px;color:rgba(255,255,255,.3);}
+.level-badge{font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;margin-left:12px;}
+.level-low{background:rgba(29,74,53,.3);color:#9FE1CB;}
+.level-mid{background:rgba(196,154,60,.2);color:#E8C97A;}
+.level-high{background:rgba(196,88,122,.25);color:#F0C0D0;}
+.level-critical{background:rgba(255,80,80,.2);color:#FFAAAA;}
+textarea{width:100%;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;resize:vertical;min-height:72px;line-height:1.7;transition:border-color .2s;}
+textarea:focus{border-color:var(--amber);}
+.btn-generate{background:var(--plum);border:none;padding:14px 28px;border-radius:8px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:10px;transition:background .2s;}
+.btn-generate:hover{background:var(--rose);}
+.btn-generate:disabled{background:var(--grey);cursor:not-allowed;}
+.loading-ring{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.result-box{display:none;margin-top:24px;background:var(--plum);border-radius:12px;overflow:hidden;}
+.result-box.show{display:block;}
+.result-head{padding:18px 24px;background:rgba(0,0,0,.2);display:flex;justify-content:space-between;align-items:center;}
+.result-head h3{font-family:'Libre Baskerville',serif;font-size:16px;color:#fff;}
+.result-head p{font-size:11px;color:rgba(255,255,255,.4);}
+.result-content{padding:24px;}
+.repair-card{background:rgba(255,255,255,.06);border-radius:8px;padding:16px;margin-bottom:12px;border-left:3px solid var(--rose);}
+.repair-title{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--rose);font-weight:700;margin-bottom:8px;}
+.repair-text{font-size:13px;line-height:1.8;color:rgba(255,255,255,.75);}
+.copy-btn{background:none;border:1px solid rgba(255,255,255,.2);padding:7px 14px;border-radius:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:4px;transition:all .2s;}
+.copy-btn:hover{border-color:rgba(255,255,255,.5);color:#fff;}
+.field-group{margin-bottom:16px;}
+.field-label{font-size:12px;font-weight:700;color:var(--plum);margin-bottom:6px;display:block;}
+@media(max-width:480px){.header{padding:20px;}.container{padding:20px 16px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-tag">她说了算 · 配套工具 · 精力主权篇</div>
+  <h1>精力泄漏诊断表<br><em>Energy Leak Diagnosis</em></h1>
+  <p>5大黑洞自测 · 可视化热图 · AI修复方案 · 配套「她的身体」第9期</p>
+</div>
+
+<div class="container">
+  <div class="intro-card">
+    <p><strong>你累，不一定是因为干了太多事。</strong><br>更常见的情况是：有些地方在漏电，但你一直没时间去查。这张诊断表帮你找到最大的漏洞，然后给你一个可以这周就开始的修复方案。</p>
+  </div>
+
+  <div class="section-label">精力泄漏自测</div>
+
+  <!-- 5个黑洞卡片 -->
+  <div class="drain-card" id="card0">
+    <div class="drain-header">
+      <div class="drain-title-row">
+        <div class="drain-icon">📅</div>
+        <div class="drain-name">无效会议</div>
+        <div class="drain-sub">你参加了但可以不去的会 · 没有结论的会 · 可以用邮件替代的会</div>
+      </div>
+      <div class="drain-score-badge"><div class="score-num" id="score0">0</div><div class="score-lbl">/ 25分</div></div>
+    </div>
+    <div class="slider-group">
+      <div class="slider-label"><span>每周发生频率</span><span id="freq0lbl">0次</span></div>
+      <input type="range" min="0" max="5" value="0" id="freq0" oninput="updateScore(0)">
+    </div>
+    <div class="slider-group">
+      <div class="slider-label"><span>每次消耗程度</span><span id="imp0lbl">无影响</span></div>
+      <input type="range" min="0" max="5" value="0" id="imp0" oninput="updateScore(0)">
+    </div>
+    <div class="examples">
+      <div class="examples-label">常见形式（勾选你有的）</div>
+      <div class="example-chips">
+        <span class="chip" onclick="this.classList.toggle('active')">周例会毫无准备</span>
+        <span class="chip" onclick="this.classList.toggle('active')">被拉进无关会议</span>
+        <span class="chip" onclick="this.classList.toggle('active')">会后没有决议</span>
+        <span class="chip" onclick="this.classList.toggle('active')">会议时长失控</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="drain-card" id="card1">
+    <div class="drain-header">
+      <div class="drain-title-row">
+        <div class="drain-icon">🔓</div>
+        <div class="drain-name">边界模糊</div>
+        <div class="drain-sub">下班后还在回消息 · 说了"不"又反悔 · 帮别人做你职责外的事</div>
+      </div>
+      <div class="drain-score-badge"><div class="score-num" id="score1">0</div><div class="score-lbl">/ 25分</div></div>
+    </div>
+    <div class="slider-group">
+      <div class="slider-label"><span>每周发生频率</span><span id="freq1lbl">0次</span></div>
+      <input type="range" min="0" max="5" value="0" id="freq1" oninput="updateScore(1)">
+    </div>
+    <div class="slider-group">
+      <div class="slider-label"><span>每次消耗程度</span><span id="imp1lbl">无影响</span></div>
+      <input type="range" min="0" max="5" value="0" id="imp1" oninput="updateScore(1)">
+    </div>
+    <div class="examples">
+      <div class="examples-label">常见形式</div>
+      <div class="example-chips">
+        <span class="chip" onclick="this.classList.toggle('active')">晚上10点还在回工作消息</span>
+        <span class="chip" onclick="this.classList.toggle('active')">不好意思拒绝额外任务</span>
+        <span class="chip" onclick="this.classList.toggle('active')">假期仍在工作</span>
+        <span class="chip" onclick="this.classList.toggle('active')">帮同事背锅</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="drain-card" id="card2">
+    <div class="drain-header">
+      <div class="drain-title-row">
+        <div class="drain-icon">🌀</div>
+        <div class="drain-name">负面反刍</div>
+        <div class="drain-sub">反复想一件已经发生的事 · 预演最坏结果 · 自我批评循环</div>
+      </div>
+      <div class="drain-score-badge"><div class="score-num" id="score2">0</div><div class="score-lbl">/ 25分</div></div>
+    </div>
+    <div class="slider-group">
+      <div class="slider-label"><span>每周发生频率</span><span id="freq2lbl">0次</span></div>
+      <input type="range" min="0" max="5" value="0" id="freq2" oninput="updateScore(2)">
+    </div>
+    <div class="slider-group">
+      <div class="slider-label"><span>每次消耗程度</span><span id="imp2lbl">无影响</span></div>
+      <input type="range" min="0" max="5" value="0" id="imp2" oninput="updateScore(2)">
+    </div>
+    <div class="examples">
+      <div class="examples-label">常见形式</div>
+      <div class="example-chips">
+        <span class="chip" onclick="this.classList.toggle('active')">睡前回想白天的失误</span>
+        <span class="chip" onclick="this.classList.toggle('active')">反复想一句话是否说错了</span>
+        <span class="chip" onclick="this.classList.toggle('active')">担心明天会出问题</span>
+        <span class="chip" onclick="this.classList.toggle('active')">"我是不是太差了"</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="drain-card" id="card3">
+    <div class="drain-header">
+      <div class="drain-title-row">
+        <div class="drain-icon">😴</div>
+        <div class="drain-name">睡眠债务</div>
+        <div class="drain-sub">长期睡不够 · 睡眠质量差 · 用咖啡因维持运转</div>
+      </div>
+      <div class="drain-score-badge"><div class="score-num" id="score3">0</div><div class="score-lbl">/ 25分</div></div>
+    </div>
+    <div class="slider-group">
+      <div class="slider-label"><span>每周发生频率</span><span id="freq3lbl">0次</span></div>
+      <input type="range" min="0" max="5" value="0" id="freq3" oninput="updateScore(3)">
+    </div>
+    <div class="slider-group">
+      <div class="slider-label"><span>每次消耗程度</span><span id="imp3lbl">无影响</span></div>
+      <input type="range" min="0" max="5" value="0" id="imp3" oninput="updateScore(3)">
+    </div>
+    <div class="examples">
+      <div class="examples-label">常见形式</div>
+      <div class="example-chips">
+        <span class="chip" onclick="this.classList.toggle('active')">每天睡眠不足7小时</span>
+        <span class="chip" onclick="this.classList.toggle('active')">入睡困难</span>
+        <span class="chip" onclick="this.classList.toggle('active')">早上靠咖啡启动</span>
+        <span class="chip" onclick="this.classList.toggle('active')">周末补觉仍觉累</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="drain-card" id="card4">
+    <div class="drain-header">
+      <div class="drain-title-row">
+        <div class="drain-icon">⚖️</div>
+        <div class="drain-name">决策疲劳</div>
+        <div class="drain-sub">小事也要纠结很久 · 担心选错 · 做完决定还在后悔</div>
+      </div>
+      <div class="drain-score-badge"><div class="score-num" id="score4">0</div><div class="score-lbl">/ 25分</div></div>
+    </div>
+    <div class="slider-group">
+      <div class="slider-label"><span>每周发生频率</span><span id="freq4lbl">0次</span></div>
+      <input type="range" min="0" max="5" value="0" id="freq4" oninput="updateScore(4)">
+    </div>
+    <div class="slider-group">
+      <div class="slider-label"><span>每次消耗程度</span><span id="imp4lbl">无影响</span></div>
+      <input type="range" min="0" max="5" value="0" id="imp4" oninput="updateScore(4)">
+    </div>
+    <div class="examples">
+      <div class="examples-label">常见形式</div>
+      <div class="example-chips">
+        <span class="chip" onclick="this.classList.toggle('active')">午饭吃什么纠结半小时</span>
+        <span class="chip" onclick="this.classList.toggle('active')">改了又改发出去的消息</span>
+        <span class="chip" onclick="this.classList.toggle('active')">做完决定又觉得选错了</span>
+        <span class="chip" onclick="this.classList.toggle('active')">什么都不想做</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 实时汇总图 -->
+  <div class="summary-bar">
+    <div class="summary-title">实时诊断图 · 精力泄漏热图</div>
+    <div class="bars-visual">
+      <div class="bar-row"><div class="bar-name">无效会议</div><div class="bar-track"><div class="bar-fill" id="bar0"></div></div><div class="bar-val" id="bv0">0</div></div>
+      <div class="bar-row"><div class="bar-name">边界模糊</div><div class="bar-track"><div class="bar-fill" id="bar1"></div></div><div class="bar-val" id="bv1">0</div></div>
+      <div class="bar-row"><div class="bar-name">负面反刍</div><div class="bar-track"><div class="bar-fill" id="bar2"></div></div><div class="bar-val" id="bv2">0</div></div>
+      <div class="bar-row"><div class="bar-name">睡眠债务</div><div class="bar-track"><div class="bar-fill" id="bar3"></div></div><div class="bar-val" id="bv3">0</div></div>
+      <div class="bar-row"><div class="bar-name">决策疲劳</div><div class="bar-track"><div class="bar-fill" id="bar4"></div></div><div class="bar-val" id="bv4">0</div></div>
+    </div>
+    <div class="total-row">
+      <div><span class="total-label">总泄漏指数</span></div>
+      <div style="display:flex;align-items:baseline;gap:4px;">
+        <span class="total-val" id="totalScore">0</span>
+        <span class="total-max">/ 125</span>
+        <span class="level-badge level-low" id="levelBadge">待测试</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 补充信息 -->
+  <div class="section-label">补充一句话（可选）</div>
+  <div class="field-group">
+    <label class="field-label">你的名字</label>
+    <input type="text" id="uname" placeholder="例：晓梅" style="width:100%;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;">
+  </div>
+  <div class="field-group">
+    <label class="field-label">你觉得消耗你最多的，是哪件具体的事？</label>
+    <textarea id="specific" placeholder="例：每周一的部门会，2小时，从来没有结论，我去了也不说话，但又不敢不去..."></textarea>
+  </div>
+
+  <button class="btn-generate" id="genBtn" onclick="generateRepair()">
+    <span id="genText">生成我的精力修复方案</span>
+    <span id="genSpinner" style="display:none;" class="loading-ring"></span>
+  </button>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-head">
+      <div><h3>你的精力修复方案</h3><p>AI生成 · 她说了算工具层</p></div>
+      <button class="copy-btn" onclick="copyResult()">复制方案</button>
+    </div>
+    <div class="result-content" id="resultContent"></div>
+  </div>
+</div>
+
+<script>
+const names=['无效会议','边界模糊','负面反刍','睡眠债务','决策疲劳'];
+const freqLabels=['0次','1次','2次','3-4次','5次+','几乎每天'];
+const impLabels=['无影响','微弱','中等','明显','强烈','极度消耗'];
+const scores=[0,0,0,0,0];
+
+function updateScore(i){
+  const f=parseInt(document.getElementById('freq'+i).value);
+  const m=parseInt(document.getElementById('imp'+i).value);
+  document.getElementById('freq'+i+'lbl').textContent=freqLabels[f];
+  document.getElementById('imp'+i+'lbl').textContent=impLabels[m];
+  scores[i]=f*m;
+  document.getElementById('score'+i).textContent=scores[i];
+  const pct=(scores[i]/25)*100;
+  document.getElementById('bar'+i).style.width=pct+'%';
+  const colors=['#C4587A','#E8A0B8','#E8C97A','#F5B06A','#FF7070'];
+  document.getElementById('bar'+i).style.background=pct>70?colors[2]:pct>40?colors[1]:colors[0];
+  document.getElementById('bv'+i).textContent=scores[i];
+  updateTotal();
+}
+
+function updateTotal(){
+  const total=scores.reduce((a,b)=>a+b,0);
+  document.getElementById('totalScore').textContent=total;
+  const lb=document.getElementById('levelBadge');
+  lb.className='level-badge';
+  if(total<=20){lb.classList.add('level-low');lb.textContent='状态良好';}
+  else if(total<=50){lb.classList.add('level-mid');lb.textContent='轻度泄漏';}
+  else if(total<=80){lb.classList.add('level-high');lb.textContent='中度消耗';}
+  else{lb.classList.add('level-critical');lb.textContent='需要干预';}
+}
+
+async function generateRepair(){
+  const btn=document.getElementById('genBtn');
+  const sp=document.getElementById('genSpinner');
+  const tx=document.getElementById('genText');
+  btn.disabled=true;tx.textContent='分析中…';sp.style.display='flex';
+
+  const total=scores.reduce((a,b)=>a+b,0);
+  const topIdx=scores.indexOf(Math.max(...scores));
+  const scoresStr=names.map((n,i)=>`${n}：${scores[i]}分`).join('、');
+  const name=document.getElementById('uname').value||'你';
+  const specific=document.getElementById('specific').value;
+
+  const prompt=`你是她说了算平台的精力管理教练，专注于帮助女性识别和修复精力泄漏。
+
+用户：${name}
+精力泄漏诊断结果（满分125分，分数越高泄漏越严重）：
+${scoresStr}
+总分：${total}分
+最大泄漏源：${names[topIdx]}（${scores[topIdx]}分）
+${specific?`用户补充的具体情境：${specific}`:''}
+
+请生成一份温暖、实用、可立刻执行的精力修复方案，包含（用中文，每部分用【标题】标注）：
+
+【你的精力画像】
+用2-3句话描述${name}目前的精力状态，要有共情，让她感到被看见。
+
+【最需要优先修复的地方】
+针对得分最高的1-2个黑洞，给出具体的、这周就能做的修复动作（不是大道理，是具体行为）。
+
+【这周的一个小实验】
+选一件事，让${name}这周尝试，观察7天后的变化。要具体、简单、低门槛。
+
+【一句话给你】
+用一句真诚的话，帮${name}重新框架她的精力状况。不是鼓励，是真实的视角。
+
+语气温暖有力，像一个懂你的朋友在说话，不是在讲课。`;
+
+  try{
+    const res=await fetch('/api/chat',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+    });
+    const d=await res.json();
+    const content=d.content?.[0]?.text||'生成失败，请重试。';
+    const sections=content.split(/【(.+?)】/).filter(s=>s.trim());
+    let html='';
+    for(let i=0;i<sections.length;i+=2){
+      if(i+1<sections.length){
+        html+=`<div class="repair-card"><div class="repair-title">${sections[i]}</div><div class="repair-text">${sections[i+1].trim()}</div></div>`;
+      }
+    }
+    document.getElementById('resultContent').innerHTML=html||`<div class="repair-text" style="color:rgba(255,255,255,.75);padding:0 4px;">${content}</div>`;
+    document.getElementById('resultBox').classList.add('show');
+  }catch(e){
+    document.getElementById('resultContent').innerHTML='<p style="color:#f0a0a0;font-size:13px;padding:0 4px;">生成失败，请检查网络后重试。</p>';
+    document.getElementById('resultBox').classList.add('show');
+  }
+  btn.disabled=false;tx.textContent='重新生成';sp.style.display='none';
+  document.getElementById('resultBox').scrollIntoView({behavior:'smooth'});
+}
+
+function copyResult(){
+  const text=document.getElementById('resultContent').innerText;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.querySelector('.copy-btn');
+    btn.textContent='已复制 ✓';setTimeout(()=>btn.textContent='复制方案',2000);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人资产盘点表 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#4A1942;--rose:#C4587A;--blush:#F0DCE8;--cream:#FDF9F5;--sand:#EDE4D8;--rule:#DDD0D8;--text:#3A2838;--grey:#8A7888;--teal:#1D4A35;--teal-light:#D6EDE0;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;min-height:100vh;}
+.header{background:var(--teal);padding:28px 40px 24px;position:relative;overflow:hidden;}
+.header::before{content:'◈';position:absolute;right:-10px;top:-20px;font-size:180px;color:rgba(255,255,255,.04);font-family:'Libre Baskerville',serif;}
+.header-tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;}
+.header h1{font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:6px;}
+.header h1 em{color:#9FE1CB;font-style:italic;}
+.header p{font-size:12px;color:rgba(255,255,255,.5);}
+.container{max-width:680px;margin:0 auto;padding:32px 24px;}
+.section-label{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.section-label::after{content:'';flex:1;height:1px;background:var(--rule);}
+.intro-card{background:var(--teal-light);border-left:4px solid var(--teal);padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:28px;}
+.intro-card p{font-size:13px;color:var(--teal);line-height:1.75;}
+.intro-card p strong{font-weight:700;}
+.question-block{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:16px;transition:border-color .2s;}
+.question-block:focus-within{border-color:var(--teal);}
+.q-num{font-family:'Libre Baskerville',serif;font-size:13px;font-weight:700;color:var(--teal);margin-bottom:4px;}
+.q-text{font-size:14px;font-weight:500;color:var(--plum);margin-bottom:4px;line-height:1.4;}
+.q-hint{font-size:11.5px;color:var(--grey);font-style:italic;margin-bottom:12px;line-height:1.6;}
+textarea{width:100%;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:var(--cream);outline:none;resize:vertical;min-height:80px;transition:border-color .2s;line-height:1.7;}
+textarea:focus{border-color:var(--teal);background:#fff;}
+input[type=text]{width:100%;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:var(--cream);outline:none;transition:border-color .2s;}
+input[type=text]:focus{border-color:var(--teal);background:#fff;}
+.tag-input-area{display:flex;flex-wrap:wrap;gap:8px;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;background:var(--cream);min-height:46px;cursor:text;transition:border-color .2s;}
+.tag-input-area:focus-within{border-color:var(--teal);background:#fff;}
+.tag{background:var(--teal-light);color:var(--teal);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px;}
+.tag span{cursor:pointer;opacity:.6;font-size:14px;line-height:1;}
+.tag span:hover{opacity:1;}
+.tag-input{border:none;outline:none;background:transparent;font-size:13px;color:var(--text);min-width:120px;font-family:'DM Sans',sans-serif;}
+.years-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:8px;}
+.year-cell{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .2s;}
+.year-cell:hover{border-color:var(--teal);}
+.year-cell.selected{background:var(--teal);border-color:var(--teal);color:#fff;}
+.year-cell .yr{font-size:11px;color:var(--grey);margin-bottom:4px;}
+.year-cell.selected .yr{color:rgba(255,255,255,.6);}
+.year-cell input{border:none;text-align:center;font-size:11px;width:100%;outline:none;background:transparent;color:var(--text);cursor:pointer;}
+.year-cell.selected input{color:#fff;}
+.section-gap{height:28px;}
+.btn-generate{background:var(--teal);border:none;padding:14px 28px;border-radius:8px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:10px;transition:background .2s;margin-top:8px;}
+.btn-generate:hover{background:var(--plum);}
+.btn-generate:disabled{background:var(--grey);cursor:not-allowed;}
+.loading-ring{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.result-outer{display:none;margin-top:24px;}
+.result-outer.show{display:block;}
+.result-header{background:var(--teal);color:#fff;padding:18px 24px;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;align-items:center;}
+.result-header h3{font-family:'Libre Baskerville',serif;font-size:16px;font-weight:700;}
+.result-header p{font-size:11px;opacity:.5;}
+.result-body{background:var(--plum);padding:24px;border-radius:0 0 10px 10px;}
+.result-section{margin-bottom:20px;}
+.result-section-title{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;}
+.result-section-content{font-size:13.5px;line-height:1.85;color:rgba(255,255,255,.8);white-space:pre-wrap;}
+.highlight-box{background:rgba(255,255,255,.07);border-left:3px solid #9FE1CB;padding:14px 18px;border-radius:0 6px 6px 0;margin:12px 0;}
+.highlight-box p{font-size:14px;font-style:italic;color:#9FE1CB;line-height:1.7;}
+.copy-btn{background:none;border:1px solid rgba(255,255,255,.2);padding:8px 16px;border-radius:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:14px;transition:all .2s;}
+.copy-btn:hover{border-color:rgba(255,255,255,.5);color:#fff;}
+@media(max-width:480px){.header{padding:20px;}.container{padding:20px 16px;}.years-grid{grid-template-columns:repeat(3,1fr);}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-tag">她说了算 · 配套工具 · 身份重塑篇</div>
+  <h1>个人资产盘点表<br><em>Personal Asset Inventory</em></h1>
+  <p>挖掘你10年隐性资产 · AI生成定位 · 配套「她的选择」第4期</p>
+</div>
+
+<div class="container">
+  <div class="intro-card">
+    <p>这份表格的目的只有一个：<strong>帮你看见你已经拥有但还没命名的东西。</strong><br>很多女性低估自己的资产，不是因为资产不存在，而是因为她们从来没有停下来清点过。<br>花15分钟，认真回答。答完会有一个AI分析，告诉你你的定位和第二曲线可能性。</p>
+  </div>
+
+  <!-- 第一部分：被请教的事 -->
+  <div class="section-label">Part 1 · 你的隐性专业权威</div>
+  <div class="question-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">过去一年，同事或朋友最常向你请教什么？</div>
+    <div class="q-hint">不是你的职位职责，是他们遇到麻烦时第一个想到找你的那种事。</div>
+    <textarea id="q1" placeholder="例：经常有人来问我怎么跟老板汇报、怎么写提案，或者怎么处理团队冲突..."></textarea>
+  </div>
+  <div class="question-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">你做起来比大多数人快很多、或者效果好很多的事情是什么？</div>
+    <div class="q-hint">不要谦虚——那件让你觉得"这不是理所当然吗"的事，往往就是你的天赋。</div>
+    <textarea id="q2" placeholder="例：把复杂信息用很简单的方式讲清楚，别人要两小时的汇报我30分钟就能做好..."></textarea>
+  </div>
+
+  <div class="section-gap"></div>
+  <!-- 第二部分：走过的弯路 -->
+  <div class="section-label">Part 2 · 你的实战智慧</div>
+  <div class="question-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">你职业生涯里最大的一次失败或弯路是什么？你从中学到了什么？</div>
+    <div class="q-hint">这不是伤疤，是最贵的学费换来的洞察。你的弯路，可能是别人的捷径。</div>
+    <textarea id="q3" placeholder="例：我曾经因为不会拒绝别人，把自己的核心项目搞砸了。现在我知道怎么边界清晰地说不..."></textarea>
+  </div>
+  <div class="question-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">你在哪个领域，有别人没有的"独特视角"或"反常识判断"？</div>
+    <div class="q-hint">那个你说出来别人会说"对哦！"但之前没人这么说过的观点。</div>
+    <textarea id="q4" placeholder="例：在做绩效管理这件事上，我发现大多数公司都做反了。正确的方式应该是..."></textarea>
+  </div>
+
+  <div class="section-gap"></div>
+  <!-- 第三部分：10年时间线 -->
+  <div class="section-label">Part 3 · 你的10年资产地图</div>
+  <div class="question-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">用一个词或短语，标注你过去最重要的5个工作阶段。</div>
+    <div class="q-hint">不一定是工作职位，可以是一个项目、一个角色、一个转变。</div>
+    <div class="years-grid" id="yearsGrid">
+      <div class="year-cell" onclick="this.classList.toggle('selected')"><div class="yr">阶段1</div><input type="text" placeholder="关键词" onclick="event.stopPropagation()"></div>
+      <div class="year-cell" onclick="this.classList.toggle('selected')"><div class="yr">阶段2</div><input type="text" placeholder="关键词" onclick="event.stopPropagation()"></div>
+      <div class="year-cell" onclick="this.classList.toggle('selected')"><div class="yr">阶段3</div><input type="text" placeholder="关键词" onclick="event.stopPropagation()"></div>
+      <div class="year-cell" onclick="this.classList.toggle('selected')"><div class="yr">阶段4</div><input type="text" placeholder="关键词" onclick="event.stopPropagation()"></div>
+      <div class="year-cell" onclick="this.classList.toggle('selected')"><div class="yr">阶段5</div><input type="text" placeholder="关键词" onclick="event.stopPropagation()"></div>
+    </div>
+  </div>
+  <div class="question-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">如果你不需要考虑钱，你最想帮助哪类人解决什么问题？</div>
+    <div class="q-hint">这一问是为了找到你的使命感。它往往和你的资产高度重合。</div>
+    <textarea id="q6" placeholder="例：我最想帮助刚入职场2-3年、很努力但找不到方向的女生，让她们早点明白哪些东西真的重要..."></textarea>
+  </div>
+  <div class="question-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">你的名字，和你希望的定位</div>
+    <div class="q-hint">你叫什么？你现在怎么介绍自己？你希望别人怎么记住你？</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;">
+      <div><label style="font-size:11px;color:var(--grey);display:block;margin-bottom:6px;">你的名字</label><input type="text" id="yourName" placeholder="例：王小雯"></div>
+      <div><label style="font-size:11px;color:var(--grey);display:block;margin-bottom:6px;">当前自我介绍</label><input type="text" id="currentIntro" placeholder="例：某公司HR经理"></div>
+    </div>
+  </div>
+
+  <div class="section-gap"></div>
+  <button class="btn-generate" id="genBtn" onclick="generateAnalysis()">
+    <span id="genText">生成我的资产分析报告</span>
+    <span id="genSpinner" style="display:none;" class="loading-ring"></span>
+  </button>
+
+  <div class="result-outer" id="resultOuter">
+    <div class="result-header">
+      <div><h3>你的个人资产报告</h3><p>AI生成 · 她说了算工具层</p></div>
+      <button class="copy-btn" style="background:none;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);padding:6px 14px;border-radius:5px;cursor:pointer;font-size:11px;" onclick="copyReport()">复制报告</button>
+    </div>
+    <div class="result-body" id="resultBody"></div>
+  </div>
+</div>
+
+<script>
+function getStages(){
+  return [...document.querySelectorAll('#yearsGrid .year-cell input')].map((inp,i)=>inp.value||`阶段${i+1}`).join('、');
+}
+
+async function generateAnalysis(){
+  const btn=document.getElementById('genBtn');
+  const sp=document.getElementById('genSpinner');
+  const tx=document.getElementById('genText');
+  btn.disabled=true;tx.textContent='分析中，请稍候…';sp.style.display='flex';
+
+  const data={
+    name:document.getElementById('yourName').value||'你',
+    currentIntro:document.getElementById('currentIntro').value,
+    q1:document.getElementById('q1').value,
+    q2:document.getElementById('q2').value,
+    q3:document.getElementById('q3').value,
+    q4:document.getElementById('q4').value,
+    stages:getStages(),
+    q6:document.getElementById('q6').value,
+  };
+
+  const prompt=`你是她说了算平台的成长教练，专注于帮助女性发现和命名自己的职业资产。
+请根据以下信息，为用户生成一份深刻、真诚、有洞见的个人资产分析报告。
+
+用户：${data.name}（当前自我介绍：${data.currentIntro}）
+Q1 别人常向你请教的事：${data.q1}
+Q2 你做起来比别人好的事：${data.q2}
+Q3 最大的弯路和收获：${data.q3}
+Q4 你的独特视角：${data.q4}
+Q5 职业阶段关键词：${data.stages}
+Q6 最想帮助的人和问题：${data.q6}
+
+请输出以下内容（用中文，不用markdown格式，每个部分用【标题】标注）：
+
+【你的三大核心资产】
+分析她最有价值的3个专业能力或经验资产，每个用一句话命名并解释为什么有价值。
+
+【你的一句话定位】
+基于以上，给她写一句精准的定位句，格式：「我帮[具体人群]解决[具体问题]，方式是[独特方法]。」然后解释为什么这样定位。
+
+【你的第二曲线可能性】
+基于她的资产，提出2-3个具体的第二曲线方向（不是泛泛而谈，要有具体的形式和切入点）。
+
+【你还没发现的隐藏资产】
+指出她没有明确说出来但答案里透露出来的1-2个潜力资产。
+
+【给${data.name}的一句话】
+用教练的视角，真诚地说一句让她感到被看见的话。
+
+语气要温暖、专业、有洞察力，像一个真正了解她的教练在说话。`;
+
+  try{
+    const res=await fetch('/api/chat',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+    });
+    const d=await res.json();
+    const content=d.content?.[0]?.text||'生成失败，请重试。';
+
+    const body=document.getElementById('resultBody');
+    const sections=content.split(/【(.+?)】/).filter(s=>s.trim());
+    let html='';
+    for(let i=0;i<sections.length;i+=2){
+      if(i+1<sections.length){
+        const title=sections[i];
+        const text=sections[i+1].trim();
+        if(title.includes('一句话定位')){
+          html+=`<div class="result-section"><div class="result-section-title">${title}</div><div class="highlight-box"><p>${text}</p></div></div>`;
+        } else {
+          html+=`<div class="result-section"><div class="result-section-title">${title}</div><div class="result-section-content">${text}</div></div>`;
+        }
+      }
+    }
+    body.innerHTML=html||`<div class="result-section-content">${content}</div>`;
+    document.getElementById('resultOuter').classList.add('show');
+  }catch(e){
+    document.getElementById('resultBody').innerHTML='<p style="color:#f0a0a0;font-size:13px;">生成失败，请检查网络后重试。</p>';
+    document.getElementById('resultOuter').classList.add('show');
+  }
+  btn.disabled=false;tx.textContent='重新分析';sp.style.display='none';
+  document.getElementById('resultOuter').scrollIntoView({behavior:'smooth'});
+}
+
+function copyReport(){
+  const text=document.getElementById('resultBody').innerText;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.querySelector('.result-header .copy-btn');
+    btn.textContent='已复制 ✓';setTimeout(()=>btn.textContent='复制报告',2000);
+  });
+}
+</script>
+</body>
+</html>
