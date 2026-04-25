@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>她说了算 · She Decides</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#3d1536; --plum-mid:#6b2560; --rose:#c4587a;
+  --rose-light:#e07898; --blush:#f0dce8; --blush-pale:#faf3f7;
+  --cream:#fdfaf5; --sand:#ede4d8; --rule:#e2d4dc;
+  --text:#2e1a28; --mid:#6b4a60; --light:#9a7a8e;
+  --teal:#1d4a35; --teal-light:#d6ede0;
+  --amber:#b8862c; --amber-light:#f5edd8;
+  --gold:#c49a3c;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
+
+/* ── HERO ── */
+.hero{background:var(--plum);position:relative;overflow:hidden;}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 15% 60%,rgba(196,88,122,.2) 0%,transparent 50%),
+    radial-gradient(ellipse at 85% 15%,rgba(107,37,96,.5) 0%,transparent 45%),
+    repeating-linear-gradient(135deg,transparent,transparent 60px,rgba(255,255,255,.012) 60px,rgba(255,255,255,.012) 61px);
+}
+.hero-deco{
+  position:absolute;right:-40px;top:-60px;
+  font-family:'Noto Serif SC',serif;font-size:340px;font-weight:700;
+  color:rgba(255,255,255,.025);line-height:1;pointer-events:none;
+}
+.hero-inner{
+  max-width:960px;margin:0 auto;padding:64px 48px 56px;
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;
+}
+.hero-eyebrow{
+  font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.38);margin-bottom:18px;
+  display:flex;align-items:center;gap:12px;
+}
+.hero-eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.15),transparent);}
+.hero-title{
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(32px,5.5vw,56px);font-weight:700;
+  color:#fff;line-height:1.08;margin-bottom:10px;
+}
+.hero-title em{font-style:italic;color:rgba(240,210,228,.8);}
+.hero-sub{font-size:12px;letter-spacing:.16em;color:rgba(255,255,255,.32);text-transform:uppercase;margin-bottom:24px;}
+.hero-desc{font-size:14.5px;color:rgba(255,255,255,.6);line-height:1.8;max-width:520px;margin-bottom:32px;}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-trial{
+  background:var(--rose);border:none;padding:13px 28px;
+  border-radius:6px;font-size:13px;font-weight:700;
+  color:#fff;cursor:pointer;letter-spacing:.04em;
+  transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-trial:hover{background:#d4688a;}
+.btn-member{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);
+  padding:13px 28px;border-radius:6px;font-size:13px;font-weight:700;
+  color:rgba(255,255,255,.8);cursor:pointer;letter-spacing:.04em;
+  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-member:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);}
+.hero-right{text-align:center;flex-shrink:0;}
+.price-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  border-radius:12px;padding:24px 28px;min-width:180px;
+}
+.price-tag{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px;}
+.price-num{font-family:'Noto Serif SC',serif;font-size:44px;font-weight:700;color:#fff;line-height:1;}
+.price-unit{font-size:16px;color:rgba(255,255,255,.5);}
+.price-desc{font-size:11.5px;color:rgba(255,255,255,.4);margin-top:6px;line-height:1.5;}
+.price-sep{width:32px;height:1px;background:rgba(255,255,255,.15);margin:14px auto;}
+.price-year{font-size:13px;font-weight:700;color:var(--gold);}
+.price-year-sub{font-size:10.5px;color:rgba(255,255,255,.3);margin-top:2px;}
+
+/* ── STATS BAR ── */
+.stats-bar{background:var(--plum-mid);border-top:1px solid rgba(255,255,255,.08);}
+.stats-inner{
+  max-width:960px;margin:0 auto;padding:0 48px;
+  display:flex;
+}
+.stat-item{
+  padding:14px 28px 14px 0;border-right:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;gap:12px;
+}
+.stat-item:last-child{border-right:none;}
+.stat-num{
+  font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;
+  color:#fff;line-height:1;
+}
+.stat-lbl{font-size:11px;color:rgba(255,255,255,.4);line-height:1.4;}
+
+/* ── NAV STRIP ── */
+.nav-strip{
+  background:#fff;border-bottom:1px solid var(--rule);
+  position:sticky;top:0;z-index:100;
+}
+.nav-inner{
+  max-width:960px;margin:0 auto;padding:0 48px;
+  display:flex;gap:0;overflow-x:auto;scrollbar-width:none;
+}
+.nav-inner::-webkit-scrollbar{display:none;}
+.nav-tab{
+  padding:13px 18px;font-size:10.5px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--light);border:none;background:none;cursor:pointer;
+  border-bottom:2px solid transparent;white-space:nowrap;
+  transition:all .2s;text-decoration:none;
+}
+.nav-tab:hover{color:var(--rose);}
+.nav-tab.active{color:var(--plum);border-bottom-color:var(--rose);}
+
+/* ── SECTION ── */
+.section{max-width:960px;margin:0 auto;padding:0 48px;}
+.sec-head{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding-top:56px;margin-bottom:28px;border-top:1px solid var(--rule);
+}
+.sec-head:first-of-type{border-top:none;padding-top:48px;}
+.sec-eyebrow{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--rose);font-weight:700;margin-bottom:5px;}
+.sec-title{font-family:'Noto Serif SC',serif;font-size:clamp(20px,3vw,28px);font-weight:600;color:var(--plum);}
+.sec-sub{font-size:13px;color:var(--light);margin-top:4px;line-height:1.6;}
+
+/* ── TRIAL SECTION ── */
+.trial-card{
+  background:var(--plum);border-radius:0;
+  display:grid;grid-template-columns:1fr 320px;
+  overflow:hidden;margin-bottom:1px;
+}
+.trial-content{padding:36px 40px;}
+.trial-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--rose);color:#fff;
+  font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  padding:4px 12px;border-radius:20px;margin-bottom:14px;
+}
+.trial-title{
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(18px,2.5vw,24px);font-weight:600;
+  color:#fff;line-height:1.3;margin-bottom:10px;
+}
+.trial-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.78;margin-bottom:20px;}
+.trial-includes{display:flex;flex-direction:column;gap:8px;}
+.trial-inc-item{display:flex;align-items:center;gap:10px;font-size:12.5px;color:rgba(255,255,255,.65);}
+.trial-inc-item::before{content:'✓';color:var(--rose);font-weight:700;font-size:13px;flex-shrink:0;}
+.trial-preview{background:rgba(255,255,255,.04);border-left:1px solid rgba(255,255,255,.08);padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between;}
+.preview-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px;}
+.preview-quote{
+  font-family:'Noto Serif SC',serif;font-size:15px;font-style:italic;
+  color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:16px;
+}
+.preview-quote-src{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.08em;}
+.btn-read-trial{
+  background:#fff;color:var(--plum);border:none;
+  padding:11px 20px;border-radius:6px;font-size:12.5px;font-weight:700;
+  cursor:pointer;transition:all .2s;text-align:center;
+  text-decoration:none;display:block;
+}
+.btn-read-trial:hover{background:var(--blush);}
+
+/* ── PREVIEW ARTICLE (the free trial content) ── */
+.preview-article{
+  background:#fff;border:1px solid var(--rule);
+  padding:40px;margin-bottom:1px;position:relative;
+}
+.article-meta{display:flex;gap:16px;align-items:center;margin-bottom:20px;flex-wrap:wrap;}
+.article-vol{font-family:'DM Mono',monospace;font-size:11px;color:var(--light);}
+.article-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:var(--blush);color:var(--plum-mid);}
+.article-title{font-family:'Noto Serif SC',serif;font-size:clamp(18px,2.5vw,24px);font-weight:700;color:var(--plum);line-height:1.3;margin-bottom:10px;}
+.article-lead{font-family:'Noto Serif SC',serif;font-size:16px;font-style:italic;color:var(--mid);line-height:1.7;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--rule);}
+.article-body{font-size:14px;color:var(--text);line-height:1.9;margin-bottom:20px;}
+.article-body p{margin-bottom:14px;}
+.article-body strong{color:var(--plum);font-weight:700;}
+.data-callout{background:var(--blush-pale);border-left:4px solid var(--rose);padding:16px 20px;border-radius:0 8px 8px 0;margin:20px 0;}
+.data-callout .dc-num{font-family:'Noto Serif SC',serif;font-size:42px;font-weight:700;color:var(--rose);line-height:1;}
+.data-callout .dc-label{font-size:13px;color:var(--plum);font-weight:700;margin-top:2px;}
+.data-callout .dc-sub{font-size:12px;color:var(--mid);margin-top:4px;line-height:1.5;}
+/* Fade and lock overlay */
+.article-fade{
+  position:relative;margin-top:-60px;
+}
+.article-fade::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:120px;
+  background:linear-gradient(transparent,#fff);z-index:1;
+}
+.article-lock{
+  background:#fff;border-top:1px solid var(--rule);
+  padding:28px 40px;text-align:center;position:relative;z-index:2;
+}
+.lock-icon{font-size:28px;margin-bottom:10px;}
+.lock-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--plum);margin-bottom:6px;}
+.lock-desc{font-size:13px;color:var(--light);margin-bottom:20px;line-height:1.6;}
+.lock-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+
+/* ── MEMBER GATE MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(61,21,54,.7);
+  z-index:1000;display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(4px);
+}
+.modal-overlay.show{display:flex;}
+.modal-box{
+  background:var(--cream);border-radius:16px;padding:40px;
+  max-width:400px;width:90%;position:relative;
+  animation:popIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  width:32px;height:32px;border-radius:50%;
+  background:var(--rule);border:none;cursor:pointer;
+  font-size:16px;color:var(--mid);display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.modal-close:hover{background:var(--blush);color:var(--rose);}
+.modal-logo{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--plum);margin-bottom:6px;}
+.modal-sub{font-size:11px;color:var(--light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px;}
+.modal-label{font-size:12px;font-weight:700;color:var(--plum);margin-bottom:8px;display:block;}
+.modal-input{
+  width:100%;padding:12px 16px;border:1.5px solid var(--rule);
+  border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;
+  color:var(--text);outline:none;transition:border-color .2s;
+  letter-spacing:.08em;
+}
+.modal-input:focus{border-color:var(--rose);}
+.modal-input.error{border-color:#e05050;animation:shake .3s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.modal-error{font-size:12px;color:#e05050;margin-top:6px;display:none;}
+.modal-error.show{display:block;}
+.btn-enter{
+  width:100%;background:var(--rose);border:none;
+  padding:13px;border-radius:8px;font-size:14px;font-weight:700;
+  color:#fff;cursor:pointer;margin-top:14px;transition:background .2s;
+}
+.btn-enter:hover{background:var(--plum);}
+.modal-hint{
+  margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);
+  font-size:12px;color:var(--light);line-height:1.65;text-align:center;
+}
+.modal-hint a{color:var(--rose);text-decoration:none;}
+.modal-hint a:hover{text-decoration:underline;}
+
+/* ── WHAT YOU GET ── */
+.benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:56px;}
+.benefit-card{background:var(--cream);padding:24px 22px;transition:background .2s;}
+.benefit-card:hover{background:var(--blush-pale);}
+.bc-icon{font-size:28px;margin-bottom:12px;display:block;}
+.bc-title{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:var(--plum);margin-bottom:6px;}
+.bc-desc{font-size:12.5px;color:var(--mid);line-height:1.65;}
+.bc-tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px;margin-top:10px;}
+.bc-tag.rose{background:var(--blush);color:var(--rose);}
+.bc-tag.teal{background:var(--teal-light);color:var(--teal);}
+.bc-tag.amber{background:var(--amber-light);color:var(--amber);}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:56px;}
+.pricing-card{border:1px solid var(--rule);border-radius:12px;overflow:hidden;}
+.pricing-card.featured{border-color:var(--rose);box-shadow:0 0 0 2px rgba(196,88,122,.15);}
+.pricing-head{padding:22px 24px 18px;}
+.pricing-head.trial-head{background:var(--cream);}
+.pricing-head.member-head{background:var(--plum);}
+.pricing-plan{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+.trial-head .pricing-plan{color:var(--rose);}
+.member-head .pricing-plan{color:rgba(255,255,255,.45);}
+.pricing-price{font-family:'Noto Serif SC',serif;font-size:44px;font-weight:700;line-height:1;margin-bottom:4px;}
+.trial-head .pricing-price{color:var(--plum);}
+.member-head .pricing-price{color:#fff;}
+.pricing-period{font-size:14px;font-weight:400;}
+.pricing-desc{font-size:12px;line-height:1.5;margin-top:4px;}
+.trial-head .pricing-desc{color:var(--light);}
+.member-head .pricing-desc{color:rgba(255,255,255,.4);}
+.pricing-body{padding:20px 24px 24px;background:#fff;}
+.pricing-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:13px;color:var(--mid);}
+.pricing-item::before{content:'◆';color:var(--rose);font-size:8px;flex-shrink:0;margin-top:4px;}
+.pricing-item.muted::before{color:var(--rule);}
+.pricing-item.muted{color:var(--light);}
+.btn-pricing{
+  width:100%;padding:12px;border-radius:8px;font-size:13px;font-weight:700;
+  cursor:pointer;margin-top:8px;transition:all .2s;border:none;
+}
+.btn-pricing.trial-btn{background:var(--rose);color:#fff;}
+.btn-pricing.trial-btn:hover{background:var(--plum);}
+.btn-pricing.member-btn{background:var(--plum);color:#fff;}
+.btn-pricing.member-btn:hover{background:var(--rose);}
+
+/* ── FOUNDERS ── */
+.founders-strip{background:var(--plum);padding:36px 48px;display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:0;}
+.founder-cell{display:flex;gap:16px;align-items:flex-start;}
+.founder-av{width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:#fff;flex-shrink:0;}
+.founder-av.rose{background:var(--rose);}
+.founder-av.teal{background:var(--teal);}
+.founder-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px;}
+.founder-role{font-size:11px;color:rgba(255,255,255,.4);line-height:1.5;margin-bottom:8px;}
+.founder-tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);}
+
+/* ── FOOTER ── */
+footer{background:var(--plum);border-top:1px solid rgba(255,255,255,.06);padding:28px 48px;text-align:center;}
+.footer-brand{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:6px;}
+.footer-rule{width:32px;height:1px;background:var(--rose);margin:10px auto;}
+.footer-tagline{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.14em;text-transform:uppercase;}
+.footer-note{font-size:10px;color:rgba(255,255,255,.15);margin-top:10px;line-height:1.7;}
+
+/* ── MISC ── */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--gold));width:0%;z-index:200;transition:width .1s;}
+
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr;padding:32px 20px;gap:24px;}
+  .hero-right{display:none;}
+  .stats-inner{flex-wrap:wrap;padding:0 20px;}
+  .stat-item{padding:12px 20px 12px 0;border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
+  .nav-inner,.section{padding-left:20px;padding-right:20px;}
+  .trial-card{grid-template-columns:1fr;}
+  .trial-preview{display:none;}
+  .benefit-grid,.pricing-grid{grid-template-columns:1fr;}
+  .founders-strip{grid-template-columns:1fr;padding:28px 20px;}
+  footer{padding:24px 20px;}
+  .article-lock{padding:24px 20px;}
+  .preview-article{padding:28px 20px;}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-deco">她</div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">她说了算 · She Decides · 全球女性成长生态</div>
+      <h1 class="hero-title">每半月，一份<br>有据可查的<br><em>女性视野</em></h1>
+      <p class="hero-sub">Global Women's Intelligence · 2026</p>
+      <p class="hero-desc">三大支柱：认知套利 · 身份重塑 · 精力主权<br>24期简报 · 配套工具箱 · 书房 · 成长路径<br>不用开公司，也能像 CEO 一样管理你的人生资产。</p>
+      <div class="hero-ctas">
+        <button class="btn-trial" onclick="scrollToTrial()">↓ 免费试读第一期</button>
+        <button class="btn-member" onclick="openModal()">🔐 会员入口</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="price-card">
+        <div class="price-tag">试读价</div>
+        <div class="price-num">¥9.9<span class="price-unit"></span></div>
+        <div class="price-desc">第一个月全部内容<br>不满意随时退</div>
+        <div class="price-sep"></div>
+        <div class="price-year">首批年费 ¥139</div>
+        <div class="price-year-sub">约¥11.6/期 · 全年24期</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div><div class="stat-num">3</div><div class="stat-lbl">期已发布<br>全年24期</div></div>
+    </div>
+    <div class="stat-item" style="padding-left:28px;">
+      <div><div class="stat-num">3</div><div class="stat-lbl">件工具<br>已上线</div></div>
+    </div>
+    <div class="stat-item" style="padding-left:28px;">
+      <div><div class="stat-num">4</div><div class="stat-lbl">本书房<br>精选导读</div></div>
+    </div>
+    <div class="stat-item" style="padding-left:28px;">
+      <div><div class="stat-num">30年</div><div class="stat-lbl">Janet<br>教练积累</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-strip">
+  <div class="nav-inner">
+    <a class="nav-tab active" href="#trial">免费试读</a>
+    <a class="nav-tab" href="#benefits">包含什么</a>
+    <a class="nav-tab" href="#pricing">订阅价格</a>
+    <a class="nav-tab" href="#founders">关于我们</a>
+    <button class="nav-tab" style="color:var(--rose);font-weight:700;" onclick="openModal()">🔐 会员入口</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- TRIAL SECTION -->
+<div id="trial"></div>
+<div class="section">
+  <div class="sec-head reveal" style="border-top:none;">
+    <div>
+      <div class="sec-eyebrow">免费试读 · Free Preview</div>
+      <div class="sec-title">先读，再决定</div>
+      <div class="sec-sub">下面是第三期「给不打算创业的她」的完整开篇，不需要付费，直接阅读。</div>
+    </div>
+  </div>
+
+  <!-- Trial feature card -->
+  <div class="trial-card reveal">
+    <div class="trial-content">
+      <div class="trial-badge">✦ 本期试读 · Vol.03</div>
+      <div class="trial-title">给不打算创业的她——<br>底气、工具与主权</div>
+      <div class="trial-desc">全球趋势数据，对职场人最直接的价值不是「创什么公司」，而是如何用信息差赢回主动权，重新定价自己。</div>
+      <div class="trial-includes">
+        <div class="trial-inc-item">认知套利：AI工具如何让你每天少加班2小时</div>
+        <div class="trial-inc-item">身份重塑：35岁不是终点，是你积累的起点</div>
+        <div class="trial-inc-item">精力主权：内耗比加班更费人，怎么堵住漏洞</div>
+        <div class="trial-inc-item">配套工具：谈薪准备器·资产盘点表·精力诊断</div>
+      </div>
+    </div>
+    <div class="trial-preview">
+      <div class="preview-label">编辑导语节选</div>
+      <div class="preview-quote">「第一期、第二期，我们告诉你世界在发生什么。第三期，我们问：这和你有什么关系？你能拿走什么？」</div>
+      <div class="preview-quote-src">— 她说了算编辑部</div>
+      <a href="../vol3.html" class="btn-read-trial">阅读完整第三期 →</a>
+    </div>
+  </div>
+
+  <!-- Free article preview -->
+  <div class="preview-article reveal">
+    <div class="article-meta">
+      <span class="article-vol">Vol.03 · 2026年4月 · 非创业者特辑</span>
+      <span class="article-tag">认知套利</span>
+    </div>
+    <h2 class="article-title">全球数据告诉我们：<br>差距，在你投递简历之前就已经存在了</h2>
+    <p class="article-lead">2026年，一个悖论正在全球范围内被清晰呈现：女性创造的经济价值在快速增长，但她们拿到的那份报酬，依然停留在男性的83%。</p>
+    <div class="article-body">
+      <p>JobLeads 2026年基于近百万用户的研究揭示了一个结构性发现：<strong>女性的薪资期望，平均比男性低9.5%——在任何面试或谈判发生之前。</strong></p>
+      <p>这意味着：雇主甚至不需要主动压价，系统就已经帮他们完成了这一步。当你的期望就是你薪资的天花板，谈判的起点就已经低了。</p>
+
+      <div class="data-callout">
+        <div class="dc-num">83¢</div>
+        <div class="dc-label">每挣1美元，全球女性平均到手83美分</div>
+        <div class="dc-sub">差距在提交申请前就已形成 · 有色人种女性更低至67-72美分 · 来源：JobLeads Research 2026</div>
+      </div>
+
+      <p>更深层的问题是：这种「自我降价」从哪里来？研究者认为，这是多年社会化的结果——女性被训练来「合理估计」而非「大胆要求」，这种内化的谦逊在职场上变成了真实的财务损失。</p>
+      <p>想象两位资历完全相同的候选人。A说「我期望的薪酬是30-35万」，B说「我期望的薪酬是25-28万」。招聘方会以各自的开价为起点谈判。<strong>差距不是在谈判中失去的，而是在开口前就放弃的。</strong></p>
+    </div>
+  </div>
+
+  <!-- Fade + lock -->
+  <div class="article-fade"></div>
+  <div class="article-lock reveal">
+    <div class="lock-icon">🔐</div>
+    <div class="lock-title">后续深度内容，会员可见</div>
+    <div class="lock-desc">
+      包括：完整的谈薪话术框架 · Janet教练视角分析 · 全球薪酬透明化立法地图<br>
+      以及配套工具：<strong>谈薪准备器</strong>（填完当天就能用）
+    </div>
+    <div class="lock-btns">
+      <button class="btn-trial" onclick="openModal()">🔐 我已是会员，进入知识库</button>
+      <a href="#pricing" class="btn-member" style="border:1px solid var(--rule);color:var(--mid);background:none;padding:12px 24px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;">¥9.9 试读第一个月</a>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<div id="benefits"></div>
+<div class="section">
+  <div class="sec-head reveal">
+    <div>
+      <div class="sec-eyebrow">会员包含什么</div>
+      <div class="sec-title">不只是一份简报——是一个完整的成长系统</div>
+    </div>
+  </div>
+  <div class="benefit-grid reveal">
+    <div class="benefit-card">
+      <span class="bc-icon">📋</span>
+      <div class="bc-title">全球女性商业简报</div>
+      <div class="bc-desc">每半月一期，引用McKinsey、Grant Thornton等机构最新报告，告诉你这和你有什么关系、你的下一步怎么走。</div>
+      <span class="bc-tag rose">24期 · 全年</span>
+    </div>
+    <div class="benefit-card">
+      <span class="bc-icon">🛠</span>
+      <div class="bc-title">配套工具箱</div>
+      <div class="bc-desc">每期简报配套一件可直接使用的工具——谈薪准备器、个人资产盘点表、精力泄漏诊断表……填完当天就能用。</div>
+      <span class="bc-tag teal">24件工具 · 陆续上线</span>
+    </div>
+    <div class="benefit-card">
+      <span class="bc-icon">📚</span>
+      <div class="bc-title">她说了算书房</div>
+      <div class="bc-desc">精选书目 + Janet/Yilin亲自撰写的导读文章和行动笔记，每本书都有「读完能做的一件事」。</div>
+      <span class="bc-tag amber">每月更新</span>
+    </div>
+    <div class="benefit-card">
+      <span class="bc-icon">🗺</span>
+      <div class="bc-title">三条学习路径</div>
+      <div class="bc-desc">认知套利 · 身份重塑 · 精力主权，每条路径有清晰的步骤和进度——你随时知道自己在哪里、下一步是什么。</div>
+      <span class="bc-tag rose">分阶段设计</span>
+    </div>
+    <div class="benefit-card">
+      <span class="bc-icon">💬</span>
+      <div class="bc-title">读书会 · 线上社群</div>
+      <div class="bc-desc">每期简报有主题讨论，Yilin带深度解读，Janet定期出现回答真实问题。不是群发消息，是真实的对话。</div>
+      <span class="bc-tag teal">每半月一次</span>
+    </div>
+    <div class="benefit-card">
+      <span class="bc-icon">✨</span>
+      <div class="bc-title">首批会员特权</div>
+      <div class="bc-desc">你进来的时候，我们刚刚开始。你会和我们一起定义这个地方应该是什么样子——你说的每一句话，我们真的在听。</div>
+      <span class="bc-tag amber">限时 · 首批专属</span>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div id="pricing"></div>
+<div class="section">
+  <div class="sec-head reveal">
+    <div>
+      <div class="sec-eyebrow">订阅价格</div>
+      <div class="sec-title">先试，再决定</div>
+      <div class="sec-sub">¥9.9 试读第一个月，不满意随时退——零风险。</div>
+    </div>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="pricing-card">
+      <div class="pricing-head trial-head">
+        <div class="pricing-plan">试读方案</div>
+        <div class="pricing-price">¥9.9<span class="pricing-period"> / 第一个月</span></div>
+        <div class="pricing-desc">读完不满意，随时退款</div>
+      </div>
+      <div class="pricing-body">
+        <div class="pricing-item">当月全部简报内容无限阅读</div>
+        <div class="pricing-item">工具箱当月上线工具</div>
+        <div class="pricing-item">读书会线上参与一次</div>
+        <div class="pricing-item">今日起每日知识库更新</div>
+        <div class="pricing-item">体验后随时升级年费</div>
+        <div class="pricing-item muted">历史期内容存档</div>
+        <div class="pricing-item muted">全年24期工具完整包</div>
+        <button class="btn-pricing trial-btn" onclick="openModal()">扫码加入 · 获取密码</button>
+      </div>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-head member-head">
+        <div class="pricing-plan">年费方案 · 首批专属</div>
+        <div class="pricing-price">¥139<span class="pricing-period"> / 全年</span></div>
+        <div class="pricing-desc">约¥11.6/期 · 首批价格，后续调整</div>
+      </div>
+      <div class="pricing-body">
+        <div class="pricing-item">全年24期简报无限阅读</div>
+        <div class="pricing-item">全年24件配套工具完整包</div>
+        <div class="pricing-item">书房全部导读文章</div>
+        <div class="pricing-item">读书会全年参与权</div>
+        <div class="pricing-item">会员专属内容每日解锁</div>
+        <div class="pricing-item">少至优先报名线下活动</div>
+        <div class="pricing-item">首批会员定价不涨价</div>
+        <button class="btn-pricing member-btn" onclick="openModal()">已是年费会员 · 进入知识库</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOUNDERS -->
+<div id="founders"></div>
+<div class="section" style="padding-bottom:0;">
+  <div class="sec-head reveal">
+    <div>
+      <div class="sec-eyebrow">关于我们</div>
+      <div class="sec-title">做「她说了算」，是因为我们遇见了太多卡住的女性</div>
+    </div>
+  </div>
+</div>
+<div class="founders-strip reveal">
+  <div class="founder-cell">
+    <div class="founder-av rose">J</div>
+    <div>
+      <div class="founder-name">Janet</div>
+      <div class="founder-role">Next Peak 创始人 · 企业教练 · 30年<br>服务100+企业管理团队</div>
+      <span class="founder-tag">清晰力 · 叙事力 · 教练框架</span>
+    </div>
+  </div>
+  <div class="founder-cell">
+    <div class="founder-av teal">Y</div>
+    <div>
+      <div class="founder-name">Yilin</div>
+      <div class="founder-role">通达·Articom 创始人 · 国际教育13年<br>叙事力 × 清晰力 × 沟通力方法论</div>
+      <span class="founder-tag">国际视角 · 课堂逻辑表达</span>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="footer-brand">她说了算 · She Decides</div>
+  <div class="footer-rule"></div>
+  <div class="footer-tagline">全球女性成长生态 · 2026</div>
+  <div class="footer-note">¥9.9 试读第一个月 · 年费 ¥139 · 首批专属<br>「遇见不同，创造可能。」</div>
+</footer>
+
+<!-- MEMBER GATE MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-logo">她说了算</div>
+    <div class="modal-sub">She Decides · Member Portal</div>
+    <label class="modal-label" for="pwInput">输入会员密码</label>
+    <input
+      class="modal-input"
+      id="pwInput"
+      type="password"
+      placeholder="••••••••"
+      onkeydown="if(event.key==='Enter')checkPw()"
+      autocomplete="off"
+    >
+    <div class="modal-error" id="pwError">密码不正确，请检查后重试</div>
+    <button class="btn-enter" onclick="checkPw()">进入知识库 →</button>
+    <div class="modal-hint">
+      还不是会员？<a href="#pricing">¥9.9 试读第一个月</a><br>
+      付款后扫码加Janet微信获取密码<br>
+      <span style="color:rgba(61,21,54,.4);font-size:11px;">密码区分大小写</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── 会员密码设置 ──────────────────────────────────────────
+// 修改这里的密码，告诉付费会员就行
+const MEMBER_PASSWORDS = [
+  'shedecides2026',   // 主密码
+  'SD2026',           // 备用短密码
+  'janet2026',        // Janet专属
+];
+// ─────────────────────────────────────────────────────────
+
+function openModal() {
+  document.getElementById('modalOverlay').classList.add('show');
+  setTimeout(()=>document.getElementById('pwInput').focus(), 100);
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+  document.getElementById('pwInput').value = '';
+  document.getElementById('pwError').classList.remove('show');
+  document.getElementById('pwInput').classList.remove('error');
+}
+function handleOverlayClick(e) {
+  if(e.target === document.getElementById('modalOverlay')) closeModal();
+}
+function checkPw() {
+  const val = document.getElementById('pwInput').value.trim();
+  if(MEMBER_PASSWORDS.includes(val)) {
+    // Save to sessionStorage so hub.html can verify
+    sessionStorage.setItem('sd_member', '1');
+    sessionStorage.setItem('sd_pw_hash', btoa(val));
+    window.location.href = 'hub.html';
+  } else {
+    const input = document.getElementById('pwInput');
+    const error = document.getElementById('pwError');
+    input.classList.add('error');
+    error.classList.add('show');
+    setTimeout(()=>{
+      input.classList.remove('error');
+      error.classList.remove('show');
+    }, 2000);
+  }
+}
+
+function scrollToTrial() {
+  document.getElementById('trial').scrollIntoView({behavior:'smooth'});
+}
+
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const pct = window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100;
+  document.getElementById('progressBar').style.width = pct+'%';
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(e=>{
+  e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});
+},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Nav active
+const navObs = new IntersectionObserver(e=>{
+  e.forEach(x=>{
+    if(x.isIntersecting){
+      document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+      const a=document.querySelector(`.nav-tab[href="#${x.target.id}"]`);
+      if(a)a.classList.add('active');
+    }
+  });
+},{threshold:.4});
+['trial','benefits','pricing','founders'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)navObs.observe(el);
+});
+
+// Keyboard support
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+</html>
