@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精力泄漏诊断表 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--dk:#1c1018;--plum:#3d1536;--rose:#c4587a;--blush:#f0dce8;--cream:#fdfaf5;--sand:#ede4d8;--rule:#ddd0d8;--text:#2e1a28;--grey:#9a7a8e;--amber:#b8862c;--al:#f5edd8;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;}
+.header{background:linear-gradient(135deg,var(--dk) 55%,var(--plum));padding:32px 40px 28px;position:relative;overflow:hidden;}
+.header::before{content:'⚡';position:absolute;right:20px;top:10px;font-size:130px;opacity:.05;}
+.header-tag{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;}
+.header h1{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4vw,36px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:6px;}
+.header h1 em{font-style:italic;color:#E8C97A;}
+.header p{font-size:12px;color:rgba(255,255,255,.45);}
+.container{max-width:680px;margin:0 auto;padding:32px 24px;}
+.intro{background:var(--al);border-left:4px solid var(--amber);padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:28px;}
+.intro p{font-size:13px;color:#5a3a10;line-height:1.75;}
+.intro p strong{font-weight:700;}
+.eyebrow{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.eyebrow::after{content:'';flex:1;height:1px;background:var(--rule);}
+.drain-card{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:20px;margin-bottom:16px;transition:border-color .3s;}
+.drain-card:hover{border-color:var(--amber);}
+.dc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+.dc-left{}
+.dc-icon{font-size:24px;margin-bottom:6px;}
+.dc-name{font-size:15px;font-weight:700;color:var(--plum);}
+.dc-sub{font-size:11.5px;color:var(--grey);margin-top:2px;line-height:1.5;}
+.score-badge{background:var(--cream);border:1px solid var(--rule);border-radius:20px;padding:6px 14px;text-align:center;min-width:64px;flex-shrink:0;margin-left:12px;transition:all .3s;}
+.score-badge .snum{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;color:var(--plum);line-height:1;}
+.score-badge .slbl{font-size:9px;color:var(--grey);}
+.slider-group{margin-bottom:12px;}
+.slider-labels{display:flex;justify-content:space-between;font-size:11.5px;color:var(--grey);margin-bottom:6px;}
+.slider-labels .val{color:var(--plum);font-weight:700;}
+input[type=range]{width:100%;accent-color:var(--rose);height:4px;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--cream);}
+.chip{font-size:11px;background:var(--cream);border:1px solid var(--rule);border-radius:20px;padding:3px 10px;color:var(--grey);cursor:pointer;transition:all .2s;user-select:none;}
+.chip:hover,.chip.on{background:var(--blush);border-color:var(--rose);color:var(--plum);}
+/* Summary visual */
+.summary{background:var(--plum);border-radius:12px;padding:22px 24px;margin-bottom:24px;}
+.summary-title{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px;}
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.bar-name{font-size:11.5px;color:rgba(255,255,255,.55);width:68px;flex-shrink:0;text-align:right;}
+.bar-track{flex:1;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;background:var(--rose);transition:width .8s cubic-bezier(.4,0,.2,1);width:0;}
+.bar-val{font-size:11.5px;font-weight:700;color:#fff;width:30px;flex-shrink:0;}
+.total-row{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;}
+.total-lbl{font-size:11px;color:rgba(255,255,255,.4);}
+.total-num{font-family:'Noto Serif SC',serif;font-size:30px;font-weight:700;color:#fff;}
+.level-pill{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-left:10px;}
+.lv-ok{background:rgba(29,74,53,.4);color:#9FE1CB;}
+.lv-mild{background:rgba(184,134,44,.25);color:#E8C97A;}
+.lv-mod{background:rgba(196,88,122,.25);color:#F0C0D0;}
+.lv-crit{background:rgba(255,80,80,.2);color:#FFAAAA;}
+/* Extra fields */
+.field-group{margin-bottom:16px;}
+.field-label{font-size:12px;font-weight:700;color:var(--plum);margin-bottom:6px;display:block;}
+input[type=text]{width:100%;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;transition:border-color .2s;}
+input[type=text]:focus{border-color:var(--amber);}
+textarea{width:100%;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;resize:vertical;min-height:72px;transition:border-color .2s;line-height:1.7;}
+textarea:focus{border-color:var(--amber);}
+.btn-gen{background:var(--plum);border:none;padding:14px;border-radius:8px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;width:100%;transition:background .2s;}
+.btn-gen:hover{background:var(--rose);}
+/* Result */
+.result-box{display:none;margin-top:24px;background:var(--plum);border-radius:12px;overflow:hidden;animation:fadeUp .4s ease;}
+.result-box.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.result-head{padding:18px 24px;background:rgba(0,0,0,.2);display:flex;justify-content:space-between;align-items:center;}
+.result-head h3{font-family:'Noto Serif SC',serif;font-size:16px;color:#fff;font-weight:600;}
+.result-head p{font-size:11px;color:rgba(255,255,255,.35);}
+.result-content{padding:24px;}
+.fix-card{background:rgba(255,255,255,.06);border-radius:8px;padding:16px;margin-bottom:12px;border-left:3px solid var(--rose);}
+.fix-title{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--rose);font-weight:700;margin-bottom:8px;}
+.fix-text{font-size:13px;line-height:1.82;color:rgba(255,255,255,.75);}
+.copy-btn{background:none;border:1px solid rgba(255,255,255,.2);padding:7px 14px;border-radius:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:14px;transition:all .2s;}
+.copy-btn:hover{border-color:rgba(255,255,255,.5);color:#fff;}
+@media(max-width:480px){.header{padding:22px 20px;}.container{padding:20px 16px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-tag">她说了算 · 配套工具 · 精力主权篇</div>
+  <h1>精力泄漏诊断表<br><em>Energy Leak Diagnosis</em></h1>
+  <p>5大黑洞自测 · 实时热图 · 自动生成修复方案 · 配套「她的身体」第9期</p>
+</div>
+<div class="container">
+  <div class="intro"><p><strong>你累，不一定是因为干了太多事。</strong><br>更常见的情况是：某些地方在漏电，但你没时间查。这张表帮你找到最大的漏洞，给你一个这周就能开始的修复动作。</p></div>
+
+  <div class="eyebrow">精力泄漏自测 · 拖动滑块</div>
+
+  <!-- Card 1 -->
+  <div class="drain-card">
+    <div class="dc-head">
+      <div class="dc-left">
+        <div class="dc-icon">📅</div>
+        <div class="dc-name">无效会议</div>
+        <div class="dc-sub">可以不去的会 · 没有结论 · 可用邮件替代</div>
+      </div>
+      <div class="score-badge"><div class="snum" id="s0">0</div><div class="slbl">/ 25</div></div>
+    </div>
+    <div class="slider-group">
+      <div class="slider-labels"><span>每周频率</span><span class="val" id="f0l">0次</span></div>
+      <input type="range" min="0" max="5" value="0" id="f0" oninput="update(0)">
+    </div>
+    <div class="slider-group">
+      <div class="slider-labels"><span>每次消耗</span><span class="val" id="i0l">无</span></div>
+      <input type="range" min="0" max="5" value="0" id="i0" oninput="update(0)">
+    </div>
+    <div class="chips">
+      <span class="chip" onclick="this.classList.toggle('on')">例会毫无准备</span>
+      <span class="chip" onclick="this.classList.toggle('on')">被拉进无关会议</span>
+      <span class="chip" onclick="this.classList.toggle('on')">会后没有决议</span>
+      <span class="chip" onclick="this.classList.toggle('on')">会议时长失控</span>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="drain-card">
+    <div class="dc-head">
+      <div class="dc-left">
+        <div class="dc-icon">🔓</div>
+        <div class="dc-name">边界模糊</div>
+        <div class="dc-sub">下班后仍回消息 · 帮人做职责外的事 · 说了不却又反悔</div>
+      </div>
+      <div class="score-badge"><div class="snum" id="s1">0</div><div class="slbl">/ 25</div></div>
+    </div>
+    <div class="slider-group">
+      <div class="slider-labels"><span>每周频率</span><span class="val" id="f1l">0次</span></div>
+      <input type="range" min="0" max="5" value="0" id="f1" oninput="update(1)">
+    </div>
+    <div class="slider-group">
+      <div class="slider-labels"><span>每次消耗</span><span class="val" id="i1l">无</span></div>
+      <input type="range" min="0" max="5" value="0" id="i1" oninput="update(1)">
+    </div>
+    <div class="chips">
+      <span class="chip" onclick="this.classList.toggle('on')">晚10点仍在回工作消息</span>
+      <span class="chip" onclick="this.classList.toggle('on')">不好意思拒绝额外任务</span>
+      <span class="chip" onclick="this.classList.toggle('on')">假期仍在工作</span>
+      <span class="chip" onclick="this.classList.toggle('on')">帮同事背锅</span>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="drain-card">
+    <div class="dc-head">
+      <div class="dc-left">
+        <div class="dc-icon">🌀</div>
+        <div class="dc-name">负面反刍</div>
+        <div class="dc-sub">反复想已发生的事 · 预演最坏结果 · 自我批评循环</div>
+      </div>
+      <div class="score-badge"><div class="snum" id="s2">0</div><div class="slbl">/ 25</div></div>
+    </div>
+    <div class="slider-group">
+      <div class="slider-labels"><span>每周频率</span><span class="val" id="f2l">0次</span></div>
+      <input type="range" min="0" max="5" value="0" id="f2" oninput="update(2)">
+    </div>
+    <div class="slider-group">
+      <div class="slider-labels"><span>每次消耗</span><span class="val" id="i2l">无</span></div>
+      <input type="range" min="0" max="5" value="0" id="i2" oninput="update(2)">
+    </div>
+    <div class="chips">
+      <span class="chip" onclick="this.classList.toggle('on')">睡前回想失误</span>
+      <span class="chip" onclick="this.classList.toggle('on')">反复想某句话是否说错</span>
+      <span class="chip" onclick="this.classList.toggle('on')">担心明天出问题</span>
+      <span class="chip" onclick="this.classList.toggle('on')">"我是不是太差了"</span>
+    </div>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="drain-card">
+    <div class="dc-head">
+      <div class="dc-left">
+        <div class="dc-icon">😴</div>
+        <div class="dc-name">睡眠债务</div>
+        <div class="dc-sub">长期睡不够 · 睡眠质量差 · 靠咖啡因维持</div>
+      </div>
+      <div class="score-badge"><div class="snum" id="s3">0</div><div class="slbl">/ 25</div></div>
+    </div>
+    <div class="slider-group">
+      <div class="slider-labels"><span>每周频率</span><span class="val" id="f3l">0次</span></div>
+      <input type="range" min="0" max="5" value="0" id="f3" oninput="update(3)">
+    </div>
+    <div class="slider-group">
+      <div class="slider-labels"><span>每次消耗</span><span class="val" id="i3l">无</span></div>
+      <input type="range" min="0" max="5" value="0" id="i3" oninput="update(3)">
+    </div>
+    <div class="chips">
+      <span class="chip" onclick="this.classList.toggle('on')">每天睡眠不足7小时</span>
+      <span class="chip" onclick="this.classList.toggle('on')">入睡困难</span>
+      <span class="chip" onclick="this.classList.toggle('on')">早上靠咖啡启动</span>
+      <span class="chip" onclick="this.classList.toggle('on')">周末补觉仍觉累</span>
+    </div>
+  </div>
+
+  <!-- Card 5 -->
+  <div class="drain-card">
+    <div class="dc-head">
+      <div class="dc-left">
+        <div class="dc-icon">⚖️</div>
+        <div class="dc-name">决策疲劳</div>
+        <div class="dc-sub">小事纠结很久 · 做完决定仍后悔 · 什么都不想做</div>
+      </div>
+      <div class="score-badge"><div class="snum" id="s4">0</div><div class="slbl">/ 25</div></div>
+    </div>
+    <div class="slider-group">
+      <div class="slider-labels"><span>每周频率</span><span class="val" id="f4l">0次</span></div>
+      <input type="range" min="0" max="5" value="0" id="f4" oninput="update(4)">
+    </div>
+    <div class="slider-group">
+      <div class="slider-labels"><span>每次消耗</span><span class="val" id="i4l">无</span></div>
+      <input type="range" min="0" max="5" value="0" id="i4" oninput="update(4)">
+    </div>
+    <div class="chips">
+      <span class="chip" onclick="this.classList.toggle('on')">吃什么纠结半小时</span>
+      <span class="chip" onclick="this.classList.toggle('on')">消息改了又改</span>
+      <span class="chip" onclick="this.classList.toggle('on')">做完决定又觉得选错了</span>
+      <span class="chip" onclick="this.classList.toggle('on')">什么都不想做</span>
+    </div>
+  </div>
+
+  <!-- Live summary -->
+  <div class="summary">
+    <div class="summary-title">实时诊断热图</div>
+    <div class="bar-row"><div class="bar-name">无效会议</div><div class="bar-track"><div class="bar-fill" id="b0"></div></div><div class="bar-val" id="bv0">0</div></div>
+    <div class="bar-row"><div class="bar-name">边界模糊</div><div class="bar-track"><div class="bar-fill" id="b1"></div></div><div class="bar-val" id="bv1">0</div></div>
+    <div class="bar-row"><div class="bar-name">负面反刍</div><div class="bar-track"><div class="bar-fill" id="b2"></div></div><div class="bar-val" id="bv2">0</div></div>
+    <div class="bar-row"><div class="bar-name">睡眠债务</div><div class="bar-track"><div class="bar-fill" id="b3"></div></div><div class="bar-val" id="bv3">0</div></div>
+    <div class="bar-row"><div class="bar-name">决策疲劳</div><div class="bar-track"><div class="bar-fill" id="b4"></div></div><div class="bar-val" id="bv4">0</div></div>
+    <div class="total-row">
+      <div><span class="total-lbl">总泄漏指数</span></div>
+      <div style="display:flex;align-items:baseline;gap:4px;">
+        <span class="total-num" id="total">0</span>
+        <span style="font-size:13px;color:rgba(255,255,255,.3);">/ 125</span>
+        <span class="level-pill lv-ok" id="lvpill">待测试</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="eyebrow">补充信息（可选）</div>
+  <div class="field-group">
+    <label class="field-label">你的称呼</label>
+    <input type="text" id="uname" placeholder="例：晓梅">
+  </div>
+  <div class="field-group">
+    <label class="field-label">消耗你最多的那一件具体的事</label>
+    <textarea id="specific" placeholder="例：每周一的部门会，2小时，从来没有结论，我去了也不说话，但又不敢不去…"></textarea>
+  </div>
+
+  <button class="btn-gen" onclick="buildRepair()">生成我的精力修复方案</button>
+
+  <div class="result-box" id="resultBox">
+    <div class="result-head"><h3>你的精力修复方案</h3><p>根据你的诊断结果自动生成</p></div>
+    <div class="result-content" id="resultContent"></div>
+    <div style="padding:0 24px 24px;"><button class="copy-btn" onclick="copyFix()">复制方案</button></div>
+  </div>
+</div>
+
+<script>
+const names = ['无效会议','边界模糊','负面反刍','睡眠债务','决策疲劳'];
+const freqL = ['0次','1次','2次','3-4次','5次+','几乎每天'];
+const impL  = ['无','微弱','中等','明显','强烈','极度消耗'];
+const scores = [0,0,0,0,0];
+
+function update(i) {
+  const f = +document.getElementById('f'+i).value;
+  const m = +document.getElementById('i'+i).value;
+  document.getElementById('f'+i+'l').textContent = freqL[f];
+  document.getElementById('i'+i+'l').textContent = impL[m];
+  scores[i] = f * m;
+  document.getElementById('s'+i).textContent = scores[i];
+  const pct = (scores[i]/25)*100;
+  document.getElementById('b'+i).style.width = pct+'%';
+  document.getElementById('b'+i).style.background = pct>72?'#E8C97A':pct>44?'#e07898':'#c4587a';
+  document.getElementById('bv'+i).textContent = scores[i];
+  const t = scores.reduce((a,b)=>a+b,0);
+  document.getElementById('total').textContent = t;
+  const pill = document.getElementById('lvpill');
+  if(t===0){pill.className='level-pill lv-ok';pill.textContent='待测试';}
+  else if(t<=20){pill.className='level-pill lv-ok';pill.textContent='状态良好';}
+  else if(t<=50){pill.className='level-pill lv-mild';pill.textContent='轻度泄漏';}
+  else if(t<=80){pill.className='level-pill lv-mod';pill.textContent='中度消耗';}
+  else{pill.className='level-pill lv-crit';pill.textContent='需要干预';}
+}
+
+// Per-drain repair knowledge base
+const fixes = {
+  0: {
+    low:  { action:'下次收到会议邀请时，问自己一个问题：「我的参与是必须的吗？」如果不是，试着婉拒一次。', experiment:'本周拒绝一个你通常会去的非必要会议，观察有没有任何实质损失。' },
+    mid:  { action:'在日历上为每个会议设置一个「退出检查」——如果没有提前发议程，你可以要求发议程再决定是否参加。', experiment:'本周在一个例会上提出：「我们能在30分钟内结束吗？」观察反应。' },
+    high: { action:'和你的上司坦诚沟通：「我希望减少非必要会议，这样我能更专注地交付高质量的工作。」把每周参会时间控制在总工时的25%以内。', experiment:'记录本周所有会议，标注哪些可以用5分钟邮件替代。量化出你能节省多少小时。' }
+  },
+  1: {
+    low:  { action:'为自己设置一个「工作结束仪式」——关上电脑、换衣服、或者散步10分钟——告诉大脑：工作时间结束了。', experiment:'连续7天，晚9点后不看工作消息。观察你的焦虑有没有降低。' },
+    mid:  { action:'准备一句话模板：「我现在无法处理，我明天上午XX点前给你回复。」复制下来，下次用。说了之后，关掉通知。', experiment:'这周选一件你本可以拒绝却接了的事，练习说：「这不在我的职责范围内，我没有办法做这件事。」' },
+    high: { action:'你的边界模糊，本质上是在用精力换认可。思考一个问题：「我如果减少50%的帮忙，我的职业关系会损失什么？」答案通常比你想象的少。', experiment:'列出你这周帮别人做的所有职责外的事，评估每件事对你真实职业发展的价值，然后决定哪些可以直接停止。' }
+  },
+  2: {
+    low:  { action:'当你发现自己在反刍时，问自己：「这件事5年后还重要吗？」如果不重要，给它设定一个「思考截止时间」——给自己5分钟反刍，然后停止。', experiment:'晚上睡前做「思维卸载」：把明天要做的3件事写在纸上，然后告诉自己：大脑可以休息了，一切都记录下来了。' },
+    mid:  { action:'每次反刍时，找一个「认知干预动作」——可以是大声说「停」，可以是站起来走动，可以是专注感受脚踩地板的感觉。打断神经回路，而不是压制情绪。', experiment:'连续7天记录你反刍最多的一个主题。找到规律之后，这个问题才能真正被解决。' },
+    high: { action:'持续、严重的负面反刍是需要认真对待的信号。首先考虑和信任的人聊聊；如果自己无法中断这个循环，心理咨询是一个值得投资的选项，不是软弱。', experiment:'这周每天记录一件「今天做好的事」，不管多小。3周后，你会开始注意到自己大脑默认关注的方向在改变。' }
+  },
+  3: {
+    low:  { action:'固定一个入睡时间，哪怕只比现在早15分钟。入睡时间的一致性，比睡眠总量对睡眠质量的影响更大。', experiment:'这周把手机放在卧室门外充电，用实体闹钟起床。观察睡眠质量变化。' },
+    mid:  { action:'睡前1小时建立「降温程序」：调低灯光亮度，停止看屏幕，做3分钟腹式呼吸。这些动作在给大脑发送「该入睡了」的信号。', experiment:'记录本周每天的实际睡眠时长和次日精力状态，连续7天，找到你的最优睡眠时长。' },
+    high: { action:'长期睡眠不足会让决策力、情绪稳定性和创造力系统性下降——不是你意志力不够，是生理机制。把睡眠当作最重要的一项工作任务来安排，晚上11点前上床是一个现实可行的目标。', experiment:'本周一次，在感到困意时（而不是熬到精疲力竭再睡）立刻去睡。感受一下两种方式的睡眠质量差异。' }
+  },
+  4: {
+    low:  { action:'为日常低风险决策建立「默认选项」——固定几套早饭、固定几个午饭地点、固定几套穿搭。让大脑把决策资源留给真正重要的事。', experiment:'这周为一个每天都要做的小决定设定固定答案，执行7天，感受决策节省的轻盈感。' },
+    mid:  { action:'把一天中最需要判断力的决策放在精力最好的时间段（通常是上午）。下午3点后避免做重要决策——大脑的葡萄糖消耗此时已经相当可观。', experiment:'本周把一个你反复推迟的决定设定deadline：「周五中午12点前，我必须做出选择。」强制截止，结果通常不会更坏。' },
+    high: { action:'严重的决策疲劳往往来自完美主义——你认为每个决定都必须是最优解。试试「足够好原则」：找到一个符合最低标准的选项，选了就不再回头。80分的决定快速执行，好过100分的决定永远拖延。', experiment:'这周记录你花超过10分钟纠结的所有决定，事后评估：如果选了另一个选项，结果会差多少？你会发现差别极小。' }
+  }
+};
+
+function buildRepair() {
+  const name = document.getElementById('uname').value || '你';
+  const specific = document.getElementById('specific').value;
+  const total = scores.reduce((a,b)=>a+b,0);
+  const topIdx = scores.indexOf(Math.max(...scores));
+  const top2 = [...scores].map((s,i)=>({s,i})).sort((a,b)=>b.s-a.s).slice(0,2);
+
+  let level, portrait;
+  if(total<=20){
+    level='ok';
+    portrait=`${name}，你目前的精力状态整体健康。虽然有一些小漏点，但还没有到系统性消耗的程度。这是一个很好的时机——在问题变大之前就建立好预防机制，比亡羊补牢要容易得多。`;
+  } else if(total<=50){
+    level='mild';
+    portrait=`${name}，你处于轻度精力泄漏的状态。你能感受到累，但还能撑着。这种状态的危险在于：它不足以让你停下来修复，却在慢慢消耗你的底层储备。现在是最好的干预时机。`;
+  } else if(total<=80){
+    level='mod';
+    portrait=`${name}，你的精力消耗已经到了中度水平。你很可能经常感到疲惫、容易烦躁、对很多事情提不起兴趣。这不是意志力问题，而是系统在超负荷运行。你需要的不是更努力，而是先堵住漏洞。`;
+  } else {
+    level='crit';
+    portrait=`${name}，你的诊断结果提示精力处于高度消耗状态。请认真对待这个信号——长期在这个状态下运行，会影响决策质量、情绪稳定性和身体健康。你需要做的第一件事，是允许自己停下来。`;
+  }
+
+  const getLvl = (score) => score<=6?'low':score<=16?'mid':'high';
+
+  const blocks = [
+    {
+      title:'【你的精力画像】',
+      text: portrait + (specific ? `\n\n关于你提到的「${specific.slice(0,30)}」——这件具体的事，正是你需要最先处理的精力黑洞。不是因为它最重要，而是因为它占据了你最多的注意力带宽。` : '')
+    },
+    {
+      title:`【最需要先修的地方：${names[topIdx]}（${scores[topIdx]}分）】`,
+      text: fixes[topIdx][getLvl(scores[topIdx])].action
+    },
+    {
+      title:'【这周的一个小实验】',
+      text: fixes[topIdx][getLvl(scores[topIdx])].experiment
+    }
+  ];
+
+  // Add second drain if significantly high
+  if(top2[1].s >= 8 && top2[1].i !== topIdx) {
+    blocks.push({
+      title:`【同时值得关注：${names[top2[1].i]}（${top2[1].s}分）】`,
+      text: fixes[top2[1].i][getLvl(top2[1].s)].action
+    });
+  }
+
+  blocks.push({
+    title:`【一句话给 ${name}】`,
+    text:'精力不是靠「更努力」来找回来的，而是靠「减少泄漏」。你不需要做更多，你需要做的是，停止那些正在悄悄偷走你能量的事情。这张诊断表是起点——选一件事，这周就开始改变。'
+  });
+
+  const content = document.getElementById('resultContent');
+  content.innerHTML = blocks.map(b=>`
+    <div class="fix-card">
+      <div class="fix-title">${b.title}</div>
+      <div class="fix-text">${b.text.replace(/\n/g,'<br>')}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('resultBox').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function copyFix() {
+  const text = document.getElementById('resultContent').innerText;
+  navigator.clipboard.writeText(text).catch(()=>{
+    const ta=document.createElement('textarea');
+    ta.value=text;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+  });
+  const btn=document.querySelector('.copy-btn');
+  btn.textContent='已复制 ✓';setTimeout(()=>btn.textContent='复制方案',2000);
+}
+</script>
+</body>
+</html>
