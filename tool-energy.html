@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>谈薪准备器 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#3d1536;--rose:#c4587a;--blush:#f0dce8;--cream:#fdfaf5;--sand:#ede4d8;--rule:#e2d4dc;--text:#2e1a28;--mid:#6b4a60;--light:#9a7a8e;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;}
+.header{background:var(--plum);padding:32px 40px 28px;position:relative;overflow:hidden;}
+.header::before{content:'¥';position:absolute;right:-10px;top:-20px;font-size:200px;color:rgba(255,255,255,.03);font-family:'Noto Serif SC',serif;font-weight:700;}
+.header-tag{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;}
+.header h1{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4vw,36px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:6px;}
+.header h1 em{font-style:italic;color:#e8a0b8;}
+.header p{font-size:12px;color:rgba(255,255,255,.45);}
+.step-bar{display:flex;background:rgba(0,0,0,.2);border-bottom:1px solid rgba(255,255,255,.08);overflow-x:auto;scrollbar-width:none;}
+.step-bar::-webkit-scrollbar{display:none;}
+.step-btn{flex:1;min-width:80px;padding:11px 8px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;}
+.step-btn.active{color:#fff;border-bottom-color:var(--rose);}
+.step-btn.done{color:rgba(255,255,255,.5);}
+.container{max-width:680px;margin:0 auto;padding:32px 24px;}
+.step-panel{display:none;animation:fadeIn .3s ease;}
+.step-panel.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.eyebrow{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--rose);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.eyebrow::after{content:'';flex:1;height:1px;background:var(--rule);}
+.field-group{margin-bottom:20px;}
+.field-label{font-size:12px;font-weight:700;color:var(--plum);margin-bottom:6px;display:block;}
+.field-hint{font-size:11px;color:var(--light);margin-bottom:8px;font-style:italic;line-height:1.55;}
+input[type=text],input[type=number],textarea,select{width:100%;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;transition:border-color .2s;line-height:1.6;}
+input:focus,textarea:focus,select:focus{border-color:var(--rose);}
+textarea{resize:vertical;min-height:72px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ach-card{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:16px;margin-bottom:12px;position:relative;}
+.ach-num{position:absolute;top:12px;left:14px;font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--blush);}
+.ach-fields{padding-left:32px;}
+.add-btn{width:100%;padding:10px;border:1.5px dashed var(--rule);border-radius:8px;background:none;font-size:12.5px;color:var(--light);cursor:pointer;transition:all .2s;}
+.add-btn:hover{border-color:var(--rose);color:var(--rose);}
+.market-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.mbox{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:12px;text-align:center;}
+.mbox-lbl{font-size:10px;color:var(--light);margin-bottom:6px;}
+.mbox.highlight{border-color:var(--rose);}
+.mbox.highlight .mbox-lbl{color:var(--rose);}
+.mbox input{border:none;text-align:center;font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--plum);width:100%;outline:none;background:transparent;}
+.mbox.highlight input{color:var(--rose);}
+.range-wrap{display:flex;align-items:center;gap:14px;}
+.range-wrap input[type=range]{flex:1;accent-color:var(--rose);}
+.range-val{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--rose);min-width:48px;text-align:right;}
+.tip{background:var(--blush);border-radius:8px;padding:14px 16px;margin-top:12px;}
+.tip p{font-size:12.5px;color:var(--plum);line-height:1.7;}
+.tip p strong{font-weight:700;}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:20px;border-top:1px solid var(--rule);}
+.btn-back{background:none;border:1px solid var(--rule);padding:10px 20px;border-radius:6px;font-size:12px;font-weight:700;color:var(--light);cursor:pointer;}
+.btn-back:hover{border-color:var(--rose);color:var(--rose);}
+.btn-next{background:var(--rose);border:none;padding:10px 24px;border-radius:6px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;transition:background .2s;}
+.btn-next:hover{background:var(--plum);}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:20px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--rule);transition:all .3s;}
+.dot.active{background:var(--rose);}
+.dot.done{background:var(--plum);}
+/* Result */
+.result-wrap{display:none;margin-top:8px;}
+.result-wrap.show{display:block;animation:fadeIn .4s ease;}
+.result-box{background:var(--plum);border-radius:10px;overflow:hidden;}
+.result-head{padding:18px 24px;background:rgba(0,0,0,.2);display:flex;justify-content:space-between;align-items:center;}
+.result-head h3{font-family:'Noto Serif SC',serif;font-size:16px;color:#fff;font-weight:600;}
+.result-head p{font-size:11px;color:rgba(255,255,255,.35);}
+.result-body{padding:24px;}
+.script-block{background:rgba(255,255,255,.06);border-left:3px solid var(--rose);padding:14px 18px;margin-bottom:14px;border-radius:0 6px 6px 0;}
+.script-title{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rose);font-weight:700;margin-bottom:8px;}
+.script-text{font-size:13.5px;color:rgba(255,255,255,.8);line-height:1.85;font-style:italic;}
+.reminder-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:14px 18px;border-radius:6px;margin-top:4px;}
+.reminder-text{font-size:13px;color:rgba(255,255,255,.65);line-height:1.75;}
+.copy-btn{background:none;border:1px solid rgba(255,255,255,.2);padding:8px 16px;border-radius:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:14px;transition:all .2s;}
+.copy-btn:hover{border-color:rgba(255,255,255,.5);color:#fff;}
+@media(max-width:480px){.header{padding:22px 20px;}.container{padding:20px 16px;}.two-col{grid-template-columns:1fr;}.market-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-tag">她说了算 · 配套工具 · 认知套利篇</div>
+  <h1>谈薪准备器<br><em>Salary Negotiation Kit</em></h1>
+  <p>5步准备 · 自动生成专属话术 · 配套「她的钱」第5期</p>
+</div>
+<div class="step-bar">
+  <button class="step-btn active" id="sb1" onclick="goStep(1)">01 基本</button>
+  <button class="step-btn" id="sb2" onclick="goStep(2)">02 贡献</button>
+  <button class="step-btn" id="sb3" onclick="goStep(3)">03 市场</button>
+  <button class="step-btn" id="sb4" onclick="goStep(4)">04 策略</button>
+  <button class="step-btn" id="sb5" onclick="goStep(5)">05 话术</button>
+</div>
+<div class="container">
+
+<!-- STEP 1 -->
+<div class="step-panel active" id="step1">
+  <div class="eyebrow">基本信息</div>
+  <div class="field-group">
+    <label class="field-label">你的称呼</label>
+    <input type="text" id="name" placeholder="例：晓雯">
+  </div>
+  <div class="two-col">
+    <div class="field-group">
+      <label class="field-label">当前税前年薪（万）</label>
+      <input type="number" id="cur" placeholder="例：25">
+    </div>
+    <div class="field-group">
+      <label class="field-label">目标税前年薪（万）</label>
+      <input type="number" id="tgt" placeholder="例：32">
+    </div>
+  </div>
+  <div class="field-group">
+    <label class="field-label">行业 · 岗位 · 年限</label>
+    <input type="text" id="role" placeholder="例：互联网，高级产品经理，4年">
+  </div>
+  <div class="field-group">
+    <label class="field-label">谈薪场景</label>
+    <select id="scene">
+      <option value="晋升加薪">晋升加薪（当前公司）</option>
+      <option value="年度调薪">年度调薪（绩效谈判）</option>
+      <option value="新offer谈判">新 Offer 谈判</option>
+      <option value="跳槽还价">跳槽后反向还价</option>
+    </select>
+  </div>
+  <div class="tip"><p><strong>研究显示：</strong>女性薪酬预期平均比男性低9.5%——差距在开口前就已形成。第一步，先把数字定清楚。</p></div>
+  <div class="nav-row"><span></span><button class="btn-next" onclick="goStep(2)">下一步 →</button></div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step-panel" id="step2">
+  <div class="eyebrow">贡献证据 · 数字说话</div>
+  <p style="font-size:12.5px;color:var(--light);margin-bottom:18px;line-height:1.7;">列出过去12个月最有说服力的成果。每条都要有数字——哪怕是估算。</p>
+  <div id="achs">
+    <div class="ach-card">
+      <div class="ach-num">1</div>
+      <div class="ach-fields">
+        <div class="field-group"><label class="field-label">做了什么</label><input type="text" class="aw" placeholder="例：重构了客服响应流程"></div>
+        <div class="field-group"><label class="field-label">量化结果</label><input type="text" class="ar" placeholder="例：处理时长缩短40%，月均节省人力成本约3万元"></div>
+      </div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-num">2</div>
+      <div class="ach-fields">
+        <div class="field-group"><label class="field-label">做了什么</label><input type="text" class="aw" placeholder="例：独立完成Q3新品发布全链路"></div>
+        <div class="field-group"><label class="field-label">量化结果</label><input type="text" class="ar" placeholder="例：提前2周上线，首月GMV超目标28%"></div>
+      </div>
+    </div>
+  </div>
+  <button class="add-btn" onclick="addAch()">+ 再加一条</button>
+  <div class="tip" style="margin-top:16px;"><p><strong>写不出数字？</strong>试试这个句式：「我独立承担了通常需要X人完成的工作」或「节省了约X小时/X元」。</p></div>
+  <div class="nav-row"><button class="btn-back" onclick="goStep(1)">← 返回</button><button class="btn-next" onclick="goStep(3)">下一步 →</button></div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step-panel" id="step3">
+  <div class="eyebrow">市场数据 · 你的锚点</div>
+  <p style="font-size:12.5px;color:var(--light);margin-bottom:18px;line-height:1.7;">填入同岗位的市场薪酬区间。不确定的话，可以去 LinkedIn薪资、看准网、BOSS直聘薪资榜查询。</p>
+  <div class="market-grid">
+    <div class="mbox"><div class="mbox-lbl">市场P25（万/年）</div><input type="number" id="p25" placeholder="22"></div>
+    <div class="mbox"><div class="mbox-lbl">市场中位数（万/年）</div><input type="number" id="p50" placeholder="28"></div>
+    <div class="mbox highlight"><div class="mbox-lbl">P75 · 你的目标锚点</div><input type="number" id="p75" placeholder="35"></div>
+  </div>
+  <div class="field-group">
+    <label class="field-label">数据来源（填了更有底气）</label>
+    <input type="text" id="src" placeholder="例：LinkedIn薪资 + 猎头告知 + 行业报告">
+  </div>
+  <div class="field-group">
+    <label class="field-label">相比P75候选人，你的额外优势</label>
+    <textarea id="adv" placeholder="例：我有跨境业务经验，且带过3人团队，独立交付能力更强"></textarea>
+  </div>
+  <div class="nav-row"><button class="btn-back" onclick="goStep(2)">← 返回</button><button class="btn-next" onclick="goStep(4)">下一步 →</button></div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step-panel" id="step4">
+  <div class="eyebrow">谈判策略</div>
+  <div class="field-group">
+    <label class="field-label">你的「走开价」——低于这个数你会拒绝</label>
+    <div class="range-wrap" style="margin-top:8px;">
+      <input type="range" id="floor" min="10" max="80" value="26" oninput="document.getElementById('floorVal').textContent=this.value+'万'">
+      <span class="range-val" id="floorVal">26万</span>
+    </div>
+  </div>
+  <div class="field-group">
+    <label class="field-label">你最担心对方说什么</label>
+    <textarea id="worry" placeholder="例：公司今年预算紧，或者说我要得太多"></textarea>
+  </div>
+  <div class="field-group">
+    <label class="field-label">薪资谈不拢时，你愿意接受的替代补偿</label>
+    <input type="text" id="alt" placeholder="例：弹性办公、年度奖金、额外假期、职级升一档">
+  </div>
+  <div class="field-group">
+    <label class="field-label">谈判风格偏好</label>
+    <select id="style">
+      <option value="直接">直接型——我需要X，因为Y</option>
+      <option value="协作">协作型——我们怎么找到都满意的方案</option>
+      <option value="数据">数据型——市场数据显示……</option>
+      <option value="价值">价值型——我能为公司带来……</option>
+    </select>
+  </div>
+  <div class="nav-row"><button class="btn-back" onclick="goStep(3)">← 返回</button><button class="btn-next" onclick="goStep(5)">生成话术 →</button></div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step-panel" id="step5">
+  <div class="eyebrow">专属话术脚本</div>
+  <p style="font-size:12.5px;color:var(--light);margin-bottom:18px;line-height:1.7;">根据你填写的信息自动生成，可以直接拿去练习。</p>
+  <button class="btn-next" style="width:100%;padding:13px;" onclick="buildScript()">生成我的谈薪话术</button>
+  <div class="result-wrap" id="result">
+    <div style="height:16px;"></div>
+    <div class="result-box">
+      <div class="result-head"><h3>你的谈薪话术</h3><p>根据你的填写自动生成</p></div>
+      <div class="result-body" id="resultBody"></div>
+    </div>
+    <button class="copy-btn" onclick="copyResult()">复制全文</button>
+  </div>
+  <div class="nav-row"><button class="btn-back" onclick="goStep(4)">← 返回修改</button><button class="btn-next" onclick="window.print()">打印保存</button></div>
+</div>
+
+<div class="dots">
+  <div class="dot active" id="d1"></div><div class="dot" id="d2"></div>
+  <div class="dot" id="d3"></div><div class="dot" id="d4"></div><div class="dot" id="d5"></div>
+</div>
+</div>
+
+<script>
+let cur = 1;
+
+function goStep(n) {
+  document.getElementById('step'+cur).classList.remove('active');
+  document.getElementById('sb'+cur).classList.remove('active');
+  if(cur < n) document.getElementById('sb'+cur).classList.add('done');
+  cur = n;
+  document.getElementById('step'+cur).classList.add('active');
+  for(let i=1;i<=5;i++){
+    const sb=document.getElementById('sb'+i), d=document.getElementById('d'+i);
+    sb.className='step-btn'+(i<n?' done':i===n?' active':'');
+    d.className='dot'+(i<n?' done':i===n?' active':'');
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function addAch() {
+  const n = document.querySelectorAll('.ach-card').length+1;
+  const d = document.createElement('div'); d.className='ach-card';
+  d.innerHTML=`<div class="ach-num">${n}</div><div class="ach-fields">
+    <div class="field-group"><label class="field-label">做了什么</label><input type="text" class="aw" placeholder="例：…"></div>
+    <div class="field-group"><label class="field-label">量化结果</label><input type="text" class="ar" placeholder="例：…"></div>
+  </div>`;
+  document.getElementById('achs').appendChild(d);
+}
+
+function getData() {
+  const ws=[...document.querySelectorAll('.aw')].map(i=>i.value).filter(v=>v);
+  const rs=[...document.querySelectorAll('.ar')].map(i=>i.value).filter(v=>v);
+  const achs=ws.map((w,i)=>`${w}${rs[i]?'，'+rs[i]:''}`);
+  return {
+    name: document.getElementById('name').value||'你',
+    cur: document.getElementById('cur').value||'当前薪资',
+    tgt: document.getElementById('tgt').value,
+    role: document.getElementById('role').value||'该岗位',
+    scene: document.getElementById('scene').value,
+    achs,
+    p25: document.getElementById('p25').value,
+    p50: document.getElementById('p50').value,
+    p75: document.getElementById('p75').value,
+    src: document.getElementById('src').value,
+    adv: document.getElementById('adv').value,
+    floor: document.getElementById('floorVal').textContent,
+    worry: document.getElementById('worry').value,
+    alt: document.getElementById('alt').value,
+    style: document.getElementById('style').value,
+  };
+}
+
+function buildScript() {
+  const d = getData();
+  const raise = d.tgt && d.cur ? Math.round(((d.tgt-d.cur)/d.cur)*100) : null;
+  const raiseStr = raise ? `（较当前涨幅约${raise}%）` : '';
+  const achStr = d.achs.length
+    ? d.achs.map((a,i)=>`${i+1}. ${a}`).join('\n')
+    : '我在本职工作中持续保持高产出';
+  const marketStr = d.p75
+    ? `根据${d.src||'市场调研'}，${d.role}岗位薪酬P75在${d.p75}万左右`
+    : '根据市场调研数据';
+  const advStr = d.adv ? `，加之${d.adv}，` : '，';
+
+  // Opening based on scene
+  const openings = {
+    '晋升加薪': `我想和您聊聊关于薪酬调整的事。在过去这段时间里，我一直在努力为团队创造更大的价值，我也希望我们能就这个话题坦诚地交流一下。`,
+    '年度调薪': `在这次绩效谈话中，我也想就薪酬方面和您做一个沟通。我对过去一年的工作成果做了一些整理，想和您分享一下。`,
+    '新offer谈判': `非常感谢这个机会！我对这个职位非常感兴趣。在正式确认之前，我想就薪酬部分和您进一步探讨一下。`,
+    '跳槽还价': `感谢您的offer！这个机会对我很有吸引力。关于薪酬，我想和您坦诚地沟通一下我的期望。`,
+  };
+
+  // Worry response
+  let worryResp = '';
+  const w = (d.worry||'').toLowerCase();
+  if(w.includes('预算') || w.includes('紧')) {
+    worryResp = `如果预算方面确实有限制，我完全理解。我们可以探讨一些替代方案——比如${d.alt||'绩效奖金、弹性工作或职级调整'}。我更看重的是我的贡献能够得到公平的认可。`;
+  } else if(w.includes('多') || w.includes('高') || w.includes('要')) {
+    worryResp = `我提出这个数字，是基于市场数据和我的实际贡献得出的，不是随意报价。${marketStr}，这是有据可查的。我非常认可这个平台，也希望我们能找到都满意的方案。`;
+  } else if(d.worry) {
+    worryResp = `如果对方说「${d.worry}」，我的回应是：我理解您的顾虑，这正是我提前做了充分准备的原因。让我用数据来说明……`;
+  } else {
+    worryResp = `如果遇到阻力，记住：沉默也是谈判工具。说完你的期望数字后，等待对方回应，不要急着填补沉默。`;
+  }
+
+  const blocks = [
+    {
+      title: '【开场白】',
+      text: openings[d.scene] || openings['晋升加薪']
+    },
+    {
+      title: '【核心陈述 · 用成果说话】',
+      text: `在过去这段时间，我的主要贡献包括：\n${achStr}\n\n这些工作让我更清楚地看到了自己的市场价值。基于此，我希望将薪酬调整至${d.tgt?d.tgt+'万/年':'我期望的水平'}${raiseStr}。`
+    },
+    {
+      title: '【市场对标 · 数据支撑】',
+      text: `${marketStr}${advStr}我认为${d.tgt?d.tgt+'万':'这个数字'}是合理且有依据的，不是漫天要价。`
+    },
+    {
+      title: `【应对阻力 · 如果对方说"${d.worry||'预算有限'}"】`,
+      text: worryResp
+    },
+    {
+      title: '【备选方案 · 薪资谈不拢时】',
+      text: d.alt
+        ? `如果基础薪资暂时无法达到我的期望，我愿意考虑以下方式补偿：${d.alt}。但我需要明确一点：${d.floor}是我能接受的最低线，低于这个数字对我来说不是一个合适的选择。`
+        : `如果基础薪资有限制，我希望我们可以探讨其他补偿形式，总包不低于${d.floor}是我的底线。`
+    },
+    {
+      title: '【给你的一句话提醒】',
+      text: `${d.name}，记住：你提出的数字，是你对自己价值的定义。说出来之后，保持平静，等待回应。谈判不是对抗，是两个专业人之间关于价值的对话。你值得这个数字。`
+    }
+  ];
+
+  const body = document.getElementById('resultBody');
+  body.innerHTML = blocks.map(b=>`
+    <div class="script-block">
+      <div class="script-title">${b.title}</div>
+      <div class="script-text">${b.text.replace(/\n/g,'<br>')}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('result').classList.add('show');
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function copyResult() {
+  const text = document.getElementById('resultBody').innerText;
+  navigator.clipboard.writeText(text).catch(()=>{
+    const ta=document.createElement('textarea');
+    ta.value=text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+  });
+  const btn=document.querySelector('.copy-btn');
+  btn.textContent='已复制 ✓';
+  setTimeout(()=>btn.textContent='复制全文',2000);
+}
+</script>
+</body>
+</html>

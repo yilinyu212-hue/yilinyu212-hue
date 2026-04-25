@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人资产盘点表 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#1d4a35;--tg:#3a7a58;--tl:#d6ede0;--cream:#fdfaf5;--rule:#c8d8c0;--text:#1a2e22;--mid:#4a6a55;--grey:#7a8a78;--plum:#3d1536;--rose:#c4587a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;}
+.header{background:var(--teal);padding:32px 40px 28px;position:relative;overflow:hidden;}
+.header::before{content:'◈';position:absolute;right:-10px;top:-20px;font-size:200px;color:rgba(255,255,255,.03);font-family:'Noto Serif SC',serif;}
+.header-tag{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;}
+.header h1{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4vw,36px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:6px;}
+.header h1 em{font-style:italic;color:#9FE1CB;}
+.header p{font-size:12px;color:rgba(255,255,255,.45);}
+.container{max-width:680px;margin:0 auto;padding:32px 24px;}
+.eyebrow{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--tg);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.eyebrow::after{content:'';flex:1;height:1px;background:var(--rule);}
+.intro{background:var(--tl);border-left:4px solid var(--teal);padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:28px;}
+.intro p{font-size:13px;color:var(--teal);line-height:1.75;}
+.intro p strong{font-weight:700;}
+.q-block{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:16px;transition:border-color .2s;}
+.q-block:focus-within{border-color:var(--tg);}
+.q-num{font-family:'Noto Serif SC',serif;font-size:12px;font-weight:700;color:var(--tg);margin-bottom:4px;}
+.q-text{font-size:14px;font-weight:500;color:var(--plum);margin-bottom:4px;line-height:1.4;}
+.q-hint{font-size:11.5px;color:var(--grey);font-style:italic;margin-bottom:12px;line-height:1.6;}
+textarea{width:100%;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:var(--cream);outline:none;resize:vertical;min-height:80px;transition:border-color .2s;line-height:1.7;}
+textarea:focus{border-color:var(--tg);background:#fff;}
+input[type=text]{width:100%;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:var(--cream);outline:none;transition:border-color .2s;}
+input[type=text]:focus{border-color:var(--tg);background:#fff;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;}
+.sub-label{font-size:11px;color:var(--grey);display:block;margin-bottom:6px;}
+.stages-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:8px;}
+.stage-cell{background:var(--cream);border:1px solid var(--rule);border-radius:6px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .2s;}
+.stage-cell:hover{border-color:var(--tg);}
+.stage-cell.on{background:var(--teal);border-color:var(--teal);}
+.stage-cell .sl{font-size:10px;color:var(--grey);margin-bottom:4px;}
+.stage-cell.on .sl{color:rgba(255,255,255,.6);}
+.stage-cell input{border:none;text-align:center;font-size:11.5px;width:100%;outline:none;background:transparent;color:var(--text);cursor:pointer;}
+.stage-cell.on input{color:#fff;}
+.btn-gen{background:var(--teal);border:none;padding:14px;border-radius:8px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;width:100%;margin-top:8px;transition:background .2s;}
+.btn-gen:hover{background:var(--plum);}
+/* Result */
+.result-outer{display:none;margin-top:24px;}
+.result-outer.show{display:block;animation:fadeUp .4s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.result-head{background:var(--teal);padding:18px 24px;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;align-items:center;}
+.result-head h3{font-family:'Noto Serif SC',serif;font-size:16px;color:#fff;font-weight:600;}
+.result-head p{font-size:11px;color:rgba(255,255,255,.4);}
+.result-body{background:var(--plum);padding:24px;border-radius:0 0 10px 10px;}
+.r-section{margin-bottom:20px;}
+.r-title{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;}
+.r-text{font-size:13.5px;line-height:1.85;color:rgba(255,255,255,.8);}
+.highlight-box{background:rgba(255,255,255,.07);border-left:3px solid #9FE1CB;padding:14px 18px;border-radius:0 6px 6px 0;margin:12px 0;}
+.highlight-box p{font-size:14px;font-style:italic;color:#9FE1CB;line-height:1.7;}
+.asset-tag{display:inline-block;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:11px;padding:3px 10px;border-radius:20px;margin:3px;}
+.copy-btn{background:none;border:1px solid rgba(255,255,255,.2);padding:8px 16px;border-radius:5px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;margin-top:14px;transition:all .2s;}
+.copy-btn:hover{border-color:rgba(255,255,255,.5);color:#fff;}
+@media(max-width:480px){.header{padding:22px 20px;}.container{padding:20px 16px;}.stages-grid{grid-template-columns:repeat(3,1fr);}.two-col{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-tag">她说了算 · 配套工具 · 身份重塑篇</div>
+  <h1>个人资产盘点表<br><em>Personal Asset Inventory</em></h1>
+  <p>挖掘10年隐性资产 · 自动生成定位报告 · 配套「她的选择」第4期</p>
+</div>
+<div class="container">
+  <div class="intro">
+    <p>这份表格只有一个目的：<strong>帮你看见你已经拥有、但还没命名的东西。</strong><br>很多女性低估自己的资产，不是因为资产不存在，而是因为从来没有停下来清点过。<br>花15分钟，认真填写，结尾有自动生成的定位分析。</p>
+  </div>
+
+  <div class="eyebrow">Part 1 · 隐性专业权威</div>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">过去一年，同事或朋友最常向你请教什么？</div>
+    <div class="q-hint">不是你的职位职责——是他们遇到麻烦时第一个想到找你的那种事。</div>
+    <textarea id="q1" placeholder="例：经常有人来问我怎么和老板沟通、怎么写有说服力的提案，或者怎么处理团队矛盾…"></textarea>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">你做起来比大多数人快很多、或效果好很多的事是什么？</div>
+    <div class="q-hint">那件让你觉得"这不是理所当然吗"的事，往往就是你的天赋所在。</div>
+    <textarea id="q2" placeholder="例：把复杂信息用简单方式讲清楚，别人要两小时的汇报我30分钟做好…"></textarea>
+  </div>
+
+  <div class="eyebrow" style="margin-top:28px;">Part 2 · 实战智慧</div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">你职业生涯里最大的一次弯路或失败，让你学到了什么？</div>
+    <div class="q-hint">最贵的学费换来最值钱的洞察。你的弯路，可能是别人的捷径。</div>
+    <textarea id="q3" placeholder="例：我曾经因为不会说不，把自己的核心项目搞砸了。现在我知道边界清晰地拒绝是怎么做到的…"></textarea>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">在你擅长的领域，你有什么别人没说过、但你觉得很重要的反常识观点？</div>
+    <div class="q-hint">那个你说出来别人会说"对哦"但之前没人这么说过的判断。</div>
+    <textarea id="q4" placeholder="例：在做绩效管理这件事上，我发现大多数公司都做反了，正确的方式应该是…"></textarea>
+  </div>
+
+  <div class="eyebrow" style="margin-top:28px;">Part 3 · 10年资产地图</div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">用一个词，标注你职业生涯最重要的5个阶段</div>
+    <div class="q-hint">不一定是职位——可以是一个项目、角色或转折点。点击格子选中。</div>
+    <div class="stages-grid" id="stages">
+      <div class="stage-cell" onclick="toggle(this)"><div class="sl">阶段1</div><input type="text" placeholder="关键词" onclick="event.stopPropagation()"></div>
+      <div class="stage-cell" onclick="toggle(this)"><div class="sl">阶段2</div><input type="text" placeholder="关键词" onclick="event.stopPropagation()"></div>
+      <div class="stage-cell" onclick="toggle(this)"><div class="sl">阶段3</div><input type="text" placeholder="关键词" onclick="event.stopPropagation()"></div>
+      <div class="stage-cell" onclick="toggle(this)"><div class="sl">阶段4</div><input type="text" placeholder="关键词" onclick="event.stopPropagation()"></div>
+      <div class="stage-cell" onclick="toggle(this)"><div class="sl">阶段5</div><input type="text" placeholder="关键词" onclick="event.stopPropagation()"></div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">如果不需要考虑钱，你最想帮助哪类人解决什么问题？</div>
+    <div class="q-hint">这一问是找你的使命感——它往往和你的资产高度重合。</div>
+    <textarea id="q6" placeholder="例：我最想帮助刚入职2-3年、很努力但找不到方向的职场女性，让她们早点明白哪些东西真正重要…"></textarea>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">你叫什么？现在怎么介绍自己？</div>
+    <div class="two-col">
+      <div><label class="sub-label">你的名字</label><input type="text" id="uname" placeholder="例：李小雯"></div>
+      <div><label class="sub-label">当前自我介绍</label><input type="text" id="intro" placeholder="例：某公司人力资源总监"></div>
+    </div>
+  </div>
+
+  <button class="btn-gen" onclick="buildReport()">生成我的资产分析报告</button>
+
+  <div class="result-outer" id="resultOuter">
+    <div class="result-head">
+      <h3>你的个人资产报告</h3>
+      <p>根据你的填写自动分析</p>
+    </div>
+    <div class="result-body" id="resultBody"></div>
+    <button class="copy-btn" onclick="copyReport()">复制报告</button>
+  </div>
+</div>
+
+<script>
+function toggle(el){ el.classList.toggle('on'); }
+
+function getStages(){
+  return [...document.querySelectorAll('#stages input')].map((i,n)=>i.value||`阶段${n+1}`).join(' → ');
+}
+
+function keywords(text) {
+  // extract key nouns for tagging
+  const words = text.replace(/[，。！？、…\s]+/g,' ').split(' ').filter(w=>w.length>=2);
+  return words.slice(0,4);
+}
+
+function buildReport() {
+  const name = document.getElementById('uname').value || '你';
+  const intro = document.getElementById('intro').value;
+  const q1 = document.getElementById('q1').value;
+  const q2 = document.getElementById('q2').value;
+  const q3 = document.getElementById('q3').value;
+  const q4 = document.getElementById('q4').value;
+  const stages = getStages();
+  const q6 = document.getElementById('q6').value;
+
+  if(!q1 && !q2 && !q6){
+    alert('请至少填写Q1、Q2、Q6，才能生成有意义的报告。');
+    return;
+  }
+
+  // Asset identification logic
+  const assets = [];
+  if(q1) assets.push({ name: '沟通与影响力资产', desc: `从你被频繁请教的事情来看（${q1.slice(0,40)}…），你有一种天然的「让复杂变简单」的能力——这是许多人有了经验却仍缺乏的。在咨询、教练、内容创作领域，这是稀缺的核心资产。` });
+  if(q2) assets.push({ name: '效率与方法论资产', desc: `你提到自己擅长（${q2.slice(0,40)}…）。这种"快且好"的能力，背后是一套你已内化但还未外显的方法论——它可以被系统化、课程化或顾问化。` });
+  if(q3) assets.push({ name: '实战经验与风险嗅觉', desc: `你走过的弯路（${q3.slice(0,40)}…）是最贵的学费。这种"我踩过坑所以我知道怎么避开"的洞察，正是企业愿意为顾问付高价的核心——因为他们买的是你的错误换来的智慧。` });
+  if(q4) assets.push({ name: '领域反常识洞察', desc: `你的独特观点（${q4.slice(0,40)}…）说明你已经超越了行业共识，形成了自己的判断体系。这是建立个人IP最重要的原材料——当别人还在讲常识，你可以讲那句让人眼前一亮的话。` });
+
+  // Positioning sentence
+  let target = '职场中遇到困境的女性';
+  let problem = '找不到方向、不知道如何突破';
+  let method = '结合你的实战经验和独特视角';
+  if(q6) {
+    const parts = q6.split(/帮助|解决|让|使/);
+    if(parts.length > 1) {
+      target = parts[0].replace(/最想|我想/,'').trim().slice(0,20) || target;
+      problem = parts[1] ? parts[1].slice(0,30) : problem;
+    }
+    method = q2 ? q2.slice(0,25) : method;
+  }
+  const positioning = `我帮${target}解决${problem}，用的是${method}。`;
+
+  // Second curve suggestions
+  const curves = [];
+  if(q1 || q2) curves.push(`**内容IP**：以「${intro||'你的职业身份'}」为出发点，在小红书/视频号/公众号定期输出你的专业洞察，建立垂直影响力，形成可变现的内容资产。`);
+  if(q3 || q4) curves.push(`**顾问/教练**：把你的实战经验和反常识判断，转化为1v1顾问服务或小组工作坊。你解决过的问题，对还没走过这段路的人价值极高。`);
+  if(q6) curves.push(`**课程产品**：把帮助「${target}」的方法系统化，设计成一门结构化课程。知识付费市场正在高速增长，而有真实经历背书的课程是最难被复制的。`);
+
+  // Hidden asset
+  const stagesText = getStages();
+  const hidden = `从你5个阶段的关键词（${stagesText}）可以看出，你有一种少有人具备的能力：**跨阶段适应力**。你不只是在某个垂直领域很深，而是在不同阶段都能重新找到自己的节奏——这种韧性本身就是一种可被包装和传授的资产。`;
+
+  const body = document.getElementById('resultBody');
+  body.innerHTML = `
+    <div class="r-section">
+      <div class="r-title">你的三大核心资产</div>
+      ${assets.slice(0,3).map((a,i)=>`
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px;">资产 ${i+1} · ${a.name}</div>
+          <div class="r-text">${a.desc}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="r-section">
+      <div class="r-title">你的一句话定位</div>
+      <div class="highlight-box"><p>${positioning}</p></div>
+      <div class="r-text" style="font-size:12px;color:rgba(255,255,255,.5);margin-top:8px;">这是一个起点。真正好的定位句需要反复打磨——先把它说给三个人听，观察他们的反应，再修改。</div>
+    </div>
+    <div class="r-section">
+      <div class="r-title">你的第二曲线方向</div>
+      ${curves.map(c=>`<div class="r-text" style="margin-bottom:10px;padding-left:12px;border-left:2px solid rgba(255,255,255,.15);">${c.replace(/\*\*(.+?)\*\*/g,'<strong style="color:#9FE1CB;">$1</strong>')}</div>`).join('')}
+    </div>
+    <div class="r-section">
+      <div class="r-title">你还没发现的隐藏资产</div>
+      <div class="r-text">${hidden.replace(/\*\*(.+?)\*\*/g,'<strong style="color:#9FE1CB;">$1</strong>')}</div>
+    </div>
+    <div class="r-section">
+      <div class="r-title">给 ${name} 的一句话</div>
+      <div class="highlight-box"><p>你一直觉得「这有什么了不起」的那些事，正是别人愿意付钱来学的东西。差别不在能力，在于你有没有把它变成别人能看见的语言。今天的这张表，就是起点。</p></div>
+    </div>
+  `;
+
+  document.getElementById('resultOuter').classList.add('show');
+  document.getElementById('resultOuter').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function copyReport() {
+  const text = document.getElementById('resultBody').innerText;
+  navigator.clipboard.writeText(text).catch(()=>{
+    const ta=document.createElement('textarea');
+    ta.value=text;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+  });
+  const btn=document.querySelector('.copy-btn');
+  btn.textContent='已复制 ✓';setTimeout(()=>btn.textContent='复制报告',2000);
+}
+</script>
+</body>
+</html>
