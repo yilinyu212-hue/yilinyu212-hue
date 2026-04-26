@@ -435,97 +435,77 @@ footer{background:var(--plum);padding:28px 48px;text-align:center;border-top:1px
 <div id="videos"></div>
 <div class="sec-head reveal">
   <div>
-    <div class="sec-eyebrow">精选视频库 · 策展出品</div>
-    <div class="sec-title">值得你花时间看的，我们替你找好了</div>
-    <div style="font-size:13px;color:var(--light);margin-top:3px;">TED · B站 · YouTube · 视频号 · 原创 · 每条附选片理由</div>
+    <div class="sec-eyebrow">她说了算 · 视频频道</div>
+    <div class="sec-title">用耳朵听，也用眼睛看</div>
+    <div class="sec-sub">Janet & Yilin 亲自讲解 · 每期配套 · B站播放 · 无需VPN</div>
   </div>
-  <a href="video-library.html" class="sec-action">全部10条 →</a>
+  <a href="video-library.html" class="sec-action">完整视频库 →</a>
 </div>
 
 <!-- Featured -->
-<div style="background:var(--plum);border-radius:10px;overflow:hidden;display:grid;grid-template-columns:1fr 220px;margin-bottom:14px;" class="reveal">
-  <div style="padding:26px 30px;">
-    <div style="display:inline-flex;align-items:center;gap:6px;background:var(--rose);color:#fff;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:10px;">✦ Janet精选</div>
-    <div style="font-family:'Noto Serif SC',serif;font-size:clamp(15px,1.8vw,19px);font-weight:600;color:#fff;line-height:1.3;margin-bottom:5px;">你的身体语言塑造了你是谁</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.38);margin-bottom:12px;">Amy Cuddy · 哈佛商学院 · TED Global 2012 · 21分钟</div>
-    <div style="display:flex;align-items:flex-start;gap:8px;padding:9px 12px;background:rgba(255,255,255,.06);border-left:3px solid var(--rose);border-radius:0 5px 5px 0;margin-bottom:14px;">
-      <div style="width:18px;height:18px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px;">J</div>
-      <div style="font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.65;font-style:italic;">「做了30年教练，还在推荐这条。看完之前，先去卫生间站两分钟。」</div>
+<div class="video-featured reveal">
+  <div class="vf-left">
+    <div class="vf-badge">✦ 本期精讲</div>
+    <div class="vf-title">Janet讲第三期：<br>不创业，也要管理你的人生资产</div>
+    <div class="vf-desc">10分钟系统讲解认知套利、身份重塑、精力主权的核心逻辑，以及3件配套工具的使用方法和真实案例。</div>
+    <div class="vf-tags">
+      <span class="vf-tag">认知套利</span>
+      <span class="vf-tag">身份重塑</span>
+      <span class="vf-tag">精力主权</span>
     </div>
-    <a href="video-library.html" style="display:inline-flex;align-items:center;gap:7px;background:#fff;color:var(--plum);padding:9px 18px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">
-      <svg width="11" height="11" viewBox="0 0 10 10" fill="currentColor"><path d="M2 1L9 5L2 9Z"/></svg>进入视频库
-    </a>
+    <div class="vf-meta">Janet · 2026年4月 · 10:24 · B站</div>
+    <button class="btn-play-main" onclick="openModal('feat','Janet讲第三期：不创业，也要管理你的人生资产','Janet · 2026年4月 · 10:24','BV1xx411c7mD')">
+      <svg width="14" height="14" viewBox="0 0 10 10" fill="var(--plum)"><path d="M2 1L9 5L2 9Z"/></svg>
+      立即播放
+    </button>
   </div>
-  <div style="background:linear-gradient(135deg,#1a0a2e,#3d1536);display:flex;align-items:center;justify-content:center;cursor:pointer;min-height:160px;" onclick="location.href='video-library.html'">
-    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-      <div style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;">
-        <svg width="18" height="18" viewBox="0 0 10 10" fill="#fff"><path d="M2 1L9 5L2 9Z"/></svg>
-      </div>
-      <div style="font-size:10px;color:rgba(255,255,255,.3);">21:02</div>
+  <div class="vf-right" onclick="openModal('feat','Janet讲第三期：不创业，也要管理你的人生资产','Janet · 10:24','BV1xx411c7mD')">
+    <div class="vf-thumb-overlay"></div>
+    <div style="display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;">
+      <div class="vf-play-btn"><svg viewBox="0 0 10 10"><path d="M2 1L9 5L2 9Z"/></svg></div>
+      <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:8px;">点击播放</div>
     </div>
+    <div class="vf-duration-badge">10:24</div>
   </div>
 </div>
 
-<!-- 3 curated preview cards -->
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;" class="reveal">
-
-  <div style="background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .22s;" onclick="location.href='video-library.html'" onmouseover="this.style.cssText+='border-color:var(--rose);transform:translateY(-2px);box-shadow:0 6px 20px rgba(61,21,54,.07)'" onmouseout="this.style.borderColor='';this.style.transform='';this.style.boxShadow=''">
-    <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a2e,#2d1b4e);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
-      <div style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;margin-bottom:5px;"><svg width="10" height="10" viewBox="0 0 10 10" fill="#fff"><path d="M2 1L9 5L2 9Z"/></svg></div>
-      <div style="font-size:10px;color:rgba(255,255,255,.7);text-align:center;padding:0 10px;line-height:1.4;">为什么女性领导力仍然稀缺</div>
-      <div style="position:absolute;bottom:5px;right:6px;background:rgba(0,0,0,.65);color:#fff;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;">15:06</div>
-    </div>
-    <div style="padding:10px 12px 12px;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal,#1d4a35);display:inline-block;margin-bottom:5px;">身份重塑 · TED</div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:13px;font-weight:600;color:var(--plum);margin-bottom:2px;line-height:1.3;">为什么女性领导力仍然稀缺</div>
-      <div style="font-size:10.5px;color:var(--light,#9a7a8e);margin-bottom:7px;">Sheryl Sandberg</div>
-      <div style="display:flex;align-items:flex-start;gap:6px;padding:6px 8px;background:#faf3f7;border-radius:5px;">
-        <div style="width:14px;height:14px;border-radius:50%;background:var(--rose,#c4587a);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px;">J</div>
-        <div style="font-size:11px;color:var(--mid,#6b4a60);line-height:1.5;font-style:italic;">「'坐到桌前'是内心的允许，三十年后仍成立。」</div>
-      </div>
-    </div>
-  </div>
-
-  <div style="background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .22s;" onclick="location.href='video-library.html'" onmouseover="this.style.cssText+='border-color:var(--rose);transform:translateY(-2px);box-shadow:0 6px 20px rgba(61,21,54,.07)'" onmouseout="this.style.borderColor='';this.style.transform='';this.style.boxShadow=''">
-    <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#2a0a2a,#5a1a5a);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
-      <div style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;margin-bottom:5px;"><svg width="10" height="10" viewBox="0 0 10 10" fill="#fff"><path d="M2 1L9 5L2 9Z"/></svg></div>
-      <div style="font-size:10px;color:rgba(255,255,255,.7);text-align:center;padding:0 10px;line-height:1.4;">董明珠：我的成功没有捷径</div>
-      <div style="position:absolute;bottom:5px;right:6px;background:rgba(0,0,0,.65);color:#fff;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;">46:22</div>
-    </div>
-    <div style="padding:10px 12px 12px;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal,#1d4a35);display:inline-block;margin-bottom:5px;">身份重塑 · B站</div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:13px;font-weight:600;color:var(--plum);margin-bottom:2px;line-height:1.3;">董明珠：我的成功没有捷径</div>
-      <div style="font-size:10.5px;color:var(--light,#9a7a8e);margin-bottom:7px;">格力电器董事长 · 央视对话</div>
-      <div style="display:flex;align-items:flex-start;gap:6px;padding:6px 8px;background:#faf3f7;border-radius:5px;">
-        <div style="width:14px;height:14px;border-radius:50%;background:var(--teal,#1d4a35);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px;">Y</div>
-        <div style="font-size:11px;color:var(--mid,#6b4a60);line-height:1.5;font-style:italic;">「她的每句话都是故事——叙事力最真实的样子。」</div>
-      </div>
-    </div>
-  </div>
-
-  <div style="background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .22s;" onclick="location.href='video-library.html'" onmouseover="this.style.cssText+='border-color:var(--rose);transform:translateY(-2px);box-shadow:0 6px 20px rgba(61,21,54,.07)'" onmouseout="this.style.borderColor='';this.style.transform='';this.style.boxShadow=''">
-    <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#c4587a,#3d1536);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
-      <div style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;margin-bottom:5px;"><svg width="10" height="10" viewBox="0 0 10 10" fill="#fff"><path d="M2 1L9 5L2 9Z"/></svg></div>
-      <div style="font-size:10px;color:rgba(255,255,255,.7);text-align:center;padding:0 10px;line-height:1.4;">脆弱的力量</div>
-      <div style="position:absolute;bottom:5px;right:6px;background:rgba(0,0,0,.65);color:#fff;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;">20:19</div>
-    </div>
-    <div style="padding:10px 12px 12px;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#f5edd8;color:#b8862c;display:inline-block;margin-bottom:5px;">精力主权 · TED</div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:13px;font-weight:600;color:var(--plum);margin-bottom:2px;line-height:1.3;">脆弱的力量</div>
-      <div style="font-size:10.5px;color:var(--light,#9a7a8e);margin-bottom:7px;">Brené Brown · TEDxHouston</div>
-      <div style="display:flex;align-items:flex-start;gap:6px;padding:6px 8px;background:#faf3f7;border-radius:5px;">
-        <div style="width:14px;height:14px;border-radius:50%;background:var(--rose,#c4587a);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px;">J</div>
-        <div style="font-size:11px;color:var(--mid,#6b4a60);line-height:1.5;font-style:italic;">「在教练室被问最多的问题，这条给了最好的答案。」</div>
-      </div>
-    </div>
-  </div>
-
-</div>
-<div style="text-align:center;padding:18px 0 4px;" class="reveal">
-  <a href="video-library.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--plum);color:#fff;padding:11px 24px;border-radius:6px;font-size:12.5px;font-weight:700;text-decoration:none;letter-spacing:.04em;">查看全部10条精选视频 →</a>
-  <div style="font-size:11px;color:var(--light);margin-top:8px;">Amy Cuddy · Sheryl Sandberg · Brené Brown · 董明珠 · Matthew Walker 等</div>
+<!-- Filter -->
+<div class="filter-bar reveal">
+  <span class="filter-label">筛选：</span>
+  <button class="ftab on" onclick="filt('all',this)">全部</button>
+  <button class="ftab" onclick="filt('cog',this)">🧠 认知套利</button>
+  <button class="ftab" onclick="filt('id',this)">🔄 身份重塑</button>
+  <button class="ftab" onclick="filt('en',this)">⚡ 精力主权</button>
+  <button class="ftab" onclick="filt('tool',this)">🛠 工具演示</button>
 </div>
 
+<!-- Video grid -->
+<div class="vgrid reveal" id="vgrid">
+  <div class="vcard" data-cat="cog" onclick="openModal('v1','薪酬差距，差在哪里？2分钟数据解读','认知套利 · Vol.02 · 2:18','BV1xx411c7mD')">
+    <div class="vc-thumb tb2"><div style="display:flex;flex-direction:column;align-items:center;"><div class="vc-play"><svg viewBox="0 0 10 10"><path d="M2 1L9 5L2 9Z"/></svg></div><div class="vc-thumb-label">薪酬差距数据速读</div></div><div class="vc-dur">2:18</div></div>
+    <div class="vc-body"><div class="vc-series s-cog">认知套利 · Vol.02</div><div class="vc-title">薪酬差距，差在哪里？</div><div class="vc-meta">Janet · 2026年4月</div></div>
+  </div>
+  <div class="vcard" data-cat="tool" onclick="openModal('v2','谈薪准备器完整演示','工具演示 · 6:05','BV1xx411c7mD')">
+    <div class="vc-thumb tb1"><div style="display:flex;flex-direction:column;align-items:center;"><div class="vc-play"><svg viewBox="0 0 10 10"><path d="M2 1L9 5L2 9Z"/></svg></div><div class="vc-thumb-label">谈薪准备器演示</div></div><div class="vc-dur">6:05</div></div>
+    <div class="vc-body"><div class="vc-series s-tool">工具演示</div><div class="vc-title">谈薪准备器，5步走一遍</div><div class="vc-meta">Yilin · 2026年4月</div></div>
+  </div>
+  <div class="vcard" data-cat="id" onclick="openModal('v3','35岁，是资产还是负债？','身份重塑 · Vol.03 · 5:32','BV1xx411c7mD')">
+    <div class="vc-thumb tb3"><div style="display:flex;flex-direction:column;align-items:center;"><div class="vc-play"><svg viewBox="0 0 10 10"><path d="M2 1L9 5L2 9Z"/></svg></div><div class="vc-thumb-label">35岁是资产还是负债</div></div><div class="vc-dur">5:32</div></div>
+    <div class="vc-body"><div class="vc-series s-id">身份重塑 · Vol.03</div><div class="vc-title">35岁，是资产还是负债？</div><div class="vc-meta">Janet · 2026年4月</div></div>
+  </div>
+  <div class="vcard" data-cat="tool" onclick="openModal('v4','个人资产盘点表演示','工具演示 · 8:14','BV1xx411c7mD')">
+    <div class="vc-thumb tb5"><div style="display:flex;flex-direction:column;align-items:center;"><div class="vc-play"><svg viewBox="0 0 10 10"><path d="M2 1L9 5L2 9Z"/></svg></div><div class="vc-thumb-label">个人资产盘点表演示</div></div><div class="vc-dur">8:14</div></div>
+    <div class="vc-body"><div class="vc-series s-tool">工具演示</div><div class="vc-title">7个问题，找到你的隐性价值</div><div class="vc-meta">Yilin · 2026年4月</div></div>
+  </div>
+  <div class="vcard" data-cat="en" onclick="openModal('v5','精力泄漏的5个真相','精力主权 · Vol.03 · 4:48','BV1xx411c7mD')">
+    <div class="vc-thumb tb4"><div style="display:flex;flex-direction:column;align-items:center;"><div class="vc-play"><svg viewBox="0 0 10 10"><path d="M2 1L9 5L2 9Z"/></svg></div><div class="vc-thumb-label">精力泄漏的5个真相</div></div><div class="vc-dur">4:48</div></div>
+    <div class="vc-body"><div class="vc-series s-en">精力主权 · Vol.03</div><div class="vc-title">内耗比加班更累——5个真相</div><div class="vc-meta">Janet · 2026年4月</div></div>
+  </div>
+  <div class="vcard" data-cat="cog" onclick="openModal('v6','谁在破玻璃天花板？','认知套利 · Vol.01 · 3:20','BV1xx411c7mD')">
+    <div class="vc-thumb tb6"><div style="display:flex;flex-direction:column;align-items:center;"><div class="vc-play"><svg viewBox="0 0 10 10"><path d="M2 1L9 5L2 9Z"/></svg></div><div class="vc-thumb-label">董事会数据速读</div></div><div class="vc-dur">3:20</div></div>
+    <div class="vc-body"><div class="vc-series s-cog">认知套利 · Vol.01</div><div class="vc-title">谁在破玻璃天花板？</div><div class="vc-meta">Janet · 2026年4月</div></div>
+  </div>
+</div>
 
 <!-- ══ TOOLS ══ -->
 <div id="tools"></div>
@@ -554,7 +534,13 @@ footer{background:var(--plum);padding:28px 48px;text-align:center;border-top:1px
 <div class="bookshelf reveal">
   <div class="book-card"><div class="book-cover bc1">韧</div><div class="book-title">《韧性》</div><div class="book-author">Sheryl Sandberg</div><div class="book-note">Janet导读 · 精力主权篇</div></div>
   <div class="book-card"><div class="book-cover bc2">叙</div><div class="book-title">《故事思维》</div><div class="book-author">Annette Simmons</div><div class="book-note">Yilin导读 · 叙事力篇</div></div>
-  <div class="book-card"><div class="book-cover bc3">薪</div><div class="book-title">《女性谈判力》</div><div class="book-author">Linda Babcock</div><div class="book-note">Janet导读 · 认知套利篇</div></div>
+  <a href="book-negotiation.html" class="book-card" style="text-decoration:none;display:block;cursor:pointer;transition:all .22s;" onmouseover="this.style.background='var(--blush-pale)';this.style.borderColor='var(--rose)'" onmouseout="this.style.background='var(--cream)';this.style.borderColor='var(--rule)'">
+  <div class="book-cover bc3">薪</div>
+  <div class="book-title">《女性谈判力》</div>
+  <div class="book-author">Linda Babcock</div>
+  <div class="book-note">Janet导读 · 认知套利篇</div>
+  <div style="font-size:10px;font-weight:700;color:var(--rose);margin-top:6px;letter-spacing:.04em;">阅读导读 →</div>
+</a>
   <div class="book-card locked"><div class="book-cover bc4">…</div><div class="book-title">下期书房</div><div class="book-author">5月更新</div><div class="book-note" style="color:var(--light);">配套 Vol.04</div></div>
 </div>
 
