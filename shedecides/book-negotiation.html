@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《女性谈判力》· 她说了算书房</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#3d1536;--plum-mid:#6b2560;--rose:#c4587a;--blush:#f0dce8;--pale:#faf3f7;--cream:#fdfaf5;--sand:#ede4d8;--rule:#e2d4dc;--text:#2e1a28;--mid:#6b4a60;--light:#9a7a8e;--teal:#1d4a35;--teal-lt:#d6ede0;--amber:#b8862c;--amber-lt:#f5edd8;--gold:#c49a3c;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
+
+/* top nav */
+.topnav{background:var(--plum);padding:0;border-bottom:1px solid rgba(255,255,255,.08);}
+.topnav-in{max-width:860px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:46px;}
+.back-link{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;display:flex;align-items:center;gap:7px;transition:color .2s;}
+.back-link:hover{color:rgba(255,255,255,.85);}
+.topnav-brand{font-family:'Noto Serif SC',serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.65);}
+.hub-link{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);text-decoration:none;}
+
+/* hero */
+.hero{background:var(--plum);padding:52px 40px 44px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(107,37,96,.5),transparent 60%);}
+.hero-in{max-width:860px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:end;}
+.book-cover-lg{width:100px;height:140px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:36px;font-weight:700;flex-shrink:0;background:#2a1f3d;color:rgba(255,255,255,.75);box-shadow:4px 8px 24px rgba(0,0,0,.4);}
+.hero-meta{}
+.hero-series{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px;}
+.hero-title{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,36px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:6px;}
+.hero-author{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px;}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.hero-tag{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);}
+.hero-tag.live{background:var(--rose);border-color:var(--rose);color:#fff;}
+
+/* sticky chapter nav */
+.chapter-nav{position:sticky;top:0;z-index:100;background:rgba(253,250,245,.96);border-bottom:1px solid var(--rule);backdrop-filter:blur(8px);}
+.chapter-nav-in{max-width:860px;margin:0 auto;padding:0 40px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.chapter-nav-in::-webkit-scrollbar{display:none;}
+.chap-tab{padding:12px 16px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--light);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;text-decoration:none;}
+.chap-tab:hover{color:var(--rose);}
+.chap-tab.active{color:var(--plum);border-bottom-color:var(--rose);}
+
+/* page */
+.page{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+
+/* section */
+.sec{padding-top:48px;border-top:1px solid var(--rule);margin-top:0;}
+.sec:first-of-type{border-top:none;}
+.sec-ey{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--rose);font-weight:700;margin-bottom:8px;}
+.sec-t{font-family:'Noto Serif SC',serif;font-size:clamp(18px,2.5vw,24px);font-weight:600;color:var(--plum);margin-bottom:20px;}
+
+/* Janet intro */
+.curator-intro{display:flex;gap:16px;margin-bottom:24px;}
+.curator-av-lg{width:48px;height:48px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:#fff;flex-shrink:0;}
+.curator-speech{flex:1;}
+.curator-name{font-size:12px;font-weight:700;color:var(--plum);margin-bottom:4px;}
+.curator-role{font-size:11px;color:var(--light);margin-bottom:10px;}
+.speech-bubble{background:var(--pale);border:1px solid var(--rule);border-radius:0 10px 10px 10px;padding:16px 18px;position:relative;}
+.speech-bubble::before{content:'';position:absolute;top:-1px;left:-1px;width:12px;height:12px;background:var(--pale);border-left:1px solid var(--rule);border-top:1px solid var(--rule);}
+.speech-text{font-size:13.5px;color:var(--text);line-height:1.82;}
+.speech-text p{margin-bottom:10px;}
+.speech-text p:last-child{margin-bottom:0;}
+
+/* key data */
+.data-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:24px;}
+.data-cell{background:var(--cream);padding:18px 16px;}
+.data-num{font-family:'Noto Serif SC',serif;font-size:32px;font-weight:700;color:var(--plum);line-height:1;margin-bottom:4px;}
+.data-lbl{font-size:11.5px;color:var(--mid);line-height:1.5;}
+.data-src{font-size:10px;color:var(--light);margin-top:4px;}
+
+/* content body */
+.content{font-size:14px;color:var(--text);line-height:1.9;}
+.content p{margin-bottom:14px;}
+.content p:last-child{margin-bottom:0;}
+.content strong{color:var(--plum);font-weight:700;}
+
+/* pullquote */
+.pullquote{background:var(--plum);padding:24px 28px;margin:24px 0;border-radius:2px;}
+.pq-text{font-family:'Noto Serif SC',serif;font-size:clamp(16px,2vw,20px);font-style:italic;color:rgba(255,255,255,.88);line-height:1.65;margin-bottom:10px;}
+.pq-src{font-size:11px;color:rgba(255,255,255,.38);}
+
+/* insight cards */
+.insight-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:20px 0;}
+.insight-card{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:18px 16px;}
+.insight-icon{font-size:20px;margin-bottom:8px;}
+.insight-title{font-size:13px;font-weight:700;color:var(--plum);margin-bottom:6px;}
+.insight-text{font-size:12.5px;color:var(--mid);line-height:1.68;}
+
+/* action steps */
+.action-box{background:var(--blush);border-radius:10px;padding:20px 22px;margin:20px 0;}
+.action-title{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rose);margin-bottom:14px;}
+.action-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;}
+.action-step:last-child{margin-bottom:0;}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--rose);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.step-text{font-size:13px;color:var(--plum);line-height:1.65;}
+.step-text strong{font-weight:700;}
+
+/* related tool */
+.tool-link-card{background:var(--plum);border-radius:10px;padding:20px 22px;display:flex;align-items:center;gap:18px;margin:20px 0;text-decoration:none;transition:background .2s;}
+.tool-link-card:hover{background:var(--plum-mid);}
+.tool-icon-lg{width:48px;height:48px;background:rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.tool-link-body{flex:1;}
+.tool-link-label{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.tool-link-title{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:3px;}
+.tool-link-desc{font-size:12px;color:rgba(255,255,255,.5);}
+.tool-link-arrow{font-size:20px;color:rgba(255,255,255,.3);}
+
+/* ═══ COMMENTS SECTION ═══ */
+.comments-intro{background:var(--pale);border:1px solid var(--rule);border-radius:10px;padding:18px 20px;margin-bottom:24px;display:flex;gap:14px;align-items:flex-start;}
+.ci-icon{font-size:24px;flex-shrink:0;}
+.ci-text{font-size:13px;color:var(--mid);line-height:1.7;}
+.ci-text strong{color:var(--plum);font-weight:700;}
+
+/* comment form */
+.comment-form{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:22px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.form-field{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-size:11px;font-weight:700;color:var(--plum);letter-spacing:.05em;}
+.form-input{padding:10px 14px;border:1px solid var(--rule);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:var(--cream);outline:none;transition:border-color .2s;}
+.form-input:focus{border-color:var(--rose);background:#fff;}
+.form-textarea{padding:12px 14px;border:1px solid var(--rule);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:var(--cream);outline:none;resize:vertical;min-height:100px;transition:border-color .2s;line-height:1.7;width:100%;margin-bottom:14px;}
+.form-textarea:focus{border-color:var(--rose);background:#fff;}
+.rating-row{display:flex;gap:8px;align-items:center;margin-bottom:16px;}
+.rating-label{font-size:11px;font-weight:700;color:var(--plum);}
+.star{font-size:22px;cursor:pointer;color:var(--rule);transition:color .15s;line-height:1;}
+.star.lit{color:var(--gold);}
+.form-submit{background:var(--rose);border:none;padding:11px 24px;border-radius:6px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;transition:background .2s;}
+.form-submit:hover{background:var(--plum);}
+.form-note{font-size:11px;color:var(--light);margin-top:10px;line-height:1.6;}
+
+/* existing comments */
+.comments-list{margin-top:28px;}
+.comment-item{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:18px 18px 16px;margin-bottom:12px;}
+.comment-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.comment-av-wrap{display:flex;align-items:center;gap:10px;}
+.comment-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:13px;font-weight:600;color:#fff;flex-shrink:0;}
+.comment-name{font-size:13px;font-weight:700;color:var(--plum);}
+.comment-meta{font-size:11px;color:var(--light);margin-top:1px;}
+.comment-stars{display:flex;gap:2px;}
+.comment-star{font-size:13px;color:var(--gold);}
+.comment-body{font-size:13.5px;color:var(--text);line-height:1.78;}
+.comment-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--blush);color:var(--plum-mid);margin-top:8px;letter-spacing:.05em;}
+
+/* avatar colors */
+.av-1{background:#c4587a;} .av-2{background:#1d4a35;} .av-3{background:#b8862c;} .av-4{background:#6b2560;} .av-5{background:#2a1f3d;}
+
+/* submit success */
+.submit-success{display:none;background:var(--teal-lt);border:1px solid #b0d8c0;border-radius:8px;padding:14px 18px;margin-top:14px;}
+.submit-success.show{display:block;}
+.submit-success p{font-size:13px;color:var(--teal);line-height:1.6;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:640px){
+  .hero-in,.topnav-in,.chapter-nav-in,.page{padding-left:20px;padding-right:20px;}
+  .hero-in{grid-template-columns:1fr;}.book-cover-lg{display:none;}
+  .data-grid{grid-template-columns:1fr 1fr;}
+  .insight-grid,.form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="topnav-in">
+    <a class="back-link" href="hub.html">← 返回知识库</a>
+    <span class="topnav-brand">她说了算书房</span>
+    <a class="hub-link" href="hub.html">Hub</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-in">
+    <div class="book-cover-lg">薪</div>
+    <div class="hero-meta">
+      <div class="hero-series">她说了算书房 · 认知套利篇 · 第3本</div>
+      <h1 class="hero-title">《女性谈判力》<br>Women Don't Ask</h1>
+      <div class="hero-author">Linda Babcock · Sara Laschever 著</div>
+      <div class="hero-tags">
+        <span class="hero-tag live">认知套利</span>
+        <span class="hero-tag">谈判</span>
+        <span class="hero-tag">薪酬</span>
+        <span class="hero-tag">配套 Vol.05</span>
+        <span class="hero-tag">Janet 导读</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER NAV -->
+<nav class="chapter-nav">
+  <div class="chapter-nav-in">
+    <a class="chap-tab active" href="#intro">导读</a>
+    <a class="chap-tab" href="#data">核心数据</a>
+    <a class="chap-tab" href="#insight">关键洞察</a>
+    <a class="chap-tab" href="#quote">金句</a>
+    <a class="chap-tab" href="#action">行动建议</a>
+    <a class="chap-tab" href="#tool">配套工具</a>
+    <a class="chap-tab" href="#comments">读者笔记</a>
+  </div>
+</nav>
+
+<main class="page">
+
+<!-- INTRO -->
+<div id="intro" class="sec reveal">
+  <div class="sec-ey">Janet 的导读</div>
+  <div class="sec-t">为什么女性不开口？</div>
+  <div class="curator-intro">
+    <div class="curator-av-lg">J</div>
+    <div class="curator-speech">
+      <div class="curator-name">Janet</div>
+      <div class="curator-role">Next Peak 创始人 · 企业教练 30年 · 服务100+管理团队</div>
+      <div class="speech-bubble">
+        <div class="speech-text">
+          <p>我第一次读这本书是2008年，读完之后在书店的椅子上坐了很久。不是因为书写得多好，是因为数据太让人难受。</p>
+          <p>Linda Babcock 做了一个简单的研究：在同一所大学，同一个专业，男性毕业生和女性毕业生的起薪差距是7.6%。当她追问原因，发现男生里有57%的人在入职前谈了薪酬，女生里只有7%。</p>
+          <p>不是差距，是沉默。而沉默是有成本的——那个成本，乘以整个职业生涯，大概是100到150万元。</p>
+          <p>这本书回答了一个问题：为什么女性不开口？答案不是「没有信心」，而是她们从小被训练的一套规则——提要求会让人觉得「贪心」、「难合作」、「太强势」。这个规则不是错觉，研究证明它真实存在。</p>
+          <p>所以解法也不只是「鼓起勇气开口」，而是找到一种既能要到，又不被惩罚的方式。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DATA -->
+<div id="data" class="sec reveal" style="padding-top:40px;">
+  <div class="sec-ey">研究数据</div>
+  <div class="sec-t">数字比感受更诚实</div>
+  <div class="data-grid">
+    <div class="data-cell">
+      <div class="data-num">7.6%</div>
+      <div class="data-lbl">男女毕业生起薪差距<br>同校·同专业·同年入职</div>
+      <div class="data-src">卡内基梅隆大学研究</div>
+    </div>
+    <div class="data-cell">
+      <div class="data-num">8x</div>
+      <div class="data-lbl">男性谈薪比例是女性的8倍<br>第一份工作入职时</div>
+      <div class="data-src">Babcock & Laschever, 2003</div>
+    </div>
+    <div class="data-cell">
+      <div class="data-num">¥150万</div>
+      <div class="data-lbl">不谈薪资的终身成本<br>与同资历谈薪者相比</div>
+      <div class="data-src">基于复利估算</div>
+    </div>
+  </div>
+  <div class="content">
+    <p>这三个数字不是独立的。它们是同一件事的三个切面：<strong>第一次不开口，会影响你整个职业生涯的定价基准。</strong></p>
+    <p>更令人沮丧的数据是：即便在谈判时，女性要求的金额平均也比男性低9.5%——这意味着即使她们开口了，也在自我压价。</p>
+  </div>
+</div>
+
+<!-- INSIGHTS -->
+<div id="insight" class="sec reveal" style="padding-top:40px;">
+  <div class="sec-ey">关键洞察</div>
+  <div class="sec-t">书里最值得记住的4件事</div>
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="insight-icon">🧠</div>
+      <div class="insight-title">沉默不是谦虚，是训练的结果</div>
+      <div class="insight-text">从小，女孩被夸「懂事」「不自私」。这些夸奖教会的，是不提要求。长大后这变成了职业障碍。</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">⚖️</div>
+      <div class="insight-title">女性谈判会被「惩罚」</div>
+      <div class="insight-text">研究显示，谈薪的女性确实会被认为「难相处」。这不是偏见消除不了的——但可以用策略绕过。</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">🤝</div>
+      <div class="insight-title">用「关系框架」替代「对立框架」</div>
+      <div class="insight-text">「我们怎么找到都满意的方案」比「我要求X」更有效。不是软弱，是策略。</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">📊</div>
+      <div class="insight-title">数据是你最好的盟友</div>
+      <div class="insight-text">「市场数据显示……」把个人要求转化为客观陈述，既减少了对抗感，又增加了说服力。</div>
+    </div>
+  </div>
+</div>
+
+<!-- PULLQUOTE -->
+<div id="quote" class="sec reveal" style="padding-top:40px;border-top:none;">
+  <div class="sec-ey">书中金句</div>
+  <div class="sec-t">值得记在手机备忘录的一段话</div>
+  <div class="pullquote">
+    <div class="pq-text">「当男性谈薪资，他们在争取自己应得的。当女性谈薪资，她们在道歉。我们需要改变的，不只是女性的行为，而是整个社会对女性'提要求'这件事的认知。」</div>
+    <div class="pq-src">— Linda Babcock，《女性谈判力》</div>
+  </div>
+  <div class="pullquote" style="background:var(--pale);border:1px solid var(--rule);">
+    <div class="pq-text" style="color:var(--plum);font-size:clamp(14px,1.8vw,17px);">「不谈，是最贵的选择。因为你以为你保住了关系，其实你只是放弃了一百万。」</div>
+    <div class="pq-src" style="color:var(--light);">— Janet，读后随笔</div>
+  </div>
+</div>
+
+<!-- ACTION -->
+<div id="action" class="sec reveal" style="padding-top:40px;">
+  <div class="sec-ey">行动建议</div>
+  <div class="sec-t">读完之后，这周可以做的事</div>
+  <div class="action-box">
+    <div class="action-title">Janet 给你的三步行动</div>
+    <div class="action-step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>查清楚你的市场价。</strong>去 LinkedIn薪资、看准网、BOSS直聘，搜索你的岗位+城市+年限，记录P25/P50/P75三个数字。这是你谈判的基础。</div>
+    </div>
+    <div class="action-step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>练习说出那个数字。</strong>在镜子前说出你期望的薪资，然后说完停住——不要解释，不要道歉。只是让那个数字在空气里存在一秒钟。</div>
+    </div>
+    <div class="action-step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>用配套工具准备你的下次谈薪。</strong>把你的贡献、市场数据、担忧都填进去，5步之后会有一份可以直接练习的话术脚本。</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOL LINK -->
+<div id="tool" style="padding-top:16px;" class="reveal">
+  <a href="tool-salary.html" class="tool-link-card">
+    <div class="tool-icon-lg">💬</div>
+    <div class="tool-link-body">
+      <div class="tool-link-label">配套工具 · 认知套利篇</div>
+      <div class="tool-link-title">谈薪准备器</div>
+      <div class="tool-link-desc">5步准备流程，自动生成专属谈薪话术，今天填完明天就能用</div>
+    </div>
+    <div class="tool-link-arrow">→</div>
+  </a>
+</div>
+
+<!-- COMMENTS -->
+<div id="comments" class="sec reveal" style="padding-top:44px;">
+  <div class="sec-ey">读者笔记</div>
+  <div class="sec-t">你读完之后想说什么？</div>
+
+  <div class="comments-intro">
+    <div class="ci-icon">✍️</div>
+    <div class="ci-text">
+      <strong>这里是会员专属的读书笔记区。</strong>你的读后感、实践记录、对书里某个观点的不同看法——都欢迎写下来。Janet 和 Yilin 会定期来看，选择有启发的笔记在简报里分享（注明你的署名）。
+    </div>
+  </div>
+
+  <!-- Comment form -->
+  <div class="comment-form">
+    <div class="form-row">
+      <div class="form-field">
+        <label class="form-label">你的署名</label>
+        <input class="form-input" type="text" id="commentName" placeholder="例：晓雯 / 匿名读者">
+      </div>
+      <div class="form-field">
+        <label class="form-label">你的城市（可选）</label>
+        <input class="form-input" type="text" id="commentCity" placeholder="例：上海">
+      </div>
+    </div>
+    <div class="form-field" style="margin-bottom:14px;">
+      <label class="form-label">你的评分</label>
+      <div class="rating-row" style="margin-bottom:0;margin-top:6px;">
+        <span class="star" id="s1" onclick="setRating(1)">★</span>
+        <span class="star" id="s2" onclick="setRating(2)">★</span>
+        <span class="star" id="s3" onclick="setRating(3)">★</span>
+        <span class="star" id="s4" onclick="setRating(4)">★</span>
+        <span class="star" id="s5" onclick="setRating(5)">★</span>
+        <span id="ratingText" style="font-size:12px;color:var(--light);margin-left:8px;">点击评星</span>
+      </div>
+    </div>
+    <div class="form-field">
+      <label class="form-label">你的读书笔记</label>
+      <textarea class="form-textarea" id="commentText" placeholder="读完这本书，我最大的收获是……&#10;或者，我对书里某个观点有不同看法……&#10;或者，我把书里的方法用到了……"></textarea>
+    </div>
+    <button class="form-submit" onclick="submitComment()">提交读书笔记</button>
+    <div class="form-note">笔记仅会员可见 · Janet/Yilin 会定期阅读 · 优秀笔记会出现在简报中</div>
+    <div class="submit-success" id="submitSuccess">
+      <p>✓ 笔记已提交，谢谢你！Janet 和 Yilin 会来看的。<br>优秀的读书笔记会在下期简报中出现，注明你的署名。</p>
+    </div>
+  </div>
+
+  <!-- Existing comments -->
+  <div class="comments-list" id="commentsList">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--light);margin-bottom:16px;display:flex;align-items:center;gap:10px;">已有笔记 <span style="background:var(--blush);color:var(--rose);padding:2px 8px;border-radius:20px;font-size:10px;" id="commentCount">3条</span><span style="flex:1;height:1px;background:var(--rule);display:block;"></span></div>
+
+    <div class="comment-item">
+      <div class="comment-header">
+        <div class="comment-av-wrap">
+          <div class="comment-av av-2">晓</div>
+          <div>
+            <div class="comment-name">晓雯</div>
+            <div class="comment-meta">上海 · 3天前</div>
+          </div>
+        </div>
+        <div class="comment-stars">
+          <span class="comment-star">★</span><span class="comment-star">★</span><span class="comment-star">★</span><span class="comment-star">★</span><span class="comment-star">★</span>
+        </div>
+      </div>
+      <div class="comment-body">读完这本书，我马上去查了一下自己行业的薪资范围，发现我现在的薪酬在P35左右。然后我用了谈薪准备器，整理了过去一年的贡献，下周就要去和老板谈了。很紧张，但感觉准备好了。</div>
+      <span class="comment-tag">实践中</span>
+    </div>
+
+    <div class="comment-item">
+      <div class="comment-header">
+        <div class="comment-av-wrap">
+          <div class="comment-av av-3">M</div>
+          <div>
+            <div class="comment-name">Maggie</div>
+            <div class="comment-meta">北京 · 1周前</div>
+          </div>
+        </div>
+        <div class="comment-stars">
+          <span class="comment-star">★</span><span class="comment-star">★</span><span class="comment-star">★</span><span class="comment-star">★</span><span style="color:var(--rule);">★</span>
+        </div>
+      </div>
+      <div class="comment-body">书里关于「惩罚效应」的那段数据让我印象很深——原来女性谈薪被评价低不是我的感觉，是真实存在的研究结论。但我对书里的部分解法有不同看法：用「关系框架」谈薪，有时候反而会让对方觉得你不够坚定。我在实际谈判中发现，直接报数字反而更有效。</div>
+      <span class="comment-tag">有不同看法</span>
+    </div>
+
+    <div class="comment-item">
+      <div class="comment-header">
+        <div class="comment-av-wrap">
+          <div class="comment-av av-4">Anna</div>
+          <div>
+            <div class="comment-name">Anna</div>
+            <div class="comment-meta">深圳 · 2周前</div>
+          </div>
+        </div>
+        <div class="comment-stars">
+          <span class="comment-star">★</span><span class="comment-star">★</span><span class="comment-star">★</span><span class="comment-star">★</span><span class="comment-star">★</span>
+        </div>
+      </div>
+      <div class="comment-body">Janet 在导读里说的「不谈，是最贵的选择」这句话我截图存下来了。我之前一直觉得谈薪是一件「贪心」的事，读完这本书才意识到，这个「贪心」的感觉本身就是被训练出来的。这个认知很解放。</div>
+      <span class="comment-tag">认知转变</span>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+let rating = 0;
+const ratingLabels = ['','太一般','还不错','值得读','强烈推荐','必读！'];
+
+function setRating(n) {
+  rating = n;
+  for(let i=1;i<=5;i++){
+    document.getElementById('s'+i).classList.toggle('lit', i<=n);
+  }
+  document.getElementById('ratingText').textContent = ratingLabels[n];
+}
+
+const commentColors = ['av-1','av-2','av-3','av-4','av-5'];
+let localComments = [];
+
+function submitComment() {
+  const name = document.getElementById('commentName').value.trim() || '匿名读者';
+  const city = document.getElementById('commentCity').value.trim();
+  const text = document.getElementById('commentText').value.trim();
+  if(!text) { document.getElementById('commentText').focus(); return; }
+
+  const comment = { name, city, text, rating, time:'刚刚' };
+  localComments.unshift(comment);
+
+  // Add to DOM
+  const list = document.getElementById('commentsList');
+  const div = document.createElement('div');
+  div.className = 'comment-item';
+  const initials = name.slice(0,2);
+  const color = commentColors[Math.floor(Math.random()*5)];
+  const stars = rating ? '★'.repeat(rating) + '<span style="color:var(--rule);">★</span>'.repeat(5-rating) : '';
+  div.innerHTML = `
+    <div class="comment-header">
+      <div class="comment-av-wrap">
+        <div class="comment-av ${color}">${initials}</div>
+        <div><div class="comment-name">${name}</div><div class="comment-meta">${city ? city+' · ' : ''}刚刚提交</div></div>
+      </div>
+      ${stars ? `<div class="comment-stars">${stars}</div>` : ''}
+    </div>
+    <div class="comment-body">${text}</div>
+    <span class="comment-tag">新笔记</span>`;
+
+  const firstComment = list.querySelector('.comment-item');
+  const divider = list.querySelector('div');
+  list.insertBefore(div, firstComment || null);
+
+  // Update count
+  const countEl = document.getElementById('commentCount');
+  const current = parseInt(countEl.textContent) + 1;
+  countEl.textContent = current + '条';
+
+  // Show success
+  document.getElementById('submitSuccess').classList.add('show');
+  document.getElementById('commentText').value = '';
+  document.getElementById('commentName').value = '';
+  document.getElementById('commentCity').value = '';
+  setRating(0);
+  setTimeout(() => document.getElementById('submitSuccess').classList.remove('show'), 4000);
+}
+
+// Chapter nav active on scroll
+const sections = ['intro','data','insight','quote','action','tool','comments'];
+const tabs = document.querySelectorAll('.chap-tab');
+const obs = new IntersectionObserver(e=>{
+  e.forEach(x=>{
+    if(x.isIntersecting){
+      tabs.forEach(t=>t.classList.remove('active'));
+      const a=document.querySelector(`.chap-tab[href="#${x.target.id}"]`);
+      if(a)a.classList.add('active');
+    }
+  });
+},{threshold:.4});
+sections.forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el);});
+
+// Reveal
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:.06});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
