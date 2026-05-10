@@ -3,1035 +3,674 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>她说了算 · She Decides</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<title>她说了算 · She Decides · 中国女性成长合伙人</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --plum:#3d1536; --plum-mid:#6b2560; --rose:#c4587a;
-  --rose-light:#e07898; --blush:#f0dce8; --blush-pale:#faf3f7;
-  --cream:#fdfaf5; --sand:#ede4d8; --rule:#e2d4dc;
-  --text:#2e1a28; --mid:#6b4a60; --light:#9a7a8e;
-  --teal:#1d4a35; --teal-light:#d6ede0;
-  --amber:#b8862c; --amber-light:#f5edd8;
-  --gold:#c49a3c;
+  --forest:#1a3d2b;--moss:#2d6a4a;--sage:#52a87a;--mint:#d4ede2;--mint-pale:#f0f8f4;
+  --compass:#1a3a5c;--compass-l:#e8f0f8;
+  --plum:#3d1536;--rose:#c4587a;--blush:#f0dce8;
+  --amber:#b8862c;--amber-l:#f5edd8;
+  --cream:#fdfaf5;--sand:#f5ede4;--rule:#e2ddd8;
+  --text:#1e2820;--mid:#4a5e50;--light:#8a9e90;
+  --white:#ffffff;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
 
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;transition:all .3s;}
+nav.scrolled{background:rgba(253,250,245,.96);border-bottom:1px solid var(--rule);backdrop-filter:blur(12px);}
+.nav-brand{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:#fff;text-decoration:none;transition:color .3s;}
+nav.scrolled .nav-brand{color:var(--forest);}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-link{padding:6px 12px;border-radius:20px;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.65);text-decoration:none;transition:all .2s;}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.1);}
+nav.scrolled .nav-link{color:var(--mid);}
+nav.scrolled .nav-link:hover{color:var(--forest);background:var(--mint-pale);}
+.nav-cta{padding:7px 16px;border-radius:20px;border:1px solid rgba(255,255,255,.4);color:rgba(255,255,255,.9);font-size:12.5px;font-weight:600;text-decoration:none;transition:all .2s;}
+.nav-cta:hover{background:rgba(255,255,255,.15);}
+nav.scrolled .nav-cta{border-color:var(--forest);color:var(--forest);}
+nav.scrolled .nav-cta:hover{background:var(--forest);color:#fff;}
+
 /* ── HERO ── */
-.hero{background:var(--plum);position:relative;overflow:hidden;}
-.hero-bg{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse at 15% 60%,rgba(196,88,122,.2) 0%,transparent 50%),
-    radial-gradient(ellipse at 85% 15%,rgba(107,37,96,.5) 0%,transparent 45%),
-    repeating-linear-gradient(135deg,transparent,transparent 60px,rgba(255,255,255,.012) 60px,rgba(255,255,255,.012) 61px);
-}
-.hero-deco{
-  position:absolute;right:-40px;top:-60px;
-  font-family:'Noto Serif SC',serif;font-size:340px;font-weight:700;
-  color:rgba(255,255,255,.025);line-height:1;pointer-events:none;
-}
-.hero-inner{
-  max-width:960px;margin:0 auto;padding:64px 48px 56px;
-  position:relative;z-index:1;
-  display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;
-}
-.hero-eyebrow{
-  font-size:10px;letter-spacing:.28em;text-transform:uppercase;
-  color:rgba(255,255,255,.38);margin-bottom:18px;
-  display:flex;align-items:center;gap:12px;
-}
-.hero-eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.15),transparent);}
-.hero-title{
-  font-family:'Noto Serif SC',serif;
-  font-size:clamp(32px,5.5vw,56px);font-weight:700;
-  color:#fff;line-height:1.08;margin-bottom:10px;
-}
-.hero-title em{font-style:italic;color:rgba(240,210,228,.8);}
-.hero-sub{font-size:12px;letter-spacing:.16em;color:rgba(255,255,255,.32);text-transform:uppercase;margin-bottom:24px;}
-.hero-desc{font-size:14.5px;color:rgba(255,255,255,.6);line-height:1.8;max-width:520px;margin-bottom:32px;}
-.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;}
-.btn-trial{
-  background:var(--rose);border:none;padding:13px 28px;
-  border-radius:6px;font-size:13px;font-weight:700;
-  color:#fff;cursor:pointer;letter-spacing:.04em;
-  transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
-}
-.btn-trial:hover{background:#d4688a;}
-.btn-member{
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);
-  padding:13px 28px;border-radius:6px;font-size:13px;font-weight:700;
-  color:rgba(255,255,255,.8);cursor:pointer;letter-spacing:.04em;
-  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
-}
-.btn-member:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);}
-.hero-right{text-align:center;flex-shrink:0;}
-.price-card{
-  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
-  border-radius:12px;padding:24px 28px;min-width:180px;
-}
-.price-tag{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px;}
-.price-num{font-family:'Noto Serif SC',serif;font-size:44px;font-weight:700;color:#fff;line-height:1;}
-.price-unit{font-size:16px;color:rgba(255,255,255,.5);}
-.price-desc{font-size:11.5px;color:rgba(255,255,255,.4);margin-top:6px;line-height:1.5;}
-.price-sep{width:32px;height:1px;background:rgba(255,255,255,.15);margin:14px auto;}
-.price-year{font-size:13px;font-weight:700;color:var(--gold);}
-.price-year-sub{font-size:10.5px;color:rgba(255,255,255,.3);margin-top:2px;}
+.hero{height:100vh;min-height:600px;background:var(--forest);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 60px;position:relative;overflow:hidden;}
+.hero-deco{position:absolute;inset:0;pointer-events:none;}
+.hero-deco svg{position:absolute;}
+.hero-deco .d1{right:-60px;top:-60px;width:400px;height:400px;opacity:.04;}
+.hero-deco .d2{left:-80px;bottom:-80px;width:360px;height:360px;opacity:.03;}
 
-/* ── STATS BAR ── */
-.stats-bar{background:var(--plum-mid);border-top:1px solid rgba(255,255,255,.08);}
-.stats-inner{
-  max-width:960px;margin:0 auto;padding:0 48px;
-  display:flex;
-}
-.stat-item{
-  padding:14px 28px 14px 0;border-right:1px solid rgba(255,255,255,.1);
-  display:flex;align-items:center;gap:12px;
-}
-.stat-item:last-child{border-right:none;}
-.stat-num{
-  font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;
-  color:#fff;line-height:1;
-}
-.stat-lbl{font-size:11px;color:rgba(255,255,255,.4);line-height:1.4;}
+.hero-ticker{display:flex;align-items:center;gap:10px;margin-bottom:24px;}
+.ht-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);}
+.ht-date{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.12em;}
+.ht-sep{color:rgba(255,255,255,.15);}
+.ht-issue{font-size:11px;font-weight:600;color:rgba(82,168,122,.85);letter-spacing:.06em;}
 
-/* ── NAV STRIP ── */
-.nav-strip{
-  background:#fff;border-bottom:1px solid var(--rule);
-  position:sticky;top:0;z-index:100;
-}
-.nav-inner{
-  max-width:960px;margin:0 auto;padding:0 48px;
-  display:flex;gap:0;overflow-x:auto;scrollbar-width:none;
-}
-.nav-inner::-webkit-scrollbar{display:none;}
-.nav-tab{
-  padding:13px 18px;font-size:10.5px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--light);border:none;background:none;cursor:pointer;
-  border-bottom:2px solid transparent;white-space:nowrap;
-  transition:all .2s;text-decoration:none;
-}
-.nav-tab:hover{color:var(--rose);}
-.nav-tab.active{color:var(--plum);border-bottom-color:var(--rose);}
+.hero-overline{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:18px;}
+.hero-h1{font-family:'Noto Serif SC',serif;font-size:clamp(30px,5.5vw,54px);font-weight:700;color:#fff;line-height:1.12;margin-bottom:18px;}
+.hero-h1 em{font-style:italic;color:rgba(210,240,220,.88);}
+.hero-p{font-size:15px;color:rgba(255,255,255,.5);line-height:1.85;max-width:480px;margin:0 auto 36px;}
 
-/* ── SECTION ── */
-.section{max-width:960px;margin:0 auto;padding:0 48px;}
-.sec-head{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  padding-top:56px;margin-bottom:28px;border-top:1px solid var(--rule);
-}
-.sec-head:first-of-type{border-top:none;padding-top:48px;}
-.sec-eyebrow{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--rose);font-weight:700;margin-bottom:5px;}
-.sec-title{font-family:'Noto Serif SC',serif;font-size:clamp(20px,3vw,28px);font-weight:600;color:var(--plum);}
-.sec-sub{font-size:13px;color:var(--light);margin-top:4px;line-height:1.6;}
+.hero-ctas{display:flex;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{padding:14px 32px;border-radius:8px;background:#fff;color:var(--forest);font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:8px;}
+.btn-primary:hover{background:var(--mint);transform:translateY(-1px);}
+.btn-ghost{padding:14px 28px;border-radius:8px;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.75);font-size:14px;font-weight:500;text-decoration:none;transition:all .2s;cursor:pointer;background:transparent;}
+.btn-ghost:hover{border-color:rgba(255,255,255,.5);color:#fff;}
 
-/* ── TRIAL SECTION ── */
-.trial-card{
-  background:var(--plum);border-radius:0;
-  display:grid;grid-template-columns:1fr 320px;
-  overflow:hidden;margin-bottom:1px;
-}
-.trial-content{padding:36px 40px;}
-.trial-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  background:var(--rose);color:#fff;
-  font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  padding:4px 12px;border-radius:20px;margin-bottom:14px;
-}
-.trial-title{
-  font-family:'Noto Serif SC',serif;
-  font-size:clamp(18px,2.5vw,24px);font-weight:600;
-  color:#fff;line-height:1.3;margin-bottom:10px;
-}
-.trial-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.78;margin-bottom:20px;}
-.trial-includes{display:flex;flex-direction:column;gap:8px;}
-.trial-inc-item{display:flex;align-items:center;gap:10px;font-size:12.5px;color:rgba(255,255,255,.65);}
-.trial-inc-item::before{content:'✓';color:var(--rose);font-weight:700;font-size:13px;flex-shrink:0;}
-.trial-preview{background:rgba(255,255,255,.04);border-left:1px solid rgba(255,255,255,.08);padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between;}
-.preview-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px;}
-.preview-quote{
-  font-family:'Noto Serif SC',serif;font-size:15px;font-style:italic;
-  color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:16px;
-}
-.preview-quote-src{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.08em;}
-.btn-read-trial{
-  background:#fff;color:var(--plum);border:none;
-  padding:11px 20px;border-radius:6px;font-size:12.5px;font-weight:700;
-  cursor:pointer;transition:all .2s;text-align:center;
-  text-decoration:none;display:block;
-}
-.btn-read-trial:hover{background:var(--blush);}
+.hero-scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.3;}
+.hs-line{width:1px;height:32px;background:#fff;}
+.hs-label{font-size:10px;letter-spacing:.14em;color:#fff;text-transform:uppercase;}
 
-/* ── PREVIEW ARTICLE (the free trial content) ── */
-.preview-article{
-  background:#fff;border:1px solid var(--rule);
-  padding:40px;margin-bottom:1px;position:relative;
-}
-.article-meta{display:flex;gap:16px;align-items:center;margin-bottom:20px;flex-wrap:wrap;}
-.article-vol{font-family:'DM Mono',monospace;font-size:11px;color:var(--light);}
-.article-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:var(--blush);color:var(--plum-mid);}
-.article-title{font-family:'Noto Serif SC',serif;font-size:clamp(18px,2.5vw,24px);font-weight:700;color:var(--plum);line-height:1.3;margin-bottom:10px;}
-.article-lead{font-family:'Noto Serif SC',serif;font-size:16px;font-style:italic;color:var(--mid);line-height:1.7;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--rule);}
-.article-body{font-size:14px;color:var(--text);line-height:1.9;margin-bottom:20px;}
-.article-body p{margin-bottom:14px;}
-.article-body strong{color:var(--plum);font-weight:700;}
-.data-callout{background:var(--blush-pale);border-left:4px solid var(--rose);padding:16px 20px;border-radius:0 8px 8px 0;margin:20px 0;}
-.data-callout .dc-num{font-family:'Noto Serif SC',serif;font-size:42px;font-weight:700;color:var(--rose);line-height:1;}
-.data-callout .dc-label{font-size:13px;color:var(--plum);font-weight:700;margin-top:2px;}
-.data-callout .dc-sub{font-size:12px;color:var(--mid);margin-top:4px;line-height:1.5;}
-/* Fade and lock overlay */
-.article-fade{
-  position:relative;margin-top:-60px;
-}
-.article-fade::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:120px;
-  background:linear-gradient(transparent,#fff);z-index:1;
-}
-.article-lock{
-  background:#fff;border-top:1px solid var(--rule);
-  padding:28px 40px;text-align:center;position:relative;z-index:2;
-}
-.lock-icon{font-size:28px;margin-bottom:10px;}
-.lock-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--plum);margin-bottom:6px;}
-.lock-desc{font-size:13px;color:var(--light);margin-bottom:20px;line-height:1.6;}
-.lock-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+/* ── PAGE ── */
+.page{max-width:960px;margin:0 auto;padding:0 24px;}
 
-/* ── MEMBER GATE MODAL ── */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(61,21,54,.7);
-  z-index:1000;display:none;align-items:center;justify-content:center;
-  backdrop-filter:blur(4px);
-}
-.modal-overlay.show{display:flex;}
-.modal-box{
-  background:var(--cream);border-radius:16px;padding:40px;
-  max-width:400px;width:90%;position:relative;
-  animation:popIn .3s cubic-bezier(.34,1.56,.64,1);
-}
-@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-.modal-close{
-  position:absolute;top:16px;right:16px;
-  width:32px;height:32px;border-radius:50%;
-  background:var(--rule);border:none;cursor:pointer;
-  font-size:16px;color:var(--mid);display:flex;align-items:center;justify-content:center;
-  transition:all .2s;
-}
-.modal-close:hover{background:var(--blush);color:var(--rose);}
-.modal-logo{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--plum);margin-bottom:6px;}
-.modal-sub{font-size:11px;color:var(--light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px;}
-.modal-label{font-size:12px;font-weight:700;color:var(--plum);margin-bottom:8px;display:block;}
-.modal-input{
-  width:100%;padding:12px 16px;border:1.5px solid var(--rule);
-  border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;
-  color:var(--text);outline:none;transition:border-color .2s;
-  letter-spacing:.08em;
-}
-.modal-input:focus{border-color:var(--rose);}
-.modal-input.error{border-color:#e05050;animation:shake .3s ease;}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-.modal-error{font-size:12px;color:#e05050;margin-top:6px;display:none;}
-.modal-error.show{display:block;}
-.btn-enter{
-  width:100%;background:var(--rose);border:none;
-  padding:13px;border-radius:8px;font-size:14px;font-weight:700;
-  color:#fff;cursor:pointer;margin-top:14px;transition:background .2s;
-}
-.btn-enter:hover{background:var(--plum);}
-.modal-hint{
-  margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);
-  font-size:12px;color:var(--light);line-height:1.65;text-align:center;
-}
-.modal-hint a{color:var(--rose);text-decoration:none;}
-.modal-hint a:hover{text-decoration:underline;}
+/* ── DOORS ── */
+.doors-wrap{padding:80px 0 60px;}
+.doors-intro{text-align:center;margin-bottom:48px;}
+.di-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:700;margin-bottom:10px;}
+.di-title{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4vw,36px);font-weight:600;color:var(--forest);margin-bottom:10px;}
+.di-title em{font-style:italic;color:var(--moss);}
+.di-sub{font-size:14px;color:var(--light);line-height:1.7;}
 
-/* ── WHAT YOU GET ── */
-.benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:56px;}
-.benefit-card{background:var(--cream);padding:24px 22px;transition:background .2s;}
-.benefit-card:hover{background:var(--blush-pale);}
-.bc-icon{font-size:28px;margin-bottom:12px;display:block;}
-.bc-title{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:var(--plum);margin-bottom:6px;}
-.bc-desc{font-size:12.5px;color:var(--mid);line-height:1.65;}
-.bc-tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px;margin-top:10px;}
-.bc-tag.rose{background:var(--blush);color:var(--rose);}
-.bc-tag.teal{background:var(--teal-light);color:var(--teal);}
-.bc-tag.amber{background:var(--amber-light);color:var(--amber);}
+.doors-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.door{display:flex;flex-direction:column;padding:28px 26px;border-radius:14px;border:1.5px solid var(--rule);background:var(--white);text-decoration:none;color:var(--text);transition:all .25s;position:relative;overflow:hidden;min-height:240px;}
+.door::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.door:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(26,61,43,.09);}
+.door:hover::after{transform:scaleX(1);}
 
-/* ── PRICING ── */
-.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:56px;}
-.pricing-card{border:1px solid var(--rule);border-radius:12px;overflow:hidden;}
-.pricing-card.featured{border-color:var(--rose);box-shadow:0 0 0 2px rgba(196,88,122,.15);}
-.pricing-head{padding:22px 24px 18px;}
-.pricing-head.trial-head{background:var(--cream);}
-.pricing-head.member-head{background:var(--plum);}
-.pricing-plan{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;margin-bottom:8px;}
-.trial-head .pricing-plan{color:var(--rose);}
-.member-head .pricing-plan{color:rgba(255,255,255,.45);}
-.pricing-price{font-family:'Noto Serif SC',serif;font-size:44px;font-weight:700;line-height:1;margin-bottom:4px;}
-.trial-head .pricing-price{color:var(--plum);}
-.member-head .pricing-price{color:#fff;}
-.pricing-period{font-size:14px;font-weight:400;}
-.pricing-desc{font-size:12px;line-height:1.5;margin-top:4px;}
-.trial-head .pricing-desc{color:var(--light);}
-.member-head .pricing-desc{color:rgba(255,255,255,.4);}
-.pricing-body{padding:20px 24px 24px;background:#fff;}
-.pricing-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:13px;color:var(--mid);}
-.pricing-item::before{content:'◆';color:var(--rose);font-size:8px;flex-shrink:0;margin-top:4px;}
-.pricing-item.muted::before{color:var(--rule);}
-.pricing-item.muted{color:var(--light);}
-.btn-pricing{
-  width:100%;padding:12px;border-radius:8px;font-size:13px;font-weight:700;
-  cursor:pointer;margin-top:8px;transition:all .2s;border:none;
-}
-.btn-pricing.trial-btn{background:var(--rose);color:#fff;}
-.btn-pricing.trial-btn:hover{background:var(--plum);}
-.btn-pricing.member-btn{background:var(--plum);color:#fff;}
-.btn-pricing.member-btn:hover{background:var(--rose);}
+.door-1::after{background:var(--forest);}
+.door-2::after{background:var(--compass);}
+.door-3::after{background:var(--sage);}
+.door-4::after{background:var(--amber);}
+.door-1:hover{border-color:var(--moss);}
+.door-2:hover{border-color:var(--compass);}
+.door-3:hover{border-color:var(--sage);}
+.door-4:hover{border-color:var(--amber);}
 
-/* ── FOUNDERS ── */
-.founders-strip{background:var(--plum);padding:36px 48px;display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:0;}
-.founder-cell{display:flex;gap:16px;align-items:flex-start;}
-.founder-av{width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:#fff;flex-shrink:0;}
-.founder-av.rose{background:var(--rose);}
-.founder-av.teal{background:var(--teal);}
-.founder-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px;}
-.founder-role{font-size:11px;color:rgba(255,255,255,.4);line-height:1.5;margin-bottom:8px;}
-.founder-tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);}
+.door-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--light);margin-bottom:14px;letter-spacing:.06em;}
+.door-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;flex-shrink:0;}
+.di-forest{background:var(--mint);}
+.di-blue{background:var(--compass-l);}
+.di-green{background:#e8f5ee;}
+.di-gold{background:var(--amber-l);}
+
+.door-mood{font-size:11.5px;color:var(--light);margin-bottom:6px;font-style:italic;}
+.door-title{font-family:'Noto Serif SC',serif;font-size:clamp(17px,2.2vw,21px);font-weight:600;color:var(--forest);line-height:1.3;margin-bottom:10px;flex:1;}
+.door-desc{font-size:13px;color:var(--mid);line-height:1.65;margin-bottom:16px;}
+.door-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.door-tag{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--cream);color:var(--mid);}
+.door-1 .door-tag{background:var(--mint);color:var(--moss);}
+.door-2 .door-tag{background:var(--compass-l);color:var(--compass);}
+.door-3 .door-tag{background:#e8f5ee;color:var(--moss);}
+.door-4 .door-tag{background:var(--amber-l);color:var(--amber);}
+.door-arrow{font-size:13px;font-weight:600;color:var(--light);display:flex;align-items:center;gap:4px;transition:all .2s;margin-top:auto;}
+.door:hover .door-arrow{color:var(--forest);gap:8px;}
+
+/* Door 4 special layout */
+.door-4-inner{display:flex;gap:16px;align-items:flex-start;height:100%;}
+.d4-left{flex:1;display:flex;flex-direction:column;}
+.d4-chips{display:flex;flex-direction:column;gap:6px;flex-shrink:0;}
+.d4-chip{font-size:11px;font-weight:600;padding:5px 10px;border-radius:6px;background:var(--amber-l);color:var(--amber);white-space:nowrap;}
+
+/* ── DIVIDER ── */
+.section-divider{height:1px;background:var(--rule);margin:0 24px;}
+
+/* ── 她的经纬 SECTION ── */
+.jingwei-wrap{padding:72px 0 60px;}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;}
+.sh-left{}
+.sh-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--forest);font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.sh-eyebrow::after{content:'';flex:1;height:1px;background:var(--rule);}
+.sh-title{font-family:'Noto Serif SC',serif;font-size:clamp(22px,3.5vw,30px);font-weight:600;color:var(--forest);}
+.sh-title em{font-style:italic;color:var(--sage);}
+.sh-link{font-size:13px;font-weight:600;color:var(--forest);text-decoration:none;white-space:nowrap;padding:8px 18px;border:1.5px solid var(--forest);border-radius:20px;transition:all .2s;}
+.sh-link:hover{background:var(--forest);color:#fff;}
+
+.jw-featured{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:14px;}
+.jw-card{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:22px 20px;text-decoration:none;color:var(--text);transition:all .22s;display:block;}
+.jw-card:hover{border-color:var(--moss);transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,61,43,.07);}
+.jw-card.main{background:var(--forest);border-color:var(--forest);}
+.jw-card.main:hover{background:var(--moss);}
+.jw-type{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;}
+.jw-card.main .jw-type{color:rgba(82,168,122,.8);}
+.jw-card:not(.main) .jw-type{color:var(--sage);}
+.jw-title{font-family:'Noto Serif SC',serif;font-size:clamp(16px,2vw,20px);font-weight:600;line-height:1.3;margin-bottom:8px;}
+.jw-card.main .jw-title{color:#fff;font-size:clamp(18px,2.5vw,24px);}
+.jw-card:not(.main) .jw-title{color:var(--forest);}
+.jw-desc{font-size:13px;line-height:1.72;margin-bottom:14px;}
+.jw-card.main .jw-desc{color:rgba(255,255,255,.55);}
+.jw-card:not(.main) .jw-desc{color:var(--mid);}
+.jw-meta{font-size:11.5px;}
+.jw-card.main .jw-meta{color:rgba(255,255,255,.35);}
+.jw-card:not(.main) .jw-meta{color:var(--light);}
+.jw-cta{font-size:13px;font-weight:600;margin-top:16px;display:inline-flex;align-items:center;gap:4px;}
+.jw-card.main .jw-cta{color:rgba(255,255,255,.7);}
+.jw-card:not(.main) .jw-cta{color:var(--sage);}
+
+/* Solar strip */
+.solar-strip{display:flex;align-items:center;gap:20px;margin-top:14px;padding:14px 18px;background:var(--mint);border-radius:10px;text-decoration:none;transition:background .2s;}
+.solar-strip:hover{background:#c4e5d4;}
+.ss-badge{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--moss);background:var(--white);padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.ss-name{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:var(--forest);}
+.ss-desc{font-size:13px;color:var(--mid);flex:1;line-height:1.5;}
+.ss-link{font-size:12.5px;font-weight:700;color:var(--moss);white-space:nowrap;}
+
+/* ── COMPASS SECTION ── */
+.compass-wrap{padding:72px 0 60px;background:var(--sand);}
+.compass-inner{max-width:960px;margin:0 auto;padding:0 24px;}
+.compass-head{text-align:center;margin-bottom:40px;}
+.ch-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--compass);font-weight:700;margin-bottom:10px;}
+.ch-title{font-family:'Noto Serif SC',serif;font-size:clamp(22px,3.5vw,32px);font-weight:600;color:var(--compass);margin-bottom:10px;}
+.ch-title em{font-style:italic;color:rgba(26,58,92,.6);}
+.ch-sub{font-size:14px;color:var(--mid);line-height:1.7;max-width:520px;margin:0 auto;}
+
+.compass-domains{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.cd{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:20px 18px;text-decoration:none;color:var(--text);transition:all .22s;display:block;position:relative;}
+.cd:hover{border-color:var(--compass);transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,58,92,.08);}
+.cd.coming{cursor:default;}
+.cd.coming:hover{transform:none;box-shadow:none;border-color:var(--rule);}
+.cd-icon{font-size:26px;margin-bottom:10px;display:block;}
+.cd-name{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--compass);margin-bottom:5px;line-height:1.3;}
+.cd-desc{font-size:12.5px;color:var(--mid);line-height:1.6;margin-bottom:10px;}
+.cd-status{font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:20px;}
+.cs-live{background:var(--mint);color:var(--moss);}
+.cs-soon{background:var(--cream);color:var(--light);}
+
+.compass-cta-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 24px;background:var(--compass);border-radius:12px;}
+.cc-text{}
+.cc-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:5px;}
+.cc-title{font-size:16px;font-weight:600;color:#fff;}
+.btn-compass{padding:12px 28px;border-radius:8px;background:#fff;color:var(--compass);font-size:13.5px;font-weight:700;text-decoration:none;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.btn-compass:hover{background:var(--compass-l);}
+
+/* ── SOCIAL PROOF ── */
+.proof-wrap{padding:72px 0 60px;}
+.proof-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:700;text-align:center;margin-bottom:32px;}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.testi{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:22px 20px;}
+.t-stars{color:var(--amber);font-size:13px;margin-bottom:12px;letter-spacing:2px;}
+.t-quote{font-size:14px;color:var(--text);line-height:1.82;margin-bottom:16px;font-style:italic;}
+.t-name{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:var(--forest);}
+.t-role{font-size:12px;color:var(--light);margin-top:2px;}
+.t-badge{font-size:10px;font-weight:700;color:var(--sage);margin-top:6px;}
+
+/* ── JOIN ── */
+.join-wrap{background:var(--forest);padding:80px 24px;}
+.join-inner{max-width:720px;margin:0 auto;text-align:center;}
+.join-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(82,168,122,.7);font-weight:700;margin-bottom:14px;}
+.join-title{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4vw,38px);font-weight:700;color:#fff;margin-bottom:10px;line-height:1.15;}
+.join-title em{font-style:italic;color:rgba(210,240,220,.85);}
+.join-sub{font-size:14px;color:rgba(255,255,255,.45);margin-bottom:40px;}
+
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:600px;margin:0 auto 24px;}
+.plan{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:24px 22px;text-align:left;}
+.plan.featured{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);}
+.plan-label{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;}
+.plan.featured .plan-label{color:var(--sage);}
+.plan-price{font-family:'Noto Serif SC',serif;font-size:38px;font-weight:700;color:#fff;line-height:1;}
+.plan-period{font-size:12px;color:rgba(255,255,255,.35);margin:4px 0 16px;}
+.plan-items{display:flex;flex-direction:column;gap:7px;margin-bottom:20px;}
+.plan-item{font-size:13px;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:8px;}
+.plan-item::before{content:'✓';color:var(--sage);font-weight:700;flex-shrink:0;}
+.btn-plan{display:block;width:100%;padding:11px;border-radius:8px;text-align:center;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .2s;}
+.btn-plan.outline{border:1.5px solid rgba(255,255,255,.3);color:rgba(255,255,255,.75);}
+.btn-plan.outline:hover{border-color:#fff;color:#fff;}
+.btn-plan.solid{background:#fff;color:var(--forest);}
+.btn-plan.solid:hover{background:var(--mint);}
+
+.join-note{font-size:12.5px;color:rgba(255,255,255,.28);line-height:1.7;}
 
 /* ── FOOTER ── */
-footer{background:var(--plum);border-top:1px solid rgba(255,255,255,.06);padding:28px 48px;text-align:center;}
-.footer-brand{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:6px;}
-.footer-rule{width:32px;height:1px;background:var(--rose);margin:10px auto;}
-.footer-tagline{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.14em;text-transform:uppercase;}
-.footer-note{font-size:10px;color:rgba(255,255,255,.15);margin-top:10px;line-height:1.7;}
+footer{background:#0f2a1a;padding:36px 24px 28px;}
+.footer-inner{max-width:960px;margin:0 auto;}
+.footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.08);}
+.ft-brand{font-family:'Noto Serif SC',serif;font-size:16px;color:rgba(255,255,255,.7);margin-bottom:5px;}
+.ft-tagline{font-size:12px;color:rgba(255,255,255,.22);}
+.ft-nav{display:flex;gap:20px;flex-wrap:wrap;align-items:center;}
+.ft-link{font-size:12.5px;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s;}
+.ft-link:hover{color:rgba(255,255,255,.7);}
+.footer-bottom{display:flex;justify-content:space-between;font-size:11.5px;color:rgba(255,255,255,.2);flex-wrap:wrap;gap:8px;}
+.footer-bottom a{color:rgba(255,255,255,.28);text-decoration:none;}
 
-/* ── MISC ── */
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s;}
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal-box{background:var(--cream);border-radius:16px;padding:36px 32px;width:100%;max-width:360px;margin:20px;position:relative;}
+.mb-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:18px;color:var(--light);cursor:pointer;}
+.mb-brand{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--forest);margin-bottom:4px;}
+.mb-sub{font-size:12.5px;color:var(--light);margin-bottom:22px;}
+.mb-input{width:100%;padding:12px 14px;border:1.5px solid var(--rule);border-radius:8px;font-family:'DM Sans','PingFang SC',sans-serif;font-size:14px;color:var(--text);background:var(--white);outline:none;margin-bottom:8px;}
+.mb-input:focus{border-color:var(--sage);}
+.mb-err{font-size:12.5px;color:var(--rose);min-height:18px;margin-bottom:8px;}
+.mb-submit{width:100%;padding:12px;border-radius:8px;background:var(--forest);color:#fff;border:none;font-family:'DM Sans','PingFang SC',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:14px;}
+.mb-hint{font-size:12.5px;color:var(--light);line-height:1.7;text-align:center;}
+.mb-hint a{color:var(--sage);}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s;}
 .reveal.visible{opacity:1;transform:translateY(0);}
-.progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--gold));width:0%;z-index:200;transition:width .1s;}
 
-@media(max-width:768px){
-  .hero-inner{grid-template-columns:1fr;padding:32px 20px;gap:24px;}
-  .hero-right{display:none;}
-  .stats-inner{flex-wrap:wrap;padding:0 20px;}
-  .stat-item{padding:12px 20px 12px 0;border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
-  .nav-inner,.section{padding-left:20px;padding-right:20px;}
-  .trial-card{grid-template-columns:1fr;}
-  .trial-preview{display:none;}
-  .benefit-grid,.pricing-grid{grid-template-columns:1fr;}
-  .founders-strip{grid-template-columns:1fr;padding:28px 20px;}
-  footer{padding:24px 20px;}
-  .article-lock{padding:24px 20px;}
-  .preview-article{padding:28px 20px;}
+/* ── RESPONSIVE ── */
+@media(max-width:720px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .doors-grid{grid-template-columns:1fr;}
+  .jw-featured{grid-template-columns:1fr;}
+  .compass-domains{grid-template-columns:1fr 1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+  .plans{grid-template-columns:1fr;}
+  .footer-top{flex-direction:column;}
+  .hero-scroll{display:none;}
+}
+@media(max-width:480px){
+  .compass-domains{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
-<div class="progress-bar" id="progressBar"></div>
-
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-deco">她</div>
-  <div class="hero-inner">
-    <div>
-      <div class="hero-eyebrow">她说了算 · She Decides · 全球女性成长生态</div>
-      <h1 class="hero-title">每半月，一份<br>有据可查的<br><em>女性视野</em></h1>
-      <p class="hero-sub">Global Women's Intelligence · 2026</p>
-      <p class="hero-desc">三大支柱：认知套利 · 身份重塑 · 精力主权<br>24期简报 · 配套工具箱 · 书房 · 成长路径<br>不用开公司，也能像 CEO 一样管理你的人生资产。</p>
-      <div class="hero-ctas">
-        <button class="btn-trial" onclick="scrollToTrial()">↓ 免费试读第一期</button>
-        <button class="btn-member" onclick="openModal()">🔐 会员入口</button>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="price-card">
-        <div class="price-tag">试读价</div>
-        <div class="price-num">¥9.9<span class="price-unit"></span></div>
-        <div class="price-desc">第一个月全部内容<br>不满意随时退</div>
-        <div class="price-sep"></div>
-        <div class="price-year">首批年费 ¥139</div>
-        <div class="price-year-sub">约¥11.6/期 · 全年24期</div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat-item">
-      <div><div class="stat-num">3</div><div class="stat-lbl">期已发布<br>全年24期</div></div>
-    </div>
-    <div class="stat-item" style="padding-left:28px;">
-      <div><div class="stat-num">3</div><div class="stat-lbl">件工具<br>已上线</div></div>
-    </div>
-    <div class="stat-item" style="padding-left:28px;">
-      <div><div class="stat-num">4</div><div class="stat-lbl">本书房<br>精选导读</div></div>
-    </div>
-    <div class="stat-item" style="padding-left:28px;">
-      <div><div class="stat-num">30年</div><div class="stat-lbl">Janet<br>教练积累</div></div>
-    </div>
-  </div>
-</div>
 
 <!-- NAV -->
-<nav class="nav-strip">
-  <div class="nav-inner">
-    <a class="nav-tab active" href="#trial">免费试读</a>
-    <a class="nav-tab" href="#benefits">包含什么</a>
-    <a class="nav-tab" href="#pricing">订阅价格</a>
-    <a class="nav-tab" href="#founders">关于我们</a>
-    <button class="nav-tab" style="color:var(--rose);font-weight:700;" onclick="openModal()">🔐 会员入口</button>
+<nav id="nav">
+  <a href="/" class="nav-brand">她说了算</a>
+  <div class="nav-links">
+    <a href="#doors" class="nav-link">探索</a>
+    <a href="#jingwei" class="nav-link">她的经纬</a>
+    <a href="#compass" class="nav-link">她的指南针</a>
+    <a href="bookclub.html" class="nav-link">读书会</a>
+    <a href="#join" class="nav-link">加入</a>
   </div>
+  <a href="#" class="nav-cta" onclick="openModal();return false;">🔐 进入会员</a>
 </nav>
 
-<main>
-
-<!-- TRIAL SECTION -->
-<div id="trial"></div>
-<div class="section">
-  <div class="sec-head reveal" style="border-top:none;">
-    <div>
-      <div class="sec-eyebrow">免费试读 · Free Preview</div>
-      <div class="sec-title">先读，再决定</div>
-      <div class="sec-sub">下面是第三期「给不打算创业的她」的完整开篇，不需要付费，直接阅读。</div>
-    </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-deco">
+    <svg class="d1" viewBox="0 0 400 400" fill="none">
+      <circle cx="200" cy="200" r="180" stroke="white" stroke-width="0.8"/>
+      <circle cx="200" cy="200" r="120" stroke="white" stroke-width="0.5"/>
+      <circle cx="200" cy="200" r="60" stroke="white" stroke-width="0.3"/>
+      <line x1="200" y1="20" x2="200" y2="380" stroke="white" stroke-width="0.3"/>
+      <line x1="20" y1="200" x2="380" y2="200" stroke="white" stroke-width="0.3"/>
+      <line x1="74" y1="74" x2="326" y2="326" stroke="white" stroke-width="0.2"/>
+      <line x1="326" y1="74" x2="74" y2="326" stroke="white" stroke-width="0.2"/>
+    </svg>
+    <svg class="d2" viewBox="0 0 360 360" fill="none">
+      <circle cx="180" cy="180" r="160" stroke="white" stroke-width="0.6"/>
+      <circle cx="180" cy="180" r="100" stroke="white" stroke-width="0.4"/>
+      <line x1="180" y1="20" x2="180" y2="340" stroke="white" stroke-width="0.3"/>
+      <line x1="20" y1="180" x2="340" y2="180" stroke="white" stroke-width="0.3"/>
+    </svg>
   </div>
 
-  <!-- Trial feature card -->
-  <div class="trial-card reveal">
-    <div class="trial-content">
-      <div class="trial-badge">✦ 本期试读 · Vol.03</div>
-      <div class="trial-title">给不打算创业的她——<br>底气、工具与主权</div>
-      <div class="trial-desc">全球趋势数据，对职场人最直接的价值不是「创什么公司」，而是如何用信息差赢回主动权，重新定价自己。</div>
-      <div class="trial-includes">
-        <div class="trial-inc-item">认知套利：AI工具如何让你每天少加班2小时</div>
-        <div class="trial-inc-item">身份重塑：35岁不是终点，是你积累的起点</div>
-        <div class="trial-inc-item">精力主权：内耗比加班更费人，怎么堵住漏洞</div>
-        <div class="trial-inc-item">配套工具：谈薪准备器·资产盘点表·精力诊断</div>
+  <div class="hero-ticker">
+    <div class="ht-dot"></div>
+    <div class="ht-date" id="heroDate">2026 · MAY</div>
+    <div class="ht-sep">·</div>
+    <div class="ht-issue">她的经纬 Vol.04 已发布</div>
+  </div>
+
+  <div class="hero-overline">中国女性成长合伙人</div>
+  <h1 class="hero-h1">
+    不用开公司，<em>也能像 CEO 一样</em><br>管理你的人生。
+  </h1>
+  <p class="hero-p">认知、工具、内在力、真实问题的出口——四个维度，帮你在真实生活里找回主导权。</p>
+
+  <div class="hero-ctas">
+    <a href="#doors" class="btn-primary">今天你需要什么 <span>→</span></a>
+    <button class="btn-ghost" onclick="openModal()">🔐 进入会员知识库</button>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hs-line"></div>
+    <div class="hs-label">向下</div>
+  </div>
+</section>
+
+<!-- FOUR DOORS -->
+<div id="doors">
+  <div class="doors-wrap">
+    <div class="page">
+      <div class="doors-intro reveal">
+        <div class="di-eyebrow">你今天来这里，是因为</div>
+        <h2 class="di-title">选一扇<em>属于今天的你</em>的门</h2>
+        <p class="di-sub">不同的状态，需要不同的入口。这里没有唯一正确的顺序。</p>
       </div>
-    </div>
-    <div class="trial-preview">
-      <div class="preview-label">编辑导语节选</div>
-      <div class="preview-quote">「第一期、第二期，我们告诉你世界在发生什么。第三期，我们问：这和你有什么关系？你能拿走什么？」</div>
-      <div class="preview-quote-src">— 她说了算编辑部</div>
-      <a href="../vol3.html" class="btn-read-trial">阅读完整第三期 →</a>
-    </div>
-  </div>
 
-  <!-- Free article preview -->
-  <div class="preview-article reveal">
-    <div class="article-meta">
-      <span class="article-vol">Vol.03 · 2026年4月 · 非创业者特辑</span>
-      <span class="article-tag">认知套利</span>
-    </div>
-    <h2 class="article-title">全球数据告诉我们：<br>差距，在你投递简历之前就已经存在了</h2>
-    <p class="article-lead">2026年，一个悖论正在全球范围内被清晰呈现：女性创造的经济价值在快速增长，但她们拿到的那份报酬，依然停留在男性的83%。</p>
-    <div class="article-body">
-      <p>JobLeads 2026年基于近百万用户的研究揭示了一个结构性发现：<strong>女性的薪资期望，平均比男性低9.5%——在任何面试或谈判发生之前。</strong></p>
-      <p>这意味着：雇主甚至不需要主动压价，系统就已经帮他们完成了这一步。当你的期望就是你薪资的天花板，谈判的起点就已经低了。</p>
+      <div class="doors-grid reveal">
 
-      <div class="data-callout">
-        <div class="dc-num">83¢</div>
-        <div class="dc-label">每挣1美元，全球女性平均到手83美分</div>
-        <div class="dc-sub">差距在提交申请前就已形成 · 有色人种女性更低至67-72美分 · 来源：JobLeads Research 2026</div>
-      </div>
-
-      <p>更深层的问题是：这种「自我降价」从哪里来？研究者认为，这是多年社会化的结果——女性被训练来「合理估计」而非「大胆要求」，这种内化的谦逊在职场上变成了真实的财务损失。</p>
-      <p>想象两位资历完全相同的候选人。A说「我期望的薪酬是30-35万」，B说「我期望的薪酬是25-28万」。招聘方会以各自的开价为起点谈判。<strong>差距不是在谈判中失去的，而是在开口前就放弃的。</strong></p>
-    </div>
-  </div>
-
-  <!-- Fade + lock -->
-  <div class="article-fade"></div>
-  <div class="article-lock reveal">
-    <div class="lock-icon">🔐</div>
-    <div class="lock-title">后续深度内容，会员可见</div>
-    <div class="lock-desc">
-      包括：完整的谈薪话术框架 · Janet教练视角分析 · 全球薪酬透明化立法地图<br>
-      以及配套工具：<strong>谈薪准备器</strong>（填完当天就能用）
-    </div>
-    <div class="lock-btns">
-      <button class="btn-trial" onclick="openModal()">🔐 我已是会员，进入知识库</button>
-      <a href="#pricing" class="btn-member" style="border:1px solid var(--rule);color:var(--mid);background:none;padding:12px 24px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;">¥9.9 试读第一个月</a>
-    </div>
-  </div>
-</div>
-
-<!-- BENEFITS -->
-<div id="benefits"></div>
-<div class="section">
-  <div class="sec-head reveal">
-    <div>
-      <div class="sec-eyebrow">会员包含什么</div>
-      <div class="sec-title">不只是一份简报——是一个完整的成长系统</div>
-    </div>
-  </div>
-  <div class="benefit-grid reveal">
-    <div class="benefit-card">
-      <span class="bc-icon">📋</span>
-      <div class="bc-title">全球女性商业简报</div>
-      <div class="bc-desc">每半月一期，引用McKinsey、Grant Thornton等机构最新报告，告诉你这和你有什么关系、你的下一步怎么走。</div>
-      <span class="bc-tag rose">24期 · 全年</span>
-    </div>
-    <div class="benefit-card">
-      <span class="bc-icon">🛠</span>
-      <div class="bc-title">配套工具箱</div>
-      <div class="bc-desc">每期简报配套一件可直接使用的工具——谈薪准备器、个人资产盘点表、精力泄漏诊断表……填完当天就能用。</div>
-      <span class="bc-tag teal">24件工具 · 陆续上线</span>
-    </div>
-    <div class="benefit-card">
-      <span class="bc-icon">📚</span>
-      <div class="bc-title">她说了算书房</div>
-      <div class="bc-desc">精选书目 + Janet/Yilin亲自撰写的导读文章和行动笔记，每本书都有「读完能做的一件事」。</div>
-      <span class="bc-tag amber">每月更新</span>
-    </div>
-    <div class="benefit-card">
-      <span class="bc-icon">🗺</span>
-      <div class="bc-title">三条学习路径</div>
-      <div class="bc-desc">认知套利 · 身份重塑 · 精力主权，每条路径有清晰的步骤和进度——你随时知道自己在哪里、下一步是什么。</div>
-      <span class="bc-tag rose">分阶段设计</span>
-    </div>
-    <div class="benefit-card">
-      <span class="bc-icon">💬</span>
-      <div class="bc-title">读书会 · 线上社群</div>
-      <div class="bc-desc">每期简报有主题讨论，Yilin带深度解读，Janet定期出现回答真实问题。不是群发消息，是真实的对话。</div>
-      <span class="bc-tag teal">每半月一次</span>
-    </div>
-    <div class="benefit-card">
-      <span class="bc-icon">✨</span>
-      <div class="bc-title">首批会员特权</div>
-      <div class="bc-desc">你进来的时候，我们刚刚开始。你会和我们一起定义这个地方应该是什么样子——你说的每一句话，我们真的在听。</div>
-      <span class="bc-tag amber">限时 · 首批专属</span>
-    </div>
-  </div>
-</div>
-
-<!-- PRICING -->
-<div id="pricing"></div>
-<div class="section">
-  <div class="sec-head reveal">
-    <div>
-      <div class="sec-eyebrow">订阅价格</div>
-      <div class="sec-title">先试，再决定</div>
-      <div class="sec-sub">¥9.9 试读第一个月，不满意随时退——零风险。</div>
-    </div>
-  </div>
-  <div class="pricing-grid reveal">
-    <div class="pricing-card">
-      <div class="pricing-head trial-head">
-        <div class="pricing-plan">试读方案</div>
-        <div class="pricing-price">¥9.9<span class="pricing-period"> / 第一个月</span></div>
-        <div class="pricing-desc">读完不满意，随时退款</div>
-      </div>
-      <div class="pricing-body">
-        <div class="pricing-item">当月全部简报内容无限阅读</div>
-        <div class="pricing-item">工具箱当月上线工具</div>
-        <div class="pricing-item">读书会线上参与一次</div>
-        <div class="pricing-item">今日起每日知识库更新</div>
-        <div class="pricing-item">体验后随时升级年费</div>
-        <div class="pricing-item muted">历史期内容存档</div>
-        <div class="pricing-item muted">全年24期工具完整包</div>
-        <button class="btn-pricing trial-btn" onclick="openModal()">扫码加入 · 获取密码</button>
-      </div>
-    </div>
-    <div class="pricing-card featured">
-      <div class="pricing-head member-head">
-        <div class="pricing-plan">年费方案 · 首批专属</div>
-        <div class="pricing-price">¥139<span class="pricing-period"> / 全年</span></div>
-        <div class="pricing-desc">约¥11.6/期 · 首批价格，后续调整</div>
-      </div>
-      <div class="pricing-body">
-        <div class="pricing-item">全年24期简报无限阅读</div>
-        <div class="pricing-item">全年24件配套工具完整包</div>
-        <div class="pricing-item">书房全部导读文章</div>
-        <div class="pricing-item">读书会全年参与权</div>
-        <div class="pricing-item">会员专属内容每日解锁</div>
-        <div class="pricing-item">少至优先报名线下活动</div>
-        <div class="pricing-item">首批会员定价不涨价</div>
-        <button class="btn-pricing member-btn" onclick="openModal()">已是年费会员 · 进入知识库</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FOUNDERS -->
-<div id="founders"></div>
-<div class="section" style="padding-bottom:0;">
-  <div class="sec-head reveal">
-    <div>
-      <div class="sec-eyebrow">关于我们</div>
-      <div class="sec-title">做「她说了算」，是因为我们遇见了太多卡住的女性</div>
-    </div>
-  </div>
-</div>
-<div class="founders-strip reveal">
-  <div class="founder-cell">
-    <div class="founder-av rose">J</div>
-    <div>
-      <div class="founder-name">Janet</div>
-      <div class="founder-role">Next Peak 创始人 · 企业教练 · 30年<br>服务100+企业管理团队</div>
-      <span class="founder-tag">清晰力 · 叙事力 · 教练框架</span>
-    </div>
-  </div>
-  <div class="founder-cell">
-    <div class="founder-av teal">Y</div>
-    <div>
-      <div class="founder-name">Yilin</div>
-      <div class="founder-role">国际教育13年 · 全球视角<br>课堂逻辑表达 · 叙事力方法论</div>
-      <span class="founder-tag">国际视角 · 课堂逻辑表达</span>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- READER VOICES -->
-<div class="section" style="background:var(--pale);padding:48px 0;">
-  <div class="page-inner">
-    <div class="sec-head reveal" style="border-top:none;">
-      <div>
-        <div class="sec-eyebrow">她们说</div>
-        <div class="sec-title">第一批内测读者的反馈</div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;" class="reveal">
-
-      <div style="background:#fff;border:1px solid var(--rule);border-radius:10px;padding:20px 18px;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:#fff;">晓</div>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--plum);">晓雯</div>
-            <div style="font-size:11px;color:var(--light);">上海 · 外企区域经理</div>
+        <!-- 门1：认知 -->
+        <a href="vol4-brief.html" class="door door-1">
+          <div class="door-num">01</div>
+          <div class="door-icon di-forest">🧠</div>
+          <div class="door-mood">今天想看懂世界</div>
+          <div class="door-title">我想获得<br>认知上的优势</div>
+          <div class="door-desc">全球女性商业简报「她的经纬」、数据洞察、认知套利——用信息差重新定价自己。</div>
+          <div class="door-tags">
+            <span class="door-tag">她的经纬</span>
+            <span class="door-tag">全球视野</span>
+            <span class="door-tag">认知套利</span>
           </div>
-          <div style="margin-left:auto;color:var(--gold);font-size:14px;">★★★★★</div>
-        </div>
-        <div style="font-size:13.5px;color:var(--text);line-height:1.82;font-style:italic;">「看完第二期关于薪酬数据的部分，当晚就去查了自己岗位的市场价。发现自己被低估了至少20%，下周就去谈。」</div>
-        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--rule);font-size:10px;font-weight:700;color:var(--rose);">✓ 内测读者</div>
-      </div>
+          <div class="door-arrow">进入 <span>→</span></div>
+        </a>
 
-      <div style="background:#fff;border:1px solid var(--rule);border-radius:10px;padding:20px 18px;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:#fff;">M</div>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--plum);">Maggie</div>
-            <div style="font-size:11px;color:var(--light);">北京 · 创业公司COO</div>
+        <!-- 门2：工具 -->
+        <a href="shedecides/hub.html" class="door door-2">
+          <div class="door-num">02</div>
+          <div class="door-icon di-blue">🪞</div>
+          <div class="door-mood">今天需要做一个决定</div>
+          <div class="door-title">我面临一个<br>需要想清楚的选择</div>
+          <div class="door-desc">谈薪准备器、身份重塑框架、个人资产盘点——帮你看清楚你真正在经营什么。</div>
+          <div class="door-tags">
+            <span class="door-tag">工具箱</span>
+            <span class="door-tag">身份重塑</span>
+            <span class="door-tag">AI辅助</span>
           </div>
-          <div style="margin-left:auto;color:var(--gold);font-size:14px;">★★★★★</div>
-        </div>
-        <div style="font-size:13.5px;color:var(--text);line-height:1.82;font-style:italic;">「不是那种读完就忘的东西。每期都有一个工具，逼你把认知落地。精力诊断表我用了两周，真的找到了最大的内耗点。」</div>
-        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--rule);font-size:10px;font-weight:700;color:var(--rose);">✓ 内测读者</div>
-      </div>
+          <div class="door-arrow">进入工具箱 <span>→</span></div>
+        </a>
 
-      <div style="background:#fff;border:1px solid var(--rule);border-radius:10px;padding:20px 18px;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:#8b5a2b;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:#fff;">Anna</div>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--plum);">Anna</div>
-            <div style="font-size:11px;color:var(--light);">深圳 · 品牌总监</div>
+        <!-- 门3：内在力 -->
+        <a href="tool-healing-rx.html" class="door door-3">
+          <div class="door-num">03</div>
+          <div class="door-icon di-green">🍵</div>
+          <div class="door-mood">今天需要先喘口气</div>
+          <div class="door-title">我需要一点<br>内在的安静</div>
+          <div class="door-desc">疗愈处方测试、节气精力历、茶道与边界感——先稳住内在，再做外部决策。</div>
+          <div class="door-tags">
+            <span class="door-tag">内在力</span>
+            <span class="door-tag">东方疗愈</span>
+            <span class="door-tag">节气</span>
           </div>
-          <div style="margin-left:auto;color:var(--gold);font-size:14px;">★★★★★</div>
-        </div>
-        <div style="font-size:13.5px;color:var(--text);line-height:1.82;font-style:italic;">「Janet写导读的方式和我见过的所有知识付费都不一样——不是灌输，是真的在和你对话。」</div>
-        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--rule);font-size:10px;font-weight:700;color:var(--rose);">✓ 内测读者</div>
-      </div>
+          <div class="door-arrow">找到你的疗愈处方 <span>→</span></div>
+        </a>
 
-    </div>
-    <p style="text-align:center;font-size:12px;color:var(--light);margin-top:16px;" class="reveal">
-      ⚠️ 这是内测阶段的真实反馈，上线后会替换为更多读者的声音
-    </p>
-  </div>
-</div>
-
-<!-- ROADMAP: 24 ISSUES -->
-<div class="section">
-  <div class="page-inner">
-    <div class="sec-head reveal" style="padding-top:48px;">
-      <div>
-        <div class="sec-eyebrow">全年路线图</div>
-        <div class="sec-title">24期 · 24个她 · 全年规划</div>
-        <div style="font-size:13px;color:var(--light);margin-top:4px;">每期一个主题，每期一位历史上的她</div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);" class="reveal">
-<div style="background:#fff;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.01</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">✓ 已发布</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">全球女性商业趋势·创刊号</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：玛丽·居里</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--blush);color:var(--rose);">认知套利</div>
-    </div><div style="background:#fff;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.02</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">✓ 已发布</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">定价权——从薪资到体育经济</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：可可·香奈儿</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--blush);color:var(--rose);">认知套利</div>
-    </div><div style="background:#fff;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.03</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">✓ 已发布</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">给不打算创业的她——底气·工具·主权</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：董明珠</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">身份重塑</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.04</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">5月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的选择——决策质量与战略性放弃</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：西蒙娜·波伏瓦</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--blush);color:var(--rose);">认知套利</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.05</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">5月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的钱——财务主权与薪资谈判</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：宋美龄</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--blush);color:var(--rose);">认知套利</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.06</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">6月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的出海——跨境机会与文化智慧</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：伍连德</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">身份重塑</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.07</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">6月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的可见度——个人品牌与叙事力</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：奥普拉</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">身份重塑</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.08</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">7月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的信息——如何不被算法困住</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：图灵</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--blush);color:var(--rose);">认知套利</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.09</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">7月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的身体——精力管理的科学</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：伊丽莎白一世</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--amber-lt,#f5edd8);color:var(--amber);">精力主权</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.10</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">8月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的边界——说不是一种能力</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：玛格丽特·撒切尔</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--amber-lt,#f5edd8);color:var(--amber);">精力主权</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.11</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">8月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的团队——向上管理与横向影响</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：武则天</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">身份重塑</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.12</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">9月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的转型——35岁之后的第二曲线</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：海伦·凯勒</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">身份重塑</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.13</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">9月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的数字——AI时代女性的生产力</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：阿达·洛芙莱斯</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--blush);color:var(--rose);">认知套利</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.14</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">10月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的时间——从稀缺思维到富足设计</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：居里夫人</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--amber-lt,#f5edd8);color:var(--amber);">精力主权</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.15</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">10月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的声音——公开表达与说服力</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：希拉里·克林顿</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">身份重塑</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.16</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">11月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的合作——女性同盟与竞争的真相</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：埃莉诺·罗斯福</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">身份重塑</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.17</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">11月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的家庭——职业与家庭的真实成本</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：波伏瓦</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--amber-lt,#f5edd8);color:var(--amber);">精力主权</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.18</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">12月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的风险——安全感的本质是什么</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：安吉拉·默克尔</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--blush);color:var(--rose);">认知套利</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.19</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">12月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的创意——在规则内外找到突破口</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：弗里达·卡罗</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">身份重塑</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.20</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">1月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的韧性——从打击中站起来的科学</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：谢丽尔·桑德伯格</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--amber-lt,#f5edd8);color:var(--amber);">精力主权</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.21</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">1月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的影响力——不靠头衔的权力</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：塔莎·尤里克</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">身份重塑</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.22</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">2月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的财富——超越薪资的资产积累</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：安·多德</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--blush);color:var(--rose);">认知套利</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.23</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">2月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的传承——如何成为下一个她的榜样</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：格蕾丝·霍珀</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--teal-light,#d6ede0);color:var(--teal);">身份重塑</div>
-    </div><div style="background:var(--cream);opacity:.7;padding:14px 13px;border-bottom:1px solid var(--rule);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--light);">Vol.24</span>
-        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--sand);color:var(--light);">3月</span>
-      </div>
-      <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:600;color:var(--plum);line-height:1.3;margin-bottom:4px;">她的2026——年度总结与2027预测</div>
-      <div style="font-size:10.5px;color:var(--light);">历史上的她：全体会员</div>
-      <div style="margin-top:6px;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--blush);color:var(--rose);">认知套利</div>
-    </div>
-    </div>
-  </div>
-</div>
-
-<!-- FREE HOOK: Open tool -->
-<div class="section" style="background:var(--plum);padding:48px 0;">
-  <div class="page-inner">
-    <div class="sec-head reveal" style="border-top:none;">
-      <div>
-        <div class="sec-eyebrow" style="color:rgba(196,88,122,.8);">免费体验</div>
-        <div class="sec-title" style="color:#fff;">先用一件工具，再决定要不要加入</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.45);margin-top:4px;">精力泄漏诊断表——不需要任何付费，现在就可以用</div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;" class="reveal">
-      <a href="shedecides/tool-energy.html" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:22px 18px;text-decoration:none;transition:all .2s;display:block;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background='rgba(255,255,255,.06)'">
-        <div style="font-size:28px;margin-bottom:10px;">⚡</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;">精力主权 · 免费开放</div>
-        <div style="font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:6px;">精力泄漏诊断表</div>
-        <div style="font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:14px;">5大精力黑洞自测，找到你最大的内耗点，自动生成本周修复方案。</div>
-        <div style="font-size:12px;font-weight:700;color:var(--rose);">免费使用 →</div>
-      </a>
-      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:22px 18px;opacity:.6;">
-        <div style="font-size:28px;margin-bottom:10px;">💬</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(196,88,122,.5);margin-bottom:6px;">认知套利 · 会员专属</div>
-        <div style="font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:6px;">谈薪准备器</div>
-        <div style="font-size:12.5px;color:rgba(255,255,255,.3);line-height:1.65;">5步准备，自动生成专属话术脚本</div>
-        <div style="margin-top:14px;font-size:10px;color:rgba(255,255,255,.2);font-weight:700;">🔐 会员解锁</div>
-      </div>
-      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:22px 18px;opacity:.6;">
-        <div style="font-size:28px;margin-bottom:10px;">🗺</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(29,74,53,.6);margin-bottom:6px;">身份重塑 · 会员专属</div>
-        <div style="font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:6px;">个人资产盘点表</div>
-        <div style="font-size:12.5px;color:rgba(255,255,255,.3);line-height:1.65;">7个深度问题，挖掘10年隐性资产</div>
-        <div style="margin-top:14px;font-size:10px;color:rgba(255,255,255,.2);font-weight:700;">🔐 会员解锁</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FOLLOW US -->
-<div class="section" style="padding:48px 0 0;">
-  <div class="page-inner">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;" class="reveal">
-      <div>
-        <div class="sec-eyebrow">还没准备好加入？</div>
-        <div class="sec-title" style="margin-bottom:12px;">先关注公众号，不错过</div>
-        <p style="font-size:14px;color:var(--mid);line-height:1.8;margin-bottom:16px;">每期简报上线我们都会在公众号推送，有时候也会发一些不在简报里的思考。关注了之后，等你准备好了随时来。</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mid);"><span style="color:var(--rose);">✓</span> 每期简报发布提醒</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mid);"><span style="color:var(--rose);">✓</span> 不定期免费内容</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mid);"><span style="color:var(--rose);">✓</span> Janet & Yilin 日常思考</div>
-        </div>
-      </div>
-      <div style="text-align:center;">
-        <div style="display:inline-block;background:var(--plum);padding:20px;border-radius:12px;">
-          <div style="width:140px;height:140px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;">
-            <div style="text-align:center;">
-              <div style="font-size:32px;margin-bottom:6px;">📱</div>
-              <div style="font-size:11px;color:rgba(255,255,255,.4);">公众号二维码</div>
-              <div style="font-size:10px;color:rgba(255,255,255,.25);margin-top:3px;">请替换此处</div>
+        <!-- 门4：指南针 -->
+        <a href="compass.html" class="door door-4">
+          <div class="door-num">04</div>
+          <div class="door-4-inner">
+            <div class="d4-left">
+              <div class="door-icon di-gold">⚖️</div>
+              <div class="door-mood">今天遇到了真实问题</div>
+              <div class="door-title">我需要<br>专业的支持</div>
+              <div class="door-desc" style="font-size:13px;">法律权益、职场谈薪、独立理财——经过筛选的专业知识和顾问。</div>
+              <div class="door-arrow" style="margin-top:auto;">进入指南针 <span>→</span></div>
+            </div>
+            <div class="d4-chips">
+              <span class="d4-chip">婚前财产</span>
+              <span class="d4-chip">职场谈薪</span>
+              <span class="d4-chip">独立理财</span>
+              <span class="d4-chip">劳动合同</span>
+              <span class="d4-chip">健康权益</span>
             </div>
           </div>
-          <div style="font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:#fff;margin-bottom:4px;">她说了算</div>
-          <div style="font-size:11.5px;color:rgba(255,255,255,.38);">长按识别 · 关注公众号</div>
-        </div>
+        </a>
+
       </div>
     </div>
   </div>
 </div>
 
-</main>
+<div class="section-divider"></div>
 
+<!-- 她的经纬 -->
+<div id="jingwei">
+  <div class="jingwei-wrap">
+    <div class="page">
+      <div class="section-head reveal">
+        <div class="sh-left">
+          <div class="sh-eyebrow">她的经纬 · Her Coordinates</div>
+          <h2 class="sh-title">全球女性<em>正在发生</em>的事</h2>
+        </div>
+        <a href="vol4-brief.html" class="sh-link">阅读本期 →</a>
+      </div>
+
+      <div class="jw-featured reveal">
+        <a href="vol4-brief.html" class="jw-card main">
+          <div class="jw-type">✦ 最新 · Vol.04 · 2026年5月</div>
+          <div class="jw-title">她的选择——决策质量与战略性放弃</div>
+          <div class="jw-desc">Anna Wintour 掌舵37年后主动传承，碧昂丝消失10年后选择此刻回来——最强的选择，是你还有权力做选择时，主动做的那个。</div>
+          <div class="jw-meta">认知套利 · 身份重塑 · Met Gala特辑 · 内在力加餐</div>
+          <div class="jw-cta">阅读完整简报 →</div>
+        </a>
+
+        <a href="article-prada2-interactive.html" class="jw-card">
+          <div class="jw-type">🎬 专栏 · Janet</div>
+          <div class="jw-title">二十年后，谁活成了自己想要的样子？</div>
+          <div class="jw-desc">Miranda、Andy、Emily——三种职业路径，三种代价，配套2分钟资产类型测试。</div>
+          <div class="jw-meta">《穿Prada的女魔头2》观后 · 身份重塑</div>
+          <div class="jw-cta">阅读 →</div>
+        </a>
+
+        <a href="article-tea-boundary.html" class="jw-card">
+          <div class="jw-type">🍵 内在力 · Vol.01 加餐</div>
+          <div class="jw-title">茶道与边界感</div>
+          <div class="jw-desc">一杯茶，是给自己的仪式——不是待客的表演。含七天实践计划。</div>
+          <div class="jw-meta">东方疗愈 · Yilin · 2026年5月</div>
+          <div class="jw-cta">阅读 →</div>
+        </a>
+      </div>
+
+      <a href="tool-solar-calendar.html" class="solar-strip reveal">
+        <span class="ss-badge">🌿 当下节气</span>
+        <div>
+          <div class="ss-name" id="jieqiName">小满</div>
+          <div class="ss-desc" id="jieqiDesc">万物丰满但未全熟——充盈而不溢，满而留余地。警惕过度承诺，七分满原则。</div>
+        </div>
+        <span class="ss-link">查看节气精力历 →</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- 她的指南针 -->
+<div id="compass" class="compass-wrap">
+  <div class="compass-inner">
+    <div class="compass-head reveal">
+      <div class="ch-eyebrow">她的指南针 · She Compass</div>
+      <h2 class="ch-title">遇到真实问题，<em>这里帮你站稳</em></h2>
+      <p class="ch-sub">信息不对称本身，就是一种剥削。四个垂直领域，将专业知识翻译成你现在能用的语言。</p>
+    </div>
+
+    <div class="compass-domains reveal">
+      <a href="compass-career.html" class="cd">
+        <span class="cd-icon">💼</span>
+        <div class="cd-name">职场谈薪<br>与劳动合同</div>
+        <div class="cd-desc">谈薪话术、N+1计算、孕期保护、竞业协议解读</div>
+        <span class="cd-status cs-live">已上线</span>
+      </a>
+      <a href="compass-legal.html" class="cd">
+        <span class="cd-icon">⚖️</span>
+        <div class="cd-name">婚前/离婚<br>财产权益</div>
+        <div class="cd-desc">婚前协议、财产分割、家暴保护令、彩礼纠纷</div>
+        <span class="cd-status cs-live">已上线</span>
+      </a>
+      <a href="compass-finance.html" class="cd">
+        <span class="cd-icon">💰</span>
+        <div class="cd-name">独立理财<br>与资产保护</div>
+        <div class="cd-desc">资产规划、婚内财务隔离、理财产品避坑指南</div>
+        <span class="cd-status cs-live">已上线</span>
+      </a>
+      <div class="cd coming">
+        <span class="cd-icon">🩺</span>
+        <div class="cd-name">健康与<br>身体权益</div>
+        <div class="cd-desc">生育权益、孕期保护、医疗知情权、更年期</div>
+        <span class="cd-status cs-soon">即将上线</span>
+      </div>
+    </div>
+
+    <div class="compass-cta-row reveal">
+      <div class="cc-text">
+        <div class="cc-label">需要一对一专业支持？</div>
+        <div class="cc-title">预约经过筛选的专业顾问 · 律师 · 理财师 · 职业教练</div>
+      </div>
+      <a href="compass-consult.html" class="btn-compass">预约专业咨询 →</a>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- SOCIAL PROOF -->
+<div class="proof-wrap">
+  <div class="page">
+    <div class="proof-eyebrow reveal">她们说</div>
+    <div class="testi-grid reveal">
+      <div class="testi">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-quote">「看完Vol.02关于薪酬数据，当晚就查了自己岗位的市场价。发现自己被低估了至少20%，下周就去谈。」</div>
+        <div class="t-name">晓雯</div>
+        <div class="t-role">上海 · 外企区域经理</div>
+        <div class="t-badge">✓ 内测读者</div>
+      </div>
+      <div class="testi">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-quote">「不是那种读完就忘的东西。每期都有配套工具，逼你把认知落地。精力诊断表用了两周，真的找到了最大的内耗点。」</div>
+        <div class="t-name">Maggie</div>
+        <div class="t-role">北京 · 创业公司COO</div>
+        <div class="t-badge">✓ 内测读者</div>
+      </div>
+      <div class="testi">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-quote">「Janet写导读的方式和我见过的所有知识付费都不一样——不是灌输，是真的在和你对话。而且中英双语视角，看问题的角度完全不同。」</div>
+        <div class="t-name">Anna</div>
+        <div class="t-role">深圳 · 品牌总监</div>
+        <div class="t-badge">✓ 内测读者</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- JOIN -->
+<div id="join" class="join-wrap">
+  <div class="join-inner">
+    <div class="join-eyebrow">加入她说了算</div>
+    <h2 class="join-title">准备好了就进来，<em>还没好就先看看</em></h2>
+    <p class="join-sub">¥9.9 试读第一个月，读完不满意随时退。没有任何风险。</p>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:28px;padding:14px 20px;background:rgba(255,255,255,.06);border-radius:10px;border:1px solid rgba(255,255,255,.1);">
+      <span style="font-size:22px;">📚</span>
+      <div>
+        <div style="font-size:13.5px;font-weight:600;color:rgba(255,255,255,.8);">下期读书会 · 2026年6月15日</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.38);">《清醒思考的艺术》· 周一晚8点 · 线上</div>
+      </div>
+      <a href="bookclub.html" style="margin-left:auto;padding:8px 16px;border-radius:20px;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.75);font-size:12.5px;font-weight:600;text-decoration:none;white-space:nowrap;transition:all .2s;">查看详情 →</a>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <div class="plan-label">试读方案</div>
+        <div class="plan-price">¥9.9</div>
+        <div class="plan-period">第一个月 · 不满意随时退</div>
+        <div class="plan-items">
+          <div class="plan-item">当月全部「她的经纬」简报</div>
+          <div class="plan-item">已上线工具完整使用</div>
+          <div class="plan-item">本月读书会参与（¥39价值）</div>
+        </div>
+        <a href="#" class="btn-plan outline" onclick="openModal();return false;">扫码加入</a>
+      </div>
+      <div class="plan featured">
+        <div class="plan-label">年费方案 · 首批专属</div>
+        <div class="plan-price">¥139</div>
+        <div class="plan-period">全年 · 约¥11.6/期</div>
+        <div class="plan-items">
+          <div class="plan-item">全年24期「她的经纬」简报</div>
+          <div class="plan-item">全年工具包（含指南针内容）</div>
+          <div class="plan-item">她的指南针会员优先通道</div>
+          <div class="plan-item">顾问咨询会员专属折扣</div>
+          <div class="plan-item">首批定价不涨价承诺</div>
+        </div>
+        <a href="#" class="btn-plan solid" onclick="openModal();return false;">已是会员 · 进入知识库</a>
+      </div>
+    </div>
+
+    <p class="join-note">还没准备好？先关注公众号，每期简报上线都会推送。等你准备好了随时来。</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
-  <div class="footer-brand">她说了算 · She Decides</div>
-  <div class="footer-rule"></div>
-  <div class="footer-tagline">全球女性成长生态 · 2026</div>
-  <div class="footer-note">¥9.9 试读第一个月 · 年费 ¥139 · 首批专属<br>「遇见不同，创造可能。」</div>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="ft-brand">她说了算 · She Decides</div>
+        <div class="ft-tagline">中国女性成长合伙人 · 2026 · 「遇见不同，创造可能。」</div>
+      </div>
+      <div class="ft-nav">
+        <a href="vol4-brief.html" class="ft-link">她的经纬</a>
+        <a href="bookclub.html" class="ft-link">读书会</a>
+        <a href="shedecides/hub.html" class="ft-link">工具箱</a>
+        <a href="tool-healing-rx.html" class="ft-link">内在力</a>
+        <a href="compass.html" class="ft-link">她的指南针</a>
+        <a href="compass-consult.html" class="ft-link">预约咨询</a>
+        <a href="mailto:partner@shedecides.cn" class="ft-link">合作</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 她说了算 · She Decides</span>
+      <span>律师/顾问IP合作：<a href="mailto:partner@shedecides.cn">partner@shedecides.cn</a></span>
+    </div>
+  </div>
 </footer>
 
-<!-- MEMBER GATE MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()">×</button>
-    <div class="modal-logo">她说了算</div>
-    <div class="modal-sub">She Decides · Member Portal</div>
-    <label class="modal-label" for="pwInput">输入会员密码</label>
-    <input
-      class="modal-input"
-      id="pwInput"
-      type="password"
-      placeholder="••••••••"
-      onkeydown="if(event.key==='Enter')checkPw()"
-      autocomplete="off"
-    >
-    <div class="modal-error" id="pwError">密码不正确，请检查后重试</div>
-    <button class="btn-enter" onclick="checkPw()">进入知识库 →</button>
-    <div class="modal-hint">
-      还不是会员？<a href="#pricing">¥9.9 试读第一个月</a><br>
-      付款后扫码加Janet微信获取密码<br>
-      <span style="color:rgba(61,21,54,.4);font-size:11px;">密码区分大小写</span>
-    </div>
+    <button class="mb-close" onclick="closeModal()">✕</button>
+    <div class="mb-brand">她说了算</div>
+    <div class="mb-sub">Member Portal · 输入会员密码进入知识库</div>
+    <input class="mb-input" type="password" id="pwInput" placeholder="会员密码（区分大小写）" onkeydown="if(event.key==='Enter')checkPw()">
+    <div class="mb-err" id="pwErr"></div>
+    <button class="mb-submit" onclick="checkPw()">进入知识库 →</button>
+    <div class="mb-hint">还不是会员？<a href="#join" onclick="closeModal()">¥9.9 试读第一个月</a><br>付款后扫码加 Janet 微信获取密码</div>
   </div>
 </div>
 
 <script>
-// ── 会员密码设置 ──────────────────────────────────────────
-// 修改这里的密码，告诉付费会员就行
-const MEMBER_PASSWORDS = [
-  'shedecides2026',   // 主密码
-  'SD2026',           // 备用短密码
-  'janet2026',        // Janet专属
-];
-// ─────────────────────────────────────────────────────────
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
 
-function openModal() {
-  document.getElementById('modalOverlay').classList.add('show');
-  setTimeout(()=>document.getElementById('pwInput').focus(), 100);
-}
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('show');
-  document.getElementById('pwInput').value = '';
-  document.getElementById('pwError').classList.remove('show');
-  document.getElementById('pwInput').classList.remove('error');
-}
-function handleOverlayClick(e) {
-  if(e.target === document.getElementById('modalOverlay')) closeModal();
-}
-function checkPw() {
-  const val = document.getElementById('pwInput').value.trim();
-  if(MEMBER_PASSWORDS.includes(val)) {
-    // Save to sessionStorage so hub.html can verify
-    sessionStorage.setItem('sd_member', '1');
-    sessionStorage.setItem('sd_pw_hash', btoa(val));
-    window.location.href = 'hub.html';
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+
+function openModal(){document.getElementById('modal').classList.add('show');}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+function checkPw(){
+  var pw=document.getElementById('pwInput').value.trim();
+  if(pw==='shedecides2026'||pw==='SD2026'){
+    window.location.href='shedecides/hub.html';
   } else {
-    const input = document.getElementById('pwInput');
-    const error = document.getElementById('pwError');
-    input.classList.add('error');
-    error.classList.add('show');
-    setTimeout(()=>{
-      input.classList.remove('error');
-      error.classList.remove('show');
-    }, 2000);
+    document.getElementById('pwErr').textContent='密码不正确，请重试';
+    document.getElementById('pwInput').value='';
   }
 }
 
-function scrollToTrial() {
-  document.getElementById('trial').scrollIntoView({behavior:'smooth'});
+// 节气
+var jieqiData=[
+  {name:'立春',date:'2026-02-04',desc:'春季正式开启，适合启动新计划。精力开始回升，先播种，不急于收获。'},
+  {name:'雨水',date:'2026-02-19',desc:'积累内功的时期，适合深度学习和关系经营，不适合大规模行动。'},
+  {name:'惊蛰',date:'2026-03-06',desc:'适合推进被搁置的事，行动力强，决策清晰。'},
+  {name:'春分',date:'2026-03-20',desc:'昼夜等长，全年精力最均衡的时期，适合重要谈判和关系推进。'},
+  {name:'清明',date:'2026-04-05',desc:'适合清理——清理积压工作、关系误会、内心未竟事宜。'},
+  {name:'谷雨',date:'2026-04-20',desc:'为即将到来的繁忙夏季充能，完成春季目标，储备资源。'},
+  {name:'立夏',date:'2026-05-06',desc:'能量充沛，适合高强度输出和重要关系深化，及时补充，不要透支。'},
+  {name:'小满',date:'2026-05-21',desc:'万物丰满但未全熟——充盈而不溢，满而留余地。警惕过度承诺，七分满原则。'},
+  {name:'芒种',date:'2026-06-06',desc:'收割上半年成果，同时播下下半年的种子，行动力与思考力并进。'},
+  {name:'夏至',date:'2026-06-21',desc:'一年中白天最长，阳气最盛，高光时刻也需要保护能量，年中复盘时机。'},
+  {name:'小暑',date:'2026-07-07',desc:'能量开始调整转向，练习情绪稳定性，稳步推进现有项目。'},
+  {name:'大暑',date:'2026-07-23',desc:'一年最热，高强度冲刺为秋季收获做最后准备，特别注意能量管理。'},
+];
+var today=new Date('2026-05-09');
+var cur=jieqiData[0];
+for(var i=0;i<jieqiData.length-1;i++){
+  if(today>=new Date(jieqiData[i].date)&&today<new Date(jieqiData[i+1].date)){cur=jieqiData[i];break;}
 }
-
-// Progress bar
-window.addEventListener('scroll',()=>{
-  const pct = window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100;
-  document.getElementById('progressBar').style.width = pct+'%';
-});
-
-// Scroll reveal
-const obs = new IntersectionObserver(e=>{
-  e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});
-},{threshold:.07});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-// Nav active
-const navObs = new IntersectionObserver(e=>{
-  e.forEach(x=>{
-    if(x.isIntersecting){
-      document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-      const a=document.querySelector(`.nav-tab[href="#${x.target.id}"]`);
-      if(a)a.classList.add('active');
-    }
-  });
-},{threshold:.4});
-['trial','benefits','pricing','founders'].forEach(id=>{
-  const el=document.getElementById(id);
-  if(el)navObs.observe(el);
-});
-
-// Keyboard support
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') closeModal();
-});
+if(document.getElementById('jieqiName'))document.getElementById('jieqiName').textContent=cur.name;
+if(document.getElementById('jieqiDesc'))document.getElementById('jieqiDesc').textContent=cur.desc;
 </script>
 </body>
 </html>
