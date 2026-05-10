@@ -91,6 +91,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang S
 .ic-title{font-family:'Noto Serif SC',serif;font-size:14.5px;font-weight:600;color:var(--plum);margin-bottom:5px;line-height:1.3;}
 .ic-sub{font-size:12px;color:var(--mid);line-height:1.52;}
 .ic-foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--rule);flex-wrap:wrap;gap:6px;}
+.p-heal{background:var(--mint);color:var(--moss);}
 .ic-pillar{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
 .p-cog{background:rgba(61,21,54,.08);color:var(--plum-mid);}
 .p-id{background:var(--teal-light);color:var(--teal);}
@@ -187,6 +188,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang S
 .tc-pillar.teal-t{color:var(--teal);}
 .tc-pillar.amber-t{color:var(--amber);}
 .tc-pillar.grey-t{color:var(--light);}
+.tc-pillar.sage-t{color:var(--moss);}
 .tc-name{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--plum);}
 .tc-body{padding:13px 18px 18px;flex:1;display:flex;flex-direction:column;}
 .tc-desc{font-size:12px;color:var(--mid);line-height:1.65;flex:1;}
@@ -342,6 +344,7 @@ footer{background:var(--plum);padding:28px 48px;text-align:center;border-top:1px
       <span class="latest-tag">认知套利</span>
       <span class="latest-tag">身份重塑</span>
       <span class="latest-tag">精力主权</span>
+      <span class="latest-tag" style="background:var(--mint);color:var(--moss);">内在力</span>
     </div>
   </div>
   <div class="latest-cta">
@@ -447,7 +450,7 @@ footer{background:var(--plum);padding:28px 48px;text-align:center;border-top:1px
   <div class="vf-left">
     <div class="vf-badge">✦ 本期精讲</div>
     <div class="vf-title">Janet讲第三期：<br>不创业，也要管理你的人生资产</div>
-    <div class="vf-desc">10分钟系统讲解认知套利、身份重塑、精力主权的核心逻辑，以及3件配套工具的使用方法和真实案例。</div>
+    <div class="vf-desc">10分钟系统讲解认知套利、身份重塑、精力主权、内在力的核心逻辑，以及3件配套工具的使用方法和真实案例。</div>
     <div class="vf-tags">
       <span class="vf-tag">认知套利</span>
       <span class="vf-tag">身份重塑</span>
@@ -476,6 +479,7 @@ footer{background:var(--plum);padding:28px 48px;text-align:center;border-top:1px
   <button class="ftab" onclick="filt('cog',this)">🧠 认知套利</button>
   <button class="ftab" onclick="filt('id',this)">🔄 身份重塑</button>
   <button class="ftab" onclick="filt('en',this)">⚡ 精力主权</button>
+  <button class="ftab" onclick="filt('heal',this)">🍵 内在力</button>
   <button class="ftab" onclick="filt('tool',this)">🛠 工具演示</button>
 </div>
 
@@ -501,6 +505,15 @@ footer{background:var(--plum);padding:28px 48px;text-align:center;border-top:1px
     <div class="vc-thumb tb4"><div style="display:flex;flex-direction:column;align-items:center;"><div class="vc-play"><svg viewBox="0 0 10 10"><path d="M2 1L9 5L2 9Z"/></svg></div><div class="vc-thumb-label">精力泄漏的5个真相</div></div><div class="vc-dur">4:48</div></div>
     <div class="vc-body"><div class="vc-series s-en">精力主权 · Vol.03</div><div class="vc-title">内耗比加班更累——5个真相</div><div class="vc-meta">Janet · 2026年4月</div></div>
   </div>
+
+  <div class="vcard" data-cat="heal" onclick="openModal('v7','茶道与边界感：一杯茶教我的事','内在力 · Vol.01 加餐 · 8:24','BV1xx411c7mD')">
+    <div class="vc-thumb tb5"><div style="display:flex;flex-direction:column;align-items:center;"><div class="vc-play"><svg viewBox="0 0 10 10"><path d="M2 1L9 5L2 9Z"/></svg></div><div class="vc-thumb-label">茶道与边界感</div></div><div class="vc-dur">8:24</div></div>
+    <div class="vc-body"><div class="vc-series" style="color:var(--moss)">内在力 · Vol.01 加餐</div><div class="vc-title">茶道与边界感：一杯茶教我的事</div><div class="vc-meta">Yilin · 2026年5月</div></div>
+  </div>
+  <div class="vcard" data-cat="heal" onclick="openModal('v8','节气精力历：跟着天地节律工作','内在力 · Vol.02 预告 · 4:12','BV1xx411c7mD')">
+    <div class="vc-thumb tb6"><div style="display:flex;flex-direction:column;align-items:center;"><div class="vc-play"><svg viewBox="0 0 10 10"><path d="M2 1L9 5L2 9Z"/></svg></div><div class="vc-thumb-label">节气精力历</div></div><div class="vc-dur">4:12</div></div>
+    <div class="vc-body"><div class="vc-series" style="color:var(--moss)">内在力 · Vol.02 预告</div><div class="vc-title">节气精力历：跟着天地节律工作</div><div class="vc-meta">Janet & Yilin · 2026年5月</div></div>
+  </div>
   <div class="vcard" data-cat="cog" onclick="openModal('v6','谁在破玻璃天花板？','认知套利 · Vol.01 · 3:20','BV1xx411c7mD')">
     <div class="vc-thumb tb6"><div style="display:flex;flex-direction:column;align-items:center;"><div class="vc-play"><svg viewBox="0 0 10 10"><path d="M2 1L9 5L2 9Z"/></svg></div><div class="vc-thumb-label">董事会数据速读</div></div><div class="vc-dur">3:20</div></div>
     <div class="vc-body"><div class="vc-series s-cog">认知套利 · Vol.01</div><div class="vc-title">谁在破玻璃天花板？</div><div class="vc-meta">Janet · 2026年4月</div></div>
@@ -523,6 +536,14 @@ footer{background:var(--plum);padding:28px 48px;text-align:center;border-top:1px
     <div class="tc-head amber-bg"><span class="tc-icon">⚡</span><div class="tc-pillar amber-t">精力主权</div><div class="tc-name">精力泄漏诊断表</div></div>
     <div class="tc-body"><div class="tc-desc">5大精力黑洞自测，实时热图，自动生成本周可执行的修复方案。</div><div class="tc-foot"><span class="tc-issue">配套 Vol.09</span><div style="display:flex;align-items:center;gap:6px;"><span class="tc-badge b-live">已上线</span><span style="color:var(--light);font-size:15px;">→</span></div></div></div>
   </a>
+  <div class="tool-card">
+    <div class="tc-head forest-bg"><span class="tc-icon">🧘</span><div class="tc-pillar sage-t">内在力</div><div class="tc-name">我的疗愈处方</div></div>
+    <div class="tc-body"><div class="tc-desc">6道情景题，找到你现在最需要的疗愈方式——东方根系、情绪健身房、寂静经济或身体主权。</div><div class="tc-foot"><span class="tc-issue">内在力 Vol.01</span><div style="display:flex;align-items:center;gap:6px;"><span class="tc-badge b-live">已上线</span><a href="tool-healing-rx.html" style="color:var(--light);font-size:15px;text-decoration:none;">→</a></div></div></div>
+  </div>
+  <div class="tool-card">
+    <div class="tc-head forest-bg"><span class="tc-icon">🌿</span><div class="tc-pillar sage-t">内在力</div><div class="tc-name">节气精力历</div></div>
+    <div class="tc-body"><div class="tc-desc">24节气 × 精力管理对照表。什么时候冲刺，什么时候蓄力，跟着天地节律，不再靠意志力硬撑。</div><div class="tc-foot"><span class="tc-issue">内在力 Vol.02</span><div style="display:flex;align-items:center;gap:6px;"><span class="tc-badge b-live">已上线</span><a href="tool-solar-calendar.html" style="color:var(--light);font-size:15px;text-decoration:none;">→</a></div></div></div>
+  </div>
   <div class="tool-card soon"><div class="tc-head grey-bg"><span class="tc-icon">📊</span><div class="tc-pillar grey-t">认知套利</div><div class="tc-name">信息雷达周报</div></div><div class="tc-body"><div class="tc-desc">3个行业信号自测，快速定位本周全球趋势。</div><div class="tc-foot"><span class="tc-issue">配套 Vol.08</span><span class="tc-badge b-soon">8月上线</span></div></div></div>
   <div class="tool-card soon"><div class="tc-head grey-bg"><span class="tc-icon">✍️</span><div class="tc-pillar grey-t">身份重塑</div><div class="tc-name">一句话定位卡</div></div><div class="tc-body"><div class="tc-desc">叙事力三步公式，把职业经历变成让人记住的故事。</div><div class="tc-foot"><span class="tc-issue">配套 Vol.07</span><span class="tc-badge b-soon">7月上线</span></div></div></div>
   <div class="tool-card soon"><div class="tc-head grey-bg"><span class="tc-icon">🔄</span><div class="tc-pillar grey-t">精力主权</div><div class="tc-name">边界设计工作表</div></div><div class="tc-body"><div class="tc-desc">3个场景的边界话术模板，设计你的精力保护系统。</div><div class="tc-foot"><span class="tc-issue">配套 Vol.11</span><span class="tc-badge b-soon">9月上线</span></div></div></div>
@@ -532,27 +553,9 @@ footer{background:var(--plum);padding:28px 48px;text-align:center;border-top:1px
 <div id="bookshelf"></div>
 <div class="sec-head reveal"><div><div class="sec-eyebrow">她说了算书房</div><div class="sec-title">精选 · 每本都有导读和行动笔记</div></div><a href="#" class="sec-action">进入书房 →</a></div>
 <div class="bookshelf reveal">
-  <a href="book-resilience.html" class="book-card" style="text-decoration:none;display:block;">
-    <div class="book-cover bc1">韧</div>
-    <div class="book-title">《韧性》Option B</div>
-    <div class="book-author">Sheryl Sandberg</div>
-    <div class="book-note">Janet导读 · 精力主权篇</div>
-    <div style="font-size:10px;font-weight:700;color:var(--rose);margin-top:6px;">阅读导读 →</div>
-  </a>
-  <a href="book-storytelling.html" class="book-card" style="text-decoration:none;display:block;">
-    <div class="book-cover bc2">叙</div>
-    <div class="book-title">《故事思维》</div>
-    <div class="book-author">Annette Simmons</div>
-    <div class="book-note">Yilin导读 · 叙事力篇</div>
-    <div style="font-size:10px;font-weight:700;color:var(--rose);margin-top:6px;">阅读导读 →</div>
-  </a>
-  <a href="book-negotiation.html" class="book-card" style="text-decoration:none;display:block;">
-    <div class="book-cover bc3">薪</div>
-    <div class="book-title">《女性谈判力》</div>
-    <div class="book-author">Linda Babcock</div>
-    <div class="book-note">Janet导读 · 认知套利篇</div>
-    <div style="font-size:10px;font-weight:700;color:var(--rose);margin-top:6px;">阅读导读 →</div>
-  </a>
+  <div class="book-card"><div class="book-cover bc1">韧</div><div class="book-title">《韧性》</div><div class="book-author">Sheryl Sandberg</div><div class="book-note">Janet导读 · 精力主权篇</div></div>
+  <div class="book-card"><div class="book-cover bc2">叙</div><div class="book-title">《故事思维》</div><div class="book-author">Annette Simmons</div><div class="book-note">Yilin导读 · 叙事力篇</div></div>
+  <div class="book-card"><div class="book-cover bc3">薪</div><div class="book-title">《女性谈判力》</div><div class="book-author">Linda Babcock</div><div class="book-note">Janet导读 · 认知套利篇</div></div>
   <div class="book-card locked"><div class="book-cover bc4">…</div><div class="book-title">下期书房</div><div class="book-author">5月更新</div><div class="book-note" style="color:var(--light);">配套 Vol.04</div></div>
 </div>
 
