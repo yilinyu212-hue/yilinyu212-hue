@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>她的工具箱 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#3d1536;--pm:#6b2560;--rose:#c4587a;--blush:#f0dce8;
+  --compass:#1a3a5c;--compass-l:#e8f0f8;
+  --forest:#1a3d2b;--sage:#52a87a;--mint:#d4ede2;
+  --amber:#b8862c;--amber-l:#f5edd8;
+  --cream:#fdfaf5;--sand:#f5ede4;--rule:#e2ddd8;
+  --text:#1e2820;--mid:#4a5e50;--light:#8a9e90;--white:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;transition:all .3s;}
+nav.scrolled{background:rgba(253,250,245,.96);border-bottom:1px solid var(--rule);backdrop-filter:blur(12px);}
+.nav-back{color:rgba(255,255,255,.5);font-size:12.5px;text-decoration:none;transition:color .2s;}
+nav.scrolled .nav-back{color:var(--light);}
+.nav-brand{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;}
+nav.scrolled .nav-brand{color:var(--plum);}
+.nav-member{padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);font-size:12px;font-weight:600;cursor:pointer;background:transparent;}
+nav.scrolled .nav-member{border-color:var(--plum);color:var(--plum);}
+
+.hero{background:linear-gradient(135deg,var(--plum) 0%,#6b2560 100%);padding:76px 24px 52px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'箱';position:absolute;right:-20px;bottom:-40px;font-family:'Noto Serif SC',serif;font-size:300px;font-weight:700;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(196,88,122,.25);border:1px solid rgba(196,88,122,.35);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,200,220,.88);margin-bottom:18px;}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(28px,5vw,44px);font-weight:700;color:#fff;margin-bottom:10px;}
+.hero h1 em{font-style:italic;color:rgba(240,200,220,.85);}
+.hero-desc{font-size:14.5px;color:rgba(255,255,255,.48);line-height:1.82;max-width:500px;margin:0 auto;}
+
+.page{max-width:860px;margin:0 auto;padding:0 24px;}
+.section{padding:36px 0;}
+.sec-label{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--rule);}
+.sl-free{color:var(--sage);}
+.sl-member{color:var(--rose);}
+.sec-h2{font-family:'Noto Serif SC',serif;font-size:clamp(18px,3vw,22px);font-weight:600;color:var(--plum);margin-bottom:6px;}
+.sec-sub{font-size:13.5px;color:var(--mid);line-height:1.7;margin-bottom:20px;}
+
+/* FREE TOOLS */
+.free-tools{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.tool-free{background:var(--white);border:1.5px solid var(--rule);border-radius:14px;padding:22px 20px;text-decoration:none;color:var(--text);transition:all .25s;display:block;}
+.tool-free:hover{border-color:var(--sage);transform:translateY(-3px);box-shadow:0 8px 24px rgba(26,61,43,.08);}
+.tf-badge{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:10px;display:flex;align-items:center;gap:5px;}
+.tf-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);}
+.tf-icon{font-size:30px;margin-bottom:10px;display:block;}
+.tf-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--plum);margin-bottom:6px;}
+.tf-desc{font-size:13.5px;color:var(--mid);line-height:1.72;margin-bottom:14px;}
+.tf-time{font-size:12px;color:var(--light);margin-bottom:14px;}
+.tf-go{font-size:13px;font-weight:700;color:var(--sage);display:flex;align-items:center;gap:4px;transition:gap .2s;}
+.tool-free:hover .tf-go{gap:8px;}
+
+/* MEMBER TOOLS */
+.member-section{padding-top:32px;border-top:1px solid var(--rule);}
+.member-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.tool-locked{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;overflow:hidden;cursor:pointer;position:relative;transition:all .22s;}
+.tool-locked:hover{border-color:var(--rose);}
+.tl-inner{padding:18px 16px;filter:blur(1.5px);opacity:.5;}
+.tl-icon{font-size:24px;margin-bottom:8px;display:block;}
+.tl-pillar{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pm);margin-bottom:4px;}
+.tl-name{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--plum);margin-bottom:4px;}
+.tl-desc{font-size:12px;color:var(--mid);line-height:1.6;}
+.tl-overlay{position:absolute;inset:0;background:rgba(253,250,245,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.tlo-lock{font-size:20px;}
+.tlo-label{font-size:11.5px;font-weight:700;color:var(--plum);}
+
+/* WHAT MEMBER GETS */
+.member-value{background:var(--blush);border-radius:12px;padding:20px 20px;margin-top:16px;display:flex;gap:16px;align-items:flex-start;}
+.mv-icon{font-size:24px;flex-shrink:0;}
+.mv-title{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--plum);margin-bottom:8px;}
+.mv-items{display:flex;flex-direction:column;gap:5px;}
+.mv-item{font-size:13.5px;color:var(--mid);display:flex;align-items:center;gap:7px;}
+.mv-check{color:var(--rose);font-weight:700;}
+.mv-btn{margin-top:14px;padding:11px 22px;border-radius:8px;background:var(--plum);color:#fff;border:none;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .2s;}
+.mv-btn:hover{opacity:.88;}
+
+.cta-band{background:var(--plum);padding:48px 24px;text-align:center;margin-top:52px;}
+.cb-eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(196,88,122,.7);font-weight:700;margin-bottom:12px;}
+.cb-title{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,30px);font-weight:700;color:#fff;margin-bottom:8px;}
+.cb-title em{font-style:italic;color:rgba(240,200,220,.85);}
+.cb-sub{font-size:13.5px;color:rgba(255,255,255,.42);margin-bottom:24px;}
+.cb-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.cb-btn{padding:12px 26px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;cursor:pointer;border:none;font-family:inherit;}
+.cb-solid{background:#fff;color:var(--plum);}
+.cb-solid:hover{background:var(--blush);}
+.cb-outline{border:1.5px solid rgba(255,255,255,.28);color:rgba(255,255,255,.75);background:transparent;}
+.cb-outline:hover{border-color:#fff;color:#fff;}
+
+footer{background:#1a0a14;padding:24px;text-align:center;}
+.ft-brand{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,.3);}
+.ft-links{display:flex;justify-content:center;gap:20px;margin-top:10px;}
+.ft-link{font-size:12px;color:rgba(255,255,255,.2);text-decoration:none;}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal-box{background:var(--cream);border-radius:16px;padding:32px 28px;width:100%;max-width:360px;margin:20px;position:relative;}
+.mb-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:18px;color:var(--light);cursor:pointer;}
+.mb-brand{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--plum);margin-bottom:4px;}
+.mb-sub{font-size:13px;color:var(--light);margin-bottom:20px;}
+.mb-input{width:100%;padding:12px 14px;border:1.5px solid var(--rule);border-radius:8px;font-size:14px;color:var(--text);background:var(--white);outline:none;margin-bottom:8px;font-family:inherit;}
+.mb-input:focus{border-color:var(--rose);}
+.mb-err{font-size:12.5px;color:var(--rose);min-height:18px;margin-bottom:8px;}
+.mb-submit{width:100%;padding:12px;border-radius:8px;background:var(--plum);color:#fff;border:none;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:12px;font-family:inherit;}
+.mb-hint{font-size:12.5px;color:var(--light);text-align:center;line-height:1.65;}
+.mb-hint a{color:var(--rose);}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.free-tools{grid-template-columns:1fr;}.member-tools{grid-template-columns:1fr 1fr;}.member-value{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-back">← 首页</a>
+  <a href="index.html" class="nav-brand">她说了算</a>
+  <button class="nav-member" onclick="openModal()">🔐 进入会员</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">她说了算 · 配套工具</div>
+  <h1>她的工具箱<br><em>拿来直接用</em></h1>
+  <p class="hero-desc">认知不落地等于没有。每一件工具都是把「想清楚」变成「做出来」的一步。</p>
+</div>
+
+<main>
+<div class="page">
+
+  <!-- FREE TOOLS -->
+  <div class="section reveal">
+    <div class="sec-label sl-free">🟢 免费工具 · 直接开始</div>
+    <h2 class="sec-h2">现在就可以用</h2>
+    <p class="sec-sub">不需要登录，打开即用。</p>
+
+    <div class="free-tools">
+      <a href="quiz-asset-type.html" class="tool-free">
+        <div class="tf-badge"><div class="tf-dot"></div>免费 · 2分钟</div>
+        <span class="tf-icon">🃏</span>
+        <div class="tf-title">你最值钱的那张牌</div>
+        <div class="tf-desc">知识型、网络型、跨界型、表达型——6道情景题找出你真正带得走的核心资产，结果含本周行动建议。</div>
+        <div class="tf-time">⏱ 约2分钟 · 可分享给朋友</div>
+        <div class="tf-go">开始测试 →</div>
+      </a>
+      <a href="tool-healing-rx.html" class="tool-free">
+        <div class="tf-badge"><div class="tf-dot"></div>免费 · 2分钟</div>
+        <span class="tf-icon">🧘</span>
+        <div class="tf-title">我的疗愈处方</div>
+        <div class="tf-desc">东方根系、情绪健身房、寂静经济或身体主权——找到你现在最需要的疗愈方式，含本周专属处方。</div>
+        <div class="tf-time">⏱ 约2分钟 · 内在力工具</div>
+        <div class="tf-go">开始测试 →</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- MEMBER TOOLS -->
+  <div class="member-section reveal">
+    <div class="sec-label sl-member">🔐 会员专属工具</div>
+    <h2 class="sec-h2">更深、更具体的工具</h2>
+    <p class="sec-sub">需要会员密码。</p>
+
+    <div class="member-tools">
+      <div class="tool-locked" onclick="openModal()">
+        <div class="tl-inner"><span class="tl-icon">💼</span><div class="tl-pillar">身份重塑</div><div class="tl-name">谈薪准备器</div><div class="tl-desc">市场薪资估算 + 分场景话术脚本</div></div>
+        <div class="tl-overlay"><div class="tlo-lock">🔐</div><div class="tlo-label">会员解锁</div></div>
+      </div>
+      <div class="tool-locked" onclick="openModal()">
+        <div class="tl-inner"><span class="tl-icon">🗺</span><div class="tl-pillar">身份重塑</div><div class="tl-name">个人资产盘点表</div><div class="tl-desc">7个深度问题，挖掘你带得走的东西</div></div>
+        <div class="tl-overlay"><div class="tlo-lock">🔐</div><div class="tlo-label">会员解锁</div></div>
+      </div>
+      <div class="tool-locked" onclick="openModal()">
+        <div class="tl-inner"><span class="tl-icon">⚡</span><div class="tl-pillar">精力主权</div><div class="tl-name">精力泄漏诊断表</div><div class="tl-desc">找出你最大的内耗点，5大黑洞自测</div></div>
+        <div class="tl-overlay"><div class="tlo-lock">🔐</div><div class="tlo-label">会员解锁</div></div>
+      </div>
+    </div>
+
+    <div class="member-value">
+      <div class="mv-icon">💎</div>
+      <div style="flex:1;">
+        <div class="mv-title">会员工具箱完整权益</div>
+        <div class="mv-items">
+          <div class="mv-item"><span class="mv-check">✓</span>全部6件工具完整使用</div>
+          <div class="mv-item"><span class="mv-check">✓</span>每期简报配套行动手册</div>
+          <div class="mv-item"><span class="mv-check">✓</span>月度读书会免费参与</div>
+          <div class="mv-item"><span class="mv-check">✓</span>她的指南针会员通道</div>
+        </div>
+        <button class="mv-btn" onclick="openModal()">🔐 已有密码 · 直接进入</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="cta-band">
+  <div class="cb-eyebrow">加入她说了算</div>
+  <h2 class="cb-title">¥139/年，<em>解锁全部工具</em></h2>
+  <p class="cb-sub">¥9.9 先试一个月，不满意退款</p>
+  <div class="cb-ctas">
+    <button class="cb-btn cb-solid" onclick="openModal()">🔐 进入会员知识库</button>
+    <a href="index.html#join" class="cb-btn cb-outline">了解定价 →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-brand">她说了算 · 她的工具箱</div>
+  <div class="ft-links">
+    <a href="index.html" class="ft-link">首页</a>
+    <a href="jingwei.html" class="ft-link">她的经纬</a>
+    <a href="inner.html" class="ft-link">内在力</a>
+    <a href="compass.html" class="ft-link">她的指南针</a>
+  </div>
+</footer>
+</main>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="mb-close" onclick="closeModal()">✕</button>
+    <div class="mb-brand">她说了算</div>
+    <div class="mb-sub">输入会员密码进入工具箱</div>
+    <input class="mb-input" type="password" id="pwInput" placeholder="会员密码" onkeydown="if(event.key==='Enter')checkPw()">
+    <div class="mb-err" id="pwErr"></div>
+    <button class="mb-submit" onclick="checkPw()">进入工具箱 →</button>
+    <div class="mb-hint">还不是会员？<a href="index.html#join">¥9.9 试读第一个月</a></div>
+  </div>
+</div>
+
+<script>
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+function openModal(){document.getElementById('modal').classList.add('show');}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+function checkPw(){
+  var pw=document.getElementById('pwInput').value.trim();
+  if(pw==='shedecides2026'||pw==='SD2026'){window.location.href='shedecides/hub.html';}
+  else{document.getElementById('pwErr').textContent='密码不正确';document.getElementById('pwInput').value='';}
+}
+</script>
+</body>
+</html>
