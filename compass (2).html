@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>她的指南针 · She Compass · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f2234;--ink-mid:#1a3a5c;--ink-b:#2d5f8a;--ink-l:#e8f0f8;--ink-pale:#f4f8fc;
+  --gold:#b8962a;--gold-l:#f8f3e0;
+  --sage:#52a87a;--mint:#d4ede2;--forest:#1a3d2b;
+  --rose:#c4587a;--amber:#b8862c;--amber-l:#f5edd8;
+  --cream:#fdfaf5;--sand:#f5ede4;--rule:#e2ddd8;
+  --text:#1a2a3a;--mid:#3a5068;--light:#6a8090;
+  --white:#ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
+.rpbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--ink-b),var(--gold));width:0%;z-index:300;transition:width .1s;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;background:rgba(15,34,52,.95);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px);}
+.nav-back{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.4);font-size:12.5px;text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:rgba(255,255,255,.7);}
+.nav-brand{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:rgba(255,255,255,.6);}
+.nav-cta{padding:6px 14px;border-radius:20px;border:1px solid rgba(196,168,50,.4);color:rgba(240,220,140,.8);font-size:12px;font-weight:600;text-decoration:none;transition:all .2s;}
+.nav-cta:hover{background:rgba(196,168,50,.15);}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,var(--ink) 0%,#0a1e30 100%);padding:80px 24px 64px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'针';position:absolute;right:-20px;bottom:-60px;font-family:'Noto Serif SC',serif;font-size:320px;font-weight:700;color:rgba(255,255,255,.022);line-height:1;pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(196,168,50,.15);border:1px solid rgba(196,168,50,.28);padding:5px 14px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,220,140,.88);margin-bottom:18px;}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(26px,5.5vw,44px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:12px;}
+.hero h1 em{font-style:italic;color:rgba(196,168,50,.9);}
+.hero-desc{font-size:15px;color:rgba(255,255,255,.48);line-height:1.82;max-width:500px;margin:0 auto 28px;}
+.hero-promise{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:36px;}
+.hp{font-size:12.5px;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:6px;}
+.hp-check{color:var(--sage);}
+.hero-ctas{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+.btn-main{padding:14px 32px;border-radius:8px;background:#fff;color:var(--ink);font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;}
+.btn-main:hover{background:var(--ink-l);transform:translateY(-1px);}
+.btn-secondary{padding:13px 24px;border-radius:8px;border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.7);font-size:14px;font-weight:500;text-decoration:none;transition:all .2s;}
+.btn-secondary:hover{border-color:rgba(255,255,255,.45);color:#fff;}
+
+/* PAGE */
+.page{max-width:880px;margin:0 auto;padding:0 24px;}
+section{padding:64px 0;}
+.sec-label{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-b);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--rule);}
+.sec-h2{font-family:'Noto Serif SC',serif;font-size:clamp(20px,3.5vw,28px);font-weight:600;color:var(--ink);margin-bottom:8px;}
+.sec-sub{font-size:14px;color:var(--mid);line-height:1.8;max-width:560px;}
+
+/* HOW IT WORKS */
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:32px;position:relative;}
+.how-grid::before{content:'';position:absolute;top:22px;left:calc(12.5%);right:calc(12.5%);height:1px;background:var(--rule);z-index:0;}
+.hw{text-align:center;padding:0 12px;position:relative;z-index:1;}
+.hw-num{width:44px;height:44px;border-radius:50%;background:var(--white);border:1.5px solid var(--rule);font-family:'Noto Serif SC',serif;font-size:15px;font-weight:700;color:var(--ink);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.hw.active .hw-num{background:var(--ink-mid);border-color:var(--ink-mid);color:#fff;}
+.hw-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:5px;}
+.hw-desc{font-size:12px;color:var(--light);line-height:1.6;}
+
+/* DOMAINS */
+.domains-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px;}
+.domain-card{background:var(--white);border:1.5px solid var(--rule);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--text);transition:all .25s;display:block;}
+.domain-card:hover{border-color:var(--ink-b);transform:translateY(-3px);box-shadow:0 8px 28px rgba(26,58,92,.1);}
+.domain-card.coming{cursor:default;opacity:.65;}
+.domain-card.coming:hover{transform:none;box-shadow:none;border-color:var(--rule);}
+
+.dc-head{padding:24px 22px 18px;border-bottom:1px solid var(--rule);}
+.dc-icon-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.dc-icon{font-size:32px;}
+.dc-status{font-size:10px;font-weight:700;letter-spacing:.08em;padding:4px 10px;border-radius:20px;}
+.ds-live{background:var(--mint);color:var(--forest);}
+.ds-soon{background:var(--sand);color:var(--light);}
+.dc-name{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:5px;}
+.dc-sub{font-size:13px;color:var(--mid);line-height:1.6;}
+
+.dc-body{padding:18px 22px 20px;}
+.dc-topics{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.dc-topic{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--text);line-height:1.55;}
+.dt-bullet{width:5px;height:5px;border-radius:50%;background:var(--ink-b);flex-shrink:0;margin-top:6px;}
+.dc-enter{font-size:13px;font-weight:700;color:var(--ink-b);display:flex;align-items:center;gap:5px;transition:gap .2s;}
+.domain-card:hover .dc-enter{gap:9px;}
+
+/* EXPERT STRIP */
+.expert-strip{background:var(--ink-pale);border:1.5px solid var(--ink-l);border-radius:14px;padding:28px 28px;margin-top:14px;display:flex;align-items:center;gap:28px;}
+.es-left{flex:1;}
+.es-label{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-b);margin-bottom:8px;}
+.es-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+.es-desc{font-size:13.5px;color:var(--mid);line-height:1.7;}
+.es-right{flex-shrink:0;}
+.btn-book{padding:13px 28px;border-radius:8px;background:var(--ink-mid);color:#fff;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;display:block;white-space:nowrap;}
+.btn-book:hover{background:var(--ink);transform:translateY(-1px);}
+
+/* MEMBER BENEFIT */
+.member-strip{background:var(--gold-l);border:1.5px solid rgba(184,150,42,.2);border-radius:12px;padding:20px 22px;margin-top:12px;display:flex;align-items:center;gap:16px;}
+.ms-icon{font-size:24px;flex-shrink:0;}
+.ms-body{flex:1;}
+.ms-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:3px;}
+.ms-desc{font-size:12.5px;color:var(--mid);}
+.ms-cta{font-size:12.5px;font-weight:700;color:var(--gold);white-space:nowrap;}
+
+/* FAQ */
+.faq-list{margin-top:24px;display:flex;flex-direction:column;gap:0;}
+.faq-item{border-bottom:1px solid var(--rule);cursor:pointer;}
+.faq-item:last-child{border-bottom:none;}
+.faq-q{padding:16px 0;display:flex;align-items:center;justify-content:space-between;font-size:14.5px;font-weight:500;color:var(--ink);transition:color .2s;gap:16px;user-select:none;}
+.faq-item:hover .faq-q{color:var(--ink-b);}
+.faq-icon{font-size:18px;color:var(--light);flex-shrink:0;transition:transform .3s;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;}
+.faq-item.open .faq-a{max-height:200px;padding-bottom:16px;}
+.faq-a-inner{font-size:14px;color:var(--mid);line-height:1.8;}
+
+/* BACK BANNER */
+.back-banner{background:var(--ink);padding:40px 24px;text-align:center;}
+.bb-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:#fff;margin-bottom:8px;}
+.bb-sub{font-size:13.5px;color:rgba(255,255,255,.45);margin-bottom:20px;}
+.bb-ctas{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.bb-btn{padding:11px 24px;border-radius:8px;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .2s;}
+.bb-btn.outline{border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.75);}
+.bb-btn.outline:hover{border-color:#fff;color:#fff;}
+.bb-btn.fill{background:rgba(255,255,255,.12);color:#fff;}
+.bb-btn.fill:hover{background:rgba(255,255,255,.22);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:640px){
+  .domains-grid{grid-template-columns:1fr;}
+  .how-grid{grid-template-columns:1fr 1fr;gap:20px;}
+  .how-grid::before{display:none;}
+  .expert-strip{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+<div class="rpbar" id="rp"></div>
+
+<nav>
+  <a href="index.html" class="nav-back">← 返回首页</a>
+  <span class="nav-brand">她说了算</span>
+  <a href="compass-consult.html" class="nav-cta">预约咨询</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">✦ 她说了算 · 第四大支柱</div>
+  <h1>她的指南针<br><em>遇到真实问题，这里帮你站稳</em></h1>
+  <p class="hero-desc">信息不对称本身，就是一种剥削。四个垂直领域，将法律、财务、职场专业知识翻译成你现在能用的语言。</p>
+  <div class="hero-promise">
+    <div class="hp"><span class="hp-check">✓</span>经过审核的专业内容</div>
+    <div class="hp"><span class="hp-check">✓</span>真实案例拆解</div>
+    <div class="hp"><span class="hp-check">✓</span>可勾选的行动清单</div>
+    <div class="hp"><span class="hp-check">✓</span>会员优先预约专家</div>
+  </div>
+  <div class="hero-ctas">
+    <a href="#domains" class="btn-main">选择你的问题领域 →</a>
+    <a href="compass-consult.html" class="btn-secondary">预约专业咨询</a>
+  </div>
+</div>
+
+<main class="page">
+
+<!-- HOW IT WORKS -->
+<section class="reveal">
+  <div class="sec-label">使用方式</div>
+  <h2 class="sec-h2">四步，从问题到行动</h2>
+  <div class="how-grid">
+    <div class="hw active">
+      <div class="hw-num">1</div>
+      <div class="hw-title">选择领域</div>
+      <div class="hw-desc">法律权益 / 职场谈薪 / 独立理财 / 健康权益</div>
+    </div>
+    <div class="hw">
+      <div class="hw-num">2</div>
+      <div class="hw-title">阅读知识内容</div>
+      <div class="hw-desc">真实案例 + 法律/行业知识 + 可勾选清单</div>
+    </div>
+    <div class="hw">
+      <div class="hw-num">3</div>
+      <div class="hw-title">使用配套工具</div>
+      <div class="hw-desc">计算器 / 话术模板 / 自查清单 / AI辅助</div>
+    </div>
+    <div class="hw">
+      <div class="hw-num">4</div>
+      <div class="hw-title">预约专家（可选）</div>
+      <div class="hw-desc">一对一咨询 · 经审核顾问 · 会员专属折扣</div>
+    </div>
+  </div>
+</section>
+
+<!-- DOMAINS -->
+<section id="domains" class="reveal">
+  <div class="sec-label">四个领域</div>
+  <h2 class="sec-h2">选择你现在的问题</h2>
+  <p class="sec-sub">每个领域都有独立的知识内容、工具和顾问体系。选一个，从今天就能用。</p>
+
+  <div class="domains-grid">
+
+    <a href="compass-career.html" class="domain-card">
+      <div class="dc-head">
+        <div class="dc-icon-row">
+          <span class="dc-icon">💼</span>
+          <span class="dc-status ds-live">已上线</span>
+        </div>
+        <div class="dc-name">职场谈薪<br>与劳动合同</div>
+        <div class="dc-sub">薪资谈判 · 劳动合同 · 孕期保护 · 离职权益</div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-topics">
+          <div class="dc-topic"><div class="dt-bullet"></div>薪酬市场价快速估算，定位自己被低估了多少</div>
+          <div class="dc-topic"><div class="dt-bullet"></div>分场景谈薪话术脚本，开口前先演练</div>
+          <div class="dc-topic"><div class="dt-bullet"></div>N+1赔偿计算器，知道你的底线在哪里</div>
+          <div class="dc-topic"><div class="dt-bullet"></div>孕期被刁难、竞业协议如何应对</div>
+        </div>
+        <div class="dc-enter">进入职场指南针 →</div>
+      </div>
+    </a>
+
+    <a href="compass-legal.html" class="domain-card">
+      <div class="dc-head">
+        <div class="dc-icon-row">
+          <span class="dc-icon">⚖️</span>
+          <span class="dc-status ds-live">已上线</span>
+        </div>
+        <div class="dc-name">婚前/离婚<br>财产权益</div>
+        <div class="dc-sub">婚前协议 · 财产分割 · 家暴保护 · 彩礼纠纷</div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-topics">
+          <div class="dc-topic"><div class="dt-bullet"></div>婚前协议怎么签才真正有效？四个场景拆解</div>
+          <div class="dc-topic"><div class="dt-bullet"></div>离婚财产分割实战清单，先盘点再谈</div>
+          <div class="dc-topic"><div class="dt-bullet"></div>家暴保护令申请路径，逐步指引</div>
+          <div class="dc-topic"><div class="dt-bullet"></div>房产登记名字的真实法律含义</div>
+        </div>
+        <div class="dc-enter">进入法律指南针 →</div>
+      </div>
+    </a>
+
+    <a href="compass-finance.html" class="domain-card">
+      <div class="dc-head">
+        <div class="dc-icon-row">
+          <span class="dc-icon">💰</span>
+          <span class="dc-status ds-live">已上线</span>
+        </div>
+        <div class="dc-name">独立理财<br>与资产保护</div>
+        <div class="dc-sub">资产规划 · 婚内隔离 · 理财避坑 · 保险配置</div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-topics">
+          <div class="dc-topic"><div class="dt-bullet"></div>第一个投资账户怎么开，从零开始</div>
+          <div class="dc-topic"><div class="dt-bullet"></div>婚内财务隔离的合法方式</div>
+          <div class="dc-topic"><div class="dt-bullet"></div>女性必配的三类保险，避开坑</div>
+          <div class="dc-topic"><div class="dt-bullet"></div>遗嘱怎么立？比你想象的简单</div>
+        </div>
+        <div class="dc-enter">进入理财指南针 →</div>
+      </div>
+    </a>
+
+    <div class="domain-card coming">
+      <div class="dc-head">
+        <div class="dc-icon-row">
+          <span class="dc-icon">🩺</span>
+          <span class="dc-status ds-soon">即将上线</span>
+        </div>
+        <div class="dc-name">健康与<br>身体权益</div>
+        <div class="dc-sub">生育权益 · 孕期保护 · 医疗知情权 · 更年期</div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-topics">
+          <div class="dc-topic"><div class="dt-bullet"></div>生育权利与职场保护，你有权知道</div>
+          <div class="dc-topic"><div class="dt-bullet"></div>更年期不是终点，是新的起点</div>
+          <div class="dc-topic"><div class="dt-bullet"></div>医疗知情权如何主张</div>
+          <div class="dc-topic"><div class="dt-bullet"></div>心理健康资源如何找靠谱的</div>
+        </div>
+        <div class="dc-enter" style="color:var(--light);">即将上线，敬请期待</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="expert-strip reveal">
+    <div class="es-left">
+      <div class="es-label">需要一对一支持？</div>
+      <div class="es-title">预约经过筛选的专业顾问</div>
+      <div class="es-desc">律师 · 注册理财规划师 · 职业教练——每位顾问均经过资质审核和价值观筛选，会员享专属折扣和优先排期。</div>
+    </div>
+    <div class="es-right">
+      <a href="compass-consult.html" class="btn-book">预约专业咨询 →</a>
+    </div>
+  </div>
+
+  <div class="member-strip reveal">
+    <div class="ms-icon">🔐</div>
+    <div class="ms-body">
+      <div class="ms-title">会员专属：指南针完整内容 + 优先预约通道</div>
+      <div class="ms-desc">非会员可浏览基础内容。年费会员（¥139/年）解锁所有工具、完整案例库、顾问折扣和优先排期。</div>
+    </div>
+    <a href="index.html#join" class="ms-cta">¥9.9 先试读 →</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="reveal">
+  <div class="sec-label">常见问题</div>
+  <h2 class="sec-h2">你可能想问的</h2>
+  <div class="faq-list" id="faqList">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">指南针提供的是专业法律/财务意见吗？<span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">指南针提供的是基于真实案例和专业知识的教育性内容，帮助你理解权利边界和可能选项。涉及个人具体法律或财务决策，建议预约平台认证顾问进行一对一咨询。</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">顾问是如何被筛选的？<span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">平台对每位合作顾问进行资质审核（执照/认证验证）、客户评价审查和价值观访谈。我们只合作真正理解女性处境、有实际服务女性客户经验的专业人士。</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">预约一次咨询大概多少钱？<span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">根据顾问资历和咨询类型不同，标准价格从¥300（30分钟在线咨询）到¥1500（90分钟深度规划）不等。年费会员享8折优惠，并有优先排期权益。具体价格见预约页面。</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">我不确定自己的问题属于哪个领域，怎么办？<span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">进入「预约专业咨询」页面，描述你的问题，我们的团队会帮你匹配最合适的领域和顾问。很多真实问题是跨领域的（比如离职既涉及劳动法也涉及财务规划），不用担心选错。</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">非会员能用指南针吗？<span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">可以。非会员可以阅读基础知识内容和部分工具。完整案例库、深度工具（谈薪计算器、合同自查清单等）和顾问优先预约需要会员资格。¥9.9 可试读第一个月。</div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- BACK BANNER -->
+<div class="back-banner">
+  <div class="bb-title">她的指南针，是她说了算平台的一部分</div>
+  <div class="bb-sub">认知、工具、内在力、真实问题的出口——四个维度，帮你在真实生活里找回主导权。</div>
+  <div class="bb-ctas">
+    <a href="index.html" class="bb-btn outline">← 回到首页</a>
+    <a href="vol4-brief.html" class="bb-btn fill">阅读最新「她的经纬」→</a>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',function(){
+  var h=document.documentElement;
+  document.getElementById('rp').style.width=(window.scrollY/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+
+function toggleFaq(el){
+  var item=el.parentElement;
+  var isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+  if(!isOpen)item.classList.add('open');
+}
+</script>
+</body>
+</html>

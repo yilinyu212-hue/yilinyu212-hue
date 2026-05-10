@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>茶道与边界感 · 内在力 Vol.01 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#1a3d2b;--moss:#2d6a4a;--sage:#52a87a;--mint:#d4ede2;
+  --sand:#f5ede4;--cream:#fdfaf5;--pale:#faf3f7;--rule:#dde8e2;
+  --text:#1e2e24;--mid:#4a6655;--light:#7a9988;
+  --plum:#3d1536;--rose:#c4587a;--amber:#b8862c;--amber-l:#f5edd8;
+  --white:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
+
+/* Progress */
+.rpbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--sage),var(--amber));width:0%;z-index:200;}
+
+/* Hero */
+.hero{background:var(--forest);padding:60px 24px 52px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'茶';position:absolute;right:-20px;bottom:-50px;font-family:'Noto Serif SC',serif;font-size:320px;font-weight:700;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;}
+.hero-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(82,168,122,.2);border:1px solid rgba(82,168,122,.35);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(180,230,200,.85);margin-bottom:20px;}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(26px,6vw,46px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:10px;}
+.hero h1 em{font-style:italic;color:rgba(210,240,220,.88);}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.38);margin-bottom:20px;}
+.hero-meta{font-size:12px;color:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;}
+.hero-tag{background:rgba(82,168,122,.2);color:rgba(180,230,200,.8);padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+
+/* Article */
+.article{max-width:680px;margin:0 auto;padding:0 20px 80px;}
+.prose{padding-top:36px;}
+.prose p{font-size:15.5px;line-height:2;color:var(--text);margin-bottom:20px;}
+.prose p.lead{font-size:17px;color:var(--forest);font-weight:400;line-height:1.85;}
+.prose strong{color:var(--forest);font-weight:600;}
+
+/* Pull quote */
+.pq{margin:28px 0;padding:18px 20px 18px 22px;border-left:4px solid var(--sage);background:var(--mint);border-radius:0 10px 10px 0;}
+.pq blockquote{font-family:'Noto Serif SC',serif;font-size:clamp(15px,2.8vw,18px);font-style:italic;color:var(--forest);line-height:1.72;margin-bottom:0;}
+.pq cite{font-size:11px;color:var(--light);margin-top:7px;font-style:normal;display:block;}
+
+/* Divider */
+.divider{text-align:center;color:var(--sage);font-size:18px;letter-spacing:8px;margin:32px 0;opacity:.7;}
+
+/* Section title */
+.sec-t{font-family:'Noto Serif SC',serif;font-size:clamp(18px,3.5vw,24px);font-weight:600;color:var(--forest);margin:36px 0 14px;padding-top:32px;border-top:1px solid var(--rule);}
+
+/* Tea steps */
+.tea-steps{margin:24px 0;display:flex;flex-direction:column;gap:0;}
+.tea-step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--rule);}
+.tea-step:last-child{border-bottom:none;}
+.ts-num{width:32px;height:32px;border-radius:50%;background:var(--forest);color:#fff;font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.ts-body{}
+.ts-title{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:var(--forest);margin-bottom:5px;}
+.ts-text{font-size:14px;color:var(--mid);line-height:1.78;}
+.ts-lesson{font-size:13px;color:var(--sage);font-weight:600;margin-top:6px;font-style:italic;}
+
+/* Insight box */
+.insight-box{background:var(--sand);border-radius:12px;padding:20px 20px;margin:24px 0;border-left:4px solid var(--amber);}
+.ib-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;}
+.ib-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:var(--plum);margin-bottom:8px;line-height:1.35;}
+.ib-body{font-size:14px;color:var(--mid);line-height:1.82;}
+
+/* Practice card */
+.practice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+.pc{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:16px 15px;transition:all .22s;}
+.pc:hover{border-color:var(--sage);box-shadow:0 4px 16px rgba(26,61,43,.07);}
+.pc-icon{font-size:22px;margin-bottom:7px;}
+.pc-title{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:var(--forest);margin-bottom:5px;}
+.pc-body{font-size:13px;color:var(--mid);line-height:1.68;}
+
+/* Weekly practice */
+.weekly{background:var(--forest);border-radius:12px;padding:24px 22px;margin:28px 0;}
+.wk-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(180,230,200,.7);margin-bottom:10px;}
+.wk-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:#fff;margin-bottom:14px;}
+.wk-items{display:flex;flex-direction:column;gap:10px;}
+.wk-item{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(255,255,255,.7);line-height:1.65;}
+.wk-day{background:rgba(82,168,122,.25);color:rgba(180,230,200,.9);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+
+/* CTA */
+.cta-box{background:var(--mint);border:1.5px solid var(--rule);border-radius:12px;padding:22px 20px;margin:28px 0;}
+.cta-box h3{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:var(--forest);margin-bottom:8px;}
+.cta-box p{font-size:13.5px;color:var(--mid);line-height:1.82;}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* Footer */
+footer{margin-top:36px;padding-top:20px;border-top:2px solid var(--forest);text-align:center;}
+.ft-brand{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--forest);}
+.ft-note{font-size:11.5px;color:var(--light);margin-top:4px;}
+
+@media(max-width:480px){.practice-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="rpbar" id="rp"></div>
+
+<header class="hero">
+  <div class="hero-pill"><div class="hero-dot"></div>内在力 · Vol.01 加餐</div>
+  <h1>茶道与<em>边界感</em></h1>
+  <p class="hero-sub">一杯茶，是给自己的仪式——不是待客的表演</p>
+  <div class="hero-meta">
+    <span>Yilin</span><span>·</span><span>2026年5月</span><span>·</span>
+    <span class="hero-tag">内在力</span>
+    <span class="hero-tag">东方疗愈</span>
+    <span class="hero-tag">边界感</span>
+  </div>
+</header>
+
+<main class="article">
+<div class="prose">
+
+<p class="lead reveal">我有一个朋友，在某家大厂做高管。她告诉我，她有一年半没有「安静地喝完一杯茶」了。</p>
+
+<p class="reveal">每次倒上茶，电话就来了。每次坐下来，消息就响了。那杯茶，最后总是凉的。</p>
+
+<p class="reveal">我问她：那你有没有试过，不接那个电话？</p>
+
+<p class="reveal">她沉默了很久。然后说：「我不知道我有那个权利。」</p>
+
+<div class="pq reveal">
+  <blockquote>「边界感」这个词，很多人以为是拒绝别人的能力。<br>但其实，它首先是——允许自己存在的能力。</blockquote>
+  <cite>— Yilin</cite>
+</div>
+
+<div class="divider reveal">· · ·</div>
+
+<div class="sec-t reveal">为什么是茶道？</div>
+
+<p class="reveal">在讨论「如何设立边界」之前，我想先说一件反直觉的事：</p>
+
+<p class="reveal"><strong>边界感不是一种谈判技巧，是一种身体状态。</strong></p>
+
+<p class="reveal">神经科学告诉我们，当一个人的神经系统处于持续激活状态——也就是「战斗或逃跑」模式——她几乎不可能真正设立边界。因为边界需要的是从容，而从容需要的是安全感，安全感需要的是神经系统的真正平静。</p>
+
+<p class="reveal">这正是茶道切入的地方。</p>
+
+<p class="reveal">茶道的本质，不是泡茶的技法，而是一套<strong>强制减速的身体仪式</strong>。当你拿起茶壶、注水、等待、倒茶、闻香——你的神经系统在被引导进入副交感模式。你的手在做一件需要精细注意力的事，你的大脑没有空间同时焦虑。</p>
+
+<div class="insight-box reveal">
+  <div class="ib-label">📊 研究数据</div>
+  <div class="ib-title">为什么「做事」比「冥想」更容易让现代人平静？</div>
+  <div class="ib-body">2025年发表于《Journal of Affective Disorders》的研究显示，<strong>以动作为锚点的正念练习</strong>（如茶道、花道、书法）比纯粹的坐式冥想对高压人群的神经系统调节效果更稳定——因为它给了大脑一个「任务」，减少了走神和自我评判的空间。<br><br>Google Trends 2025年数据同时显示「Somatic Healing」（躯体疗愈）搜索量在女性群体中增长了340%——人们开始意识到，身体是情绪的起点，不是结果。</div>
+</div>
+
+<div class="divider reveal">· · ·</div>
+
+<div class="sec-t reveal">茶道的五个动作，对应五种边界能力</div>
+
+<p class="reveal">我不是要教你「正确」的泡茶方式。我想说的是，茶道的每一个动作，都在训练一种你在职场、家庭、关系里需要的能力。</p>
+
+<div class="tea-steps reveal">
+  <div class="tea-step">
+    <div class="ts-num">一</div>
+    <div class="ts-body">
+      <div class="ts-title">温杯 — 准备自己</div>
+      <div class="ts-text">在倒茶之前，先用热水温杯。这一步没有人能看到，也不影响最终的味道——但它影响整个过程的质量。</div>
+      <div class="ts-lesson">→ 在应对别人的需求之前，先让自己准备好。这是边界感最被忽视的起点。</div>
+    </div>
+  </div>
+  <div class="tea-step">
+    <div class="ts-num">二</div>
+    <div class="ts-body">
+      <div class="ts-title">候汤 — 等待，不催促</div>
+      <div class="ts-text">水不到合适的温度不能泡好茶。绿茶80度，普洱95度，每种茶有它自己的时机。你不能替它着急。</div>
+      <div class="ts-lesson">→ 边界感需要你允许事情按自己的节奏发生，而不是对所有人的所有请求立刻响应。</div>
+    </div>
+  </div>
+  <div class="tea-step">
+    <div class="ts-num">三</div>
+    <div class="ts-body">
+      <div class="ts-title">注水 — 给予，有节制</div>
+      <div class="ts-text">茶杯七分满。不是因为吝啬，而是因为留出那三分，茶才能被端起来，才不会烫手，才有空间加入更多。</div>
+      <div class="ts-lesson">→ 七分满原则：给出你愿意给的，留出你需要留的。满到溢出的给予，最终让双方都受损。</div>
+    </div>
+  </div>
+  <div class="tea-step">
+    <div class="ts-num">四</div>
+    <div class="ts-body">
+      <div class="ts-title">闻香 — 先接收，再回应</div>
+      <div class="ts-text">在喝之前，先闻。这一秒钟的停顿，是你从被动等待变成主动选择的时刻。</div>
+      <div class="ts-lesson">→ 在别人提出要求之后，你有权停顿一下，然后再回应。这个停顿不是迟疑，是主权。</div>
+    </div>
+  </div>
+  <div class="tea-step">
+    <div class="ts-num">五</div>
+    <div class="ts-body">
+      <div class="ts-title">品饮 — 完整地体验</div>
+      <div class="ts-text">不要在喝茶的时候看手机。不是因为礼仪，而是因为分裂的注意力让你失去了这件事本身的价值——你喝了，但没有真的在。</div>
+      <div class="ts-lesson">→ 边界感的终极形式：当你在做一件事的时候，你真的在做那件事。完整地在场。</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider reveal">· · ·</div>
+
+<div class="sec-t reveal">「但我没有时间做这些」</div>
+
+<p class="reveal">这是我最常听到的反应。</p>
+
+<p class="reveal">我想换一个方式问你：你现在每天花多少时间，在回复一条你其实不需要立刻回复的消息？花多少时间，在会议里听和自己无关的讨论？花多少时间，在凌晨两点翻着手机，却什么有用的事都没做？</p>
+
+<p class="reveal"><strong>你不是没有时间。你是在把时间用在了别人的优先级上。</strong></p>
+
+<p class="reveal">茶道不需要你每天泡一个小时的工夫茶。它需要的是你每天给自己一个不被打扰的十五分钟。</p>
+
+<p class="reveal">不接电话。不看消息。只是泡一杯茶，喝完它。</p>
+
+<div class="pq reveal">
+  <blockquote>「我没有时间」这句话，翻译过来往往是：<br>「我还没有决定自己的时间属于自己。」</blockquote>
+  <cite>— Janet，某次教练对话的记录</cite>
+</div>
+
+<div class="divider reveal">· · ·</div>
+
+<div class="sec-t reveal">四种茶，对应四种你</div>
+
+<div class="practice-grid reveal">
+  <div class="pc">
+    <div class="pc-icon">🍵</div>
+    <div class="pc-title">绿茶 · 清醒时用</div>
+    <div class="pc-body">高压工作日的早晨。低温冲泡，保留鲜爽——提醒自己保持清醒判断，不要在疲惫时做重要决定。</div>
+  </div>
+  <div class="pc">
+    <div class="pc-icon">🫖</div>
+    <div class="pc-title">岩茶 · 坚持时用</div>
+    <div class="pc-body">耐泡，越泡越有层次。适合在遇到阻力、想放弃的时刻冲泡——提醒自己，好东西经得住反复。</div>
+  </div>
+  <div class="pc">
+    <div class="pc-icon">🍂</div>
+    <div class="pc-title">普洱 · 过渡时用</div>
+    <div class="pc-body">越陈越好，时间是它的朋友。在人生节点、工作转换期饮用——你积累的东西，正在慢慢发酵。</div>
+  </div>
+  <div class="pc">
+    <div class="pc-icon">🌸</div>
+    <div class="pc-title">白茶 · 疗愈时用</div>
+    <div class="pc-body">最少加工，保留最原始的状态。在感到消耗、需要补给的时候——回到最简单的自己。</div>
+  </div>
+</div>
+
+<div class="divider reveal">· · ·</div>
+
+<div class="sec-t reveal">本周的练习</div>
+
+<div class="weekly reveal">
+  <div class="wk-label">✦ 内在力 · 七天练习</div>
+  <div class="wk-title">「一杯茶的边界感」七天实践</div>
+  <div class="wk-items">
+    <div class="wk-item"><span class="wk-day">第1天</span>找一个会被打扰的时间段，泡一杯茶，把手机扣过去。只这一件事。</div>
+    <div class="wk-item"><span class="wk-day">第2天</span>观察今天有哪些时刻，你想说「等一下」但没有说。记下来。</div>
+    <div class="wk-item"><span class="wk-day">第3天</span>温杯的时候，问自己：我今天有没有先照顾自己，然后再照顾别人？</div>
+    <div class="wk-item"><span class="wk-day">第4天</span>今天有一个请求，你在回应之前，先停顿三秒。感受那三秒是什么感觉。</div>
+    <div class="wk-item"><span class="wk-day">第5天</span>七分满练习：今天有一件事，你只给七分，留三分给自己。</div>
+    <div class="wk-item"><span class="wk-day">第6天</span>完整在场：今天喝茶的时候，不做任何其他事。就只是喝茶。</div>
+    <div class="wk-item"><span class="wk-day">第7天</span>回顾这七天。哪一天最难？难在哪里？那就是你的边界感最薄弱的地方。</div>
+  </div>
+</div>
+
+<div class="sec-t reveal">最后</div>
+
+<p class="reveal">我那个朋友，后来开始每天早上泡茶。不是因为她变得更「从容」了，而是因为她决定——哪怕只有这十五分钟，是属于她自己的。</p>
+
+<p class="reveal">她说，奇怪的是，自从开始这个习惯，她发现自己在工作里也开始会说「我需要一点时间考虑」了。那杯茶，教会了她：停顿是被允许的。</p>
+
+<p class="reveal"><strong>边界感不是从拒绝别人开始的，是从允许自己开始的。</strong></p>
+
+<div class="pq reveal">
+  <blockquote>茶道的最高境界不是「技法」，是「在」。<br>在这里。在此刻。完整地。</blockquote>
+  <cite>— 茶道老师 · 匿名</cite>
+</div>
+
+<div class="cta-box reveal">
+  <h3>配套工具：「我的疗愈处方」</h3>
+  <p>做完这篇文章的七天练习之后，可以用「疗愈处方测试」找到你目前最需要的那种补给——是东方的安静，还是西方的情绪健身房？结果会给你一张专属的本周处方。</p>
+</div>
+
+</div>
+
+<footer>
+  <div class="ft-brand">她说了算 · 内在力 Vol.01</div>
+  <div class="ft-note">全球女性成长生态 · Yilin · 2026年5月</div>
+</footer>
+</main>
+
+<script>
+window.addEventListener('scroll',function(){
+  var h=document.documentElement;
+  document.getElementById('rp').style.width=(window.scrollY/(h.scrollHeight-h.clientHeight)*100)+'%';
+});
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:.06});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+</script>
+</body>
+</html>

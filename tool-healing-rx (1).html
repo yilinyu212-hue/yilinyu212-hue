@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的疗愈处方 · 内在力工具 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#1a3d2b;--moss:#2d6a4a;--sage:#52a87a;--mint:#d4ede2;
+  --sand:#f5ede4;--cream:#fdfaf5;--pale:#faf3f7;--rule:#dde8e2;
+  --text:#1e2e24;--mid:#4a6655;--light:#7a9988;
+  --plum:#3d1536;--rose:#c4587a;--amber:#b8862c;--amber-l:#f5edd8;
+  --teal:#1d4a35;--white:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;}
+
+.prog-track{height:3px;background:var(--rule);position:fixed;top:0;left:0;right:0;z-index:100;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--amber));width:0%;transition:width .4s ease;}
+
+/* Cover */
+.cover{min-height:100vh;background:var(--forest);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center;position:relative;overflow:hidden;}
+.cover::before{content:'愈';position:absolute;font-family:'Noto Serif SC',serif;font-size:360px;font-weight:700;color:rgba(255,255,255,.025);right:-40px;bottom:-60px;line-height:1;pointer-events:none;}
+.cv-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(82,168,122,.2);border:1px solid rgba(82,168,122,.3);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(180,230,200,.85);margin-bottom:22px;}
+.cv-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);}
+.cover h1{font-family:'Noto Serif SC',serif;font-size:clamp(28px,6vw,48px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:10px;}
+.cover h1 em{font-style:italic;color:rgba(210,240,220,.88);}
+.cover-sub{font-size:13.5px;color:rgba(255,255,255,.45);margin-bottom:22px;}
+.cover-desc{max-width:400px;font-size:15px;color:rgba(255,255,255,.55);line-height:1.82;margin-bottom:32px;}
+.cover-types{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:360px;margin:0 auto 36px;}
+.ct-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;text-align:left;}
+.ct-icon{font-size:20px;margin-bottom:5px;}
+.ct-name{font-size:13px;font-weight:600;color:rgba(255,255,255,.85);}
+.ct-sub{font-size:11px;color:rgba(255,255,255,.38);margin-top:2px;}
+.btn-start{padding:16px 40px;border-radius:10px;border:none;background:#fff;color:var(--forest);font-size:16px;font-weight:700;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:10px;}
+.btn-start:hover{background:var(--mint);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2);}
+.cover-hint{margin-top:14px;font-size:11.5px;color:rgba(255,255,255,.22);}
+
+/* Quiz screen */
+.quiz-screen{display:none;min-height:100vh;padding:20px 16px 60px;}
+.quiz-screen.active{display:block;}
+.q-header{max-width:560px;margin:0 auto;padding-top:24px;display:flex;align-items:center;justify-content:space-between;}
+.q-counter{font-size:12px;color:var(--light);}
+.q-counter strong{color:var(--forest);font-size:15px;}
+.q-wrap{max-width:560px;margin:0 auto;}
+.q-card{display:none;animation:pop .35s ease both;}
+.q-card.active{display:block;}
+@keyframes pop{from{opacity:0;transform:scale(.96) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+
+.q-context{background:var(--mint);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--mid);line-height:1.68;font-style:italic;margin-bottom:14px;border-left:3px solid var(--sage);}
+.q-title{font-family:'Noto Serif SC',serif;font-size:clamp(17px,4vw,22px);font-weight:600;color:var(--forest);line-height:1.4;margin-bottom:18px;}
+.options{display:flex;flex-direction:column;gap:9px;}
+.option{padding:14px 16px;border:1.5px solid var(--rule);border-radius:11px;background:var(--white);cursor:pointer;display:flex;align-items:flex-start;gap:12px;text-align:left;transition:all .18s;}
+.option:hover{border-color:var(--sage);background:var(--mint);}
+.option.chosen{border-color:var(--forest);background:var(--forest);}
+.opt-key{width:26px;height:26px;border-radius:7px;background:var(--pale);border:1px solid var(--rule);font-size:11px;font-weight:700;color:var(--forest);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s;}
+.option.chosen .opt-key{background:var(--sage);border-color:var(--sage);color:#fff;}
+.opt-text{font-size:14px;color:var(--text);line-height:1.55;transition:color .18s;}
+.opt-sub{font-size:11.5px;color:var(--light);margin-top:2px;transition:color .18s;}
+.option.chosen .opt-text,.option.chosen .opt-sub{color:rgba(255,255,255,.88);}
+.option.chosen .opt-sub{color:rgba(255,255,255,.5);}
+
+/* Result */
+.result-screen{display:none;padding:0 0 60px;}
+.result-screen.active{display:block;}
+.result-hero{padding:52px 24px 44px;text-align:center;position:relative;overflow:hidden;}
+.rh-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:14px;}
+.rh-icon{font-size:56px;display:block;margin-bottom:12px;animation:bounce .6s ease;}
+@keyframes bounce{0%{transform:scale(.5);opacity:0;}70%{transform:scale(1.1);}100%{transform:scale(1);opacity:1;}}
+.rh-type{font-family:'Noto Serif SC',serif;font-size:clamp(24px,5vw,38px);font-weight:700;line-height:1.2;margin-bottom:8px;}
+.rh-slogan{font-size:15px;font-style:italic;opacity:.75;}
+
+.result-main{max-width:560px;margin:0 auto;padding:0 20px;}
+.rb{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;margin-top:16px;overflow:hidden;animation:fadeUp .5s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.rb-head{padding:14px 18px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:10px;}
+.rb-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.rb-label{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);}
+.rb-title{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--forest);margin-top:2px;}
+.rb-body{padding:16px 18px;}
+.rb-body p{font-size:14px;color:var(--text);line-height:1.85;margin-bottom:10px;}
+.rb-body p:last-child{margin-bottom:0;}
+
+/* Prescription card */
+.rx-card{background:var(--forest);border-radius:12px;padding:22px 20px;margin-top:16px;animation:fadeUp .5s .1s ease both;}
+.rx-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(180,230,200,.7);margin-bottom:10px;}
+.rx-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:#fff;margin-bottom:14px;}
+.rx-items{display:flex;flex-direction:column;gap:10px;}
+.rx-item{display:flex;gap:12px;font-size:14px;color:rgba(255,255,255,.7);line-height:1.65;}
+.rx-pill{background:rgba(82,168,122,.25);color:rgba(180,230,200,.9);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+
+/* Share */
+.share-row{background:var(--mint);border-radius:10px;padding:14px 16px;margin-top:14px;font-size:13.5px;color:var(--mid);line-height:1.7;display:flex;align-items:center;gap:12px;animation:fadeUp .5s .2s ease both;}
+.share-icon{font-size:24px;flex-shrink:0;}
+
+.btn-restart{display:block;margin:20px auto 0;padding:11px 28px;border-radius:8px;border:1.5px solid var(--rule);background:transparent;color:var(--mid);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-restart:hover{border-color:var(--forest);color:var(--forest);}
+</style>
+</head>
+<body>
+<div class="prog-track"><div class="prog-fill" id="pf"></div></div>
+
+<script>
+var TYPES={
+  EA:{icon:"🧘",bg:"linear-gradient(135deg,#1a3d2b,#2d6a4a)",textColor:"#fff",
+    badge:"情绪健身房",badgeBg:"rgba(82,168,122,.25)",badgeColor:"rgba(180,230,200,.9)",
+    type:"情绪运动型",slogan:"你的神经系统需要一次有氧运动",
+    desc:"你目前的状态是：情绪能量积压，但找不到出口。你不缺感受力，缺的是一套让情绪安全流动的管道。西方「情绪健身房」的方法对你最有效——不是压制，是有结构地释放。",
+    rx:[
+      {tag:"本周首选",text:"每天10分钟情绪日记：不是分析，就是写下今天你感受到了什么。不评判，不建议，只是记录。"},
+      {tag:"配合练习",text:"4-7-8呼吸法：吸气4秒，屏息7秒，呼气8秒。每天早晨3轮，激活副交感神经系统。"},
+      {tag:"东方补充",text:"白茶疗愈——最少加工，最接近本真。这周的茶选白茶，配合呼吸练习，效果加倍。"},
+      {tag:"避免",text:"暂时避免高强度社交和需要大量输出的场合，让系统先充电再输出。"},
+    ]},
+  EW:{icon:"🍵",bg:"linear-gradient(135deg,#2c4a1a,#5a8a2d)",textColor:"#fff",
+    badge:"东方根系",badgeBg:"rgba(90,138,45,.25)",badgeColor:"rgba(200,230,160,.9)",
+    type:"东方滋养型",slogan:"你需要的不是更多方法，是更深的根",
+    desc:"你目前的状态是：你已经尝试了很多 wellness 方法，但感觉都在「管理」而不在「滋养」。你需要的是更慢、更古老、更接近身体本能的东西。东方传统智慧——茶、香、节气——对你最有效。",
+    rx:[
+      {tag:"本周首选",text:"茶道七天练习：每天早晨泡一杯茶，不看手机，不做其他事。就只是泡茶，喝完它。（见内在力 Vol.01）"},
+      {tag:"配合练习",text:"香道入门：在工作结束后点一支沉香或天然木质香，做5分钟「香观」——只是闻，不想任何事。"},
+      {tag:"认知层面",text:"读《道德经》第十六章「归根」——不是为了学习，是为了感受古人的节奏。"},
+      {tag:"避免",text:"暂时不要增加新的 tracking 和量化工具，让自己离数据远一点。"},
+    ]},
+  SL:{icon:"🌙",bg:"linear-gradient(135deg,#1a2a4a,#2a4a8b)",textColor:"#fff",
+    badge:"寂静经济",badgeBg:"rgba(42,74,139,.25)",badgeColor:"rgba(180,200,240,.9)",
+    type:"深度休息型",slogan:"你的系统需要一次真正的关机重启",
+    desc:"你目前的状态是：慢性疲劳，但说不清楚哪里出了问题。你可能睡了觉但没有真正休息，工作了但没有真正在场。你需要的不是「更好的时间管理」，是一次真正的减速——让神经系统从长期的过载模式里退出来。",
+    rx:[
+      {tag:"本周首选",text:"数字断舍离实验：选择一天或半天，关掉所有通知，不看社交媒体。记录关掉之后你第一个想做的事。"},
+      {tag:"配合练习",text:"睡眠仪式设计：睡前一小时不看屏幕，换成阅读、泡脚、或静坐。不需要冥想，只需要减速。"},
+      {tag:"东方补充",text:"节气养生：查一下今天是哪个节气，当季最适合的一种食物是什么，这周吃一次。"},
+      {tag:"避免",text:"不要在这个阶段给自己增加新的学习任务和目标，先让存量稳定再新增增量。"},
+    ]},
+  BL:{icon:"🌿",bg:"linear-gradient(135deg,#3d2010,#8b4513)",textColor:"#fff",
+    badge:"身体主权",badgeBg:"rgba(139,69,19,.25)",badgeColor:"rgba(230,200,160,.9)",
+    type:"身体智慧型",slogan:"你的答案在身体里，不在头脑里",
+    desc:"你目前的状态是：你可能在头脑层面已经想得很清楚，但身体却在说另一套话——疲惫、紧绷、或者某种说不清的「不对劲」。你需要重新和身体建立连接，让身体也成为你决策的一部分。",
+    rx:[
+      {tag:"本周首选",text:"Somatic 扫描：每天早晨醒来不要立刻看手机，闭眼2分钟，从脚到头感受身体每个部位的状态。不需要改变，只是感受。"},
+      {tag:"配合练习",text:"情绪-身体对照练习：这周当你感到某种情绪时，注意一下它在身体的哪个位置——胸口？肩膀？胃？"},
+      {tag:"东方补充",text:"月经（或月周期）精力历：记录本周你的精力高低与荷尔蒙周期的对应关系，找到你自己的节律。"},
+      {tag:"避免",text:"不要用意志力强行推进疲惫状态下的大决策，身体发出的信号是数据，不是软弱。"},
+    ]},
+};
+
+var QUESTIONS=[
+  {q:"这周你最常有的那种感觉是？",
+   opts:[
+    {t:"情绪像压着盖子，有东西想出来但出不来",type:"EA"},
+    {t:"忙而空洞，做了很多但感受不到什么",type:"SL"},
+    {t:"身体有点紧绷，但说不清楚哪里",type:"BL"},
+    {t:"想找一种「根」的感觉，但不知道从哪里开始",type:"EW"},
+   ]},
+  {q:"如果现在有一个完整的周末下午，你最想做什么？",
+   opts:[
+    {t:"把脑子里积压的东西写出来，或者和朋友说出来",type:"EA"},
+    {t:"什么都不做，就发呆，或者睡觉",type:"SL"},
+    {t:"做一件需要用手的事：烹饪、拼图、或者整理",type:"BL"},
+    {t:"泡茶，点香，或者读一些和工作无关的书",type:"EW"},
+   ]},
+  {q:"你上一次真正感到「补充到能量」是什么情景？",
+   opts:[
+    {t:"和某个懂我的人有一次深入的对话",type:"EA"},
+    {t:"一次完全断网的旅行或安静的独处",type:"SL"},
+    {t:"做了某件我从头到尾专注完成的事",type:"BL"},
+    {t:"在自然里，或者一个慢节奏的空间里",type:"EW"},
+   ]},
+  {q:"目前最消耗你能量的是？",
+   opts:[
+    {t:"关系——某些人或某些互动让我觉得很累",type:"EA"},
+    {t:"信息量——总觉得要跟上但跟不上",type:"SL"},
+    {t:"不确定性——身体感知到压力但大脑不知道原因",type:"BL"},
+    {t:"节奏太快——我需要慢下来但不知道怎么停",type:"EW"},
+   ]},
+  {q:"对「wellness」这个词，你现在的感受更接近？",
+   opts:[
+    {t:"需要——我知道自己缺什么，但没有工具",type:"EA"},
+    {t:"疲惫——我已经试了很多，但都没太有用",type:"EW"},
+    {t:"好奇——我想找一种适合我的方式",type:"BL"},
+    {t:"抗拒——「wellness」这个词有点让我焦虑",type:"SL"},
+   ]},
+  {q:"这周你想给自己一个什么样的礼物？",
+   opts:[
+    {t:"一次被好好倾听的机会",type:"EA"},
+    {t:"一段完全不被打扰的安静时光",type:"SL"},
+    {t:"一个让我全神贯注做一件事的空间",type:"BL"},
+    {t:"一种连接传统或自然的体验",type:"EW"},
+   ]},
+];
+
+var scores={EA:0,EW:0,SL:0,BL:0};
+var cur=0;
+var KEYS=['A','B','C','D'];
+
+function buildQuiz(){
+  var box=document.getElementById('qbox');
+  var html='';
+  QUESTIONS.forEach(function(q,i){
+    html+='<div class="q-card'+(i===0?' active':'')+'" id="qq'+i+'">';
+    html+='<div class="q-title">'+q.q+'</div>';
+    html+='<div class="options">';
+    q.opts.forEach(function(o,j){
+      html+='<button class="option" onclick="pick('+i+',\''+o.type+'\',this)">';
+      html+='<div class="opt-key">'+KEYS[j]+'</div>';
+      html+='<div class="opt-body"><div class="opt-text">'+o.t+'</div></div>';
+      html+='</button>';
+    });
+    html+='</div></div>';
+  });
+  box.innerHTML=html;
+}
+
+function pick(qi,type,btn){
+  document.querySelectorAll('#qq'+qi+' .option').forEach(function(o){o.classList.remove('chosen');});
+  btn.classList.add('chosen');
+  scores[type]++;
+  document.getElementById('pf').style.width=Math.round((qi+1)/QUESTIONS.length*100)+'%';
+  setTimeout(function(){
+    document.getElementById('qq'+qi).classList.remove('active');
+    var next=qi+1;
+    if(next<QUESTIONS.length){
+      document.getElementById('qq'+next).classList.add('active');
+      document.getElementById('qn').textContent=next+1;
+      window.scrollTo({top:0,behavior:'smooth'});
+    } else {
+      showResult();
+    }
+  },320);
+}
+
+function showResult(){
+  document.getElementById('quizScreen').classList.remove('active');
+  var rs=document.getElementById('resultScreen');
+  rs.classList.add('active');
+  document.getElementById('pf').style.width='100%';
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  var winner=Object.entries(scores).sort(function(a,b){return b[1]-a[1];})[0][0];
+  var r=TYPES[winner];
+
+  var hero=document.getElementById('rHero');
+  hero.style.background=r.bg;
+  document.getElementById('rBadge').style.background=r.badgeBg;
+  document.getElementById('rBadge').style.color=r.badgeColor;
+  document.getElementById('rBadge').textContent='✦ '+r.badge;
+  document.getElementById('rIcon').textContent=r.icon;
+  document.getElementById('rType').style.color=r.textColor;
+  document.getElementById('rType').textContent=r.type;
+  document.getElementById('rSlogan').style.color=r.textColor;
+  document.getElementById('rSlogan').textContent='「'+r.slogan+'」';
+
+  var main=document.getElementById('rMain');
+  main.innerHTML=
+    '<div class="rb" style="animation-delay:.1s"><div class="rb-head"><div class="rb-icon" style="background:var(--mint)">'+r.icon+'</div><div><div class="rb-label">你的疗愈类型</div><div class="rb-title">'+r.type+' · '+r.badge+'</div></div></div><div class="rb-body"><p>'+r.desc+'</p></div></div>'+
+    '<div class="rx-card"><div class="rx-label">✦ 你的专属疗愈处方</div><div class="rx-title">本周从这里开始</div><div class="rx-items">'+
+      r.rx.map(function(item){
+        return '<div class="rx-item"><span class="rx-pill">'+item.tag+'</span><span>'+item.text+'</span></div>';
+      }).join('')+
+    '</div></div>'+
+    '<div class="share-row"><div class="share-icon">💬</div><div>把你的疗愈类型发给朋友，看看她是什么类型——不同类型的人放在一起，往往能互相补充彼此缺少的能量。</div></div>'+
+    '<button class="btn-restart" onclick="restartQuiz()">↩ 重新测一次</button>';
+}
+
+function restartQuiz(){
+  scores={EA:0,EW:0,SL:0,BL:0};
+  cur=0;
+  document.getElementById('resultScreen').classList.remove('active');
+  document.getElementById('coverScreen').style.display='flex';
+  document.getElementById('pf').style.width='0%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function startQuiz(){
+  document.getElementById('coverScreen').style.display='none';
+  document.getElementById('quizScreen').classList.add('active');
+  buildQuiz();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+<!-- Cover -->
+<section id="coverScreen" class="cover">
+  <div class="cv-badge"><div class="cv-dot"></div>她说了算 · 内在力工具</div>
+  <h1>我的<em>疗愈处方</em></h1>
+  <p class="cover-sub">Healing Prescription · 找到你现在最需要的那种补给</p>
+  <p class="cover-desc">6道情景题，不需要思考太久，按直觉选。结果告诉你：你目前最需要的是哪种疗愈方式，以及本周可以开始的具体处方。</p>
+  <div class="cover-types">
+    <div class="ct-card"><div class="ct-icon">🧘</div><div class="ct-name">情绪健身房</div><div class="ct-sub">西方情绪调节</div></div>
+    <div class="ct-card"><div class="ct-icon">🍵</div><div class="ct-name">东方根系</div><div class="ct-sub">茶·香·国学</div></div>
+    <div class="ct-card"><div class="ct-icon">🌙</div><div class="ct-name">寂静经济</div><div class="ct-sub">深度减速</div></div>
+    <div class="ct-card"><div class="ct-icon">🌿</div><div class="ct-name">身体主权</div><div class="ct-sub">躯体智慧</div></div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">开始测试 <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <p class="cover-hint">约2分钟完成 · 结果即时显示 · 不存储数据</p>
+</section>
+
+<!-- Quiz -->
+<section id="quizScreen" class="quiz-screen">
+  <div class="q-header">
+    <div class="q-counter">问题 <strong id="qn">1</strong> / 6</div>
+  </div>
+  <div class="q-wrap" id="qbox"></div>
+</section>
+
+<!-- Result -->
+<section id="resultScreen" class="result-screen">
+  <div class="result-hero" id="rHero">
+    <div class="rh-badge" id="rBadge"></div>
+    <span class="rh-icon" id="rIcon"></span>
+    <div class="rh-type" id="rType"></div>
+    <div class="rh-slogan" id="rSlogan"></div>
+  </div>
+  <div class="result-main" id="rMain"></div>
+</section>
+</body>
+</html>

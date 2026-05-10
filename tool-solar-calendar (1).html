@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>节气精力历 · 内在力工具 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#1a3d2b;--moss:#2d6a4a;--sage:#52a87a;--mint:#d4ede2;
+  --sand:#f5ede4;--cream:#fdfaf5;--pale:#faf3f7;--rule:#dde8e2;
+  --text:#1e2e24;--mid:#4a6655;--light:#7a9988;
+  --plum:#3d1536;--rose:#c4587a;--amber:#b8862c;--amber-l:#f5edd8;
+  --white:#fff;
+  /* seasons */
+  --spring:#4a8a3a; --summer:#c4587a; --autumn:#b8862c; --winter:#2a4a8b;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;}
+
+/* Masthead */
+.mast{background:var(--forest);padding:40px 24px 36px;text-align:center;position:relative;overflow:hidden;}
+.mast::before{content:'节';position:absolute;right:-20px;bottom:-40px;font-family:'Noto Serif SC',serif;font-size:280px;font-weight:700;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;}
+.mast-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(82,168,122,.2);border:1px solid rgba(82,168,122,.3);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(180,230,200,.85);margin-bottom:16px;}
+.mast h1{font-family:'Noto Serif SC',serif;font-size:clamp(26px,5vw,40px);font-weight:700;color:#fff;margin-bottom:8px;}
+.mast h1 em{font-style:italic;color:rgba(210,240,220,.88);}
+.mast-sub{font-size:13px;color:rgba(255,255,255,.38);margin-bottom:16px;}
+.mast-desc{font-size:14px;color:rgba(255,255,255,.5);line-height:1.75;max-width:480px;margin:0 auto;}
+
+/* Season tabs */
+.season-nav{position:sticky;top:0;z-index:100;background:rgba(253,250,245,.97);border-bottom:1px solid var(--rule);backdrop-filter:blur(10px);}
+.sn-inner{max-width:760px;margin:0 auto;padding:0 16px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.sn-inner::-webkit-scrollbar{display:none;}
+.sn-btn{padding:12px 18px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--light);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;}
+.sn-btn.active{border-bottom-color:currentColor;}
+.sn-btn.spring{color:var(--spring);} .sn-btn.spring.active{color:var(--spring);}
+.sn-btn.summer{color:var(--summer);} .sn-btn.summer.active{color:var(--summer);}
+.sn-btn.autumn{color:var(--autumn);} .sn-btn.autumn.active{color:var(--autumn);}
+.sn-btn.winter{color:var(--winter);} .sn-btn.winter.active{color:var(--winter);}
+
+/* Main */
+.page{max-width:760px;margin:0 auto;padding:0 16px 80px;}
+
+/* Current highlight */
+.current-banner{margin:28px 0;background:var(--forest);border-radius:14px;padding:22px 22px;position:relative;overflow:hidden;}
+.current-banner::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(82,168,122,.1);}
+.cb-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(82,168,122,.8);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.cb-dot{width:7px;height:7px;border-radius:50%;background:var(--sage);}
+.cb-jieqi{font-family:'Noto Serif SC',serif;font-size:clamp(22px,5vw,32px);font-weight:700;color:#fff;margin-bottom:5px;}
+.cb-date{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:12px;font-family:'DM Mono',monospace;}
+.cb-desc{font-size:14px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:14px;}
+.cb-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.cb-tag{background:rgba(255,255,255,.08);color:rgba(255,255,255,.65);padding:4px 11px;border-radius:20px;font-size:12px;font-weight:600;}
+.cb-tag.highlight{background:rgba(82,168,122,.2);color:rgba(180,230,200,.9);}
+
+/* Season section */
+.season-section{display:none;padding-top:32px;}
+.season-section.active{display:block;animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+.ss-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid;}
+
+.ss-icon{font-size:40px;}
+.ss-title{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:600;}
+.ss-sub{font-size:13px;color:var(--light);margin-top:2px;}
+.ss-month{font-family:'DM Mono',monospace;font-size:11px;margin-top:4px;}
+
+/* Jieqi grid */
+.jq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px;}
+.jq-card{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .25s;}
+.jq-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,61,43,.08);}
+.jq-card.current{border-width:2px;}
+.jq-card.current .jq-name::after{content:'← 现在';font-size:9px;background:var(--sage);color:#fff;padding:1px 5px;border-radius:3px;margin-left:6px;font-weight:700;}
+.jq-top{padding:14px 14px 10px;position:relative;}
+.jq-season-dot{width:6px;height:6px;border-radius:50%;position:absolute;top:10px;right:10px;}
+.jq-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--light);margin-bottom:5px;}
+.jq-name{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;}
+.jq-en{font-size:10px;color:var(--light);margin-top:2px;letter-spacing:.06em;}
+.jq-body{padding:0 14px 14px;}
+.jq-energy{display:flex;align-items:center;gap:6px;margin-bottom:7px;}
+.jq-energy-label{font-size:10px;color:var(--light);white-space:nowrap;}
+.jq-bar{flex:1;height:4px;background:var(--rule);border-radius:2px;overflow:hidden;}
+.jq-fill{height:100%;border-radius:2px;transition:width .6s ease;}
+.jq-keyword{font-size:11.5px;color:var(--mid);font-weight:600;}
+
+/* Detail panel */
+.detail-panel{background:var(--white);border:1.5px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:24px;display:none;}
+.detail-panel.show{display:block;animation:fadeIn .35s ease;}
+.dp-head{padding:18px 20px 14px;border-bottom:1px solid var(--rule);}
+.dp-name{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;margin-bottom:3px;}
+.dp-date{font-family:'DM Mono',monospace;font-size:12px;color:var(--light);}
+.dp-body{padding:18px 20px;}
+.dp-section{margin-bottom:16px;}
+.dp-section:last-child{margin-bottom:0;}
+.dp-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:7px;}
+.dp-text{font-size:14px;color:var(--mid);line-height:1.78;}
+.dp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
+.dp-item{background:var(--pale);border-radius:8px;padding:10px 12px;}
+.dp-item-icon{font-size:16px;margin-bottom:4px;}
+.dp-item-title{font-size:12.5px;font-weight:600;color:var(--forest);margin-bottom:2px;}
+.dp-item-desc{font-size:11.5px;color:var(--mid);}
+.dp-close{margin-top:12px;padding:8px 18px;border-radius:8px;border:1.5px solid var(--rule);background:transparent;color:var(--mid);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
+.dp-close:hover{border-color:var(--forest);color:var(--forest);}
+
+/* Year wheel visual */
+.year-wheel{background:var(--white);border:1.5px solid var(--rule);border-radius:14px;padding:20px;margin:24px 0;text-align:center;}
+.yw-title{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:var(--forest);margin-bottom:16px;}
+.yw-legend{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:14px;}
+.yw-item{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--mid);}
+.yw-dot{width:8px;height:8px;border-radius:50%;}
+
+@media(max-width:560px){
+  .jq-grid{grid-template-columns:1fr 1fr;}
+  .dp-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<script>
+var TODAY = new Date('2026-05-08');
+
+var JIEQI = [
+  // Spring
+  {name:"立春",en:"Start of Spring",date:"2026-02-04",season:"spring",energy:70,keyword:"萌发 · 起步",
+   element:"木",advice:"适合启动新计划，整理冬季积压的想法。精力开始回升，但根基还不稳——先播种，不要急于收获。",
+   work:"开始制定年度目标，优先级梳理，新项目启动",
+   rest:"早睡早起，吃韭菜、豆芽等生发食物",
+   avoid:"避免过度消耗——春气上升但底子薄",
+   ritual:"清晨10分钟，把今年想做的事写在纸上，不评判",
+   items:[
+     {icon:"🌱",title:"立项",desc:"适合启动新项目"},
+     {icon:"📝",title:"规划",desc:"年度目标细化"},
+     {icon:"🥬",title:"食补",desc:"韭菜、豆芽、香椿"},
+     {icon:"🌅",title:"作息",desc:"早起迎晨光"},
+   ]},
+  {name:"雨水",en:"Rain Water",date:"2026-02-19",season:"spring",energy:65,keyword:"滋润 · 积蓄",
+   element:"木",advice:"雨润万物，这是积累内功的时期。不适合大规模行动，适合深入学习和关系经营。",
+   work:"深度学习，阅读，关系维护，整理资料",
+   rest:"注意湿气，少吃生冷，多喝温热饮品",
+   avoid:"避免大规模的公开发布或资源投入",
+   ritual:"每天喝一杯温热的茶，读20分钟和工作无关的书",
+   items:[
+     {icon:"📚",title:"学习",desc:"深度阅读"},
+     {icon:"🤝",title:"关系",desc:"联络老朋友"},
+     {icon:"🫖",title:"饮食",desc:"温热饮品"},
+     {icon:"✍️",title:"整理",desc:"整理笔记和资料"},
+   ]},
+  {name:"惊蛰",en:"Awakening of Insects",date:"2026-03-06",season:"spring",energy:78,keyword:"行动 · 清肃",
+   element:"木",advice:"春雷乍响，万物复苏。这是全年最适合「出手」的节气之一——行动力强，决策清晰，适合推进被搁置的事。",
+   work:"推进重要项目，做出之前一直拖延的决策",
+   rest:"肝气旺盛，注意情绪管理，不要积压愤怒",
+   avoid:"避免冲动决策，旺盛的能量需要方向",
+   ritual:"列出三件拖延已久的事，今天完成其中一件",
+   items:[
+     {icon:"⚡",title:"行动",desc:"推进搁置项目"},
+     {icon:"🎯",title:"决策",desc:"做出关键选择"},
+     {icon:"🧘",title:"情绪",desc:"疏肝理气"},
+     {icon:"🌿",title:"食补",desc:"清淡饮食"},
+   ]},
+  {name:"春分",en:"Spring Equinox",date:"2026-03-20",season:"spring",energy:85,keyword:"平衡 · 绽放",
+   element:"木",advice:"昼夜等长，阴阳平衡。全年精力最均衡的时期——头脑清晰，身体轻盈，关系和谐。这是「做对事」的最好时机。",
+   work:"重要谈判，关键展示，人际关系推进",
+   rest:"户外活动，呼吸新鲜空气，均衡饮食",
+   avoid:"避免打破节奏——这段时间的状态值得珍惜",
+   ritual:"感恩练习：写下三件目前进展顺利的事",
+   items:[
+     {icon:"⚖️",title:"平衡",desc:"评估各方面状态"},
+     {icon:"🌸",title:"社交",desc:"重要关系推进"},
+     {icon:"🚶",title:"运动",desc:"户外步行30分钟"},
+     {icon:"🌺",title:"感恩",desc:"记录好事"},
+   ]},
+  {name:"清明",en:"Clear and Bright",date:"2026-04-05",season:"spring",energy:80,keyword:"清晰 · 扫除",
+   element:"木",advice:"天清地明，万物洁净。适合「清理」——清理积压的工作、关系里的误会、内心的未竟事宜。",
+   work:"复盘上季度，处理遗留问题，清理文件和任务",
+   rest:"踏青、扫墓——与过去和解，为新生腾出空间",
+   avoid:"避免新的大型承诺——先清理再新增",
+   ritual:"清空收件箱，归档三个月以上未处理的事",
+   items:[
+     {icon:"🧹",title:"清理",desc:"清空积压工作"},
+     {icon:"📂",title:"归档",desc:"整理文件资料"},
+     {icon:"🌿",title:"踏青",desc:"户外走一走"},
+     {icon:"💬",title:"和解",desc:"处理未了的关系"},
+   ]},
+  {name:"谷雨",en:"Grain Rain",date:"2026-04-20",season:"spring",energy:75,keyword:"充实 · 储备",
+   element:"木",advice:"春末最后一场雨，为即将到来的繁忙夏季充能。这是准备期，不是收获期——把资源储备好。",
+   work:"完成春季目标，准备夏季计划，培训和学习投入",
+   rest:"滋补肝肾，多吃香椿、豆类",
+   avoid:"避免过度透支——夏季将至，保存实力",
+   ritual:"评估上半年计划完成度，调整下半年节奏",
+   items:[
+     {icon:"📊",title:"复盘",desc:"上半年评估"},
+     {icon:"🎓",title:"学习",desc:"技能投入期"},
+     {icon:"🥜",title:"食补",desc:"豆类、坚果"},
+     {icon:"💾",title:"储备",desc:"为夏季准备资源"},
+   ]},
+  // Summer
+  {name:"立夏",en:"Start of Summer",date:"2026-05-06",season:"summer",energy:88,keyword:"上升 · 开放",
+   element:"火",advice:"夏季正式开启，能量充沛，外向扩张。适合高强度输出，领导力展现，重要关系深化。注意：能量高不代表能持续，及时补充。",
+   work:"重要项目冲刺，演讲和展示，团队协作密集期",
+   rest:"午睡20分钟，保护心气，避免过度兴奋",
+   avoid:"避免情绪失控——夏季火气旺，易激动",
+   ritual:"每天设定一个「今日最重要的一件事」，完成它",
+   items:[
+     {icon:"🚀",title:"冲刺",desc:"重要目标推进"},
+     {icon:"🎤",title:"展示",desc:"演讲和汇报"},
+     {icon:"😴",title:"午睡",desc:"20分钟补充能量"},
+     {icon:"❄️",title:"降火",desc:"绿豆汤、苦瓜"},
+   ]},
+  {name:"小满",en:"Grain Buds",date:"2026-05-21",season:"summer",energy:90,keyword:"充盈 · 临界",
+   element:"火",advice:"万物丰满但未全熟——这是最微妙的状态：充盈而不溢，满而留余地。警惕过度自信和过度承诺。",
+   work:"评估当前项目状态，避免一次性推进太多",
+   rest:"滋阴降火，多喝水，减少辛辣",
+   avoid:"避免「小满则盈」的骄傲自满——保持谦逊和警觉",
+   ritual:"七分满原则：今天有没有什么答应了但其实可以拒绝的？",
+   items:[
+     {icon:"⚠️",title:"检视",desc:"清点承诺数量"},
+     {icon:"🎯",title:"聚焦",desc:"减少同时进行的事"},
+     {icon:"💧",title:"补水",desc:"每天2L水"},
+     {icon:"📖",title:"沉淀",desc:"读书而不只做事"},
+   ]},
+  {name:"芒种",en:"Grain in Ear",date:"2026-06-06",season:"summer",energy:85,keyword:"收割 · 播种",
+   element:"火",advice:"芒种者，有芒之种可稼种也。收割上半年的成果，同时播下下半年的种子。是行动力与思考力并进的节气。",
+   work:"推进上半年收尾，同时开始布局下半年",
+   rest:"天气渐热，注意睡眠质量，保护消化系统",
+   avoid:"避免拖延——芒种不种，秋天空仓",
+   ritual:"写下上半年最大的三个收获和三个遗憾",
+   items:[
+     {icon:"🌾",title:"收割",desc:"上半年成果总结"},
+     {icon:"🌱",title:"播种",desc:"下半年计划启动"},
+     {icon:"🌙",title:"睡眠",desc:"优化睡眠环境"},
+     {icon:"🍓",title:"食补",desc:"应季果蔬"},
+   ]},
+  {name:"夏至",en:"Summer Solstice",date:"2026-06-21",season:"summer",energy:92,keyword:"顶峰 · 转折",
+   element:"火",advice:"一年中白天最长，阳气最盛。同时也是「极」——极则反，这一天之后阳气开始收敛。高光时刻，也是需要保护能量的时刻。",
+   work:"年度最重要的展示或谈判，年中复盘",
+   rest:"静养——夏至养心，不要让心神太耗散",
+   avoid:"避免过度庆祝和消耗，极峰之后是调整期",
+   ritual:"年中检视：我今年真正想要的是什么？还在追吗？",
+   items:[
+     {icon:"☀️",title:"顶峰",desc:"年中最重要的事"},
+     {icon:"🪞",title:"检视",desc:"年中目标复盘"},
+     {icon:"🧊",title:"清凉",desc:"避暑养心"},
+     {icon:"🌊",title:"流动",desc:"保持心神清静"},
+   ]},
+  {name:"小暑",en:"Minor Heat",date:"2026-07-07",season:"summer",energy:80,keyword:"调适 · 收敛",
+   element:"火",advice:"暑气渐重，能量开始调整转向。外部的热需要内部的冷静来平衡——这是练习情绪稳定性的好时机。",
+   work:"稳步推进，不适合新的重大启动，做好现有项目",
+   rest:"冬病夏治——利用阳气最旺时治疗宿疾",
+   avoid:"避免在高温下做重要决策——情绪容易波动",
+   ritual:"情绪追踪一周：每天记录情绪状态和触发点",
+   items:[
+     {icon:"🌡️",title:"体温",desc:"规律作息降燥"},
+     {icon:"🎭",title:"情绪",desc:"高温情绪管理"},
+     {icon:"🍉",title:"食补",desc:"西瓜、绿豆"},
+     {icon:"🌊",title:"降暑",desc:"游泳或冷水足浴"},
+   ]},
+  {name:"大暑",en:"Major Heat",date:"2026-07-23",season:"summer",energy:72,keyword:"极热 · 蓄力",
+   element:"火",advice:"一年最热，阳气最旺但也最耗。「大暑不热，五谷不结」——极端条件下反而有机会。但要特别注意能量管理。",
+   work:"完成高强度任务，为秋季的收获做最后冲刺",
+   rest:"三伏天重点保养，充足睡眠，避免贪凉",
+   avoid:"避免长期高强度透支——秋季需要你有余力",
+   ritual:"每天睡前问自己：今天有没有给身体足够的休息？",
+   items:[
+     {icon:"⚡",title:"冲刺",desc:"夏末最后高强度"},
+     {icon:"🌙",title:"睡眠",desc:"保证7-8小时"},
+     {icon:"🏊",title:"降温",desc:"游泳或泡脚"},
+     {icon:"🫖",title:"补气",desc:"姜茶、红枣"},
+   ]},
+  // Autumn
+  {name:"立秋",en:"Start of Autumn",date:"2026-08-07",season:"autumn",energy:75,keyword:"转向 · 收敛",
+   element:"金",advice:"秋始。能量开始由外向内转，这是「收」的开始——收果实、收感受、收方向。夏季播下的种子，现在要看成果了。",
+   work:"评估夏季项目成果，开始规划Q4，重点收割",
+   rest:"秋燥，注意滋润——多喝水，少辛辣",
+   avoid:"避免继续新的大型铺张——开始专注收敛",
+   ritual:"列出今年已经完成的五件事，感受一下",
+   items:[
+     {icon:"🍂",title:"收割",desc:"夏季成果评估"},
+     {icon:"📐",title:"规划",desc:"Q4方向确定"},
+     {icon:"💧",title:"滋润",desc:"秋燥防护"},
+     {icon:"🍐",title:"食补",desc:"梨、百合"},
+   ]},
+  {name:"处暑",en:"End of Heat",date:"2026-08-23",season:"autumn",energy:78,keyword:"退潮 · 清晰",
+   element:"金",advice:"暑气消退，天高气爽，头脑最清晰的时期之一。适合需要深度思考和战略判断的工作。",
+   work:"战略规划，复杂分析，长期决策",
+   rest:"天气渐凉，注意关节保暖",
+   avoid:"避免情绪拖延——清醒时做清醒的决定",
+   ritual:"独处半天，为年底做一次深度思考",
+   items:[
+     {icon:"🧠",title:"战略",desc:"深度思考时机"},
+     {icon:"📊",title:"分析",desc:"复杂决策"},
+     {icon:"🧣",title:"保暖",desc:"注意关节"},
+     {icon:"🌕",title:"清晰",desc:"月光下散步"},
+   ]},
+  {name:"白露",en:"White Dew",date:"2026-09-08",season:"autumn",energy:72,keyword:"沉淀 · 收心",
+   element:"金",advice:"夜露初显，秋意渐浓。这是沉淀内心的时期——外部能量减弱，内部智慧开始显现。适合深度创作和反思。",
+   work:"内容创作，写作，深度思考，知识总结",
+   rest:"滋阴润肺，早睡早起，避免悲秋情绪",
+   avoid:"避免过度孤独——白露易生忧愁，保持适度社交",
+   ritual:"写一篇「今年我学到了什么」的内部文章",
+   items:[
+     {icon:"✍️",title:"写作",desc:"创作旺盛期"},
+     {icon:"🎵",title:"音乐",desc:"听古典或传统音乐"},
+     {icon:"🍯",title:"食补",desc:"蜂蜜、银耳"},
+     {icon:"👥",title:"连接",desc:"适度社交防秋愁"},
+   ]},
+  {name:"秋分",en:"Autumnal Equinox",date:"2026-09-23",season:"autumn",energy:80,keyword:"平衡 · 感恩",
+   element:"金",advice:"与春分对应，又一次昼夜等长。这是感恩和平衡的节气——回望上半年，感受这一年的丰收。",
+   work:"年度项目冲刺，关键关系总结，年度演讲准备",
+   rest:"户外活动，感受秋天的美",
+   avoid:"避免后悔和自责——这是感恩节气，不是批判节气",
+   ritual:"给五个对你今年有帮助的人发一条感谢消息",
+   items:[
+     {icon:"🙏",title:"感恩",desc:"表达谢意"},
+     {icon:"🍎",title:"丰收",desc:"年度成果可视化"},
+     {icon:"🌙",title:"户外",desc:"秋日散步"},
+     {icon:"📝",title:"总结",desc:"年度故事初稿"},
+   ]},
+  {name:"寒露",en:"Cold Dew",date:"2026-10-08",season:"autumn",energy:68,keyword:"深入 · 专注",
+   element:"金",advice:"寒意渐浓，适合深度工作。能量继续内收，外部干扰减少，是全年专注力最好的时期之一。",
+   work:"深度工作，重要项目收尾，年末准备",
+   rest:"足部保暖，滋阴补肾，规律作息",
+   avoid:"避免散漫——寒露的专注力是礼物，珍惜它",
+   ritual:"设定年末前最重要的三个目标，倒推时间节点",
+   items:[
+     {icon:"🎯",title:"深度",desc:"专注力最强期"},
+     {icon:"📅",title:"规划",desc:"年末目标倒推"},
+     {icon:"🧦",title:"保暖",desc:"足部保暖"},
+     {icon:"🍜",title:"食补",desc:"温补肾气"},
+   ]},
+  {name:"霜降",en:"Frost's Descent",date:"2026-10-23",season:"autumn",energy:65,keyword:"收藏 · 告别",
+   element:"金",advice:"秋末，万物告别生长季。这是收藏智慧、整理收获、为冬季蓄力的关键时期。",
+   work:"完成秋季项目，整理年度经验，为来年布局",
+   rest:"重点滋补，增加营养，保护免疫力",
+   avoid:"避免启动新的大型项目——为冬季留出空间",
+   ritual:"年末复盘初稿：今年最有价值的三个决策",
+   items:[
+     {icon:"📦",title:"整理",desc:"归档和总结"},
+     {icon:"🍠",title:"食补",desc:"红薯、板栗"},
+     {icon:"🛁",title:"养身",desc:"泡澡或泡脚"},
+     {icon:"📖",title:"阅读",desc:"为冬季囤书"},
+   ]},
+  // Winter
+  {name:"立冬",en:"Start of Winter",date:"2026-11-07",season:"winter",energy:60,keyword:"蛰伏 · 储能",
+   element:"水",advice:"冬季正式开始。自然界进入蛰伏，人也应该收藏能量，减少不必要的消耗。这不是懒惰，是智慧。",
+   work:"战略规划，深度学习，关系维护，为来年蓄力",
+   rest:"早睡晚起，保护肾气，少汗为宜",
+   avoid:"避免大量消耗——冬储的能量是来年春天爆发的基础",
+   ritual:"今年剩余时间，最重要的一件事是什么？只选一件。",
+   items:[
+     {icon:"🌙",title:"早睡",desc:"冬季作息调整"},
+     {icon:"📚",title:"学习",desc:"深度阅读期"},
+     {icon:"🍲",title:"食补",desc:"羊肉、核桃"},
+     {icon:"🔥",title:"保暖",desc:"防寒保温"},
+   ]},
+  {name:"小雪",en:"Minor Snow",date:"2026-11-22",season:"winter",energy:58,keyword:"内敛 · 静思",
+   element:"水",advice:"初雪之前。能量高度内收，适合冥想、深度思考和内省。外部世界开始安静，内部世界开始清晰。",
+   work:"年度总结初稿，战略思考，深度阅读",
+   rest:"晒太阳，避免抑郁情绪，保持室内温暖",
+   avoid:"避免在这个时期大量社交和输出",
+   ritual:"每天傍晚5分钟冥想或静坐，不需要任何目的",
+   items:[
+     {icon:"☀️",title:"晒太阳",desc:"防止冬季情绪低落"},
+     {icon:"🧘",title:"冥想",desc:"每日5分钟静坐"},
+     {icon:"📓",title:"日记",desc:"年度内省记录"},
+     {icon:"🍵",title:"喝茶",desc:"温补类茶饮"},
+   ]},
+  {name:"大雪",en:"Major Snow",date:"2026-12-07",season:"winter",energy:55,keyword:"深藏 · 充电",
+   element:"水",advice:"深冬。万物深藏，这是全年精力最低的时期——也是最需要给自己许可「不做事」的时期。",
+   work:"收尾年度项目，不要启动新的重大事项",
+   rest:"充足睡眠，重点滋补",
+   avoid:"避免自我批判——冬天就应该慢",
+   ritual:"给明年的自己写一封信：你希望她是什么样的？",
+   items:[
+     {icon:"💤",title:"休眠",desc:"允许自己休息"},
+     {icon:"✉️",title:"书信",desc:"给未来自己写信"},
+     {icon:"🥘",title:"食补",desc:"暖身滋补食物"},
+     {icon:"🎁",title:"收藏",desc:"整理今年礼物"},
+   ]},
+  {name:"冬至",en:"Winter Solstice",date:"2026-12-22",season:"winter",energy:50,keyword:"最深 · 转机",
+   element:"水",advice:"一年最短的白天，阴气最盛——但也是阳气开始回归的时刻。最低点也是转折点。这一天，感受黑暗，也感受即将到来的光。",
+   work:"年度终极复盘，写下来年最重要的一个意图",
+   rest:"全家团聚，吃饺子或汤圆，感受联结",
+   avoid:"避免独自哀愁——冬至需要温暖和连接",
+   ritual:"感恩今年经历的一切，包括那些困难",
+   items:[
+     {icon:"🕯️",title:"仪式",desc:"冬至家庭仪式"},
+     {icon:"🤲",title:"感恩",desc:"感谢今年所有"},
+     {icon:"🥟",title:"团圆",desc:"饺子/汤圆"},
+     {icon:"🌟",title:"立意",desc:"明年核心意图"},
+   ]},
+  {name:"小寒",en:"Minor Cold",date:"2027-01-05",season:"winter",energy:52,keyword:"磨砺 · 坚持",
+   element:"水",advice:"寒冬最后阶段。此时寒冷考验意志，但春天已经在路上。保持节奏，不要因为冬日漫长而放弃计划。",
+   work:"为新年启动做准备，不要完全停止",
+   rest:"重点保暖，不要因冷而懒散",
+   avoid:"避免完全躺平——小寒需要一丝坚持",
+   ritual:"整理来年第一季度最重要的三件事",
+   items:[
+     {icon:"💪",title:"坚持",desc:"保持基本节奏"},
+     {icon:"📅",title:"准备",desc:"新年计划细化"},
+     {icon:"🔥",title:"保暖",desc:"防寒养生"},
+     {icon:"🎯",title:"聚焦",desc:"Q1优先级"},
+   ]},
+  {name:"大寒",en:"Major Cold",date:"2027-01-20",season:"winter",energy:58,keyword:"极寒 · 孕育",
+   element:"水",advice:"全年最冷，但也是冬季最后一个节气。极寒之下，种子正在准备萌发。这个时期的积累，将在春天爆发。",
+   work:"年度总结完成，新年计划定稿，为立春蓄力",
+   rest:"冬令进补的最后机会，全力储能",
+   avoid:"避免焦虑新年——种子需要最后的黑暗才能萌芽",
+   ritual:"读一篇去年的日记，看看自己走了多远",
+   items:[
+     {icon:"📖",title:"总结",desc:"年度最终复盘"},
+     {icon:"🌱",title:"蓄力",desc:"为立春做准备"},
+     {icon:"🍖",title:"进补",desc:"冬令补品"},
+     {icon:"🪴",title:"种子",desc:"明年的意图已种下"},
+   ]},
+];
+
+var currentJq = null;
+
+function findCurrentJieqi(){
+  var today = TODAY;
+  var nearest = null;
+  var minDiff = Infinity;
+  var pastNearest = null;
+  var pastMinDiff = Infinity;
+  
+  JIEQI.forEach(function(jq){
+    var d = new Date(jq.date);
+    var diff = (d - today) / (1000*60*60*24);
+    if(diff >= 0 && diff < minDiff){ minDiff = diff; nearest = jq; }
+    if(diff < 0 && Math.abs(diff) < pastMinDiff){ pastMinDiff = Math.abs(diff); pastNearest = jq; }
+  });
+  return pastNearest || nearest;
+}
+
+function renderCurrentBanner(){
+  var jq = findCurrentJieqi();
+  if(!jq) return;
+  var colors = {spring:'#4a8a3a',summer:'#c4587a',autumn:'#b8862c',winter:'#2a4a8b'};
+  var col = colors[jq.season];
+  var el = document.getElementById('currentBanner');
+  el.style.borderLeft = '4px solid '+col;
+  el.innerHTML =
+    '<div class="cb-label"><div class="cb-dot" style="background:'+col+'"></div>当前节气</div>'+
+    '<div class="cb-jieqi">'+jq.name+' <span style="font-size:16px;color:rgba(255,255,255,.5);font-family:DM Sans">'+jq.en+'</span></div>'+
+    '<div class="cb-date">'+jq.date+'</div>'+
+    '<div class="cb-desc">'+jq.advice+'</div>'+
+    '<div class="cb-tags">'+
+      '<span class="cb-tag highlight">'+jq.keyword+'</span>'+
+      '<span class="cb-tag">宜：'+jq.work.split('，')[0]+'</span>'+
+      '<span class="cb-tag">忌：'+jq.avoid.split('——')[0].replace('避免','')+'</span>'+
+    '</div>';
+}
+
+function renderSeasons(){
+  var seasons=['spring','summer','autumn','winter'];
+  var names={spring:'春 · 木',summer:'夏 · 火',autumn:'秋 · 金',winter:'冬 · 水'};
+  var icons={spring:'🌸',summer:'☀️',autumn:'🍂',winter:'❄️'};
+  var months={spring:'2—4月',summer:'5—7月',autumn:'8—10月',winter:'11—1月'};
+  var colors={spring:'var(--spring)',summer:'var(--summer)',autumn:'var(--autumn)',winter:'var(--winter)'};
+  var currentJq = findCurrentJieqi();
+  
+  seasons.forEach(function(s){
+    var sec = document.getElementById('sec-'+s);
+    var jqs = JIEQI.filter(function(j){return j.season===s;});
+    var color = colors[s];
+    
+    // Header
+    sec.querySelector('.ss-header').style.borderBottomColor = color;
+    sec.querySelector('.ss-title').style.color = color;
+    
+    // Grid
+    var grid = sec.querySelector('.jq-grid');
+    grid.innerHTML = jqs.map(function(jq){
+      var isCurrent = currentJq && jq.name === currentJq.name;
+      return '<div class="jq-card'+(isCurrent?' current':'')+'" onclick="showDetail(\''+jq.name+'\')" style="'+(isCurrent?'border-color:'+color:'')+'">'+
+        '<div class="jq-top">'+
+        '<div class="jq-season-dot" style="background:'+color+'"></div>'+
+        '<div class="jq-date">'+jq.date+'</div>'+
+        '<div class="jq-name" style="color:'+color+'">'+jq.name+'</div>'+
+        '<div class="jq-en">'+jq.en+'</div>'+
+        '</div>'+
+        '<div class="jq-body">'+
+        '<div class="jq-energy">'+
+          '<span class="jq-energy-label">精力</span>'+
+          '<div class="jq-bar"><div class="jq-fill" style="width:'+jq.energy+'%;background:'+color+'"></div></div>'+
+          '<span style="font-size:10px;color:var(--light);font-family:DM Mono">'+jq.energy+'</span>'+
+        '</div>'+
+        '<div class="jq-keyword">'+jq.keyword+'</div>'+
+        '</div>'+
+        '</div>';
+    }).join('');
+  });
+}
+
+function showDetail(name){
+  var jq = JIEQI.find(function(j){return j.name===name;});
+  if(!jq) return;
+  var panel = document.getElementById('detailPanel');
+  var colors = {spring:'var(--spring)',summer:'var(--summer)',autumn:'var(--autumn)',winter:'var(--winter)'};
+  var col = colors[jq.season];
+  
+  panel.innerHTML =
+    '<div class="dp-head" style="border-bottom:2px solid '+col+'">'+
+      '<div class="dp-name" style="color:'+col+'">'+jq.name+' <span style="font-size:14px;color:var(--light);">'+jq.en+'</span></div>'+
+      '<div class="dp-date">'+jq.date+' · 五行：'+jq.element+'</div>'+
+    '</div>'+
+    '<div class="dp-body">'+
+      '<div class="dp-section"><div class="dp-label" style="color:'+col+'">✦ 节气解读</div><div class="dp-text">'+jq.advice+'</div></div>'+
+      '<div class="dp-section"><div class="dp-label" style="color:'+col+'">✦ 适合做</div><div class="dp-text">'+jq.work+'</div></div>'+
+      '<div class="dp-section"><div class="dp-label" style="color:'+col+'">✦ 日常养生</div><div class="dp-text">'+jq.rest+'</div></div>'+
+      '<div class="dp-section"><div class="dp-label" style="color:'+col+'">✦ 仪式感练习</div><div class="dp-text" style="font-weight:600;color:var(--forest)">'+jq.ritual+'</div></div>'+
+      '<div class="dp-grid">'+
+        jq.items.map(function(item){
+          return '<div class="dp-item"><div class="dp-item-icon">'+item.icon+'</div><div class="dp-item-title">'+item.title+'</div><div class="dp-item-desc">'+item.desc+'</div></div>';
+        }).join('')+
+      '</div>'+
+      '<button class="dp-close" onclick="closeDetail()">收起 ↑</button>'+
+    '</div>';
+  
+  panel.classList.add('show');
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function closeDetail(){
+  document.getElementById('detailPanel').classList.remove('show');
+}
+
+function switchSeason(s){
+  document.querySelectorAll('.season-section').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.sn-btn').forEach(function(el){el.classList.remove('active');});
+  document.getElementById('sec-'+s).classList.add('active');
+  document.querySelector('.sn-btn.'+s).classList.add('active');
+  closeDetail();
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  renderCurrentBanner();
+  renderSeasons();
+  // Show current season
+  var cur = findCurrentJieqi();
+  if(cur) switchSeason(cur.season);
+  else switchSeason('spring');
+});
+</script>
+
+<!-- MASTHEAD -->
+<header class="mast">
+  <div class="mast-badge">她说了算 · 内在力工具</div>
+  <h1>节气<em>精力历</em></h1>
+  <p class="mast-sub">Solar Terms Energy Calendar · 24节气 × 精力管理</p>
+  <p class="mast-desc">古人用24节气感知天地节律，你可以用它管理一年的精力——什么时候冲刺，什么时候蓄力，什么时候放手，什么时候收割。</p>
+</header>
+
+<!-- NAV -->
+<nav class="season-nav">
+  <div class="sn-inner">
+    <button class="sn-btn spring" onclick="switchSeason('spring')">🌸 春 · 木</button>
+    <button class="sn-btn summer" onclick="switchSeason('summer')">☀️ 夏 · 火</button>
+    <button class="sn-btn autumn" onclick="switchSeason('autumn')">🍂 秋 · 金</button>
+    <button class="sn-btn winter" onclick="switchSeason('winter')">❄️ 冬 · 水</button>
+  </div>
+</nav>
+
+<main class="page">
+
+  <!-- Current -->
+  <div class="current-banner" id="currentBanner"></div>
+
+  <!-- Detail panel -->
+  <div class="detail-panel" id="detailPanel"></div>
+
+  <!-- Spring -->
+  <div class="season-section" id="sec-spring">
+    <div class="ss-header">
+      <div class="ss-icon">🌸</div>
+      <div>
+        <div class="ss-title">春 · 木</div>
+        <div class="ss-sub">生发 · 萌芽 · 向上</div>
+        <div class="ss-month">2月—4月 · 立春至谷雨</div>
+      </div>
+    </div>
+    <div class="jq-grid"></div>
+  </div>
+
+  <!-- Summer -->
+  <div class="season-section" id="sec-summer">
+    <div class="ss-header">
+      <div class="ss-icon">☀️</div>
+      <div>
+        <div class="ss-title">夏 · 火</div>
+        <div class="ss-sub">生长 · 繁荣 · 向外</div>
+        <div class="ss-month">5月—7月 · 立夏至大暑</div>
+      </div>
+    </div>
+    <div class="jq-grid"></div>
+  </div>
+
+  <!-- Autumn -->
+  <div class="season-section" id="sec-autumn">
+    <div class="ss-header">
+      <div class="ss-icon">🍂</div>
+      <div>
+        <div class="ss-title">秋 · 金</div>
+        <div class="ss-sub">收获 · 内敛 · 向内</div>
+        <div class="ss-month">8月—10月 · 立秋至霜降</div>
+      </div>
+    </div>
+    <div class="jq-grid"></div>
+  </div>
+
+  <!-- Winter -->
+  <div class="season-section" id="sec-winter">
+    <div class="ss-header">
+      <div class="ss-icon">❄️</div>
+      <div>
+        <div class="ss-title">冬 · 水</div>
+        <div class="ss-sub">蛰伏 · 储能 · 向下</div>
+        <div class="ss-month">11月—1月 · 立冬至大寒</div>
+      </div>
+    </div>
+    <div class="jq-grid"></div>
+  </div>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>测一测：你最值钱的那张牌 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --plum:#3d1536; --pm:#6b2560; --rose:#c4587a; --rose-l:#e07898;
+  --blush:#f0dce8; --pale:#faf3f7; --cream:#fdfaf5; --sand:#ede4d8;
+  --rule:#e2d4dc; --text:#2e1a28; --mid:#6b4a60; --light:#9a7a8e;
+  --teal:#1d4a35; --teal-l:#d6ede0; --amber:#b8862c; --amber-l:#f5edd8; --gold:#c49a3c;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--cream); color:var(--text);
+  font-family:'DM Sans','PingFang SC',sans-serif;
+  font-weight:300; min-height:100vh; overflow-x:hidden;
+}
+
+/* ── PROGRESS ── */
+.prog-track{height:3px;background:var(--rule);position:fixed;top:0;left:0;right:0;z-index:100;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--rose),var(--gold));width:0%;transition:width .4s ease;}
+
+/* ── COVER ── */
+.cover{
+  min-height:100vh; background:var(--plum);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:48px 24px; text-align:center;
+  position:relative; overflow:hidden;
+}
+.cover::before{
+  content:'牌'; position:absolute; font-family:'Noto Serif SC',serif;
+  font-size:360px; font-weight:700; color:rgba(255,255,255,.025);
+  right:-60px; bottom:-80px; line-height:1; pointer-events:none;
+}
+.cover-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(196,88,122,.2);border:1px solid rgba(196,88,122,.3);
+  padding:5px 14px;border-radius:20px;
+  font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--rose-l);margin-bottom:24px;
+}
+.cover-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--rose);}
+.cover h1{
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(28px,6vw,52px);font-weight:700;
+  color:#fff;line-height:1.15;margin-bottom:12px;
+}
+.cover h1 em{font-style:italic;color:rgba(240,210,228,.88);}
+.cover-sub{
+  font-size:13.5px;color:rgba(255,255,255,.45);
+  letter-spacing:.06em;margin-bottom:24px;
+}
+.cover-desc{
+  max-width:400px;font-size:15px;color:rgba(255,255,255,.6);
+  line-height:1.82;margin-bottom:36px;
+}
+.cover-meta{
+  display:flex;gap:24px;justify-content:center;
+  margin-bottom:40px;
+}
+.cover-meta-item{text-align:center;}
+.cover-meta-item .n{
+  font-family:'Noto Serif SC',serif;font-size:26px;font-weight:700;
+  color:#fff;display:block;line-height:1;
+}
+.cover-meta-item .l{font-size:11px;color:rgba(255,255,255,.35);margin-top:3px;display:block;}
+.btn-start{
+  padding:16px 40px;border-radius:10px;border:none;
+  background:#fff;color:var(--plum);
+  font-size:16px;font-weight:700;cursor:pointer;
+  transition:all .25s;display:flex;align-items:center;gap:10px;
+}
+.btn-start:hover{background:var(--blush);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2);}
+.cover-hint{margin-top:16px;font-size:12px;color:rgba(255,255,255,.25);}
+
+/* ── QUIZ SCREEN ── */
+.quiz-screen{display:none;min-height:100vh;padding:24px 16px 80px;}
+.quiz-screen.active{display:block;}
+
+.q-header{
+  max-width:560px;margin:0 auto 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:28px;
+}
+.q-counter{
+  font-size:12px;color:var(--light);
+  font-family:'DM Sans',monospace;letter-spacing:.06em;
+}
+.q-counter strong{color:var(--plum);font-size:15px;}
+.q-skip{font-size:11px;color:var(--light);cursor:pointer;text-decoration:underline;}
+
+.q-wrap{max-width:560px;margin:0 auto;}
+
+/* Question card */
+.q-card{display:none;animation:popIn .35s ease both;}
+.q-card.active{display:block;}
+@keyframes popIn{
+  from{opacity:0;transform:scale(.96) translateY(10px);}
+  to{opacity:1;transform:scale(1) translateY(0);}
+}
+
+.q-scene{
+  background:var(--pale);border-radius:12px;
+  padding:16px 18px;margin-bottom:16px;
+  font-size:13px;color:var(--mid);line-height:1.72;
+  border-left:3px solid var(--rose);
+  font-style:italic;
+}
+.q-scene strong{color:var(--plum);font-style:normal;font-weight:600;}
+
+.q-title{
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(18px,4vw,24px);font-weight:600;
+  color:var(--plum);line-height:1.4;margin-bottom:20px;
+}
+
+/* Options */
+.options{display:flex;flex-direction:column;gap:10px;}
+.option{
+  padding:16px 18px;
+  border:1.5px solid var(--rule);
+  border-radius:12px;background:#fff;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:flex-start;gap:14px;
+  text-align:left;width:100%;
+}
+.option:hover{border-color:var(--rose);background:var(--pale);}
+.option.selected{
+  border-color:var(--plum);background:var(--plum);
+  transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(61,21,54,.15);
+}
+.option-key{
+  width:28px;height:28px;border-radius:8px;
+  background:var(--pale);color:var(--plum);
+  font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .2s;
+  border:1px solid var(--rule);
+}
+.option.selected .option-key{background:var(--rose);color:#fff;border-color:var(--rose);}
+.option-text{font-size:14px;color:var(--text);line-height:1.65;transition:color .2s;}
+.option.selected .option-text{color:#fff;}
+.option-sub{font-size:12px;color:var(--light);margin-top:2px;transition:color .2s;}
+.option.selected .option-sub{color:rgba(255,255,255,.55);}
+
+/* ── RESULT ── */
+.result-screen{display:none;min-height:100vh;padding:0 0 60px;}
+.result-screen.active{display:block;}
+
+.result-hero{
+  padding:52px 24px 44px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.result-badge{
+  display:inline-block;font-size:10px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:4px 14px;border-radius:20px;margin-bottom:16px;
+  color:#fff;
+}
+.result-type-icon{
+  font-size:56px;margin-bottom:14px;
+  display:block;animation:bounce .6s ease;
+}
+@keyframes bounce{
+  0%{transform:scale(0.5);opacity:0;}
+  70%{transform:scale(1.1);}
+  100%{transform:scale(1);opacity:1;}
+}
+.result-type{
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(26px,5vw,40px);font-weight:700;
+  line-height:1.2;margin-bottom:8px;
+}
+.result-slogan{
+  font-size:clamp(14px,3vw,18px);
+  opacity:.75;margin-bottom:0;
+  font-style:italic;
+}
+
+.result-main{max-width:560px;margin:0 auto;padding:0 20px;}
+
+.result-block{
+  background:#fff;border:1px solid var(--rule);
+  border-radius:12px;margin-top:16px;overflow:hidden;
+  animation:fadeUp .5s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+.rb-head{
+  padding:14px 18px;border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;gap:10px;
+}
+.rb-icon{
+  width:30px;height:30px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;
+}
+.rb-label{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rose);}
+.rb-title{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--plum);margin-top:1px;}
+.rb-body{padding:16px 18px;}
+.rb-body p{font-size:14px;color:var(--text);line-height:1.85;margin-bottom:8px;}
+.rb-body p:last-child{margin-bottom:0;}
+
+/* strength/risk tags */
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.tag{
+  padding:5px 12px;border-radius:20px;
+  font-size:12px;font-weight:600;
+  display:flex;align-items:center;gap:5px;
+}
+.tag-dot{width:6px;height:6px;border-radius:50%;}
+.tag-g{background:var(--teal-l);color:var(--teal);}
+.tag-g .tag-dot{background:var(--teal);}
+.tag-w{background:var(--amber-l);color:var(--amber);}
+.tag-w .tag-dot{background:var(--amber);}
+
+/* compatibility */
+.compat-row{display:flex;gap:10px;margin-top:10px;}
+.compat-card{
+  flex:1;background:var(--pale);border-radius:8px;
+  padding:12px 12px;text-align:center;
+}
+.compat-card .cc-emoji{font-size:22px;margin-bottom:4px;display:block;}
+.compat-card .cc-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:3px;}
+.compat-card .cc-name{font-size:13px;font-weight:700;color:var(--plum);}
+
+/* action nudge */
+.action-card{
+  background:var(--plum);border-radius:12px;
+  padding:20px 20px;margin-top:16px;
+  animation:fadeUp .6s .3s ease both;
+}
+.action-card .ac-label{
+  font-size:10px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--rose-l);margin-bottom:10px;
+}
+.action-card .ac-text{
+  font-size:14px;color:rgba(255,255,255,.75);
+  line-height:1.82;margin-bottom:14px;
+}
+.action-card .ac-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--plum);
+  padding:10px 20px;border-radius:8px;
+  font-size:13px;font-weight:700;cursor:pointer;
+  text-decoration:none;transition:all .2s;
+}
+.action-card .ac-cta:hover{background:var(--blush);}
+
+/* other types */
+.other-types{margin-top:16px;animation:fadeUp .6s .5s ease both;}
+.ot-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:10px;}
+.ot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.ot-card{
+  background:var(--pale);border:1px solid var(--rule);
+  border-radius:10px;padding:12px 10px;text-align:center;
+  cursor:pointer;transition:all .2s;
+}
+.ot-card:hover{border-color:var(--rose);}
+.ot-card .oc-icon{font-size:22px;margin-bottom:4px;display:block;}
+.ot-card .oc-name{font-size:12px;font-weight:600;color:var(--plum);}
+.ot-card .oc-pct{font-size:11px;color:var(--light);margin-top:2px;}
+
+/* restart */
+.restart-row{text-align:center;margin-top:24px;padding-bottom:20px;animation:fadeUp .6s .6s ease both;}
+.btn-restart{
+  padding:11px 26px;border-radius:8px;
+  border:1.5px solid var(--rule);background:transparent;
+  color:var(--mid);font-size:13px;font-weight:600;cursor:pointer;
+  transition:all .2s;
+}
+.btn-restart:hover{border-color:var(--plum);color:var(--plum);}
+
+/* share banner */
+.share-banner{
+  background:var(--blush);border-radius:12px;
+  padding:18px 20px;margin-top:16px;
+  display:flex;align-items:center;gap:14px;
+  animation:fadeUp .6s .4s ease both;
+}
+.share-banner .sb-icon{font-size:28px;flex-shrink:0;}
+.share-banner .sb-text{font-size:13px;color:var(--mid);line-height:1.65;}
+.share-banner .sb-text strong{color:var(--plum);font-weight:700;}
+</style>
+</head>
+<body>
+<div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+
+<!-- ═══════════════════════════════════
+  DATA: Quiz questions + result types
+═══════════════════════════════════ -->
+<script>
+const QUESTIONS = [
+  {
+    scene: '周一早上，同事小王遇到一个棘手的客户问题，他在工位上皱眉头。',
+    q: '如果他来找你，最可能是因为什么？',
+    opts: [
+      { text:'你懂这个行业', sub:'你有具体的专业经验，知道该怎么处理', type:'K' },
+      { text:'你认识对的人', sub:'你那边可能有资源或者关系能帮上忙', type:'N' },
+      { text:'你总有新角度', sub:'你看问题的方式和别人不一样', type:'X' },
+      { text:'你说得最清楚', sub:'你能把复杂的事情讲得让人听懂', type:'C' },
+    ]
+  },
+  {
+    scene: '年底绩效谈话，你要说明自己这一年的价值。',
+    q: '你最有底气说的那句话是什么？',
+    opts: [
+      { text:'「我解决了X个行业里很少人能解决的问题」', sub:'专业深度是你的护城河', type:'K' },
+      { text:'「我带来了3个通过我才认识的合作方」', sub:'人脉网络是你带得走的资产', type:'N' },
+      { text:'「我把两个原本不相关的东西连在了一起」', sub:'跨界视角是你的独特价值', type:'X' },
+      { text:'「我的方案被直接用在了对外的材料里」', sub:'表达和创作能力直接产生了成果', type:'C' },
+    ]
+  },
+  {
+    scene: '你有一个周末下午，没有任何安排。',
+    q: '你最可能自发地做什么？',
+    opts: [
+      { text:'钻研一个一直想搞明白的专业问题', sub:'「这件事我一定要真正搞透」', type:'K' },
+      { text:'约见一个很久没联系但觉得有意思的人', sub:'「维护关系」对你来说不是任务而是享受', type:'N' },
+      { text:'把两个不同领域的东西拼在一起想想', sub:'「如果把A和B结合会怎样」', type:'X' },
+      { text:'写点什么，或者做点有输出的东西', sub:'创作欲是你的本能', type:'C' },
+    ]
+  },
+  {
+    scene: '你的朋友圈里有个人要创业，来问你「我这个想法靠不靠谱」。',
+    q: '你最自然的反应是什么？',
+    opts: [
+      { text:'「这个赛道我了解，让我告诉你真实情况……」', sub:'用行业知识帮他看清楚', type:'K' },
+      { text:'「你需要认识谁？我帮你想想」', sub:'资源连接是你的第一反应', type:'N' },
+      { text:'「我有个角度你可能没想到……」', sub:'给出一个让他没想到的视角', type:'X' },
+      { text:'「这个故事你得这么讲才有人买单……」', sub:'帮他打磨叙事和表达', type:'C' },
+    ]
+  },
+  {
+    scene: '你在网上看到一个副业机会，觉得感兴趣。',
+    q: '你最容易想到用什么切入？',
+    opts: [
+      { text:'把自己的行业经验打包成课程或咨询', sub:'知识变现——你懂的东西有人愿意付费', type:'K' },
+      { text:'帮人做资源对接、人脉引荐', sub:'做人和资源之间的桥梁', type:'N' },
+      { text:'找到一个没人发现的细分切口', sub:'在两个圈子的空白处建立自己的位置', type:'X' },
+      { text:'做内容——文字、视频或品牌', sub:'用创作建立可见度和影响力', type:'C' },
+    ]
+  },
+  {
+    scene: '十年后，有人在饭桌上聊起你。',
+    q: '你最希望被这样描述：',
+    opts: [
+      { text:'「她是这个领域真正懂行的人之一」', sub:'深度专业认知，被圈子里的人敬重', type:'K' },
+      { text:'「她认识的人多，而且都是真的关系」', sub:'社交资本厚，走到哪里都有人帮', type:'N' },
+      { text:'「她总能把不同的东西连在一起，想法很新」', sub:'跨界整合者，稀缺而独特', type:'X' },
+      { text:'「她说话/写东西很有力量，很多人因为她改变了想法」', sub:'用表达影响了真实的人', type:'C' },
+    ]
+  },
+];
+
+const RESULTS = {
+  K: {
+    icon: '💎',
+    badge: '知识型资产',
+    badgeColor: '#c4587a',
+    heroBg: 'linear-gradient(135deg,#3d1536,#6b2560)',
+    textColor: '#fff',
+    type: '深井型',
+    slogan: '你比别人多知道的那些，就是你的护城河',
+    desc: '你的核心资产是「比别人更深」。你在某个领域的判断力、经验和洞察，不是凭空来的——是真实的行业积累沉淀出来的。在一个知识越来越扁平的时代，真正懂行的人反而更稀缺。',
+    strengths: ['行业判断力', '解决复杂问题', '稀缺认知壁垒', '被圈内人信任'],
+    risks: ['容易被平台绑定', '难以快速变现可见度'],
+    compat: [
+      { emoji: '🌉', label: '最佳搭档', name: '跨界型' },
+      { emoji: '📣', label: '互补伙伴', name: '表达型' },
+      { emoji: '🔗', label: '放大器', name: '网络型' },
+    ],
+    action: '你已经有了别人没有的知识，现在缺的是「让它被看见」。这周做一件事：把你最熟悉的一个行业观点，用3句话写下来，发给5个人看看反应。',
+    pct: ['38%', '27%', '20%', '15%'],
+  },
+  N: {
+    icon: '🌐',
+    badge: '网络型资产',
+    badgeColor: '#1d4a35',
+    heroBg: 'linear-gradient(135deg,#1d4a35,#0f6e56)',
+    textColor: '#fff',
+    type: '桥梁型',
+    slogan: '你认识的那些人，就是你最真实的货币',
+    desc: '你的核心资产是「比别人多认识谁」。但更重要的是：你建立的不是名片册，而是真实的关系——人们记得你，信任你，愿意被你介绍给别人。在一个信息不对称依然存在的世界里，做人和机会之间的桥梁，是最难被AI替代的能力。',
+    strengths: ['真实人脉厚度', '信息差优势', '资源连接能力', '跨圈影响力'],
+    risks: ['关系维护消耗精力', '价值难以量化呈现'],
+    compat: [
+      { emoji: '💎', label: '最佳搭档', name: '知识型' },
+      { emoji: '📣', label: '互补伙伴', name: '表达型' },
+      { emoji: '🔀', label: '放大器', name: '跨界型' },
+    ],
+    action: '你的资产在你的手机通讯录里。这周做一件事：找出3个你认识但最近没联系的人，想想他们和你圈子里的谁应该认识——然后做那个介绍。',
+    pct: ['15%', '41%', '22%', '22%'],
+  },
+  X: {
+    icon: '🔀',
+    badge: '跨界型资产',
+    badgeColor: '#b8862c',
+    heroBg: 'linear-gradient(135deg,#6b3a00,#b8862c)',
+    textColor: '#fff',
+    type: '跨界型',
+    slogan: '你同时懂两种语言，而大多数人只懂一种',
+    desc: '你的核心资产是「站在两个世界之间」。你既懂A又懂B，这种组合在任何一个单一圈子里都显得「奇怪」，但恰恰是最难被替代的稀缺位置。最好的机会往往在两个领域的空白处，而你天然有资格站在那里。',
+    strengths: ['稀缺跨界组合', '新问题新视角', '多圈子影响力', '创造新赛道'],
+    risks: ['容易感到「两边都不属于」', '定位初期需要时间被理解'],
+    compat: [
+      { emoji: '💎', label: '最佳搭档', name: '知识型' },
+      { emoji: '🌐', label: '互补伙伴', name: '网络型' },
+      { emoji: '📣', label: '放大器', name: '表达型' },
+    ],
+    action: '你最大的风险是「两边都不认你」。这周做一件事：用一句话描述你的跨界组合（「我是一个既懂X又懂Y的人」），发给10个人，问他们：有没有这样的人你们需要？',
+    pct: ['20%', '18%', '44%', '18%'],
+  },
+  C: {
+    icon: '📣',
+    badge: '表达型资产',
+    badgeColor: '#2a4a8b',
+    heroBg: 'linear-gradient(135deg,#1a2a4a,#2a4a8b)',
+    textColor: '#fff',
+    type: '表达型',
+    slogan: '你能让人听进去，这件事比你想象的更值钱',
+    desc: '你的核心资产是「能让复杂的事情变得清晰」。这不只是「会写会说」，而是一种把混乱变成秩序的能力——用对的方式讲出来，让人真正理解，甚至改变行动。在注意力极度稀缺的时代，这种能力是杠杆，能放大任何其他资产的价值。',
+    strengths: ['说服力与影响力', '可见度天然高', '创作能力可量化', '跨媒介表达'],
+    risks: ['容易被「内容工作」消耗', '需要一个立场/领域来锚定'],
+    compat: [
+      { emoji: '💎', label: '最佳搭档', name: '知识型' },
+      { emoji: '🌐', label: '互补伙伴', name: '网络型' },
+      { emoji: '🔀', label: '放大器', name: '跨界型' },
+    ],
+    action: '你的能力需要一个「内容」来承载。这周做一件事：选一个你真正有观点的话题，写一段300字以内的东西，不为发布，只为看自己能不能说清楚。',
+    pct: ['17%', '20%', '19%', '44%'],
+  },
+};
+
+const TYPE_NAMES = { K:'知识型', N:'网络型', X:'跨界型', C:'表达型' };
+const TYPE_ICONS = { K:'💎', N:'🌐', X:'🔀', C:'📣' };
+</script>
+
+<!-- ═══ COVER ═══ -->
+<section class="cover" id="coverScreen">
+  <div class="cover-badge"><div class="cover-badge-dot"></div>她说了算 · 2分钟测试</div>
+  <h1>测一测：你<em>最值钱</em>的那张牌</h1>
+  <p class="cover-sub">Personal Asset Quiz · 身份重塑篇</p>
+  <p class="cover-desc">6道情景题，不需要思考太久，按直觉选。<br>结果告诉你：你最核心的资产类型是什么。</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><span class="n">6题</span><span class="l">按直觉选</span></div>
+    <div class="cover-meta-item"><span class="n">2分钟</span><span class="l">完成时间</span></div>
+    <div class="cover-meta-item"><span class="n">4种</span><span class="l">资产类型</span></div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">
+    开始测试
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <p class="cover-hint">结果仅供参考，不存储任何数据</p>
+</section>
+
+<!-- ═══ QUIZ ═══ -->
+<section class="quiz-screen" id="quizScreen">
+  <div class="q-header">
+    <div class="q-counter">问题 <strong id="qNumDisplay">1</strong> / 6</div>
+  </div>
+  <div class="q-wrap" id="qWrap"></div>
+</section>
+
+<!-- ═══ RESULT ═══ -->
+<section class="result-screen" id="resultScreen">
+  <div class="result-hero" id="resultHero">
+    <div class="result-badge" id="resultBadge"></div>
+    <span class="result-type-icon" id="resultIcon"></span>
+    <div class="result-type" id="resultType"></div>
+    <div class="result-slogan" id="resultSlogan"></div>
+  </div>
+  <div class="result-main" id="resultMain"></div>
+</section>
+
+<script>
+let current = 0;
+let scores = { K:0, N:0, X:0, C:0 };
+let selectedOpt = null;
+
+function startQuiz() {
+  document.getElementById('coverScreen').style.display = 'none';
+  document.getElementById('quizScreen').classList.add('active');
+  renderQ(0);
+}
+
+function renderQ(idx) {
+  const q = QUESTIONS[idx];
+  document.getElementById('qNumDisplay').textContent = idx + 1;
+  document.getElementById('progFill').style.width = ((idx)/QUESTIONS.length*100)+'%';
+
+  const keys = ['A','B','C','D'];
+  const html = `
+    ${q.scene ? `<div class="q-scene">${q.scene.replace(/「(.+?)」/g,'<strong>「$1」</strong>')}</div>` : ''}
+    <div class="q-title">${q.q}</div>
+    <div class="options">
+      ${q.opts.map((o,i)=>`
+        <button class="option" onclick="selectOpt(this,'${o.type}',${idx})" data-type="${o.type}">
+          <div class="option-key">${keys[i]}</div>
+          <div>
+            <div class="option-text">${o.text}</div>
+            <div class="option-sub">${o.sub}</div>
+          </div>
+        </button>
+      `).join('')}
+    </div>
+  `;
+  const wrap = document.getElementById('qWrap');
+  wrap.innerHTML = html;
+  wrap.style.animation = 'none';
+  wrap.offsetHeight;
+  wrap.style.animation = '';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function selectOpt(el, type, qIdx) {
+  // Visual feedback
+  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+
+  // Score
+  scores[type]++;
+
+  // Auto-advance after short delay
+  setTimeout(() => {
+    const next = qIdx + 1;
+    if (next < QUESTIONS.length) {
+      current = next;
+      renderQ(next);
+    } else {
+      showResult();
+    }
+  }, 340);
+}
+
+function showResult() {
+  document.getElementById('quizScreen').classList.remove('active');
+  document.getElementById('resultScreen').classList.add('active');
+  document.getElementById('progFill').style.width = '100%';
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  // Find winner
+  const winner = Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
+  const r = RESULTS[winner];
+
+  // Hero
+  document.getElementById('resultHero').style.background = r.heroBg;
+  const badge = document.getElementById('resultBadge');
+  badge.textContent = r.badge;
+  badge.style.background = r.badgeColor + '33';
+  badge.style.color = '#fff';
+  badge.style.border = '1px solid ' + r.badgeColor + '55';
+  document.getElementById('resultIcon').textContent = r.icon;
+  document.getElementById('resultType').style.color = r.textColor;
+  document.getElementById('resultType').textContent = r.type;
+  document.getElementById('resultSlogan').style.color = r.textColor;
+  document.getElementById('resultSlogan').textContent = '「' + r.slogan + '」';
+
+  // Main content
+  const main = document.getElementById('resultMain');
+  const totalVotes = [38,41,44,44]; // approximate totals
+  const pcts = r.pct;
+
+  main.innerHTML = `
+    <!-- Desc -->
+    <div class="result-block" style="animation-delay:.1s">
+      <div class="rb-head">
+        <div class="rb-icon" style="background:var(--blush)">${r.icon}</div>
+        <div>
+          <div class="rb-label">你的资产类型</div>
+          <div class="rb-title">${r.type} · ${r.badge}</div>
+        </div>
+      </div>
+      <div class="rb-body">
+        <p>${r.desc}</p>
+        <div class="tag-row">
+          ${r.strengths.map(s=>`<span class="tag tag-g"><div class="tag-dot"></div>${s}</span>`).join('')}
+          ${r.risks.map(s=>`<span class="tag tag-w"><div class="tag-dot"></div>${s}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- Compat -->
+    <div class="result-block" style="animation-delay:.2s">
+      <div class="rb-head">
+        <div class="rb-icon" style="background:var(--teal-l)">🤝</div>
+        <div>
+          <div class="rb-label">资产组合策略</div>
+          <div class="rb-title">和这些类型配合，价值翻倍</div>
+        </div>
+      </div>
+      <div class="rb-body">
+        <p style="font-size:13px;color:var(--mid)">单一资产容易被替代，组合资产才形成护城河。你的类型和以下三种配合效果最好：</p>
+        <div class="compat-row">
+          ${r.compat.map(c=>`
+            <div class="compat-card">
+              <span class="cc-emoji">${c.emoji}</span>
+              <div class="cc-label">${c.label}</div>
+              <div class="cc-name">${c.name}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- Share -->
+    <div class="share-banner">
+      <div class="sb-icon">💬</div>
+      <div class="sb-text">和你身边的朋友一起测——<strong>把这个链接发给她</strong>，看看你们是什么组合，能不能互相放大对方的价值。</div>
+    </div>
+
+    <!-- Action -->
+    <div class="action-card">
+      <div class="ac-label">✦ 本周一个行动</div>
+      <div class="ac-text">${r.action}</div>
+      <a class="ac-cta" href="hub.html">进入知识库，配合工具做深度盘点 →</a>
+    </div>
+
+    <!-- Other types -->
+    <div class="other-types">
+      <div class="ot-label">其他资产类型</div>
+      <div class="ot-grid">
+        ${Object.entries(TYPE_NAMES).filter(([k])=>k!==winner).map(([k,name],i)=>`
+          <div class="ot-card" onclick="showTypeDetail('${k}')">
+            <span class="oc-icon">${TYPE_ICONS[k]}</span>
+            <div class="oc-name">${name}</div>
+            <div class="oc-pct">${pcts[i]}的人</div>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="restart-row">
+      <button class="btn-restart" onclick="restartQuiz()">↩ 重新测一次</button>
+    </div>
+  `;
+}
+
+function showTypeDetail(type) {
+  const r = RESULTS[type];
+  alert(`${r.icon} ${r.type}\n\n「${r.slogan}」\n\n${r.desc.substring(0,100)}…`);
+}
+
+function restartQuiz() {
+  scores = { K:0, N:0, X:0, C:0 };
+  current = 0;
+  document.getElementById('resultScreen').classList.remove('active');
+  document.getElementById('coverScreen').style.display = 'flex';
+  document.getElementById('progFill').style.width = '0%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

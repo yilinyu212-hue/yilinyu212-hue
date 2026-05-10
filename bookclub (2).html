@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>她的书房 · 月度读书会 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#1a3d2b;--moss:#2d6a4a;--sage:#52a87a;--mint:#d4ede2;--mint-pale:#f0f8f4;
+  --plum:#3d1536;--rose:#c4587a;--blush:#f0dce8;
+  --amber:#b8862c;--amber-l:#f5edd8;
+  --cream:#fdfaf5;--sand:#f5ede4;--rule:#e2ddd8;
+  --text:#1e2820;--mid:#4a5e50;--light:#8a9e90;--white:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
+.rpbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--forest),var(--amber));width:0%;z-index:300;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;transition:all .3s;}
+nav.scrolled{background:rgba(253,250,245,.96);border-bottom:1px solid var(--rule);backdrop-filter:blur(12px);}
+.nav-back{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.45);font-size:12.5px;text-decoration:none;transition:color .2s;}
+nav.scrolled .nav-back{color:var(--light);}
+.nav-back:hover{color:rgba(255,255,255,.8);}
+nav.scrolled .nav-back:hover{color:var(--forest);}
+.nav-brand{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:rgba(255,255,255,.6);text-decoration:none;}
+nav.scrolled .nav-brand{color:var(--forest);}
+.nav-cta{padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);font-size:12px;font-weight:600;text-decoration:none;transition:all .2s;cursor:pointer;background:transparent;}
+nav.scrolled .nav-cta{border-color:var(--forest);color:var(--forest);}
+.nav-cta:hover{background:rgba(255,255,255,.15);}
+nav.scrolled .nav-cta:hover{background:var(--forest);color:#fff;}
+
+/* ── HERO ── */
+.hero{background:var(--forest);padding:80px 24px 60px;position:relative;overflow:hidden;}
+.hero::before{content:'书';position:absolute;right:-20px;bottom:-50px;font-family:'Noto Serif SC',serif;font-size:320px;font-weight:700;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;}
+.hero-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+.hero-left{}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(82,168,122,.2);border:1px solid rgba(82,168,122,.3);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(180,230,200,.88);margin-bottom:18px;}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(28px,4.5vw,42px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:12px;}
+.hero h1 em{font-style:italic;color:rgba(210,240,220,.88);}
+.hero-desc{font-size:14.5px;color:rgba(255,255,255,.5);line-height:1.82;margin-bottom:24px;}
+.hero-stats{display:flex;gap:24px;}
+.hs{text-align:left;}
+.hs-n{font-family:'Noto Serif SC',serif;font-size:26px;font-weight:700;color:#fff;line-height:1;}
+.hs-l{font-size:11px;color:rgba(255,255,255,.35);margin-top:3px;}
+
+/* Next session card */
+.next-card{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:16px;padding:24px 22px;}
+.nc-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(82,168,122,.8);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.nc-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);}
+.nc-book-row{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;}
+.nc-book-cover{width:52px;height:70px;border-radius:5px;background:linear-gradient(135deg,#2d5a3d,#4a8a5a);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;}
+.nc-book-info{}
+.nc-book-title{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:3px;line-height:1.3;}
+.nc-book-author{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.nc-book-theme{font-size:12px;color:rgba(82,168,122,.8);font-weight:600;}
+.nc-meta{display:flex;flex-direction:column;gap:5px;margin-bottom:16px;}
+.nc-meta-item{font-size:12.5px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:6px;}
+.nc-meta-icon{font-size:14px;}
+.nc-ctas{display:flex;gap:8px;}
+.btn-join-session{flex:1;padding:11px;border-radius:8px;background:#fff;color:var(--forest);font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .2s;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;}
+.btn-join-session:hover{background:var(--mint);}
+.btn-member-join{padding:11px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.65);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;display:flex;align-items:center;white-space:nowrap;}
+.btn-member-join:hover{border-color:rgba(255,255,255,.5);color:#fff;}
+
+/* ── PAGE ── */
+.page{max-width:860px;margin:0 auto;padding:0 24px;}
+.section{padding:60px 0;}
+.sec-label{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--moss);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--rule);}
+.sec-h2{font-family:'Noto Serif SC',serif;font-size:clamp(20px,3.2vw,28px);font-weight:600;color:var(--forest);margin-bottom:8px;}
+.sec-sub{font-size:14px;color:var(--mid);line-height:1.78;max-width:540px;}
+
+/* ── HOW IT WORKS ── */
+.how-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px;}
+.hw{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:18px 16px;text-align:center;transition:all .22s;}
+.hw:hover{border-color:var(--sage);transform:translateY(-2px);}
+.hw-icon{font-size:26px;margin-bottom:8px;}
+.hw-title{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:var(--forest);margin-bottom:4px;}
+.hw-desc{font-size:12.5px;color:var(--mid);line-height:1.6;}
+.hw-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--light);margin-bottom:6px;}
+
+/* ── PAST SESSIONS ── */
+.sessions-grid{display:flex;flex-direction:column;gap:0;margin-top:24px;}
+.session-item{border-bottom:1px solid var(--rule);cursor:pointer;}
+.session-item:first-child{border-top:1px solid var(--rule);}
+.si-header{display:flex;align-items:center;gap:16px;padding:18px 0;transition:all .2s;user-select:none;}
+.si-header:hover .si-title{color:var(--moss);}
+.si-vol{font-family:'DM Mono',monospace;font-size:11px;color:var(--light);width:52px;flex-shrink:0;}
+.si-book-mini{width:36px;height:48px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.si-body{flex:1;}
+.si-title{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:var(--forest);margin-bottom:3px;transition:color .2s;line-height:1.3;}
+.si-meta{font-size:12px;color:var(--light);}
+.si-toggle{width:28px;height:28px;border-radius:50%;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-size:14px;color:var(--light);}
+.session-item.open .si-toggle{background:var(--forest);border-color:var(--forest);color:#fff;transform:rotate(45deg);}
+.si-expand{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1);}
+.session-item.open .si-expand{max-height:400px;}
+.si-content{padding:0 0 20px 68px;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.sic-left{}
+.sic-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);margin-bottom:8px;}
+.sic-text{font-size:14px;color:var(--mid);line-height:1.78;}
+.sic-takeaways{display:flex;flex-direction:column;gap:7px;}
+.sic-takeaway{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:var(--text);line-height:1.55;}
+.st-bullet{width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:6px;}
+.sic-note{font-size:12.5px;color:var(--light);margin-top:10px;font-style:italic;}
+
+/* ── HOSTS ── */
+.hosts-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;}
+.host-card{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:22px 20px;display:flex;gap:14px;align-items:flex-start;}
+.host-av{width:48px;height:48px;border-radius:50%;background:var(--forest);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:#fff;flex-shrink:0;}
+.host-name{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:var(--forest);margin-bottom:3px;}
+.host-role{font-size:12px;color:var(--light);margin-bottom:8px;line-height:1.5;}
+.host-bio{font-size:13.5px;color:var(--mid);line-height:1.72;}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px;}
+.price-card{background:var(--white);border:1.5px solid var(--rule);border-radius:14px;padding:26px 22px;}
+.price-card.featured{background:var(--forest);border-color:var(--forest);}
+.pc-label{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:10px;}
+.price-card.featured .pc-label{color:rgba(82,168,122,.7);}
+.pc-price{font-family:'Noto Serif SC',serif;font-size:40px;font-weight:700;color:var(--forest);line-height:1;}
+.price-card.featured .pc-price{color:#fff;}
+.pc-period{font-size:12px;color:var(--light);margin:4px 0 18px;}
+.price-card.featured .pc-period{color:rgba(255,255,255,.35);}
+.pc-items{display:flex;flex-direction:column;gap:8px;margin-bottom:22px;}
+.pc-item{font-size:13.5px;color:var(--mid);display:flex;align-items:center;gap:8px;}
+.price-card.featured .pc-item{color:rgba(255,255,255,.65);}
+.pc-check{color:var(--sage);font-weight:700;flex-shrink:0;}
+.btn-price{display:block;padding:12px;border-radius:8px;text-align:center;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .2s;cursor:pointer;border:none;font-family:'DM Sans','PingFang SC',sans-serif;}
+.bp-outline{border:1.5px solid var(--rule);color:var(--mid);background:transparent;}
+.bp-outline:hover{border-color:var(--forest);color:var(--forest);}
+.bp-solid{background:#fff;color:var(--forest);}
+.bp-solid:hover{background:var(--mint);}
+
+/* ── REGISTER MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal-box{background:var(--cream);border-radius:16px;padding:32px 28px;width:100%;max-width:400px;margin:20px;position:relative;}
+.mb-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:18px;color:var(--light);cursor:pointer;}
+.mb-eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);margin-bottom:10px;}
+.mb-book{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--forest);margin-bottom:4px;}
+.mb-date{font-size:12.5px;color:var(--light);margin-bottom:20px;}
+.mb-divider{height:1px;background:var(--rule);margin:0 0 20px;}
+.mb-price-opts{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.mpo{border:1.5px solid var(--rule);border-radius:10px;padding:14px 16px;cursor:pointer;transition:all .2s;}
+.mpo.selected{border-color:var(--forest);background:var(--mint-pale);}
+.mpo-top{display:flex;align-items:center;justify-content:space-between;}
+.mpo-name{font-size:14px;font-weight:600;color:var(--forest);}
+.mpo-price{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--forest);}
+.mpo-desc{font-size:12px;color:var(--light);margin-top:4px;}
+.btn-confirm{width:100%;padding:13px;border-radius:8px;background:var(--forest);color:#fff;border:none;font-family:'DM Sans','PingFang SC',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px;transition:background .2s;}
+.btn-confirm:hover{background:var(--moss);}
+.mb-note{font-size:12px;color:var(--light);text-align:center;line-height:1.65;}
+
+/* ── CTA BAND ── */
+.cta-band{background:var(--forest);padding:52px 24px;text-align:center;}
+.cta-band-inner{max-width:560px;margin:0 auto;}
+.cb-eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(82,168,122,.7);font-weight:700;margin-bottom:12px;}
+.cb-title{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:700;color:#fff;margin-bottom:8px;line-height:1.2;}
+.cb-title em{font-style:italic;color:rgba(210,240,220,.85);}
+.cb-sub{font-size:13.5px;color:rgba(255,255,255,.42);margin-bottom:28px;}
+.cb-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.cb-btn{padding:13px 28px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;}
+.cb-solid{background:#fff;color:var(--forest);}
+.cb-solid:hover{background:var(--mint);}
+.cb-outline{border:1.5px solid rgba(255,255,255,.28);color:rgba(255,255,255,.75);}
+.cb-outline:hover{border-color:#fff;color:#fff;}
+
+/* ── FOOTER ── */
+footer{background:#0f2a1a;padding:28px 24px;}
+.footer-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.ft-brand{font-family:'Noto Serif SC',serif;font-size:14px;color:rgba(255,255,255,.45);}
+.ft-links{display:flex;gap:16px;}
+.ft-link{font-size:12.5px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s;}
+.ft-link:hover{color:rgba(255,255,255,.65);}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:700px){
+  .hero-inner{grid-template-columns:1fr;}
+  .how-strip{grid-template-columns:1fr 1fr;}
+  .si-content{grid-template-columns:1fr;padding-left:52px;}
+  .hosts-grid{grid-template-columns:1fr;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .footer-inner{flex-direction:column;gap:12px;}
+}
+</style>
+</head>
+<body>
+<div class="rpbar" id="rp"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-back">← 首页</a>
+  <a href="index.html" class="nav-brand">她说了算</a>
+  <a href="#register" class="nav-cta" onclick="openModal();return false;">报名下期</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">她说了算 · 月度读书会</div>
+      <h1>她的书房<br><em>每月一书，共读共鸣</em></h1>
+      <p class="hero-desc">不只是读书。每月精选一本和你真实处境有关的书，Janet 和 Yilin 带着你一起拆解——从书里的洞见，到你现在就能用的行动。</p>
+      <div class="hero-stats">
+        <div class="hs"><div class="hs-n">4</div><div class="hs-l">期已举办</div></div>
+        <div class="hs"><div class="hs-n">80+</div><div class="hs-l">参与人次</div></div>
+        <div class="hs"><div class="hs-n">月度</div><div class="hs-l">定期更新</div></div>
+      </div>
+    </div>
+
+    <!-- 下期预告 -->
+    <div class="next-card">
+      <div class="nc-label"><div class="nc-dot"></div>下期 · 2026年6月15日</div>
+      <div class="nc-book-row">
+        <div class="nc-book-cover">📘</div>
+        <div class="nc-book-info">
+          <div class="nc-book-title">《清醒思考的艺术》</div>
+          <div class="nc-book-author">Rolf Dobelli · 万以文 译</div>
+          <div class="nc-book-theme">✦ 本期主题：你的决策里藏着哪些坑？</div>
+        </div>
+      </div>
+      <div class="nc-meta">
+        <div class="nc-meta-item"><span class="nc-meta-icon">📅</span>2026年6月15日 · 周一晚 8:00</div>
+        <div class="nc-meta-item"><span class="nc-meta-icon">💻</span>腾讯会议 · 线上直播 · 可回看</div>
+        <div class="nc-meta-item"><span class="nc-meta-icon">👤</span>主持：Janet · 嘉宾：待定</div>
+      </div>
+      <div class="nc-ctas">
+        <a href="#" class="btn-join-session" onclick="openModal();return false;">立即报名 →</a>
+        <a href="shedecides/hub.html" class="btn-member-join">会员免费入场</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+
+<!-- HOW IT WORKS -->
+<div class="page">
+  <div class="section reveal">
+    <div class="sec-label">读书会如何进行</div>
+    <h2 class="sec-h2">一本书，四个小时，一次真实的改变</h2>
+    <div class="how-strip">
+      <div class="hw">
+        <div class="hw-num">01</div>
+        <div class="hw-icon">📖</div>
+        <div class="hw-title">提前读书</div>
+        <div class="hw-desc">会前两周发送书目和阅读指南，带着问题去读，而不是为了读而读</div>
+      </div>
+      <div class="hw">
+        <div class="hw-num">02</div>
+        <div class="hw-icon">🎤</div>
+        <div class="hw-title">线上共读</div>
+        <div class="hw-desc">Janet 导读核心章节，结合真实职场和生活场景拆解，不是书评课</div>
+      </div>
+      <div class="hw">
+        <div class="hw-num">03</div>
+        <div class="hw-icon">💬</div>
+        <div class="hw-title">小组讨论</div>
+        <div class="hw-desc">分组讨论，你的真实处境才是最好的教材。每组有引导问题</div>
+      </div>
+      <div class="hw">
+        <div class="hw-num">04</div>
+        <div class="hw-icon">✍️</div>
+        <div class="hw-title">带走行动</div>
+        <div class="hw-desc">每期发送《本书行动手册》，把洞见转化成你本周能做的一件事</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="height:1px;background:var(--rule);margin:0 24px;"></div>
+
+<!-- PAST SESSIONS -->
+<div class="page">
+  <div class="section reveal">
+    <div class="sec-label">往期回顾</div>
+    <h2 class="sec-h2">她们在这里读过什么</h2>
+    <p class="sec-sub">每一期都有回放录像和行动手册，会员可在知识库中访问全部往期内容。</p>
+
+    <div class="sessions-grid" id="sessionList">
+
+      <div class="session-item open" onclick="toggleSession(this)">
+        <div class="si-header">
+          <div class="si-vol">Vol.04</div>
+          <div class="si-book-mini" style="background:linear-gradient(135deg,#3d1536,#6b2560);">📕</div>
+          <div class="si-body">
+            <div class="si-title">《被讨厌的勇气》— 她的选择，从允许自己开始</div>
+            <div class="si-meta">2026年5月 · 岸见一郎 · 古贺史健 · 56人参与</div>
+          </div>
+          <div class="si-toggle">+</div>
+        </div>
+        <div class="si-expand">
+          <div class="si-content">
+            <div class="sic-left">
+              <div class="sic-label">Janet 导读摘要</div>
+              <div class="sic-text">这本书在中国最被误读。大家以为它在说「怎么变得不在乎别人」，其实它在说：你之所以总在讨好别人，是因为你还没决定要为自己的人生负责。对职场女性来说，边界感不是一种谈判技巧，是一种自我认领。</div>
+            </div>
+            <div class="sic-left">
+              <div class="sic-label">三个带走的洞见</div>
+              <div class="sic-takeaways">
+                <div class="sic-takeaway"><div class="st-bullet"></div>你的「过去」不是原因，而是你选择用来解释现在的借口</div>
+                <div class="sic-takeaway"><div class="st-bullet"></div>课题分离：哪些是你的课题，哪些是别人的——分清楚再行动</div>
+                <div class="sic-takeaway"><div class="st-bullet"></div>被讨厌的勇气，不是攻击性，是允许自己存在的权利</div>
+              </div>
+              <div class="sic-note">📁 会员可在知识库查看完整回放和行动手册</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="session-item" onclick="toggleSession(this)">
+        <div class="si-header">
+          <div class="si-vol">Vol.03</div>
+          <div class="si-book-mini" style="background:linear-gradient(135deg,#1a3a5c,#2d6a9a);">📗</div>
+          <div class="si-body">
+            <div class="si-title">《谈判力》— 从价格谈判到人生谈判</div>
+            <div class="si-meta">2026年4月 · Roger Fisher · William Ury · 48人参与</div>
+          </div>
+          <div class="si-toggle">+</div>
+        </div>
+        <div class="si-expand">
+          <div class="si-content">
+            <div class="sic-left">
+              <div class="sic-label">Janet 导读摘要</div>
+              <div class="sic-text">大多数女性谈薪失败，不是因为要价太高，是因为从「立场」出发而不是从「利益」出发。这本书教的不只是谈判，是一种和别人对话的方式——你要的不是赢，是找到真正可持续的解决方案。</div>
+            </div>
+            <div class="sic-left">
+              <div class="sic-label">三个带走的洞见</div>
+              <div class="sic-takeaways">
+                <div class="sic-takeaway"><div class="st-bullet"></div>区分「立场」和「利益」，立场是你说的，利益是你要的</div>
+                <div class="sic-takeaway"><div class="st-bullet"></div>BATNA：你的最佳替代方案，决定了你在谈判桌上的底气</div>
+                <div class="sic-takeaway"><div class="st-bullet"></div>分离人和问题：对人温和，对问题强硬</div>
+              </div>
+              <div class="sic-note">📁 会员可在知识库查看完整回放和行动手册</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="session-item" onclick="toggleSession(this)">
+        <div class="si-header">
+          <div class="si-vol">Vol.02</div>
+          <div class="si-book-mini" style="background:linear-gradient(135deg,#1a3d2b,#52a87a);">📘</div>
+          <div class="si-body">
+            <div class="si-title">《转化》— 数据时代，客户关系才是真资产</div>
+            <div class="si-meta">2026年3月 · Neil Hoyne · 42人参与</div>
+          </div>
+          <div class="si-toggle">+</div>
+        </div>
+        <div class="si-expand">
+          <div class="si-content">
+            <div class="sic-left">
+              <div class="sic-label">Janet 导读摘要</div>
+              <div class="sic-text">这本书表面上讲的是品牌和营销，但对我们来说最重要的一个洞见是：你的职业资产，不在于你做了多少事，而在于有多少人在心里把你当成「那个解决我问题的人」。这才是带得走的。</div>
+            </div>
+            <div class="sic-left">
+              <div class="sic-label">三个带走的洞见</div>
+              <div class="sic-takeaways">
+                <div class="sic-takeaway"><div class="st-bullet"></div>终身价值 vs 单次价值：哪些关系值得深耕？</div>
+                <div class="sic-takeaway"><div class="st-bullet"></div>「第一个被想到」的人，比「最专业的人」更值钱</div>
+                <div class="sic-takeaway"><div class="st-bullet"></div>流失分析：谁离开了你的圈子，为什么？</div>
+              </div>
+              <div class="sic-note">📁 会员可在知识库查看完整回放和行动手册</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="session-item" onclick="toggleSession(this)">
+        <div class="si-header">
+          <div class="si-vol">Vol.01</div>
+          <div class="si-book-mini" style="background:linear-gradient(135deg,#5a3010,#b8862c);">📙</div>
+          <div class="si-body">
+            <div class="si-title">《反脆弱》— 如何在不确定里越变越强</div>
+            <div class="si-meta">2026年2月 · Nassim Taleb · 35人参与</div>
+          </div>
+          <div class="si-toggle">+</div>
+        </div>
+        <div class="si-expand">
+          <div class="si-content">
+            <div class="sic-left">
+              <div class="sic-label">Janet 导读摘要</div>
+              <div class="sic-text">职场女性最常陷入的一种错误：把「稳定」当成目标。但Taleb告诉我们，稳定其实是脆弱的前兆。真正能穿越周期的人，是那些在动荡里能获益的人。</div>
+            </div>
+            <div class="sic-left">
+              <div class="sic-label">三个带走的洞见</div>
+              <div class="sic-takeaways">
+                <div class="sic-takeaway"><div class="st-bullet"></div>脆弱 vs 强韧 vs 反脆弱，你现在处于哪种状态？</div>
+                <div class="sic-takeaway"><div class="st-bullet"></div>杠铃策略：极度保守 + 小量冒险，避免中间灰色地带</div>
+                <div class="sic-takeaway"><div class="st-bullet"></div>去除负面选项，不做某些事的价值</div>
+              </div>
+              <div class="sic-note">📁 会员可在知识库查看完整回放和行动手册</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p style="font-size:12.5px;color:var(--light);margin-top:16px;text-align:center;">会员可在<a href="shedecides/hub.html" style="color:var(--sage);">知识库</a>访问全部往期回放录像和行动手册</p>
+  </div>
+</div>
+
+<div style="height:1px;background:var(--rule);margin:0 24px;"></div>
+
+<!-- HOSTS -->
+<div class="page">
+  <div class="section reveal">
+    <div class="sec-label">带读人</div>
+    <h2 class="sec-h2">不是书评，是对话</h2>
+    <p class="sec-sub">Janet 和 Yilin 轮流主持，每期还会邀请相关领域的嘉宾分享真实经验。</p>
+    <div class="hosts-grid">
+      <div class="host-card">
+        <div class="host-av" style="background:var(--forest);">J</div>
+        <div>
+          <div class="host-name">Janet</div>
+          <div class="host-role">企业教练 30年 · 主持人</div>
+          <div class="host-bio">30年里陪伴100+企业管理团队。读书会的导读风格：把书里的洞见翻译成你明天就能用的语言，而不是告诉你「这是一本好书」。</div>
+        </div>
+      </div>
+      <div class="host-card">
+        <div class="host-av" style="background:var(--plum);">Y</div>
+        <div>
+          <div class="host-name">Yilin</div>
+          <div class="host-role">国际教育 13年 · 全球视角</div>
+          <div class="host-bio">13年国际教育经验，擅长从全球视角解读中国处境。每期负责整理行动手册，把讨论中最有价值的洞见结构化，让你带走的不是感动，是行动。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="height:1px;background:var(--rule);margin:0 24px;"></div>
+
+<!-- PRICING -->
+<div class="page" id="register">
+  <div class="section reveal">
+    <div class="sec-label">报名方式</div>
+    <h2 class="sec-h2">选一种方式加入</h2>
+    <p class="sec-sub">单场体验，或成为会员享受全年读书会和所有平台内容。</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="pc-label">单场体验</div>
+        <div class="pc-price">¥39</div>
+        <div class="pc-period">本期读书会 · 含回放</div>
+        <div class="pc-items">
+          <div class="pc-item"><span class="pc-check">✓</span>线上直播参与（2小时）</div>
+          <div class="pc-item"><span class="pc-check">✓</span>本期行动手册 PDF</div>
+          <div class="pc-item"><span class="pc-check">✓</span>回放录像 7 天内有效</div>
+          <div class="pc-item" style="color:var(--light);"><span style="color:var(--light);">—</span>往期内容不包含</div>
+          <div class="pc-item" style="color:var(--light);"><span style="color:var(--light);">—</span>工具箱不包含</div>
+        </div>
+        <button class="btn-price bp-outline" onclick="openModal('single')">报名本期 ¥39</button>
+      </div>
+      <div class="price-card featured">
+        <div class="pc-label">年费会员 · 首批专属</div>
+        <div class="pc-price">¥139</div>
+        <div class="pc-period">全年 · 含全部读书会</div>
+        <div class="pc-items">
+          <div class="pc-item"><span class="pc-check">✓</span>全年12期读书会免费参与</div>
+          <div class="pc-item"><span class="pc-check">✓</span>全部往期回放和手册</div>
+          <div class="pc-item"><span class="pc-check">✓</span>全年24期「她的经纬」简报</div>
+          <div class="pc-item"><span class="pc-check">✓</span>工具箱完整使用权</div>
+          <div class="pc-item"><span class="pc-check">✓</span>她的指南针会员优先通道</div>
+        </div>
+        <button class="btn-price bp-solid" onclick="openModal('member')">成为会员 · 全年¥139</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <div class="cb-eyebrow">她说了算 · 月度读书会</div>
+    <h2 class="cb-title">下次读书会，<em>留一个位置给你</em></h2>
+    <p class="cb-sub">6月15日 · 《清醒思考的艺术》· 周一晚8点 · 腾讯会议</p>
+    <div class="cb-ctas">
+      <button class="cb-btn cb-solid" onclick="openModal('single')">¥39 报名本期</button>
+      <a href="index.html" class="cb-btn cb-outline">了解更多平台内容</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="ft-brand">她说了算 · 月度读书会</div>
+    <div class="ft-links">
+      <a href="index.html" class="ft-link">首页</a>
+      <a href="vol4-brief.html" class="ft-link">她的经纬</a>
+      <a href="shedecides/hub.html" class="ft-link">知识库</a>
+      <a href="compass.html" class="ft-link">她的指南针</a>
+    </div>
+  </div>
+</footer>
+
+<!-- REGISTER MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="mb-close" onclick="closeModal()">✕</button>
+    <div class="mb-eyebrow">报名读书会</div>
+    <div class="mb-book">《清醒思考的艺术》</div>
+    <div class="mb-date">2026年6月15日 · 周一晚 8:00 · 腾讯会议</div>
+    <div class="mb-divider"></div>
+    <div class="mb-price-opts">
+      <div class="mpo selected" id="opt-single" onclick="selectOpt('single')">
+        <div class="mpo-top">
+          <span class="mpo-name">单场体验</span>
+          <span class="mpo-price">¥39</span>
+        </div>
+        <div class="mpo-desc">含直播 + 行动手册 + 7天回放</div>
+      </div>
+      <div class="mpo" id="opt-member" onclick="selectOpt('member')">
+        <div class="mpo-top">
+          <span class="mpo-name">年费会员</span>
+          <span class="mpo-price">¥139/年</span>
+        </div>
+        <div class="mpo-desc">全年12期读书会 + 完整平台权益</div>
+      </div>
+    </div>
+    <button class="btn-confirm" onclick="confirmReg()">扫码付款 →</button>
+    <div class="mb-note">付款后发送截图至 Janet 微信获取会议链接<br>不满意可全额退款，无需理由</div>
+  </div>
+</div>
+
+<script>
+// Reading progress
+window.addEventListener('scroll',function(){
+  var h=document.documentElement;
+  document.getElementById('rp').style.width=(window.scrollY/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+
+// Nav
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+
+// Reveal
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+
+// Session accordion
+function toggleSession(item){
+  var isOpen=item.classList.contains('open');
+  document.querySelectorAll('.session-item').forEach(function(i){i.classList.remove('open');});
+  if(!isOpen)item.classList.add('open');
+}
+
+// Modal
+var currentOpt='single';
+function openModal(opt){
+  if(opt)selectOpt(opt);
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+function selectOpt(opt){
+  currentOpt=opt;
+  document.querySelectorAll('.mpo').forEach(function(el){el.classList.remove('selected');});
+  document.getElementById('opt-'+opt).classList.add('selected');
+}
+
+function confirmReg(){
+  var msg=currentOpt==='member'?'成为年费会员 · ¥139/年 — 扫码付款后发截图至Janet微信':'单场报名 · ¥39 — 扫码付款后发截图至Janet微信';
+  alert(msg+'\n\n（此处替换为微信支付二维码弹窗）');
+  closeModal();
+}
+</script>
+</body>
+</html>
