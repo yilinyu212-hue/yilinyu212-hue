@@ -3,136 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>婚前/离婚财产权益 · 她的指南针 · 她说了算</title>
+<title>关系中的财产智慧 · 她的指南针 · 她说了算</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#0f2234;--ink-mid:#1a3a5c;--ink-l:#e8f0f8;--ink-pale:#f4f8fc;
-  --gold:#b8962a;--gold-l:#f8f3e0;
-  --rose:#c4587a;--blush:#f0dce8;
+  --forest:#1a3d2b;--sage:#52a87a;--mint:#d4ede2;--mint-pale:#f0f8f4;
+  --rose:#c4587a;--blush:#f0dce8;--plum:#3d1536;
+  --amber:#b8862c;--amber-l:#f5edd8;--gold:#c49a3c;
   --cream:#fdfaf5;--sand:#f5ede4;--rule:#e2ddd8;
   --text:#1a2a3a;--mid:#3a5068;--light:#6a8090;--white:#fff;
-  --sage:#52a87a;--mint:#d4ede2;--forest:#1a3d2b;
-  --amber:#b8862c;--amber-l:#f5edd8;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
-.rpbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--ink-mid),var(--gold));width:0%;z-index:300;}
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;background:rgba(15,34,52,.95);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px);}
-.nav-back{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.4);font-size:12.5px;text-decoration:none;transition:color .2s;}
+.rpbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--forest),var(--sage));width:0%;z-index:300;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;background:rgba(26,61,43,.96);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px);}
+.nav-back{color:rgba(255,255,255,.4);font-size:12.5px;text-decoration:none;transition:color .2s;}
 .nav-back:hover{color:rgba(255,255,255,.7);}
 .nav-brand{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:rgba(255,255,255,.5);}
-.nav-r{display:flex;align-items:center;gap:10px;}
-.nav-consult{padding:6px 14px;border-radius:20px;border:1px solid rgba(184,150,42,.4);color:rgba(240,220,140,.8);font-size:12px;font-weight:600;text-decoration:none;transition:all .2s;}
-.nav-consult:hover{background:rgba(184,150,42,.15);}
+.nav-note{font-size:11.5px;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:6px;}
+.nav-note-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);}
 
 /* HERO */
-.hero{background:linear-gradient(160deg,#0a1622 0%,#0f2234 100%);padding:76px 24px 52px;position:relative;overflow:hidden;}
-.hero::before{content:'⚖';position:absolute;right:-10px;bottom:-30px;font-size:280px;color:rgba(255,255,255,.02);line-height:1;pointer-events:none;}
+.hero{background:linear-gradient(160deg,#0f2218 0%,#1a3d2b 100%);padding:76px 24px 52px;position:relative;overflow:hidden;}
+.hero::before{content:'财';position:absolute;right:-10px;bottom:-30px;font-family:'Noto Serif SC',serif;font-size:300px;font-weight:700;color:rgba(255,255,255,.022);line-height:1;pointer-events:none;}
 .hero-inner{max-width:860px;margin:0 auto;}
 .hero-breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.3);margin-bottom:16px;}
 .hero-breadcrumb a{color:rgba(255,255,255,.3);text-decoration:none;}
 .hero-breadcrumb a:hover{color:rgba(255,255,255,.6);}
-.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(184,150,42,.15);border:1px solid rgba(184,150,42,.28);padding:4px 12px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,220,140,.88);margin-bottom:14px;}
-.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4.5vw,38px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:10px;}
-.hero h1 em{font-style:italic;color:rgba(184,150,42,.9);}
-.hero-desc{font-size:14.5px;color:rgba(255,255,255,.48);line-height:1.82;max-width:560px;margin-bottom:24px;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(82,168,122,.2);border:1px solid rgba(82,168,122,.3);padding:4px 12px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(180,230,200,.88);margin-bottom:14px;}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4.5vw,38px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:12px;}
+.hero h1 em{font-style:italic;color:rgba(82,168,122,.9);}
+.hero-desc{font-size:15px;color:rgba(255,255,255,.5);line-height:1.85;max-width:560px;margin-bottom:24px;}
+.hero-note{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:8px 14px;border-radius:8px;font-size:12.5px;color:rgba(255,255,255,.45);margin-bottom:24px;}
 .hero-topics{display:flex;gap:8px;flex-wrap:wrap;}
 .ht{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:5px 12px;border-radius:20px;font-size:12px;color:rgba(255,255,255,.55);}
 
 /* PAGE */
 .page{max-width:860px;margin:0 auto;padding:0 24px;}
 .section{padding:52px 0;}
-.sec-label{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.sec-label{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
 .sec-label::after{content:'';flex:1;height:1px;background:var(--rule);}
-.sec-h2{font-family:'Noto Serif SC',serif;font-size:clamp(18px,3vw,24px);font-weight:600;color:var(--ink);margin-bottom:8px;}
+.sec-h2{font-family:'Noto Serif SC',serif;font-size:clamp(18px,3vw,24px);font-weight:600;color:var(--forest);margin-bottom:8px;}
 .sec-sub{font-size:14px;color:var(--mid);line-height:1.78;max-width:580px;}
 
-/* MYTH CARDS */
-.myth-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;}
-.myth-card{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;overflow:hidden;}
-.mc-head{padding:14px 18px;border-bottom:1px solid var(--rule);display:flex;align-items:flex-start;gap:10px;}
-.mc-badge{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
-.myth-badge{background:#fff0f0;color:#c0392b;}
-.fact-badge{background:var(--mint);color:var(--forest);}
-.mc-text{font-size:13.5px;color:var(--text);line-height:1.6;font-weight:500;}
-.mc-body{padding:12px 18px;font-size:13px;color:var(--mid);line-height:1.72;}
+/* WHY SECTION */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;}
+.why-card{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:20px 18px;}
+.wc-icon{font-size:24px;margin-bottom:10px;}
+.wc-title{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--forest);margin-bottom:6px;}
+.wc-body{font-size:13.5px;color:var(--mid);line-height:1.75;}
 
-/* TOOLS */
-.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;}
-.tool-card{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:20px 18px;cursor:pointer;transition:all .22s;}
-.tool-card:hover{border-color:var(--ink-mid);transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,58,92,.08);}
-.tc-icon{font-size:26px;margin-bottom:10px;}
-.tc-title{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:5px;}
-.tc-desc{font-size:13px;color:var(--mid);line-height:1.65;margin-bottom:14px;}
-.tc-action{font-size:13px;font-weight:700;color:var(--ink-mid);display:flex;align-items:center;gap:4px;}
+/* KNOWLEDGE TABS */
+.k-tabs{display:flex;gap:8px;margin-top:24px;flex-wrap:wrap;}
+.k-tab{padding:8px 18px;border-radius:20px;border:1.5px solid var(--rule);background:var(--white);font-size:13px;font-weight:600;color:var(--mid);cursor:pointer;transition:all .2s;}
+.k-tab.active{background:var(--forest);border-color:var(--forest);color:#fff;}
+.k-panels{margin-top:20px;}
+.k-panel{display:none;}
+.k-panel.active{display:block;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* INFO CARDS */
+.info-card{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;overflow:hidden;margin-bottom:12px;}
+.ic-head{padding:14px 18px;background:var(--mint-pale);border-bottom:1px solid var(--rule);display:flex;align-items:flex-start;gap:10px;}
+.ic-q{font-size:13.5px;font-weight:600;color:var(--forest);line-height:1.5;flex:1;}
+.ic-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--light);flex-shrink:0;margin-top:2px;}
+.ic-body{padding:14px 18px;font-size:14px;color:var(--mid);line-height:1.82;}
+.ic-body strong{color:var(--forest);font-weight:600;}
+.ic-tip{margin-top:10px;padding:10px 13px;background:var(--mint);border-radius:8px;font-size:13px;color:var(--forest);font-weight:600;line-height:1.6;}
 
 /* CHECKLIST */
-.checklist{background:var(--ink-pale);border:1.5px solid var(--ink-l);border-radius:12px;padding:24px 22px;margin-top:20px;}
-.cl-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:var(--ink);margin-bottom:16px;}
-.cl-items{display:flex;flex-direction:column;gap:0;}
-.cl-item{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid var(--ink-l);cursor:pointer;transition:opacity .15s;}
+.checklist{background:var(--mint-pale);border:1.5px solid rgba(82,168,122,.2);border-radius:12px;padding:22px 20px;margin-top:20px;}
+.cl-title{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:var(--forest);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.cl-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(82,168,122,.15);cursor:pointer;}
 .cl-item:last-child{border-bottom:none;}
 .cl-item.done{opacity:.5;}
-.cl-box{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--light);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.cl-box{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--sage);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .cl-item.done .cl-box{background:var(--sage);border-color:var(--sage);}
 .cl-check{color:#fff;font-size:11px;display:none;}
 .cl-item.done .cl-check{display:block;}
 .cl-text{font-size:14px;color:var(--text);line-height:1.6;}
 .cl-sub{font-size:12px;color:var(--light);margin-top:2px;}
 
-/* CASE STUDY */
-.case-box{background:var(--sand);border:1.5px solid var(--rule);border-radius:12px;padding:22px 22px;margin-top:16px;}
-.case-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;}
-.case-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:var(--ink);margin-bottom:10px;}
-.case-body{font-size:14px;color:var(--mid);line-height:1.82;}
-.case-body strong{color:var(--ink);font-weight:600;}
-.case-lesson{margin-top:14px;padding:12px 14px;background:var(--amber-l);border-radius:8px;font-size:13.5px;font-weight:600;color:var(--amber);line-height:1.6;}
+/* CALCULATOR */
+.calc-box{background:var(--white);border:1.5px solid var(--rule);border-radius:14px;overflow:hidden;margin-top:20px;}
+.cb-head{background:var(--forest);padding:16px 20px;}
+.cb-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(180,230,200,.7);margin-bottom:4px;}
+.cb-title{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:#fff;}
+.cb-body{padding:20px 20px;}
+.cb-body label{font-size:13.5px;color:var(--text);font-weight:500;display:block;margin-bottom:6px;}
+.cb-input{width:100%;padding:10px 12px;border:1.5px solid var(--rule);border-radius:8px;font-family:'DM Sans','PingFang SC',sans-serif;font-size:14px;color:var(--text);background:var(--cream);outline:none;margin-bottom:14px;}
+.cb-input:focus{border-color:var(--sage);}
+.cb-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.btn-calc{padding:12px 24px;border-radius:8px;background:var(--forest);color:#fff;border:none;font-family:'DM Sans','PingFang SC',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+.cb-result{margin-top:16px;padding:16px;background:var(--mint);border-radius:8px;display:none;}
+.cb-result.show{display:block;}
+.cbr-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:8px;}
+.cbr-value{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;color:var(--forest);margin-bottom:4px;}
+.cbr-note{font-size:12.5px;color:var(--mid);line-height:1.65;}
 
-/* INTERACTIVE TOOL */
-.tool-interactive{background:var(--white);border:1.5px solid var(--rule);border-radius:14px;overflow:hidden;margin-top:14px;}
-.ti-head{background:var(--ink-mid);padding:16px 20px;}
-.ti-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,220,140,.7);margin-bottom:4px;}
-.ti-title{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:#fff;}
-.ti-body{padding:20px 20px;}
-.ti-body label{font-size:13.5px;color:var(--text);font-weight:500;display:block;margin-bottom:6px;}
-.ti-input{width:100%;padding:10px 12px;border:1.5px solid var(--rule);border-radius:8px;font-family:'DM Sans','PingFang SC',sans-serif;font-size:14px;color:var(--text);background:var(--cream);outline:none;margin-bottom:14px;}
-.ti-input:focus{border-color:var(--ink-mid);}
-.ti-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.btn-calc{padding:12px 24px;border-radius:8px;background:var(--ink-mid);color:#fff;border:none;font-family:'DM Sans','PingFang SC',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s;}
-.btn-calc:hover{background:var(--ink);}
-.ti-result{margin-top:16px;padding:16px;background:var(--ink-pale);border-radius:8px;display:none;}
-.ti-result.show{display:block;}
-.tr-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:8px;}
-.tr-value{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;color:var(--ink-mid);margin-bottom:4px;}
-.tr-note{font-size:12.5px;color:var(--mid);line-height:1.65;}
+/* PRIVATE NOTE */
+.private-note{background:var(--sand);border:1.5px solid var(--rule);border-radius:10px;padding:16px 18px;margin-top:20px;display:flex;align-items:flex-start;gap:12px;}
+.pn-icon{font-size:20px;flex-shrink:0;}
+.pn-body{font-size:13.5px;color:var(--mid);line-height:1.75;}
+.pn-body strong{color:var(--forest);}
 
-/* CTA */
-.consult-cta{background:var(--ink);border-radius:12px;padding:24px 22px;margin-top:16px;display:flex;align-items:center;gap:20px;}
+/* CONSULT CTA */
+.consult-cta{background:var(--forest);border-radius:12px;padding:24px 22px;margin-top:20px;display:flex;align-items:center;gap:20px;}
 .cc-body{flex:1;}
 .cc-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:5px;}
 .cc-title{font-size:16px;font-weight:600;color:#fff;margin-bottom:4px;}
 .cc-desc{font-size:13px;color:rgba(255,255,255,.45);}
-.btn-consult{padding:12px 24px;border-radius:8px;background:#fff;color:var(--ink);font-size:13.5px;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .2s;}
-.btn-consult:hover{background:var(--ink-l);}
+.btn-consult{padding:12px 24px;border-radius:8px;background:#fff;color:var(--forest);font-size:13.5px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .2s;}
+.btn-consult:hover{background:var(--mint);}
 
-/* BACK BAND */
-.back-band{background:var(--ink);padding:36px 24px;text-align:center;}
+/* BACK */
+.back-band{background:var(--forest);padding:36px 24px;text-align:center;}
 .bb-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:#fff;margin-bottom:8px;}
 .bb-ctas{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap;}
 .bb-btn{padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;}
 .bb-outline{border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);}
 .bb-outline:hover{color:#fff;border-color:#fff;}
-.bb-fill{background:rgba(255,255,255,.1);color:#fff;}
+.bb-fill{background:rgba(255,255,255,.1);color:#fff;border:1px solid transparent;}
 .bb-fill:hover{background:rgba(255,255,255,.18);}
 
-footer{background:#0a1622;padding:24px;text-align:center;}
-.ft-brand{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,.3);}
+footer{background:#0a1a10;padding:24px;text-align:center;}
+.ft-note{font-size:12px;color:rgba(255,255,255,.22);line-height:1.7;}
 
 .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s;}
 .reveal.visible{opacity:1;transform:translateY(0);}
-@media(max-width:640px){.myth-grid,.tool-grid,.ti-row{grid-template-columns:1fr;}.consult-cta{flex-direction:column;text-align:center;}}
+@media(max-width:640px){
+  .why-grid{grid-template-columns:1fr;}
+  .consult-cta{flex-direction:column;text-align:center;}
+  .cb-row{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
@@ -141,9 +147,7 @@ footer{background:#0a1622;padding:24px;text-align:center;}
 <nav>
   <a href="compass.html" class="nav-back">← 她的指南针</a>
   <span class="nav-brand">她说了算</span>
-  <div class="nav-r">
-    <a href="compass-consult.html" class="nav-consult">预约法律顾问</a>
-  </div>
+  <div class="nav-note"><div class="nav-note-dot"></div>私密内容 · 仅供参考</div>
 </nav>
 
 <div class="hero">
@@ -151,46 +155,51 @@ footer{background:#0a1622;padding:24px;text-align:center;}
     <div class="hero-breadcrumb">
       <a href="index.html">首页</a><span>/</span>
       <a href="compass.html">她的指南针</a><span>/</span>
-      <span>婚前/离婚财产权益</span>
+      <span>关系中的财产智慧</span>
     </div>
-    <div class="hero-badge">⚖️ 法律权益</div>
-    <h1>婚前/离婚<br><em>财产权益指南</em></h1>
-    <p class="hero-desc">从婚前协议到离婚财产分割，从家暴保护令到彩礼纠纷——把法律知识翻译成你现在能用的语言。</p>
+    <div class="hero-badge">✦ 每个女人都值得知道</div>
+    <h1>关系中的<em>财产智慧</em></h1>
+    <p class="hero-desc">不是因为你不信任对方，而是因为清晰的财务边界，是你给自己和关系最好的礼物。主动了解，才能在需要的时候从容应对。</p>
+    <div class="hero-note">🔒 这里的内容是私人的。阅读记录不会被任何人看到。</div>
     <div class="hero-topics">
-      <span class="ht">婚前协议</span>
-      <span class="ht">离婚财产分割</span>
-      <span class="ht">房产登记名字</span>
-      <span class="ht">家暴保护令</span>
-      <span class="ht">彩礼纠纷</span>
-      <span class="ht">婚内债务</span>
+      <span class="ht">婚前财产规划</span>
+      <span class="ht">婚内财务边界</span>
+      <span class="ht">房产与名字</span>
+      <span class="ht">财产清单准备</span>
+      <span class="ht">关系变化时的权益</span>
     </div>
   </div>
 </div>
 
 <main>
 
-<!-- 误区澄清 -->
+<!-- 为什么需要了解这些 -->
 <div class="page">
   <div class="section reveal">
-    <div class="sec-label">先破除误区</div>
-    <h2 class="sec-h2">四个最常见的法律误解</h2>
-    <p class="sec-sub">这些误解可能正在让你承担不必要的风险。</p>
-    <div class="myth-grid">
-      <div class="myth-card">
-        <div class="mc-head"><span class="mc-badge myth-badge">❌ 误区</span><div class="mc-text">「婚后的钱都是夫妻共同财产，我挣的我说了算」</div></div>
-        <div class="mc-body"><span class="mc-badge fact-badge" style="font-size:10px;padding:2px 7px;margin-bottom:6px;display:inline-block;">✓ 实际</span><br>婚后收入是共同财产，但<strong>使用和处置需要另一方同意</strong>。超过一定金额的单方处置可被认定无效。个人账户不代表个人财产。</div>
+    <div class="sec-label">为什么了解这些</div>
+    <h2 class="sec-h2">不是悲观，是主动</h2>
+    <p class="sec-sub">了解这些知识，不是因为你预设关系会出问题，而是因为——有知识的人，在任何处境里都更从容。</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="wc-icon">🌱</div>
+        <div class="wc-title">婚前了解，是一种成熟</div>
+        <div class="wc-body">知道自己的财产边界在哪里，不是对伴侣不信任，而是对自己的人生负责。清晰的规则，让关系更轻松。</div>
       </div>
-      <div class="myth-card">
-        <div class="mc-head"><span class="mc-badge myth-badge">❌ 误区</span><div class="mc-text">「房子我出的首付，离婚后房子归我」</div></div>
-        <div class="mc-body"><span class="mc-badge fact-badge" style="font-size:10px;padding:2px 7px;margin-bottom:6px;display:inline-block;">✓ 实际</span><br>若房产登记为共同，<strong>婚后增值部分按共同财产处理</strong>。首付出资需保留打款记录，并最好有婚前协议明确约定。</div>
+      <div class="why-card">
+        <div class="wc-icon">🧭</div>
+        <div class="wc-title">提前了解，减少日后困惑</div>
+        <div class="wc-body">很多财产纠纷不是因为恶意，而是双方对规则理解不同。提前对齐，比事后争执要温和得多。</div>
       </div>
-      <div class="myth-card">
-        <div class="mc-head"><span class="mc-badge myth-badge">❌ 误区</span><div class="mc-text">「签婚前协议说明不信任对方，感情不好」</div></div>
-        <div class="mc-body"><span class="mc-badge fact-badge" style="font-size:10px;padding:2px 7px;margin-bottom:6px;display:inline-block;">✓ 实际</span><br>婚前协议是<strong>对双方都公平的保护</strong>。明确财产边界反而减少未来争议，是成熟的财务规划，不是不信任的表现。</div>
+      <div class="why-card">
+        <div class="wc-icon">💪</div>
+        <div class="wc-title">了解权益，才能真正给予</div>
+        <div class="wc-body">当你清楚自己在给予什么，你给出去的才是真正自愿的。模糊的给予，往往带来模糊的怨气。</div>
       </div>
-      <div class="myth-card">
-        <div class="mc-head"><span class="mc-badge myth-badge">❌ 误区</span><div class="mc-text">「离婚时孩子归谁，财产就跟着孩子走」</div></div>
-        <div class="mc-body"><span class="mc-badge fact-badge" style="font-size:10px;padding:2px 7px;margin-bottom:6px;display:inline-block;">✓ 实际</span><br>抚养权和财产分割是<strong>两个独立的法律问题</strong>。孩子归谁，不自动影响房产、存款、投资的分割方式。</div>
+      <div class="why-card">
+        <div class="wc-icon">🔐</div>
+        <div class="wc-title">信息本身就是安全感</div>
+        <div class="wc-body">了解相关法律，不是为了随时准备用它，而是让你在任何处境里都不会因为不知道而陷入慌乱。</div>
       </div>
     </div>
   </div>
@@ -198,148 +207,188 @@ footer{background:#0a1622;padding:24px;text-align:center;}
 
 <div style="height:1px;background:var(--rule);margin:0 24px;"></div>
 
-<!-- 工具 -->
+<!-- 主要内容 Tab -->
 <div class="page">
   <div class="section reveal">
-    <div class="sec-label">配套工具</div>
-    <h2 class="sec-h2">婚前协议自查清单</h2>
-    <p class="sec-sub">一份有法律效力的婚前协议需要包含这些要素。逐条勾选，确认你的协议是否完整。</p>
+    <div class="sec-label">分场景了解</div>
+    <h2 class="sec-h2">选一个你现在想了解的</h2>
 
-    <div class="checklist" id="prenupList">
-      <div class="cl-title">婚前协议必备要素 · 共 8 项</div>
-      <div class="cl-items">
-        <div class="cl-item" onclick="toggleItem(this)">
-          <div class="cl-box"><span class="cl-check">✓</span></div>
-          <div><div class="cl-text">双方自愿签署，无胁迫或欺骗</div><div class="cl-sub">建议至少在婚前30天签署，留有考虑时间</div></div>
-        </div>
-        <div class="cl-item" onclick="toggleItem(this)">
-          <div class="cl-box"><span class="cl-check">✓</span></div>
-          <div><div class="cl-text">协议内容书面形式，双方亲笔签名</div><div class="cl-sub">口头协议在中国法律上不具效力</div></div>
-        </div>
-        <div class="cl-item" onclick="toggleItem(this)">
-          <div class="cl-box"><span class="cl-check">✓</span></div>
-          <div><div class="cl-text">明确婚前各自财产清单（含房产、存款、股票、债务）</div><div class="cl-sub">附上估值文件，日期精确到签署日</div></div>
-        </div>
-        <div class="cl-item" onclick="toggleItem(this)">
-          <div class="cl-box"><span class="cl-check">✓</span></div>
-          <div><div class="cl-text">约定婚后收入归属方式（共同/各自/比例分配）</div><div class="cl-sub">未约定部分默认按法定共同财产处理</div></div>
-        </div>
-        <div class="cl-item" onclick="toggleItem(this)">
-          <div class="cl-box"><span class="cl-check">✓</span></div>
-          <div><div class="cl-text">明确约定婚后房产增值的归属</div><div class="cl-sub">特别是一方婚前购置、婚后共同还贷的情况</div></div>
-        </div>
-        <div class="cl-item" onclick="toggleItem(this)">
-          <div class="cl-box"><span class="cl-check">✓</span></div>
-          <div><div class="cl-text">债务条款：各自婚前债务自行承担</div><div class="cl-sub">婚后共同债务需双方签字才能对另一方生效</div></div>
-        </div>
-        <div class="cl-item" onclick="toggleItem(this)">
-          <div class="cl-box"><span class="cl-check">✓</span></div>
-          <div><div class="cl-text">双方均已获得独立法律咨询（建议）</div><div class="cl-sub">各自律师审阅，避免日后被认定为显失公平</div></div>
-        </div>
-        <div class="cl-item" onclick="toggleItem(this)">
-          <div class="cl-box"><span class="cl-check">✓</span></div>
-          <div><div class="cl-text">公证（建议）</div><div class="cl-sub">公证后法律效力更强，争议时举证更容易</div></div>
-        </div>
-      </div>
+    <div class="k-tabs">
+      <div class="k-tab active" onclick="switchTab(this,'prenup')">婚前财产规划</div>
+      <div class="k-tab" onclick="switchTab(this,'house')">房产与名字</div>
+      <div class="k-tab" onclick="switchTab(this,'during')">婚内财务边界</div>
+      <div class="k-tab" onclick="switchTab(this,'change')">关系发生变化时</div>
     </div>
 
-    <!-- 离婚资产计算器 -->
-    <div class="tool-interactive reveal" style="margin-top:28px;">
-      <div class="ti-head">
-        <div class="ti-label">💰 离婚财产估算</div>
-        <div class="ti-title">共同财产简易计算器</div>
-      </div>
-      <div class="ti-body">
-        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;line-height:1.7;">输入主要资产估值，快速了解共同财产规模。这是粗估，具体分割比例需结合实际情况由律师评估。</p>
-        <div class="ti-row">
-          <div>
-            <label>婚后房产现值（万元）</label>
-            <input type="number" class="ti-input" id="house" placeholder="如：300">
-          </div>
-          <div>
-            <label>房产婚前首付（万元）</label>
-            <input type="number" class="ti-input" id="downpay" placeholder="如：50（可填0）">
+    <div class="k-panels">
+
+      <!-- 婚前财产规划 -->
+      <div class="k-panel active" id="panel-prenup">
+        <div class="private-note">
+          <div class="pn-icon">💡</div>
+          <div class="pn-body">婚前协议在中国越来越普遍，尤其是在一线城市。很多伴侣签协议不是因为不信任，而是因为<strong>规则清晰，感情才能更纯粹</strong>。</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-head"><div class="ic-num">Q1</div><div class="ic-q">婚前协议包含哪些内容？我需要准备什么？</div></div>
+          <div class="ic-body">婚前协议可以约定：婚前各自财产的归属、婚后收入如何分配、房产增值部分如何处理、债务各自承担还是共同承担等。<br><br>准备时需要：<strong>双方婚前财产清单</strong>（存款、房产、投资、车辆）、各自的收入证明，以及对婚后生活安排的基本共识。
+            <div class="ic-tip">✓ 建议在婚前 1-3 个月签署，给双方足够时间考虑。公证后法律效力更强。</div>
           </div>
         </div>
-        <div class="ti-row">
-          <div>
-            <label>婚后共同存款/理财（万元）</label>
-            <input type="number" class="ti-input" id="savings" placeholder="如：30">
-          </div>
-          <div>
-            <label>婚后共同债务（万元）</label>
-            <input type="number" class="ti-input" id="debt" placeholder="如：20（可填0）">
+        <div class="info-card">
+          <div class="ic-head"><div class="ic-num">Q2</div><div class="ic-q">提出签婚前协议，会不会伤感情？怎么开口？</div></div>
+          <div class="ic-body">这是很多人的顾虑。可以换一个角度：<strong>婚前协议是你们第一次坐下来认真谈钱</strong>，这本身就是一种亲密。<br><br>开口的方式可以是：「我想和你一起整理一下我们各自的财产情况，也聊聊婚后怎么安排财务——这样我们以后都清楚，不用猜。」
+            <div class="ic-tip">✓ 以「我们一起」的语气，而不是「我要保护自己」的语气，更容易开启对话。</div>
           </div>
         </div>
-        <button class="btn-calc" onclick="calcAssets()">估算共同财产</button>
-        <div class="ti-result" id="assetResult">
-          <div class="tr-label">共同财产估算</div>
-          <div class="tr-value" id="totalVal">—</div>
-          <div class="tr-note" id="totalNote"></div>
+        <div class="checklist">
+          <div class="cl-title">💼 婚前财产整理清单</div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-box"><span class="cl-check">✓</span></div><div><div class="cl-text">列出所有婚前银行账户余额，截图留存</div><div class="cl-sub">包括理财账户、基金账户</div></div></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-box"><span class="cl-check">✓</span></div><div><div class="cl-text">整理名下房产信息（房产证、购房合同）</div><div class="cl-sub">注意看清产权人是否只有你自己</div></div></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-box"><span class="cl-check">✓</span></div><div><div class="cl-text">记录婚前的大额转账记录（父母资助等）</div><div class="cl-sub">这些可能在日后作为个人财产的证明</div></div></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-box"><span class="cl-check">✓</span></div><div><div class="cl-text">确认名下是否有未偿还的贷款</div><div class="cl-sub">婚前债务通常由个人承担，但需要留有记录</div></div></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-box"><span class="cl-check">✓</span></div><div><div class="cl-text">把以上材料存入一个安全的地方（云端+实体）</div><div class="cl-sub">不是为了用，是为了「有备无患」的安心</div></div></div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
-<div style="height:1px;background:var(--rule);margin:0 24px;"></div>
-
-<!-- 案例 -->
-<div class="page">
-  <div class="section reveal">
-    <div class="sec-label">真实场景拆解</div>
-    <h2 class="sec-h2">婚前首付 + 婚后共同还贷，离婚怎么算？</h2>
-    <div class="case-box">
-      <div class="case-label">📋 典型场景</div>
-      <div class="case-title">小林婚前全款买房，婚后加了丈夫的名字</div>
-      <div class="case-body">
-        <p>小林婚前用自己的积蓄全款购入一套房，婚后感情很好，丈夫提出加名，小林同意了。离婚时，丈夫主张房子是共同财产，要求分一半。</p><br>
-        <p><strong>法院如何判决：</strong>房产证上有双方名字，且婚后共同居住，法院一般认定为共同财产。但小林可以主张婚前出资部分（全款），该部分应扣除后再平分。然而，当年的出资记录已很难完整保存，举证困难。</p>
+      <!-- 房产与名字 -->
+      <div class="k-panel" id="panel-house">
+        <div class="private-note">
+          <div class="pn-icon">🏠</div>
+          <div class="pn-body">房产登记是很多人最关心但又最容易模糊处理的一件事。<strong>名字写在哪里，法律上就属于谁</strong>——爱是爱，法律是法律，两者可以同时存在。</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-head"><div class="ic-num">Q1</div><div class="ic-q">婚后买房，登记一个人名字还是两个人？有什么区别？</div></div>
+          <div class="ic-body">登记两个人：<strong>共同财产，双方各有权益</strong>，处置时需双方同意。<br>登记一个人：法律上属于该人，但婚后共同还贷的部分在某些情况下也会被考虑。<br><br>没有对错，关键是两人对这件事的认知要一致，并且以书面方式留存共识。
+            <div class="ic-tip">✓ 无论登记几个人，最好书面记录「谁出了多少首付」，这是重要的财产证明。</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="ic-head"><div class="ic-num">Q2</div><div class="ic-q">我用婚前积蓄付首付，但房子写了两个人名字，这笔钱还算我的吗？</div></div>
+          <div class="ic-body">这是一个常见的复杂情况。原则上，<strong>婚前出资的首付部分，在有证明的情况下可以主张属于个人贡献</strong>，但增值部分如何分配则取决于当时的约定和举证。<br><br>最稳妥的做法：加名前签订书面协议，明确「婚前出资X万元归原出资方，房产婚后增值共同分享」，并公证留存。
+            <div class="ic-tip">✓ 转账记录+书面协议，是最有效的保护组合。</div>
+          </div>
+        </div>
+        <div class="calc-box">
+          <div class="cb-head">
+            <div class="cb-label">💡 共同财产估算</div>
+            <div class="cb-title">快速了解婚后共同财产规模</div>
+          </div>
+          <div class="cb-body">
+            <p style="font-size:13px;color:var(--mid);margin-bottom:16px;line-height:1.7;">输入主要资产，了解共同财产的大致范围，有助于你在做财务规划时更有方向感。</p>
+            <div class="cb-row">
+              <div><label>房产现值（万元）</label><input type="number" class="cb-input" id="house" placeholder="如：300"></div>
+              <div><label>婚前个人首付（万元）</label><input type="number" class="cb-input" id="down" placeholder="如：50，可填0"></div>
+            </div>
+            <div class="cb-row">
+              <div><label>婚后共同存款/投资（万元）</label><input type="number" class="cb-input" id="savings" placeholder="如：30"></div>
+              <div><label>婚后共同债务（万元）</label><input type="number" class="cb-input" id="debt" placeholder="如：20，可填0"></div>
+            </div>
+            <button class="btn-calc" onclick="calcAssets()">估算共同财产</button>
+            <div class="cb-result" id="result">
+              <div class="cbr-label">共同财产估算</div>
+              <div class="cbr-value" id="rVal"></div>
+              <div class="cbr-note" id="rNote"></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="case-lesson">💡 教训：加名前应签订书面协议，明确约定「婚前出资部分归原出资方，房产增值共同分配」，并公证留存。</div>
-    </div>
 
-    <div class="consult-cta reveal" style="margin-top:16px;">
-      <div class="cc-body">
-        <div class="cc-label">需要一对一法律支持？</div>
-        <div class="cc-title">预约婚姻财产专项律师</div>
-        <div class="cc-desc">经过审核的婚姻法律顾问 · 会员享8折优惠 · 首次30分钟¥198</div>
+      <!-- 婚内财务边界 -->
+      <div class="k-panel" id="panel-during">
+        <div class="private-note">
+          <div class="pn-icon">💚</div>
+          <div class="pn-body">婚内保持一定的财务独立，不是不信任伴侣，而是<strong>让自己随时都有选择的能力</strong>。这是对自己的尊重，也是对关系健康的投资。</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-head"><div class="ic-num">Q1</div><div class="ic-q">婚内我的工资是共同财产吗？我能有自己的"私房钱"吗？</div></div>
+          <div class="ic-body">婚后工资在法律上属于共同财产，但这不意味着你不能有个人账户和个人储蓄。<strong>婚内保持一定的财务独立是完全合理的</strong>。<br><br>可以和伴侣约定：各自保留一部分个人支配收入，共同开支从共同账户支出。这种安排很多家庭都在实践，是健康的财务边界。
+            <div class="ic-tip">✓ 「个人账户」不等于「秘密」，透明地讨论财务安排，比偷偷存钱更有益于关系。</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="ic-head"><div class="ic-num">Q2</div><div class="ic-q">保险受益人怎么设置最合理？</div></div>
+          <div class="ic-body">保险受益人是你的自主权利，可以设置为父母、子女或伴侣，也可以分比例。<strong>以你自己为投保人，保留随时更改受益人的权利</strong>，是最灵活的安排。<br><br>很多人在婚后把所有保险受益人都改成配偶，却忘记在家庭结构变化时更新——定期检查保险受益人设置，是财务健康的重要一步。
+            <div class="ic-tip">✓ 建议每年检查一次保险受益人设置，确保符合你当前的家庭情况和意愿。</div>
+          </div>
+        </div>
+        <div class="checklist">
+          <div class="cl-title">💚 婚内财务边界 · 行动清单</div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-box"><span class="cl-check">✓</span></div><div><div class="cl-text">开立仅属于自己名下的个人账户</div><div class="cl-sub">和家庭共同账户并行，不替代</div></div></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-box"><span class="cl-check">✓</span></div><div><div class="cl-text">每月固定存入个人账户一定金额</div><div class="cl-sub">建议月收入的10-20%，形成习惯</div></div></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-box"><span class="cl-check">✓</span></div><div><div class="cl-text">以自己为投保人购买保险，保留受益人修改权</div></div></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-box"><span class="cl-check">✓</span></div><div><div class="cl-text">了解家庭主要资产的账户信息和密码</div><div class="cl-sub">不是为了监控，是为了紧急情况时能独立处置</div></div></div>
+          <div class="cl-item" onclick="toggleItem(this)"><div class="cl-box"><span class="cl-check">✓</span></div><div><div class="cl-text">立下个人遗嘱，明确个人资产意愿</div><div class="cl-sub">任何时候都不嫌早，简单的自书遗嘱即可开始</div></div></div>
+        </div>
       </div>
-      <a href="compass-consult.html" class="btn-consult">预约咨询 →</a>
-    </div>
+
+      <!-- 关系发生变化时 -->
+      <div class="k-panel" id="panel-change">
+        <div class="private-note">
+          <div class="pn-icon">🌿</div>
+          <div class="pn-body">这一部分的信息，希望你永远用不上。但如果有一天你需要，<strong>提前了解会让你更有力量去做出真正属于自己的选择</strong>，而不是在慌乱中被动应对。</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-head"><div class="ic-num">Q1</div><div class="ic-q">如果关系出现问题，我应该首先做什么？</div></div>
+          <div class="ic-body">在任何决定之前，先做两件事：<strong>整理你们的共同财产清单</strong>（房产、存款、投资、债务），和<strong>咨询一位你信任的专业人士</strong>（律师或理财顾问）。<br><br>不要在情绪最激动的时候做重大决定。给自己时间，了解清楚自己的权益边界，然后再决定下一步。
+            <div class="ic-tip">✓ 「了解权益」不等于「决定离开」。它只是让你手里有信息，有选择。</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="ic-head"><div class="ic-num">Q2</div><div class="ic-q">如果我需要一个安全的空间，我可以去哪里？</div></div>
+          <div class="ic-body">如果你感到不安全：<br><br>• <strong>妇女儿童权益保护热线：12338</strong>（全国，24小时）<br>• <strong>家庭暴力报警：110</strong><br>• 家暴保护令申请：向当地法院提交申请，通常 72 小时内处理<br><br>你不需要「确定」才能寻求帮助。感到不安全本身，就足够了。
+            <div class="ic-tip">✓ 12338 提供法律咨询、心理援助和紧急庇护信息，免费，保密。</div>
+          </div>
+        </div>
+        <div class="consult-cta">
+          <div class="cc-body">
+            <div class="cc-label">需要一对一支持？</div>
+            <div class="cc-title">与专业顾问私密对话</div>
+            <div class="cc-desc">经过审核的婚姻法律顾问 · 会员享8折优惠 · 保密，不留记录</div>
+          </div>
+          <a href="compass-consult.html" class="btn-consult">预约咨询 →</a>
+        </div>
+      </div>
+
+    </div><!-- /k-panels -->
   </div>
 </div>
 
 </main>
 
 <div class="back-band">
-  <div class="bb-title">她的指南针 · 四个领域，帮你站稳</div>
+  <div class="bb-title">她的指南针 · 每个领域，帮你站稳</div>
   <div class="bb-ctas">
-    <a href="compass.html" class="bb-btn bb-outline">← 返回指南针首页</a>
-    <a href="compass-career.html" class="bb-btn bb-fill">职场谈薪指南针 →</a>
+    <a href="compass.html" class="bb-btn bb-outline">← 返回指南针</a>
     <a href="compass-finance.html" class="bb-btn bb-fill">独立理财指南针 →</a>
+    <a href="compass-career.html" class="bb-btn bb-fill">职场谈薪指南针 →</a>
   </div>
 </div>
 
-<footer><div class="ft-brand">她说了算 · She Decides · 她的指南针 · 法律权益</div></footer>
+<footer>
+  <div class="ft-note">她说了算 · She Decides · 她的指南针 · 关系中的财产智慧<br>本页内容仅供参考，不构成法律意见。具体情况建议咨询专业律师。</div>
+</footer>
 
 <script>
 window.addEventListener('scroll',function(){var h=document.documentElement;document.getElementById('rp').style.width=(window.scrollY/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
 var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:.07});
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 
+function switchTab(btn,id){
+  document.querySelectorAll('.k-tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.k-panel').forEach(function(p){p.classList.remove('active');});
+  btn.classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+}
 function toggleItem(el){el.classList.toggle('done');}
-
 function calcAssets(){
-  var house=parseFloat(document.getElementById('house').value)||0;
-  var down=parseFloat(document.getElementById('downpay').value)||0;
-  var sav=parseFloat(document.getElementById('savings').value)||0;
-  var debt=parseFloat(document.getElementById('debt').value)||0;
-  var joint=(house-down)+sav-debt;
-  var each=joint/2;
-  document.getElementById('totalVal').textContent='约 '+Math.max(0,joint).toFixed(1)+' 万元';
-  document.getElementById('totalNote').textContent='（若均分）每人可分约 '+Math.max(0,each).toFixed(1)+' 万元。婚前首付 '+down+' 万元已从共同财产中扣除。实际分割比例需结合出资证明、居住情况、子女抚养等因素由律师综合评估。';
-  document.getElementById('assetResult').classList.add('show');
+  var h=parseFloat(document.getElementById('house').value)||0;
+  var d=parseFloat(document.getElementById('down').value)||0;
+  var s=parseFloat(document.getElementById('savings').value)||0;
+  var dt=parseFloat(document.getElementById('debt').value)||0;
+  var joint=(h-d)+s-dt;
+  document.getElementById('rVal').textContent='约 '+Math.max(0,joint).toFixed(1)+' 万元';
+  document.getElementById('rNote').textContent='扣除婚前首付 '+d+' 万元后的共同财产估算。这只是一个参考数字，实际分配需结合完整情况，建议和专业顾问详细讨论。';
+  document.getElementById('result').classList.add('show');
 }
 </script>
 </body>
