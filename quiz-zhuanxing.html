@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中女转型坐标测试 · 你是哪种转型人？· 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a0e08;--warm:#7a3c1a;--amber:#b8862c;--amber-l:#f5edd8;--gold:#c49a3c;
+  --plum:#3d1536;--rose:#c4587a;--blush:#f0dce8;
+  --forest:#1a3d2b;--sage:#52a87a;--mint:#d4ede2;
+  --cream:#fdfaf5;--sand:#f5ede4;--rule:#e2d4c8;
+  --text:#2a1a0e;--mid:#6b4830;--light:#9a7860;--white:#fff;
+  --E:#b8862c;--E-l:#f5edd8;  /* 蓄势型 amber */
+  --S:#1d4a35;--S-l:#d6ede0;  /* 深潜型 teal */
+  --B:#c4587a;--B-l:#f0dce8;  /* 破壳型 rose */
+  --R:#3d1536;--R-l:#ede0f0;  /* 重塑型 plum */
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;}
+.prog{height:3px;background:var(--rule);position:fixed;top:0;left:0;right:0;z-index:100;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--rose));width:0%;transition:width .5s ease;}
+
+/* ── COVER ── */
+.cover{min-height:100vh;background:linear-gradient(160deg,var(--ink) 0%,#3d1a06 60%,var(--warm) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center;position:relative;overflow:hidden;}
+.cover::before{content:'转';position:absolute;right:-30px;bottom:-50px;font-family:'Noto Serif SC',serif;font-size:360px;font-weight:700;color:rgba(255,255,255,.022);line-height:1;pointer-events:none;}
+.cv-dot{width:8px;height:8px;border-radius:50%;background:var(--amber);}
+.cv-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(184,134,44,.2);border:1px solid rgba(184,134,44,.3);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,218,140,.88);margin-bottom:20px;}
+.cover h1{font-family:'Noto Serif SC',serif;font-size:clamp(28px,6vw,50px);font-weight:700;color:#fff;line-height:1.12;margin-bottom:12px;}
+.cover h1 em{font-style:italic;color:rgba(255,218,140,.9);}
+.cv-sub{font-size:14px;color:rgba(255,255,255,.45);margin-bottom:10px;}
+.cv-desc{max-width:420px;font-size:15px;color:rgba(255,255,255,.55);line-height:1.85;margin-bottom:28px;}
+.cv-types{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:380px;margin:0 auto 32px;}
+.cv-type{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;text-align:left;}
+.ctt-icon{font-size:18px;margin-bottom:4px;}
+.ctt-name{font-size:13px;font-weight:600;color:rgba(255,255,255,.85);}
+.ctt-sub{font-size:11px;color:rgba(255,255,255,.38);margin-top:2px;}
+.btn-start{display:inline-flex;align-items:center;gap:10px;padding:16px 40px;border-radius:10px;background:#fff;color:var(--warm);font-size:16px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .25s;}
+.btn-start:hover{background:var(--amber-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25);}
+.cv-hint{margin-top:14px;font-size:12px;color:rgba(255,255,255,.22);}
+
+/* ── QUIZ ── */
+.quiz{display:none;min-height:100vh;padding:20px 0 60px;background:var(--cream);}
+.quiz.active{display:block;}
+.q-topbar{max-width:560px;margin:0 auto;padding:20px 24px 0;display:flex;align-items:center;justify-content:space-between;}
+.q-count{font-size:12px;color:var(--light);}
+.q-count strong{font-family:'Noto Serif SC',serif;font-size:16px;color:var(--warm);}
+.q-wrap{max-width:560px;margin:0 auto;padding:0 24px;}
+.q-card{display:none;}
+.q-card.active{display:block;animation:slideUp .4s ease both;}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* scene */
+.q-scene{background:linear-gradient(135deg,#f5ede4,#f0dce8);border-radius:12px;padding:14px 16px;font-size:13.5px;color:var(--mid);line-height:1.72;margin-bottom:16px;font-style:italic;position:relative;border-left:3px solid var(--amber);}
+.q-scene-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:5px;font-style:normal;}
+
+.q-text{font-family:'Noto Serif SC',serif;font-size:clamp(17px,4vw,21px);font-weight:600;color:var(--warm);line-height:1.4;margin-bottom:20px;}
+
+/* options */
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{padding:14px 16px;border:1.5px solid var(--rule);border-radius:12px;cursor:pointer;display:flex;align-items:flex-start;gap:12px;text-align:left;background:var(--white);transition:all .2s;width:100%;font-family:inherit;}
+.opt:hover{border-color:var(--amber);background:var(--amber-l);}
+.opt.chosen{border-color:var(--warm);background:var(--warm);}
+.opt-bullet{width:28px;height:28px;border-radius:8px;background:var(--sand);border:1.5px solid var(--rule);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--mid);transition:all .2s;}
+.opt.chosen .opt-bullet{background:var(--amber);border-color:var(--amber);color:#fff;}
+.opt-content{flex:1;}
+.opt-main{font-size:14px;color:var(--text);line-height:1.55;transition:color .18s;font-weight:400;}
+.opt-hint{font-size:11.5px;color:var(--light);margin-top:3px;transition:color .18s;}
+.opt.chosen .opt-main,.opt.chosen .opt-hint{color:rgba(255,255,255,.88);}
+.opt.chosen .opt-hint{color:rgba(255,255,255,.5);}
+
+/* ── RESULT ── */
+.result{display:none;min-height:100vh;padding:0 0 60px;}
+.result.active{display:block;}
+
+.result-hero{padding:56px 24px 44px;text-align:center;position:relative;overflow:hidden;}
+.rh-type-icon{font-size:60px;display:block;margin-bottom:14px;animation:popIn .6s ease both;}
+@keyframes popIn{from{opacity:0;transform:scale(.4);}60%{transform:scale(1.15);}to{opacity:1;transform:scale(1);}}
+.rh-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.rh-type-name{font-family:'Noto Serif SC',serif;font-size:clamp(26px,5vw,38px);font-weight:700;margin-bottom:8px;}
+.rh-slogan{font-size:15px;font-style:italic;opacity:.72;max-width:480px;margin:0 auto;line-height:1.7;}
+
+.result-body{max-width:580px;margin:0 auto;padding:0 20px;}
+
+/* result cards */
+.rc{background:var(--white);border:1.5px solid var(--rule);border-radius:14px;margin-top:14px;overflow:hidden;animation:fadeUp .5s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.rc-head{padding:14px 18px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:10px;}
+.rc-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.rc-label{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--light);}
+.rc-title{font-family:'Noto Serif SC',serif;font-size:14.5px;font-weight:600;color:var(--warm);margin-top:1px;}
+.rc-body{padding:16px 18px;}
+.rc-body p{font-size:14.5px;color:var(--text);line-height:1.88;margin-bottom:10px;}
+.rc-body p:last-child{margin-bottom:0;}
+.rc-body strong{color:var(--warm);font-weight:600;}
+
+/* traits */
+.traits-row{display:flex;flex-direction:column;gap:7px;padding:14px 18px;}
+.trait{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text);line-height:1.6;}
+.t-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+
+/* mirror moment */
+.mirror-box{background:var(--sand);border-radius:12px;padding:20px 20px;margin-top:14px;animation:fadeUp .5s .1s ease both;}
+.mb-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+.mb-line{font-family:'Noto Serif SC',serif;font-size:clamp(15px,3vw,18px);font-style:italic;color:var(--warm);line-height:1.72;margin-bottom:8px;}
+.mb-note{font-size:13px;color:var(--mid);line-height:1.72;}
+
+/* action */
+.action-box{background:var(--amber-l);border-radius:12px;padding:18px 18px;margin-top:14px;animation:fadeUp .5s .15s ease both;}
+.ab-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;}
+.ab-title{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--warm);margin-bottom:6px;}
+.ab-text{font-size:14px;color:var(--mid);line-height:1.75;}
+
+/* CTA cards */
+.cta-section{margin-top:20px;animation:fadeUp .5s .2s ease both;}
+.cta-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:var(--warm);text-align:center;margin-bottom:14px;}
+.cta-grid{display:flex;flex-direction:column;gap:10px;}
+
+.cta-card{border-radius:14px;padding:20px 20px;display:flex;gap:14px;align-items:center;cursor:pointer;transition:all .22s;text-decoration:none;}
+.cta-card:hover{transform:translateY(-2px);}
+
+.cta-wechat{background:linear-gradient(135deg,#1a3d2b,#2d6a4a);border:none;}
+.cta-wechat:hover{box-shadow:0 6px 20px rgba(26,61,43,.25);}
+.cta-member{background:linear-gradient(135deg,var(--ink),var(--warm));border:none;}
+.cta-member:hover{box-shadow:0 6px 20px rgba(26,14,8,.25);}
+
+.cta-icon{font-size:30px;flex-shrink:0;}
+.cta-content{flex:1;}
+.cta-sub{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:4px;}
+.cta-main{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:3px;}
+.cta-desc{font-size:12.5px;color:rgba(255,255,255,.5);}
+.cta-arrow{font-size:18px;color:rgba(255,255,255,.35);flex-shrink:0;transition:all .2s;}
+.cta-card:hover .cta-arrow{color:rgba(255,255,255,.8);transform:translateX(3px);}
+
+/* share */
+.share-row{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:14px 16px;margin-top:10px;display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--mid);line-height:1.65;animation:fadeUp .5s .25s ease both;}
+.sr-icon{font-size:22px;flex-shrink:0;}
+
+.btn-restart{display:block;margin:16px auto 0;padding:10px 24px;border-radius:8px;border:1.5px solid var(--rule);background:transparent;color:var(--light);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;}
+.btn-restart:hover{border-color:var(--warm);color:var(--warm);}
+
+/* nav brand */
+.quiz-nav,.result-nav{position:fixed;top:0;left:0;right:0;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:50;background:rgba(253,250,245,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);}
+.qn-brand{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:var(--warm);}
+.qn-back{font-size:12.5px;color:var(--light);text-decoration:none;cursor:pointer;background:none;border:none;font-family:inherit;}
+.qn-back:hover{color:var(--warm);}
+</style>
+</head>
+<body>
+<div class="prog"><div class="prog-fill" id="pf"></div></div>
+
+<script>
+/* ═══════ QUIZ DATA ═══════ */
+var QUESTIONS = [
+  {
+    scene: "周三下午三点，你在一个本来可以用邮件解决的会议里。窗外天气很好。",
+    q: "你脑子里真实在想什么？",
+    opts: [
+      {m:"我在想等会儿怎么把这件事做完，然后去做真正想做的事", h:"你已经知道「真正想做的事」是什么了", t:"E"},
+      {m:"我在想，如果我不在这个会议室，我会在哪里，做什么", h:"你有一个还没被允许进入的方向", t:"S"},
+      {m:"我在想我已经厌倦这一切很久了，但不知道出口在哪", h:"能量在消耗，方向还不清晰", t:"B"},
+      {m:"我在想我在这里好像没有什么实质性的意义，但还没找到更有意义的替代", h:"你知道「不够好」，但还不知道「更好」长什么样", t:"R"}
+    ]
+  },
+  {
+    scene: "你的一个朋友，比你小5岁，刚辞职开始做自己的事。她发了一条朋友圈说「终于自由了」。",
+    q: "你点了赞，但心里第一个真实的想法是？",
+    opts: [
+      {m:"「我也快了。」有具体的计划在脑子里成形", h:"你的出发时机已经越来越近了", t:"E"},
+      {m:"「她能做到，但她不知道我背后有多复杂」", h:"你的处境比别人看到的更沉", t:"S"},
+      {m:"「我也想，但我不敢」——然后压下去这个念头", h:"那个「不敢」值得被认真看见", t:"B"},
+      {m:"「如果我知道自己想做什么就好了」", h:"方向比勇气更先需要被找到", t:"R"}
+    ]
+  },
+  {
+    scene: "有人问你「你现在在做什么」，你不是在自我介绍，就是随意闲聊的那种。",
+    q: "你怎么回答，或者你希望怎么回答？",
+    opts: [
+      {m:"我会说我现在的工作，但会加一句「不过我在做一些自己的事情」", h:"你已经开始给自己一个新的叙事", t:"E"},
+      {m:"我会说我的头衔，但感觉那个标签已经不太对了", h:"头衔和真实的自我开始出现距离感", t:"S"},
+      {m:"我会说我的头衔，但说完感觉很空洞", h:"外壳和内核之间有一道裂缝", t:"B"},
+      {m:"我真心希望有一个更有趣的答案，但还没有", h:"你知道「那个答案」还没出现", t:"R"}
+    ]
+  },
+  {
+    scene: "你躺下准备睡觉，但睡不着。不是焦虑，就是脑子停不下来。",
+    q: "那个时候，你通常在想什么？",
+    opts: [
+      {m:"具体的计划：如果我做X，第一步是什么，钱够不够，时间线怎么排", h:"你在运行的是「规划模式」，不是「焦虑模式」", t:"E"},
+      {m:"过去很久没想起来的事：某个技能，某段经历，某个人说过的话", h:"你的潜意识在帮你整理资产", t:"S"},
+      {m:"那些被我压下去的念头：我到底为什么这么不快乐", h:"深夜是唯一你让自己诚实的时候", t:"B"},
+      {m:"如果我的生活是另一个样子，它会是什么样", h:"你在用想象填补还没找到的方向", t:"R"}
+    ]
+  },
+  {
+    scene: "有一个机会找到你——可能是一个项目、邀约、或者新的可能性。它不完美，但有意思。",
+    q: "你通常的第一反应是？",
+    opts: [
+      {m:"我会认真评估，然后快速做决定——有意思就试", h:"你的行动成本已经比以前低了", t:"E"},
+      {m:"我会很感兴趣，但花很多时间想「我够格吗」、「我准备好了吗」", h:"能力不是障碍，是你给自己的那道门槛", t:"S"},
+      {m:"我会犹豫，然后因为「现在还不是时候」而放弃", h:"那个「还不是时候」值得被追问一下", t:"B"},
+      {m:"我会感兴趣，但不确定这个方向适合我", h:"你在用「合不合适」替代「想不想要」", t:"R"}
+    ]
+  },
+  {
+    scene: "你最好的朋友非常了解你，她说了一句关于你的话。",
+    q: "以下哪句话最可能是她说的？",
+    opts: [
+      {m:"「你明明知道自己要什么，就是还没动」", h:"她看见了你的清醒和犹豫", t:"E"},
+      {m:"「你比大多数人都有深度，但你太低估自己了」", h:"她在为你装得太小而着急", t:"S"},
+      {m:"「你需要有人推你一把，但你不肯让别人靠近」", h:"她看见了你的坚强和孤独", t:"B"},
+      {m:"「你很努力，但我感觉你不知道自己真正想要什么」", h:"她在问那个你也在问自己的问题", t:"R"}
+    ]
+  },
+  {
+    scene: "有人问你：「如果不考虑钱、家庭、年龄、任何外部因素，你想做什么？」",
+    q: "你的内心有答案吗？",
+    opts: [
+      {m:"有，而且相当具体。我知道是什么，只是还没有全力去做", h:"清晰不是问题，行动是", t:"E"},
+      {m:"有模糊的感觉，但说不清楚，像是一直被什么压着没长出来", h:"它在，只是还需要空间", t:"S"},
+      {m:"曾经有过，但已经太久没想了，现在有点想不起来了", h:"重新找回那个答案，是值得的功课", t:"B"},
+      {m:"真的不确定。我觉得如果我知道答案，其他的问题都好解决", h:"你的核心问题是「方向」，不是「资源」", t:"R"}
+    ]
+  },
+  {
+    scene: "「转型」这个词，你现在听到它，心里是什么感觉？",
+    q: "最接近你的是哪个？",
+    opts: [
+      {m:"跃跃欲试。有紧迫感，也有期待", h:"你已经在出发的精神状态里了", t:"E"},
+      {m:"又想又怕。想的是可能性，怕的是失去现有的一切", h:"矛盾是真实的，不是软弱", t:"S"},
+      {m:"疲惫。我已经在想「转型」这件事上消耗了很久的能量", h:"是时候把能量从「想」转移到「做」上了", t:"B"},
+      {m:"迷茫。不是不想，是不知道往哪转", h:"迷茫是需要地图的信号，不是能力不够的证明", t:"R"}
+    ]
+  }
+];
+
+var RESULTS = {
+  E: {
+    icon: "🌊",
+    badge: "蓄势待发型",
+    badgeBg: "#f5edd8", badgeColor: "#b8862c",
+    heroBg: "linear-gradient(160deg,#1a0e08,#4a1e0a,#7a3c1a)",
+    textColor: "#fff",
+    name: "蓄势型 · 你只差一个出发信号",
+    slogan: "你不是还没准备好，你是在等一个你自己给自己的许可",
+    desc: "你对自己的方向已经有相当清晰的感知，也具备了相应的能力和资源。你现在的状态，不是「还没准备好」——而是还没有接到自己的「出发信号」。\n\n那个信号，有时候不会自己来。它需要你主动发出。",
+    strength: "你最大的优势是清醒——你知道自己在哪里，也大致知道想去哪里。这种清醒是很多人花了很多年才有的东西，而你已经有了。",
+    shadow: "你最容易陷入的是「再等一等」——再存多一点钱，再多想一想，再等一个更好的时机。但最好的时机，通常就是你停止等待的那一刻。",
+    mirror: "你有没有发现，你关于「如果我做X会怎样」的假设，已经越来越具体了？那是你的潜意识在提前走那条路了。",
+    mirrorNote: "这不是焦虑，这是准备。你的内在已经启动，现在需要外部的第一步来匹配它。",
+    action: "这周做一件事：把你已经在脑子里想了超过三次的那个方向，写成一段100字以内的「意图声明」。不是计划，就是：我想做这件事，因为……",
+    resources: [
+      {icon:"🃏", label:"做测试", text:"个人资产盘点表——把你的15年经验转化成市场语言"},
+      {icon:"📖", label:"读简报", text:"Vol.05 中女转型——梅耶马斯克的「没有计划B」逻辑"},
+      {icon:"📚", label:"进书房", text:"《人生由我》导读——她怎么在「准备好之前」就出发"}
+    ]
+  },
+  S: {
+    icon: "🌊",
+    badge: "深潜积蓄型",
+    badgeBg: "#d6ede0", badgeColor: "#1d4a35",
+    heroBg: "linear-gradient(160deg,#0f2218,#1a3d2b,#2d6a4a)",
+    textColor: "#fff",
+    name: "深潜型 · 你比别人看见的更多",
+    slogan: "你水面下的东西，比你自己意识到的要丰厚得多",
+    desc: "你有很深的积累——经验、判断力、对人的理解，以及一些别人没有的视角。但这些大部分沉在水面以下，没有被充分转化为你的「可见资产」。\n\n你最大的挑战，不是能力问题，而是允许问题：你还没有完全允许自己相信，那些积累是值钱的。",
+    strength: "你的深度是真实的。你的同理心、对复杂情况的判断力、以及那些说不清楚但非常有价值的「人情世故」——这些在转型后的新赛道里，往往比任何技术技能都更稀缺。",
+    shadow: "你容易低估自己。别人问你「你能做什么」，你会说「也没什么特别的」。但如果有人问你怎么处理某个复杂的人际局面，或者如何判断一个项目能不能做——你的答案往往比大多数人好太多。",
+    mirror: "你有没有注意到，有时候你觉得「这有什么了不起的」的东西，却正好是别人花了很多年想学会的东西？",
+    mirrorNote: "那个「觉得没什么了不起」的感觉，就是低估自己的信号。不是谦虚，是视野的盲点。",
+    action: "这周做一件事：找三个认识你超过五年的人，问他们：「你觉得我在什么事情上，做得比大多数人都好？」不要评价他们的答案，只是听。",
+    resources: [
+      {icon:"🗺", label:"做工具", text:"个人资产盘点表——挖掘你真正带得走的东西"},
+      {icon:"📖", label:"读简报", text:"Vol.05 中女转型——「深潜型」最需要的资产可见化方法"},
+      {icon:"📚", label:"进书房", text:"《永不过时》导读——梅耶怎么让自己的价值被看见"}
+    ]
+  },
+  B: {
+    icon: "🔥",
+    badge: "破壳蜕变型",
+    badgeBg: "#f0dce8", badgeColor: "#c4587a",
+    heroBg: "linear-gradient(160deg,#2a0814,#6b2540,#c4587a)",
+    textColor: "#fff",
+    name: "破壳型 · 你正在经历最难的那一段",
+    slogan: "壳快破了。最黑暗的地方，通常离光最近",
+    desc: "你正处于一个真实的痛苦里：旧的东西已经不够用了，新的东西还没有成形。这个中间地带非常消耗人，因为两边都需要能量。\n\n但这个状态有一个被忽视的真相：只有在壳里的东西才需要破壳。壳的存在本身，说明里面有东西值得保护和生长。",
+    strength: "你的勇气和诚实。你愿意在深夜面对那些不舒服的问题，而不是用忙碌去填满它们。这种自我诚实，是很多人一生都在逃避的。",
+    shadow: "你容易在消耗中孤立自己——觉得自己的处境太特殊，别人不会懂，或者怕被评判，于是一个人扛着。但孤立只会让破壳的过程更长、更疼。",
+    mirror: "你有没有过这样的时刻：有人无意中说了一句话，或者你看到了某个东西，突然感到一阵说不清楚的难受——不是愤怒，是某种深处的触动？",
+    mirrorNote: "那个触动，就是你内心知道「应该有另一种可能」的信号。那不是软弱，那是方向感。",
+    action: "这周做一件事：给自己一个小时，写下「我不快乐的具体是什么」——不是「工作太累了」这种，而是尽量具体：是什么场景，什么感受，什么让你觉得「这不是我应该在的地方」。",
+    resources: [
+      {icon:"🍵", label:"先稳住", text:"内在力：茶道与边界感——稳住内在，才能看清方向"},
+      {icon:"🧘", label:"做测试", text:"疗愈处方测试——找到你现在最需要的补给方式"},
+      {icon:"📚", label:"进书房", text:"《人生由我》——她31岁带着三个孩子从零开始的真实记录"}
+    ]
+  },
+  R: {
+    icon: "🧭",
+    badge: "方向重塑型",
+    badgeBg: "#ede0f0", badgeColor: "#3d1536",
+    heroBg: "linear-gradient(160deg,#1a0814,#3d1536,#6b2560)",
+    textColor: "#fff",
+    name: "重塑型 · 你需要的是地图，不是更多信息",
+    slogan: "你已经在动了，只是还没找到属于你的那个形状",
+    desc: "你有行动意愿，有一定的资源，也已经在探索中了。你现在的瓶颈不是「没有能力」，也不是「没有勇气」——而是缺少一个清晰的、专属于你的方向感。\n\n你可能已经读了很多书，听了很多建议，但总感觉「和我的情况不完全一样」。因为方向这件事，没有通用答案——它需要从你自己的具体情况里挖出来。",
+    strength: "你的探索精神和开放度。你愿意质疑现状，愿意尝试，愿意学习。这些品质，在转型路上是最宝贵的，比任何具体技能都重要。",
+    shadow: "你容易信息过载——看了太多别人的路，反而不知道自己的在哪里。有时候，你需要的不是更多选项，而是一个帮你收敛和聚焦的框架。",
+    mirror: "你有没有发现，你「感兴趣」的事情，往往都指向同一个方向——只是你还没有明确地说出来，或者还没给自己「那就是了」的许可？",
+    mirrorNote: "那个反复出现的兴趣点，往往就是答案。不是在大量选项里做选择题，而是把那个一直回来的感觉认真对待。",
+    action: "这周做一件事：写下你在过去两年里，「莫名感到兴奋或投入」的三个时刻——可以是一次对话、一个项目、一篇文章，任何东西。然后问自己：这三个时刻，有没有一个共同的主题？",
+    resources: [
+      {icon:"🃏", label:"先测试", text:"资产类型测试——找到你核心的转型切入点"},
+      {icon:"📖", label:"读简报", text:"Vol.05 中女转型——四种转型路径对比分析"},
+      {icon:"📚", label:"进书房", text:"《永不过时》——重新定义「我是谁」的方法"}
+    ]
+  }
+};
+
+/* ═══════ STATE ═══════ */
+var scores = {E:0, S:0, B:0, R:0};
+var cur = 0;
+var KEYS = ['A','B','C','D'];
+var currentResult = null;
+
+/* ═══════ BUILD ═══════ */
+function buildQuiz(){
+  var box = document.getElementById('qbox');
+  var html = '';
+  QUESTIONS.forEach(function(q, i){
+    html += '<div class="q-card'+(i===0?' active':'')+'" id="qq'+i+'">';
+    html += '<div class="q-scene"><div class="q-scene-label">场景</div>'+q.scene+'</div>';
+    html += '<div class="q-text">'+q.q+'</div>';
+    html += '<div class="opts">';
+    q.opts.forEach(function(o, j){
+      html += '<button class="opt" onclick="pick('+i+',\''+o.t+'\',this)">';
+      html += '<div class="opt-bullet">'+KEYS[j]+'</div>';
+      html += '<div class="opt-content"><div class="opt-main">'+o.m+'</div><div class="opt-hint">'+o.h+'</div></div>';
+      html += '</button>';
+    });
+    html += '</div></div>';
+  });
+  box.innerHTML = html;
+}
+
+function pick(qi, type, btn){
+  document.querySelectorAll('#qq'+qi+' .opt').forEach(function(o){o.classList.remove('chosen');});
+  btn.classList.add('chosen');
+  scores[type]++;
+  var pct = Math.round((qi+1)/QUESTIONS.length*100);
+  document.getElementById('pf').style.width = pct+'%';
+  setTimeout(function(){
+    document.getElementById('qq'+qi).classList.remove('active');
+    var next = qi+1;
+    if(next < QUESTIONS.length){
+      document.getElementById('qq'+next).classList.add('active');
+      document.getElementById('qnum').textContent = next+1;
+      window.scrollTo({top:0,behavior:'smooth'});
+    } else {
+      showResult();
+    }
+  }, 350);
+}
+
+function showResult(){
+  document.getElementById('quizScreen').classList.remove('active');
+  var rs = document.getElementById('resultScreen');
+  rs.classList.add('active');
+  document.getElementById('pf').style.width = '100%';
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  var winner = Object.entries(scores).sort(function(a,b){return b[1]-a[1];})[0][0];
+  currentResult = winner;
+  var r = RESULTS[winner];
+
+  /* hero */
+  document.getElementById('rHero').style.background = r.heroBg;
+  document.getElementById('rBadge').style.cssText = 'background:'+r.badgeBg+';color:'+r.badgeColor;
+  document.getElementById('rBadge').textContent = '✦ '+r.badge;
+  document.getElementById('rIcon').textContent = r.icon;
+  document.getElementById('rName').style.color = r.textColor;
+  document.getElementById('rName').textContent = r.name;
+  document.getElementById('rSlogan').style.color = r.textColor;
+  document.getElementById('rSlogan').textContent = '「'+r.slogan+'」';
+
+  /* body */
+  var body = document.getElementById('rBody');
+  var descParts = r.desc.split('\n\n');
+  var resHTML =
+    '<div class="rc" style="animation-delay:.05s">' +
+      '<div class="rc-head"><div class="rc-icon" style="background:'+r.badgeBg+'">'+r.icon+'</div><div><div class="rc-label">你的类型解读</div><div class="rc-title">'+r.name+'</div></div></div>' +
+      '<div class="rc-body">'+descParts.map(function(p){return '<p>'+p+'</p>';}).join('')+'</div>' +
+    '</div>' +
+
+    '<div class="rc" style="animation-delay:.1s">' +
+      '<div class="rc-head"><div class="rc-icon" style="background:#f0f8f4">✦</div><div><div class="rc-label">你的核心优势</div><div class="rc-title">别人未必有，你有</div></div></div>' +
+      '<div class="traits-row"><div class="trait"><div class="t-dot" style="background:'+r.badgeColor+'"></div><div>'+r.strength+'</div></div></div>' +
+    '</div>' +
+
+    '<div class="rc" style="animation-delay:.12s">' +
+      '<div class="rc-head"><div class="rc-icon" style="background:#fdfaf5">△</div><div><div class="rc-label">你的隐藏障碍</div><div class="rc-title">值得被看见的那道坎</div></div></div>' +
+      '<div class="traits-row"><div class="trait"><div class="t-dot" style="background:#9a7860"></div><div>'+r.shadow+'</div></div></div>' +
+    '</div>' +
+
+    '<div class="mirror-box">' +
+      '<div class="mb-label">✦ 照一下镜子</div>' +
+      '<div class="mb-line">'+r.mirror+'</div>' +
+      '<div class="mb-note">'+r.mirrorNote+'</div>' +
+    '</div>' +
+
+    '<div class="action-box">' +
+      '<div class="ab-label">✦ 这周一个行动</div>' +
+      '<div class="ab-title">不是鸡汤，是具体的</div>' +
+      '<div class="ab-text">'+r.action+'</div>' +
+    '</div>' +
+
+    '<div class="cta-section">' +
+      '<div class="cta-title">接下来，你可以——</div>' +
+      '<div class="cta-grid">' +
+        '<a href="index.html#join" class="cta-card cta-wechat">' +
+          '<div class="cta-icon">💬</div>' +
+          '<div class="cta-content">' +
+            '<div class="cta-sub">免费 · 个性化</div>' +
+            '<div class="cta-main">获取你的专属转型分析报告</div>' +
+            '<div class="cta-desc">加 Janet 微信，发「'+r.badge+'」，获取针对你类型的深度分析和三步行动计划</div>' +
+          '</div>' +
+          '<div class="cta-arrow">→</div>' +
+        '</a>' +
+        '<a href="index.html#join" class="cta-card cta-member">' +
+          '<div class="cta-icon">✦</div>' +
+          '<div class="cta-content">' +
+            '<div class="cta-sub">¥9.9 试读 · 随时退款</div>' +
+            '<div class="cta-main">加入「她说了算」，持续陪你走这段路</div>' +
+            '<div class="cta-desc">'+r.resources.map(function(res){return res.icon+' '+res.text;}).join(' · ')+'</div>' +
+          '</div>' +
+          '<div class="cta-arrow">→</div>' +
+        '</a>' +
+      '</div>' +
+      '<div class="share-row">' +
+        '<div class="sr-icon">📱</div>' +
+        '<div>把你的结果截图发给一个了解你的朋友，问她：<strong>「这个说的准吗？」</strong> 有时候，别人的回答比测试本身更有价值。</div>' +
+      '</div>' +
+      '<button class="btn-restart" onclick="restartQuiz()">↩ 重新测一次</button>' +
+    '</div>';
+
+  body.innerHTML = resHTML;
+}
+
+function restartQuiz(){
+  scores = {E:0,S:0,B:0,R:0};
+  cur = 0;
+  document.getElementById('resultScreen').classList.remove('active');
+  document.getElementById('coverScreen').style.display = 'flex';
+  document.getElementById('pf').style.width = '0%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function startQuiz(){
+  document.getElementById('coverScreen').style.display = 'none';
+  document.getElementById('quizScreen').classList.add('active');
+  buildQuiz();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+<!-- ── COVER ── -->
+<section id="coverScreen" class="cover">
+  <div class="cv-badge"><div class="cv-dot"></div>她说了算 · 中女转型专测</div>
+  <h1>你是哪种<em>转型人</em>？</h1>
+  <p class="cv-sub">8道情景题 · 约4分钟 · 按直觉选</p>
+  <p class="cv-desc">不是看你「能不能转型」，而是看清楚：你现在真正卡在哪里，你已经有了什么，以及你的第一步应该是什么。</p>
+  <div class="cv-types">
+    <div class="cv-type"><div class="ctt-icon">🌊</div><div class="ctt-name">蓄势型</div><div class="ctt-sub">只差一个信号</div></div>
+    <div class="cv-type"><div class="ctt-icon">🌊</div><div class="ctt-name">深潜型</div><div class="ctt-sub">比别人看见的更多</div></div>
+    <div class="cv-type"><div class="ctt-icon">🔥</div><div class="ctt-name">破壳型</div><div class="ctt-sub">正在最难那一段</div></div>
+    <div class="cv-type"><div class="ctt-icon">🧭</div><div class="ctt-name">重塑型</div><div class="ctt-sub">需要地图不是信息</div></div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">开始测试 →</button>
+  <p class="cv-hint">不存储个人数据 · 结果即时显示 · 可随时重测</p>
+</section>
+
+<!-- ── QUIZ ── -->
+<section id="quizScreen" class="quiz">
+  <div class="quiz-nav">
+    <button class="qn-back" onclick="restartQuiz()">← 重来</button>
+    <span class="qn-brand">她说了算</span>
+    <span class="q-count"><strong id="qnum">1</strong> / 8</span>
+  </div>
+  <div class="q-topbar" style="padding-top:68px;"></div>
+  <div class="q-wrap" id="qbox"></div>
+</section>
+
+<!-- ── RESULT ── -->
+<section id="resultScreen" class="result">
+  <div class="result-nav">
+    <a href="index.html" class="qn-back">← 首页</a>
+    <span class="qn-brand">她说了算</span>
+    <span></span>
+  </div>
+  <div class="result-hero" id="rHero" style="padding-top:72px;">
+    <div class="rh-badge" id="rBadge" style="display:inline-flex;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;"></div>
+    <span class="rh-type-icon" id="rIcon"></span>
+    <div class="rh-type-name" id="rName"></div>
+    <div class="rh-slogan" id="rSlogan"></div>
+  </div>
+  <div class="result-body" id="rBody"></div>
+</section>
+</body>
+</html>

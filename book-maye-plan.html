@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人生由我 · A Woman Makes a Plan · 导读 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a0e08;--warm:#7a3c1a;--amber:#b8862c;--amber-l:#f5edd8;--gold:#c49a3c;
+  --cream:#fdfaf5;--sand:#f5ede4;--rule:#e2d4c8;
+  --text:#2a1a0e;--mid:#6b4830;--light:#9a7860;--white:#fff;
+  --forest:#1a3d2b;--sage:#52a87a;--mint:#d4ede2;
+  --plum:#3d1536;--rose:#c4587a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
+.rpbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--gold));width:0%;z-index:300;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;transition:all .3s;}
+nav.scrolled{background:rgba(253,250,245,.96);border-bottom:1px solid var(--rule);backdrop-filter:blur(12px);}
+.nav-back{color:rgba(255,255,255,.5);font-size:12.5px;text-decoration:none;transition:color .2s;}
+nav.scrolled .nav-back{color:var(--light);}
+.nav-back:hover{color:#fff;}
+nav.scrolled .nav-back:hover{color:var(--warm);}
+.nav-brand{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:rgba(255,255,255,.6);}
+nav.scrolled .nav-brand{color:var(--warm);}
+.nav-link{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s;}
+nav.scrolled .nav-link{color:var(--light);}
+.nav-link:hover{color:rgba(255,255,255,.8);}
+nav.scrolled .nav-link:hover{color:var(--amber);}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,var(--ink) 0%,var(--warm) 100%);padding:76px 24px 56px;position:relative;overflow:hidden;}
+.hero::before{content:'"';position:absolute;right:-10px;top:20px;font-family:'Noto Serif SC',serif;font-size:360px;font-weight:700;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;}
+.hero-inner{max-width:760px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:40px;align-items:center;}
+.hero-book{display:flex;flex-direction:column;align-items:center;gap:12px;}
+.book-cover{width:120px;height:170px;border-radius:4px 10px 10px 4px;background:linear-gradient(160deg,#3d1a06,#7a3c1a);display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 20px rgba(0,0,0,.4),-2px 0 8px rgba(0,0,0,.3);position:relative;}
+.book-cover::before{content:'';position:absolute;left:0;top:0;bottom:0;width:8px;background:rgba(0,0,0,.3);border-radius:4px 0 0 4px;}
+.book-cover-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:rgba(255,218,140,.9);text-align:center;line-height:1.4;padding:0 10px;}
+.book-meta{text-align:center;font-size:12px;color:rgba(255,255,255,.4);}
+.hero-right{}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(184,134,44,.2);border:1px solid rgba(184,134,44,.35);padding:4px 12px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,218,140,.88);margin-bottom:14px;}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4.5vw,38px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:8px;}
+.hero h1 em{font-style:italic;color:rgba(255,218,140,.88);}
+.hero-author{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px;}
+.hero-verdict{font-size:14px;color:rgba(255,255,255,.55);line-height:1.82;margin-bottom:20px;}
+.hero-tags{display:flex;gap:7px;flex-wrap:wrap;}
+.h-tag{font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);}
+
+/* PAGE */
+.page{max-width:760px;margin:0 auto;padding:0 24px;}
+.section{padding:44px 0;}
+.sec-label{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--rule);}
+.sec-h2{font-family:'Noto Serif SC',serif;font-size:clamp(18px,3vw,24px);font-weight:600;color:var(--warm);margin-bottom:8px;}
+.sec-sub{font-size:14px;color:var(--mid);line-height:1.78;margin-bottom:20px;}
+
+/* CORE QUOTE */
+.core-quote{background:var(--ink);border-radius:14px;padding:28px 26px;margin:20px 0;position:relative;overflow:hidden;}
+.cq-deco{position:absolute;right:-10px;top:-10px;font-size:120px;color:rgba(255,255,255,.04);font-family:serif;line-height:1;}
+.cq-text{font-family:'Noto Serif SC',serif;font-size:clamp(17px,3vw,22px);font-style:italic;color:rgba(255,218,140,.92);line-height:1.72;margin-bottom:10px;position:relative;}
+.cq-src{font-size:12px;color:rgba(255,255,255,.35);}
+
+/* CHAPTER CARDS */
+.chapters{display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+.chapter{border:1.5px solid var(--rule);border-radius:12px;overflow:hidden;cursor:pointer;transition:box-shadow .25s;}
+.chapter:hover{box-shadow:0 4px 20px rgba(122,60,26,.08);}
+.ch-head{padding:16px 18px;background:var(--sand);border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:12px;}
+.ch-num{width:30px;height:30px;border-radius:50%;background:var(--warm);color:#fff;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.chapter.open .ch-num{background:var(--amber);}
+.ch-title{font-family:'Noto Serif SC',serif;font-size:15.5px;font-weight:600;color:var(--warm);flex:1;line-height:1.3;}
+.ch-toggle{font-size:18px;color:var(--light);transition:all .3s;}
+.chapter.open .ch-toggle{transform:rotate(45deg);color:var(--amber);}
+.ch-preview{padding:12px 18px;background:var(--white);}
+.ch-preview p{font-size:13.5px;color:var(--mid);line-height:1.72;margin-bottom:0;font-style:italic;}
+.ch-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1);}
+.chapter.open .ch-body{max-height:700px;}
+.ch-body-inner{padding:0 18px 20px;border-top:1px solid var(--rule);background:var(--white);}
+.ch-body-inner p{font-size:14px;color:var(--text);line-height:1.88;margin-top:14px;margin-bottom:10px;}
+.ch-body-inner strong{color:var(--warm);font-weight:600;}
+.ch-quote{margin:12px 0;padding:12px 16px 12px 18px;border-left:4px solid var(--amber);background:var(--amber-l);border-radius:0 8px 8px 0;font-size:13.5px;font-style:italic;color:var(--warm);line-height:1.68;}
+.ch-janet{margin-top:12px;padding:11px 14px;background:var(--sand);border-radius:8px;font-size:13px;color:var(--mid);line-height:1.7;}
+.ch-janet strong{color:var(--warm);}
+.ch-expand-hint{padding:8px 18px 12px;background:var(--white);text-align:center;}
+.ch-expand-hint span{font-size:12px;color:var(--amber);font-weight:600;}
+.chapter.open .ch-expand-hint{display:none;}
+
+/* TIMELINE */
+.timeline{margin:20px 0;display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:16px;padding-bottom:24px;position:relative;}
+.tl-item::before{content:'';position:absolute;left:17px;top:36px;bottom:0;width:1px;background:var(--rule);}
+.tl-item:last-child::before{display:none;}
+.tl-age{width:34px;height:34px;border-radius:50%;background:var(--warm);color:#fff;font-family:'DM Mono',monospace;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1.2;text-align:center;}
+.tl-body{}
+.tl-event{font-family:'Noto Serif SC',serif;font-size:15.5px;font-weight:600;color:var(--warm);margin-bottom:4px;}
+.tl-detail{font-size:13.5px;color:var(--mid);line-height:1.72;}
+.tl-detail em{font-style:italic;color:var(--text);}
+.tl-quote{margin-top:6px;font-size:13px;font-style:italic;color:var(--amber);border-left:3px solid var(--amber);padding-left:10px;}
+
+/* REFLECTION */
+.reflection{background:linear-gradient(135deg,var(--ink),var(--warm));border-radius:14px;padding:26px 24px;margin:20px 0;}
+.rf-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,218,140,.7);margin-bottom:12px;}
+.rf-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:#fff;margin-bottom:16px;}
+.rf-qs{display:flex;flex-direction:column;gap:10px;}
+.rf-q{background:rgba(255,255,255,.08);border-radius:8px;padding:13px 15px;font-size:14px;color:rgba(255,255,255,.75);line-height:1.65;}
+.rf-q-num{color:var(--amber);font-weight:700;margin-right:6px;}
+
+/* JANET NOTES */
+.janet-notes{background:var(--sand);border:1.5px solid var(--rule);border-radius:12px;padding:22px 20px;margin:20px 0;}
+.jn-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--rule);}
+.jn-av{width:40px;height:40px;border-radius:50%;background:var(--plum);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:16px;font-weight:700;color:#fff;flex-shrink:0;}
+.jn-name{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--warm);}
+.jn-role{font-size:11px;color:var(--light);margin-top:2px;}
+.jn-body p{font-size:14px;color:var(--mid);line-height:1.85;margin-bottom:12px;}
+.jn-body p:last-child{margin-bottom:0;}
+.jn-body strong{color:var(--warm);font-weight:600;}
+
+/* OTHER BOOK */
+.other-book{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:18px 18px;margin-top:20px;display:flex;gap:14px;align-items:center;text-decoration:none;color:var(--text);transition:all .22s;}
+.other-book:hover{border-color:var(--amber);transform:translateX(3px);}
+.ob-cover{width:44px;height:60px;border-radius:3px 6px 6px 3px;background:linear-gradient(135deg,#1a3d2b,#3d6a30);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:2px 2px 8px rgba(0,0,0,.15);}
+.ob-body{flex:1;}
+.ob-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;}
+.ob-title{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--warm);}
+.ob-desc{font-size:12.5px;color:var(--light);margin-top:2px;}
+.ob-arrow{font-size:18px;color:var(--light);flex-shrink:0;transition:all .2s;}
+.other-book:hover .ob-arrow{color:var(--amber);transform:translateX(3px);}
+
+/* BACK BAND */
+.back-band{background:var(--ink);padding:36px 24px;text-align:center;}
+.bb-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:rgba(255,218,140,.8);margin-bottom:8px;}
+.bb-ctas{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap;}
+.bb-btn{padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;}
+.bb-outline{border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);}
+.bb-outline:hover{color:#fff;border-color:#fff;}
+.bb-fill{background:rgba(184,134,44,.2);border:1px solid rgba(184,134,44,.3);color:rgba(255,218,140,.85);}
+.bb-fill:hover{background:rgba(184,134,44,.35);}
+
+footer{background:#0f0806;padding:20px 24px;text-align:center;}
+.ft-note{font-size:11.5px;color:rgba(255,255,255,.22);}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(max-width:580px){.hero-inner{grid-template-columns:1fr;}.hero-book{display:none;}}
+</style>
+</head>
+<body>
+<div class="rpbar" id="rp"></div>
+
+<nav id="nav">
+  <a href="bookclub.html" class="nav-back">← 她的书房</a>
+  <span class="nav-brand">她说了算</span>
+  <a href="book-maye-timeless.html" class="nav-link">下一本：永不过时 →</a>
+</nav>
+
+<div class="hero">
+  <div style="max-width:760px;margin:0 auto;">
+    <div class="hero-inner">
+      <div class="hero-book">
+        <div class="book-cover">
+          <div class="book-cover-title">人生由我</div>
+        </div>
+        <div class="book-meta">Maye Musk · 2017</div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-badge">✦ 她的书房 · 专栏导读</div>
+        <h1>人生由我<br><em>A Woman Makes a Plan</em></h1>
+        <div class="hero-author">Maye Musk 著 · 2017年出版 · Janet 导读</div>
+        <div class="hero-verdict">她不是励志典型，她是一个真实的女人——经历过贫穷、暴力、孤独和多次从零开始，然后在74岁仍在工作、仍在生长。这本书不会让你热血沸腾，会让你安静下来，认真思考一个问题：你真正想要的，到底是什么。</div>
+        <div class="hero-tags">
+          <span class="h-tag">转型</span>
+          <span class="h-tag">身份重塑</span>
+          <span class="h-tag">财务独立</span>
+          <span class="h-tag">中年女性</span>
+          <span class="h-tag">人生规划</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="page">
+
+<!-- 核心引语 -->
+<div class="section reveal">
+  <div class="core-quote">
+    <div class="cq-deco">"</div>
+    <div class="cq-text">我没有计划B，因为计划B会影响计划A的执行。</div>
+    <div class="cq-src">— Maye Musk《人生由我》</div>
+  </div>
+  <div class="core-quote" style="margin-top:12px;">
+    <div class="cq-deco">"</div>
+    <div class="cq-text">我不是一个天生乐观的人。我是一个天生解决问题的人。</div>
+    <div class="cq-src">— Maye Musk《人生由我》</div>
+  </div>
+</div>
+
+<!-- 真实时间线 -->
+<div class="section reveal">
+  <div class="sec-label">她的真实时间线</div>
+  <h2 class="sec-h2">每一次从零开始，带着上一阶段的判断力</h2>
+  <p class="sec-sub">梅耶的故事之所以有力量，不是因为她成功了，而是因为她的每一次「从零」都是真实的——不是选择性叙述，是真正的什么都没有。</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-age">22岁</div>
+      <div class="tl-body">
+        <div class="tl-event">嫁给埃隆·马斯克的父亲，搬往南非农村</div>
+        <div class="tl-detail">她放弃了在南非约翰内斯堡已经起步的模特事业，随丈夫移居偏远农场。她在书中写道，当时的她以为爱情会解决一切。</div>
+        <div class="tl-quote">「我以为我嫁的是一个我爱的男人，结果我嫁入了一种我完全不了解的生活。」</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-age">31岁</div>
+      <div class="tl-body">
+        <div class="tl-event">带着三个孩子，离开婚姻</div>
+        <div class="tl-detail">她在婚姻中经历了多年身体暴力，在大多数人会选择沉默的年代，她带着9岁、7岁、5岁的三个孩子离开了。没有积蓄，没有稳定工作。她在书中没有用「受害者」的语气讲述这段历史——她用的是「我做了一个决定」。</div>
+        <div class="tl-quote">「离开不是因为我准备好了。我从来没有准备好。但留下来会更糟糕——而我知道这一点。」</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-age">30多岁</div>
+      <div class="tl-body">
+        <div class="tl-event">同时攻读两个硕士学位，一边抚养三个孩子</div>
+        <div class="tl-detail">很多人以为她的营养学学位是在人生稳定之后才读的。事实是，她在最混乱的岁月里完成了学历——因为她知道专业资质是她能给自己的最稳固的基础，不会被任何人拿走。</div>
+        <div class="tl-quote">「学位是我自己的。不是任何人的礼物，也不会因为我离开谁而消失。」</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-age">50多岁</div>
+      <div class="tl-body">
+        <div class="tl-event">独自移居加拿大多伦多，重建事业</div>
+        <div class="tl-detail">孩子们长大独立之后，她再一次从零开始——新城市，新人脉，在一个对她完全陌生的市场里重新建立营养咨询业务。同时继续接受模特工作，尽管当时她已经50多岁。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-age">60岁</div>
+      <div class="tl-body">
+        <div class="tl-event">独自移居纽约，再次重建</div>
+        <div class="tl-detail">她在60岁时决定移居纽约——因为她认为那是她能工作的最好地方。她住在一个很小的公寓里，靠节省生活，重新建立所有的一切。没有人帮她，她也没有打算等人帮。</div>
+        <div class="tl-quote">「纽约不便宜，但它值得。我不是来享受的，我是来工作的。」</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-age">69岁</div>
+      <div class="tl-body">
+        <div class="tl-event">登上 Sports Illustrated 泳装封面</div>
+        <div class="tl-detail">她在书中说，当他们打电话给她时，她没有犹豫太久。她唯一想的不是「我是不是太老了」，而是「我的日程安排得过来吗」。这个细节，比任何励志语录都有力量。</div>
+        <div class="tl-quote">「我没有想太多。我一直在工作，一直在保持状态，当机会来临，我只是接受了它。」</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 章节导读 -->
+<div class="section reveal">
+  <div class="sec-label">章节导读</div>
+  <h2 class="sec-h2">六个核心主题，点击深入</h2>
+
+  <div class="chapters">
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="ch-head">
+        <div class="ch-num">01</div>
+        <div class="ch-title">计划，不是控制——关于「没有计划B」</div>
+        <div class="ch-toggle">+</div>
+      </div>
+      <div class="ch-preview"><p>这是全书最被误解的一个观点：她不是在说「不需要计划」，她说的是「不要给自己留退路」……</p></div>
+      <div class="ch-expand-hint"><span>展开阅读 ↓</span></div>
+      <div class="ch-body">
+        <div class="ch-body-inner">
+          <p>梅耶的「没有计划B」，在中文语境里很容易被解读成「孤注一掷」或者「蛮干」。但她的原意其实更微妙。</p>
+          <p>她说的是：<strong>当你给自己准备好后路，你的大脑就不会全力以赴地让计划A成功</strong>。这不是说不能失败，而是说——在你真正尝试之前，不要预设自己会失败。</p>
+          <div class="ch-quote">「人们常问我：如果失败了怎么办？我通常回答：那我就做别的事情。但我不会在还没开始的时候就想着怎么做别的事情。」</div>
+          <p>她的每一次移居、每一次重建，都是这个逻辑的实践——没有人逼她，是她自己决定的，然后她全力以赴地去执行。失败了，再想下一步。</p>
+          <div class="ch-janet"><strong>Janet 的注解：</strong>这个逻辑和我在企业教练里看到的「高效执行者」非常相似。他们不是没有备用方案，而是不在资源投入阶段分心。「我会怎么失败」这个问题，只在评估阶段有价值，在执行阶段有害。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="ch-head">
+        <div class="ch-num">02</div>
+        <div class="ch-title">身体与美——拒绝成为「应该的样子」</div>
+        <div class="ch-toggle">+</div>
+      </div>
+      <div class="ch-preview"><p>她在模特行业工作了半个多世纪，被各种「标准」包围。她和身体形象的关系，是这本书最诚实的部分……</p></div>
+      <div class="ch-expand-hint"><span>展开阅读 ↓</span></div>
+      <div class="ch-body">
+        <div class="ch-body-inner">
+          <p>梅耶在书中坦承，她曾经在某个时期为了维持模特身材而节食到不健康的程度——不是因为她愚蠢，而是因为那是行业要求的，而她需要那份工作来养活三个孩子。</p>
+          <p>但她同时说，她从来没有停止质疑这件事。她作为营养师的专业知识和她作为模特的现实处境，长期处于冲突之中——<strong>而她最终选择的是：以健康为标准，不以别人的期待为标准。</strong></p>
+          <div class="ch-quote">「我是营养师，我知道节食的代价。但我当时需要那份工作。后来我不再那么需要那份工作时，我改变了做法。这就是拥有选择权的意义。」</div>
+          <p>这一章对于任何在「应该」与「想要」之间挣扎的女性来说，都是非常真实的阅读体验。</p>
+          <div class="ch-janet"><strong>Janet 的注解：</strong>她不是在说「你应该爱你自己的身体」这种空话，她是在说：当你有选择权的时候，请用那个权利。很多时候我们没有选择权——但她诚实地承认了这一点，而不是假装选择权一直都在。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="ch-head">
+        <div class="ch-num">03</div>
+        <div class="ch-title">钱与自由——财务独立是所有选择的前提</div>
+        <div class="ch-toggle">+</div>
+      </div>
+      <div class="ch-preview"><p>她在书里谈钱的部分，是让我印象最深的章节之一。不是因为她讲了什么理财秘诀，而是因为她的诚实……</p></div>
+      <div class="ch-expand-hint"><span>展开阅读 ↓</span></div>
+      <div class="ch-body">
+        <div class="ch-body-inner">
+          <p>梅耶在60多岁移居纽约的那段时期，她并不富有。她在书中说，她住在一个很小的公寓里，非常注意每一笔开支。她的儿子埃隆当时已经开始成功，但她没有依靠他。</p>
+          <p><strong>她对此的解释是：我需要自己的钱，因为自己的钱给我自己的选择权。</strong>这不是骄傲，这是清醒。</p>
+          <div class="ch-quote">「当你没有自己的钱时，你没有选择权。我不是要存一笔财富，我只是要确保我不需要因为钱而做我不想做的事情。」</div>
+          <p>她在书里还写到，她曾经因为需要钱而接受过一些她并不真正想要的工作邀约。每一次那样的经历之后，她都更加努力地存钱——因为她知道，那笔储蓄是「下一次说不的能力」。</p>
+          <div class="ch-janet"><strong>Janet 的注解：</strong>这一章和「她的指南针」里独立理财板块讲的是同一件事——财务独立不是目的，是手段。手段是：让你可以选择。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="ch-head">
+        <div class="ch-num">04</div>
+        <div class="ch-title">关系与独处——学会和自己在一起</div>
+        <div class="ch-toggle">+</div>
+      </div>
+      <div class="ch-preview"><p>离开婚姻之后，她在很长一段时间里是一个人。她对独处的态度，是这本书最安静的部分……</p></div>
+      <div class="ch-expand-hint"><span>展开阅读 ↓</span></div>
+      <div class="ch-body">
+        <div class="ch-body-inner">
+          <p>梅耶在31岁离婚后，在相当长的时间里没有伴侣。她在书中承认，这段时间既有孤独，也有解放。</p>
+          <p>她的观察是：<strong>很多女性之所以无法离开不好的关系，是因为她们从未真正学会和自己在一起</strong>——她们不知道一个人的生活是什么感觉，于是恐惧填补了那个未知空间。</p>
+          <div class="ch-quote">「我在很长时间里都是一个人。我不是一直很享受，但我学会了。现在我非常享受——因为我知道，独处的时间是我真正属于自己的时间。」</div>
+          <p>她后来在60多岁再次建立了亲密关系。她对这件事的态度是：不是需要，是选择。</p>
+          <div class="ch-janet"><strong>Janet 的注解：</strong>在我的教练实践里，这是最难的功课之一——不是「怎么找到对的人」，而是「在没有任何人的情况下，你是谁」。这个问题的答案，决定了你在关系里的姿态。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="ch-head">
+        <div class="ch-num">05</div>
+        <div class="ch-title">工作与意义——不要停止，直到你真的不想继续</div>
+        <div class="ch-toggle">+</div>
+      </div>
+      <div class="ch-preview"><p>她在74岁仍然全职工作。不是因为需要钱，而是因为工作是她定义自己的方式……</p></div>
+      <div class="ch-expand-hint"><span>展开阅读 ↓</span></div>
+      <div class="ch-body">
+        <div class="ch-body-inner">
+          <p>梅耶从来没有「退休」的计划。她的朋友和家人有时会劝她放慢脚步——她的回答通常是：为什么？</p>
+          <p>她对「工作」的定义不是「谋生」，而是「持续地把你的能力和世界联结」。<strong>这种联结感，才是她保持活力的来源——不是努力，是投入。</strong></p>
+          <div class="ch-quote">「有人问我什么时候退休，我问他们：你为什么要问这个问题？如果你问的是什么时候停止做我喜欢的事情，答案是从不。」</div>
+          <div class="ch-janet"><strong>Janet 的注解：</strong>这一章让我想起了我服务过的一位企业高管，她在55岁「提前退休」之后，在半年内开始感到深度焦虑。不是因为没有钱，而是因为她失去了「我是有用的」这个感觉。工作不只是工作，它是我们告诉自己「我在世界上有位置」的方式。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="ch-head">
+        <div class="ch-num">06</div>
+        <div class="ch-title">每一年都比上一年更好——作为一种选择</div>
+        <div class="ch-toggle">+</div>
+      </div>
+      <div class="ch-preview"><p>书的最后一个核心命题：「让每一年都比上一年更好」不是励志口号，是一个非常具体的生活方式……</p></div>
+      <div class="ch-expand-hint"><span>展开阅读 ↓</span></div>
+      <div class="ch-body">
+        <div class="ch-body-inner">
+          <p>梅耶在书的结尾说，她没有办法保证每一年都更好，但她能保证：她每一年都在认真地试图让它更好。这个区别，是态度而不是结果。</p>
+          <p><strong>她的核心逻辑是：如果你不主动设计你的生活，生活会被默认填满——被别人的期待、社会的惯性、以及你对自己的低估。</strong></p>
+          <div class="ch-quote">「我不是一个特别乐观的人。但我是一个不断在寻找下一个可能性的人——不是因为我天生如此，而是因为我决定了要这样做。」</div>
+          <div class="ch-janet"><strong>Janet 的注解：</strong>这一章是全书最好的总结。她整本书讲的不是她多么特别，而是她做了哪些具体的「决定」——每一个决定都很普通，但加在一起，就成了那样一个人生。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 反思练习 -->
+<div class="section reveal">
+  <div class="reflection">
+    <div class="rf-label">✦ 读完之后 · 三个值得停下来想的问题</div>
+    <div class="rf-title">带着梅耶的问题，问自己</div>
+    <div class="rf-qs">
+      <div class="rf-q"><span class="rf-q-num">Q1</span>你现在做的哪些事情，是因为「应该」而不是因为「想要」？如果明天你不再需要那个「应该」，你会做什么不同的决定？</div>
+      <div class="rf-q"><span class="rf-q-num">Q2</span>你有没有一个「计划B」——某种程度上，它是在保护你，但同时也在阻止你全力以赴地执行计划A？</div>
+      <div class="rf-q"><span class="rf-q-num">Q3</span>你存钱的目的是什么？不是具体数字，而是：那笔钱给你的是什么选择权？</div>
+    </div>
+  </div>
+</div>
+
+<!-- Janet 总导读 -->
+<div class="section reveal">
+  <div class="janet-notes">
+    <div class="jn-header">
+      <div class="jn-av">J</div>
+      <div>
+        <div class="jn-name">Janet · 导读总结</div>
+        <div class="jn-role">企业教练30年 · 她说了算联合创始人</div>
+      </div>
+    </div>
+    <div class="jn-body">
+      <p>我读这本书的时候，脑子里一直在想的不是「她真厉害」，而是「她一点都不特别」——她经历的每一件事，我在我服务过的女性客户里，都见过类似的版本。</p>
+      <p>她的不同之处在于：<strong>她没有让任何一次困境成为停下来的理由</strong>。不是因为她天生坚强，而是因为她养成了一个习惯——遇到问题，想下一步。</p>
+      <p>这本书最适合在你感到「好像来不及了」的时候读。读完之后，你的感觉不会是「我要奋斗」，而是「好，那我现在能做什么？」</p>
+      <p><strong>我给所有正在考虑转型的女性的推荐语：不要把它当励志书读，把它当地图读。地图告诉你有路，但怎么走，还是你自己的事。</strong></p>
+    </div>
+  </div>
+
+  <a href="book-maye-timeless.html" class="other-book">
+    <div class="ob-cover">📗</div>
+    <div class="ob-body">
+      <div class="ob-label">同一作者 · 下一本</div>
+      <div class="ob-title">永不过时 · Timeless</div>
+      <div class="ob-desc">如果说《人生由我》是路线图，《永不过时》是心态升级手册</div>
+    </div>
+    <div class="ob-arrow">→</div>
+  </a>
+</div>
+
+</main>
+
+<div class="back-band">
+  <div class="bb-title">她的书房 · 每月精选导读</div>
+  <div class="bb-ctas">
+    <a href="bookclub.html" class="bb-btn bb-outline">← 返回书房</a>
+    <a href="vol5-brief.html" class="bb-btn bb-fill">阅读 Vol.05 中女转型简报 →</a>
+  </div>
+</div>
+
+<footer><div class="ft-note">她说了算 · 她的书房 · 人生由我导读 · Janet · 2026</div></footer>
+
+<script>
+window.addEventListener('scroll',function(){
+  var h=document.documentElement;
+  document.getElementById('rp').style.width=(window.scrollY/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+
+function toggleChapter(el){
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>

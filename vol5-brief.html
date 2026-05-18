@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vol.05 · 中女转型 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#3d1536;--rose:#c4587a;--rose-l:#e07898;--blush:#f0dce8;
+  --amber:#b8862c;--amber-l:#f5edd8;--gold:#c49a3c;--gold-l:#fdf6e3;
+  --teal:#1d4a35;--teal-l:#d6ede0;
+  --cream:#fdfaf5;--sand:#f5ede4;--pale:#faf3f7;--rule:#e2d4dc;
+  --text:#2e1a28;--mid:#6b4a60;--light:#9a7a8e;--white:#fff;
+  --warm:#7a3c1a;--warm-l:#fdf0e8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
+.rpbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--rose));width:0%;z-index:300;transition:width .1s;}
+
+/* ── MASTHEAD ── */
+.mast{background:linear-gradient(135deg,#2a1008 0%,#4a1e0a 50%,#3d1536 100%);position:relative;overflow:hidden;}
+.mast-deco{position:absolute;right:-30px;bottom:-40px;font-family:'Noto Serif SC',serif;font-size:280px;font-weight:700;color:rgba(255,255,255,.02);line-height:1;pointer-events:none;}
+.mast-top{display:flex;align-items:center;justify-content:space-between;padding:12px 32px;border-bottom:1px solid rgba(255,255,255,.07);}
+.mast-brand{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,.5);}
+.mast-read-time{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.28);display:flex;align-items:center;gap:6px;}
+.mast-read-time::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);display:block;}
+.mast-body{padding:48px 32px 40px;position:relative;z-index:1;}
+.mast-vol{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;color:rgba(255,255,255,.3);margin-bottom:14px;text-transform:uppercase;}
+.mast-h1{font-family:'Noto Serif SC',serif;font-size:clamp(28px,5.5vw,52px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:8px;}
+.mast-h1 em{font-style:italic;color:rgba(255,218,170,.88);}
+.mast-sub{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:18px;}
+.mast-desc{font-size:14.5px;color:rgba(255,255,255,.5);line-height:1.82;max-width:520px;margin-bottom:24px;}
+.mast-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.mast-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);}
+.mast-tag.live{background:var(--amber);border-color:var(--amber);color:#fff;}
+
+/* ── TAB NAV ── */
+.tabnav{position:sticky;top:0;z-index:200;background:rgba(253,250,245,.97);border-bottom:1px solid var(--rule);backdrop-filter:blur(10px);}
+.tabnav-inner{max-width:800px;margin:0 auto;padding:0 20px;display:flex;overflow-x:auto;scrollbar-width:none;}
+.tabnav-inner::-webkit-scrollbar{display:none;}
+.tab-btn{padding:12px 16px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--light);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:6px;text-decoration:none;}
+.tab-btn .tb-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);opacity:0;transition:opacity .2s;}
+.tab-btn.active{color:var(--plum);border-bottom-color:var(--amber);}
+.tab-btn.active .tb-dot{opacity:1;}
+.tab-btn:hover{color:var(--amber);}
+
+/* ── PAGE ── */
+.page{max-width:800px;margin:0 auto;padding:0 20px 80px;}
+.section{padding-top:48px;}
+.sec-ey{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;margin-bottom:6px;}
+.ey-amber{color:var(--amber);}
+.ey-rose{color:var(--rose);}
+.ey-teal{color:var(--teal);}
+.ey-gold{color:var(--gold);}
+.sec-t{font-family:'Noto Serif SC',serif;font-size:clamp(20px,3.2vw,28px);font-weight:600;color:var(--plum);margin-bottom:6px;}
+.sec-sub{font-size:13px;color:var(--light);line-height:1.65;margin-bottom:24px;}
+
+/* prose */
+.prose p{font-size:15px;color:var(--text);line-height:2;margin-bottom:18px;}
+.prose strong{color:var(--plum);font-weight:600;}
+
+/* Pull quote */
+.pq{margin:24px 0;padding:18px 20px 18px 22px;border-left:4px solid var(--amber);background:var(--amber-l);border-radius:0 10px 10px 0;}
+.pq p{font-family:'Noto Serif SC',serif;font-size:clamp(15px,2.5vw,18px);font-style:italic;color:var(--plum);line-height:1.72;margin-bottom:0;}
+.pq .src{font-size:11px;color:var(--light);margin-top:7px;font-style:normal;display:block;}
+
+/* Divider */
+.divider{text-align:center;color:var(--amber);font-size:18px;letter-spacing:8px;margin:32px 0;opacity:.6;}
+
+/* DATA CARDS */
+.data-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.data-card{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:18px 16px;transition:all .25s;cursor:default;}
+.data-card:hover{border-color:var(--amber);transform:translateY(-2px);box-shadow:0 6px 20px rgba(61,21,54,.07);}
+.data-card:hover::after{transform:scaleX(1);}
+.dc-n{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4vw,34px);font-weight:700;color:var(--plum);line-height:1;margin-bottom:5px;}
+.dc-l{font-size:12px;color:var(--mid);line-height:1.5;}
+.dc-src{font-size:10px;color:var(--light);margin-top:4px;}
+
+/* PERSON TABS */
+.person-tabs{margin:24px 0;}
+.pt-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:0;}
+.pt-btn{padding:9px 16px;border-radius:8px 8px 0 0;border:1.5px solid var(--rule);border-bottom:none;background:var(--sand);cursor:pointer;font-size:12.5px;font-weight:700;color:var(--light);transition:all .2s;display:flex;align-items:center;gap:7px;}
+.pt-btn:hover{color:var(--plum);}
+.pt-btn.active{background:var(--white);color:var(--plum);border-color:var(--rule);}
+.pt-av{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;}
+.av-maye{background:var(--amber);}
+.av-lin{background:var(--teal);}
+.av-wang{background:var(--rose);}
+.av-janet{background:var(--plum);}
+.pt-panels{border:1.5px solid var(--rule);border-radius:0 10px 10px 10px;background:var(--white);overflow:hidden;}
+.pt-panel{display:none;padding:22px 22px;}
+.pt-panel.active{display:block;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.pp-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--rule);}
+.pp-av{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:#fff;flex-shrink:0;}
+.pp-name{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--plum);}
+.pp-sub{font-size:12px;color:var(--light);margin-top:3px;line-height:1.5;}
+.pp-body p{font-size:14.5px;color:var(--text);line-height:1.88;margin-bottom:12px;}
+.pp-body strong{color:var(--plum);font-weight:600;}
+.pp-verdict{padding:13px 15px;border-radius:8px;display:flex;align-items:flex-start;gap:10px;margin-top:12px;}
+.pv-icon{font-size:15px;flex-shrink:0;margin-top:1px;}
+.pv-text{font-size:13.5px;font-weight:600;color:var(--plum);line-height:1.6;}
+
+/* BOOK CARDS */
+.books-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;}
+.book-card{background:var(--white);border:1.5px solid var(--rule);border-radius:14px;overflow:hidden;transition:all .25s;cursor:pointer;}
+.book-card:hover{border-color:var(--amber);transform:translateY(-2px);box-shadow:0 6px 20px rgba(61,21,54,.07);}
+.bk-spine{height:90px;display:flex;align-items:center;justify-content:center;gap:14px;padding:0 22px;}
+.bk-icon{font-size:36px;}
+.bk-titles{flex:1;}
+.bk-name{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:#fff;line-height:1.2;}
+.bk-name-en{font-size:12px;color:rgba(255,255,255,.55);margin-top:2px;}
+.bk-body{padding:16px 18px;}
+.bk-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;}
+.bk-desc{font-size:13.5px;color:var(--mid);line-height:1.75;margin-bottom:10px;}
+.bk-insight{background:var(--amber-l);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--warm);font-weight:600;line-height:1.6;}
+
+/* EXPANDABLE - Maye details */
+.expand-card{background:var(--white);border:1.5px solid var(--rule);border-radius:14px;overflow:hidden;margin-top:14px;cursor:pointer;transition:box-shadow .25s;}
+.expand-card:hover{box-shadow:0 4px 20px rgba(61,21,54,.07);}
+.ec-head{padding:16px 18px;background:var(--sand);border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:12px;}
+.ec-icon{font-size:20px;}
+.ec-title{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--plum);flex:1;}
+.ec-toggle{width:28px;height:28px;border-radius:50%;background:var(--pale);border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-size:13px;color:var(--light);}
+.expand-card.open .ec-toggle{background:var(--amber);border-color:var(--amber);color:#fff;transform:rotate(45deg);}
+.ec-preview{padding:12px 18px 14px;background:var(--white);}
+.ec-preview p{font-size:14px;color:var(--mid);line-height:1.72;margin-bottom:0;}
+.ec-body{overflow:hidden;max-height:0;transition:max-height .5s cubic-bezier(.4,0,.2,1);}
+.expand-card.open .ec-body{max-height:500px;}
+.ec-body-inner{padding:0 18px 18px;border-top:1px solid var(--rule);}
+.ec-body-inner p{font-size:14px;color:var(--text);line-height:1.88;margin-top:12px;margin-bottom:8px;}
+.ec-body-inner strong{color:var(--plum);font-weight:600;}
+.ec-lesson{margin-top:12px;padding:11px 13px;background:var(--amber-l);border-radius:8px;font-size:13px;font-weight:600;color:var(--amber);line-height:1.6;}
+
+/* QUIZ */
+.quiz-wrap{margin:24px 0;border:1.5px solid var(--rule);border-radius:12px;overflow:hidden;}
+.qw-head{background:linear-gradient(135deg,#2a1008,#4a1e0a);padding:16px 18px;display:flex;align-items:center;gap:10px;}
+.qwh-icon{font-size:22px;}
+.qwh-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,218,140,.7);margin-bottom:3px;}
+.qwh-title{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:#fff;}
+.quiz-body{background:var(--white);}
+.quiz-q{display:none;padding:18px 18px 8px;}
+.quiz-q.active{display:block;animation:fadeIn .3s ease;}
+.q-prog-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.q-prog-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--light);}
+.q-prog-bar{flex:1;height:3px;background:var(--rule);border-radius:2px;overflow:hidden;}
+.q-prog-fill{height:100%;background:var(--amber);transition:width .4s ease;}
+.q-scene{background:var(--amber-l);border-left:3px solid var(--amber);padding:9px 12px;border-radius:0 6px 6px 0;font-size:12.5px;color:var(--mid);line-height:1.65;margin-bottom:10px;font-style:italic;}
+.q-text{font-family:'Noto Serif SC',serif;font-size:clamp(14px,2.8vw,16px);font-weight:600;color:var(--plum);margin-bottom:12px;line-height:1.4;}
+.opts{display:flex;flex-direction:column;gap:7px;padding-bottom:18px;}
+.opt{padding:11px 13px;border:1.5px solid var(--rule);border-radius:9px;cursor:pointer;display:flex;align-items:flex-start;gap:9px;transition:all .18s;text-align:left;background:var(--white);width:100%;}
+.opt:hover{border-color:var(--amber);background:var(--amber-l);}
+.opt.chosen{border-color:var(--plum);background:var(--plum);}
+.opt-key{width:24px;height:24px;border-radius:6px;background:var(--pale);border:1px solid var(--rule);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--plum);transition:all .18s;}
+.opt.chosen .opt-key{background:var(--amber);border-color:var(--amber);color:#fff;}
+.opt-text{font-size:13px;color:var(--text);line-height:1.5;transition:color .18s;}
+.opt-sub{font-size:11px;color:var(--light);margin-top:1px;transition:color .18s;}
+.opt.chosen .opt-text{color:rgba(255,255,255,.9);}
+.opt.chosen .opt-sub{color:rgba(255,255,255,.5);}
+.quiz-result{display:none;padding:20px 18px;border-top:1px solid var(--rule);}
+.quiz-result.show{display:block;animation:fadeIn .4s ease;}
+.qr-icon{font-size:36px;display:block;margin-bottom:10px;}
+.qr-type-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:11.5px;font-weight:700;margin-bottom:10px;}
+.qr-type{font-family:'Noto Serif SC',serif;font-size:clamp(18px,3.5vw,24px);font-weight:700;color:var(--plum);margin-bottom:5px;}
+.qr-slogan{font-size:13.5px;color:var(--mid);line-height:1.7;margin-bottom:12px;font-style:italic;}
+.qr-desc{font-size:14px;color:var(--text);line-height:1.85;margin-bottom:12px;}
+.qr-action{background:var(--amber-l);border-radius:9px;padding:13px 13px;margin-bottom:12px;}
+.qra-label{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:5px;}
+.qra-text{font-size:13px;color:var(--text);line-height:1.75;}
+.qr-platform{background:var(--pale);border-radius:8px;padding:11px 13px;font-size:13px;color:var(--mid);line-height:1.65;}
+.qr-platform strong{color:var(--plum);}
+.btn-restart{margin-top:10px;padding:8px 18px;border-radius:8px;border:1.5px solid var(--rule);background:transparent;color:var(--mid);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-restart:hover{border-color:var(--amber);color:var(--amber);}
+
+/* CTA JOIN */
+.join-strip{background:linear-gradient(135deg,#2a1008,#3d1536);border-radius:14px;padding:24px 22px;margin:28px 0;display:flex;align-items:center;gap:20px;}
+.js-left{flex:1;}
+.js-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,218,140,.7);margin-bottom:8px;}
+.js-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:#fff;margin-bottom:6px;}
+.js-desc{font-size:13px;color:rgba(255,255,255,.45);}
+.js-ctas{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;}
+.js-btn-main{padding:12px 24px;border-radius:8px;background:#fff;color:var(--plum);font-size:13.5px;font-weight:700;text-decoration:none;transition:all .2s;}
+.js-btn-main:hover{background:var(--amber-l);}
+.js-btn-sec{padding:12px 18px;border-radius:8px;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:13px;font-weight:600;text-decoration:none;transition:all .2s;}
+.js-btn-sec:hover{border-color:#fff;color:#fff;}
+
+/* INSIGHT GRID */
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+.insight-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:16px 15px;transition:all .22s;}
+.insight-card:hover{border-color:var(--amber);box-shadow:0 4px 16px rgba(61,21,54,.06);}
+.ic-icon{font-size:22px;margin-bottom:8px;}
+.ic-title{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:var(--plum);margin-bottom:5px;line-height:1.3;}
+.ic-body{font-size:13px;color:var(--mid);line-height:1.68;}
+
+/* NEXT ISSUE */
+.next-issue{background:var(--pale);border:1.5px solid var(--rule);border-radius:12px;padding:20px 20px;margin-top:40px;display:flex;align-items:center;gap:20px;}
+.ni-vol{font-family:'DM Mono',monospace;font-size:36px;color:var(--rule);flex-shrink:0;}
+.ni-label{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--light);margin-bottom:5px;}
+.ni-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--plum);margin-bottom:4px;}
+.ni-desc{font-size:12.5px;color:var(--light);}
+
+/* FOOTER */
+.brief-footer{background:linear-gradient(135deg,#2a1008,#3d1536);margin-top:0;padding:28px 20px;text-align:center;}
+.bf-brand{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:8px;}
+.bf-rule{width:24px;height:1px;background:var(--amber);margin:10px auto;}
+.bf-note{font-size:11px;color:rgba(255,255,255,.22);line-height:1.8;}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s,transform .55s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){
+  .mast-top,.mast-body,.page{padding-left:16px;padding-right:16px;}
+  .data-row{grid-template-columns:1fr 1fr;}
+  .books-grid,.insight-grid{grid-template-columns:1fr;}
+  .join-strip{flex-direction:column;}
+  .js-ctas{flex-direction:column;width:100%;}
+}
+</style>
+</head>
+<body>
+<div class="rpbar" id="rp"></div>
+
+<!-- ── QUIZ DATA ── -->
+<script>
+var QUIZ = [
+  {
+    scene: "你在一个你熟悉的行业工作了15年。突然有一天，你意识到这个行业正在萎缩，你的职位可能在3年内消失。",
+    q: "你最真实的第一反应是什么？",
+    opts: [
+      {t: "立刻开始研究还有哪些行业需要我的经验", s: "行动型——你相信阅历是可以迁移的", type: "A"},
+      {t: "感到恐慌，但忍着没跟任何人说", s: "压抑型——你习惯一个人扛着", type: "B"},
+      {t: "觉得可能是我的问题，要不要再努力一下", s: "自责型——你第一反应是质疑自己", type: "C"},
+      {t: "想起梅耶马斯克60岁还在转型，告诉自己还来得及", s: "参照型——你需要榜样给你力量", type: "D"}
+    ]
+  },
+  {
+    scene: "你的一个朋友转型成功了，开始做知识付费，月收入已经超过她原来的工资。",
+    q: "你对这件事的感受更接近哪一种？",
+    opts: [
+      {t: "为她高兴，同时认真研究她是怎么做到的", s: "你把别人的成功当成地图", type: "A"},
+      {t: "有点羡慕，但觉得她的情况和我不一样", s: "你还没找到属于自己的切入点", type: "C"},
+      {t: "想试试，但不知道自己有什么值得付费的", s: "你低估了自己已有的价值", type: "B"},
+      {t: "感到一种莫名的焦虑，觉得再不动就来不及了", s: "你感受到了窗口期的压力", type: "D"}
+    ]
+  },
+  {
+    scene: "如果你现在有整整一个月，没有任何工作压力，只用来探索转型方向。",
+    q: "你最可能把时间花在哪里？",
+    opts: [
+      {t: "系统地整理我过去积累的行业知识，看能做成什么", s: "你的宝藏在你自己的经验里", type: "A"},
+      {t: "找10个已经转型的人聊，看看她们是怎么做的", s: "你用对话来清晰自己的方向", type: "D"},
+      {t: "先解决心里那个'我值得吗'的问题", s: "内在的稳定是你转型的前提", type: "B"},
+      {t: "学一个具体的技能，比如AI工具或短视频", s: "你倾向于先建立可见的能力", type: "C"}
+    ]
+  },
+  {
+    scene: "你现在最担心的转型障碍是什么？",
+    q: "如果只能说一个，你会选哪个？",
+    opts: [
+      {t: "不知道自己的经验对谁有价值、怎么定价", s: "定位问题——很常见，也很可解决", type: "A"},
+      {t: "家庭责任太重，没有时间和精力去探索", s: "结构问题——需要重新分配资源", type: "C"},
+      {t: "内心深处觉得自己年纪太大，不相信能成", s: "信念问题——这是最需要先处理的", type: "B"},
+      {t: "太多方向，不知道选哪个，怕选错", s: "决策问题——选择焦虑很消耗能量", type: "D"}
+    ]
+  },
+  {
+    scene: "梅耶马斯克在自传里说：「我不是在等待时机，我就是时机。」",
+    q: "读到这句话，你的第一感受是什么？",
+    opts: [
+      {t: "热血沸腾，我就是缺这种底气", s: "你知道方向，需要的是勇气的燃料", type: "D"},
+      {t: "欣赏，但感觉这句话离我的处境太远", s: "你还没把自己放进那个可能性里", type: "B"},
+      {t: "对，经验本身就是资产，我一直都有时机", s: "你已经在转型的精神上了", type: "A"},
+      {t: "激励我去思考：我的'时机'到底是什么", s: "你在用这句话反问自己", type: "C"}
+    ]
+  }
+];
+
+var RESULTS = {
+  A: {
+    icon: "🧭",
+    badge: "准备起航型",
+    color: "#b8862c",
+    bg: "#f5edd8",
+    type: "你已经在转型的跑道上了",
+    slogan: "你最缺的不是方向，是一个让你的经验被看见的平台",
+    desc: "你清楚自己有价值，也有行动意愿。你现在真正需要的，是一个结构化的框架，帮你把15年的阅历转化成市场能理解的语言——以及一群同频的人，陪你把想法落地。",
+    action: "这周做一件事：写下你在职业生涯里解决过的三个「别人很难解决」的问题。这就是你转型产品的雏形。",
+    platform: "「她说了算」的工具箱里有「个人资产盘点表」，专门帮你把经验转化成可定价的价值——这正是你现在需要的下一步。"
+  },
+  B: {
+    icon: "🌱",
+    badge: "内在扎根型",
+    color: "#1d4a35",
+    bg: "#d6ede0",
+    type: "转型从稳住内心开始",
+    slogan: "不是你没有能力，是你还没有给自己许可",
+    desc: "你最大的障碍不是外部的——是内心那个「我值得吗？」的声音。梅耶马斯克在书里说，她花了很多年才停止为自己的选择道歉。你也不需要在准备好之前出发，但你需要先把那个声音处理掉。",
+    action: "这周做一件事：找出你职业生涯里最自豪的一件事，写下来——不为任何人，只为让自己看见它的真实价值。",
+    platform: "「她说了算」的内在力板块里有「疗愈处方测试」，帮你找到现在最需要的那种内在补给。转型路上，稳住自己是第一步。"
+  },
+  C: {
+    icon: "🔑",
+    badge: "重新定义型",
+    color: "#3d1536",
+    bg: "#f0dce8",
+    type: "你需要的是重新定义自己的价值",
+    slogan: "不是你不够好，是你还在用别人的标准衡量自己",
+    desc: "你在转型上的阻力，来自一套根深蒂固的「成功定义」——可能是学历、职位、或者某种「应该」。而真正的转型，往往需要先打碎旧的框架，才能看见新的可能。《三联》的观察说的就是这个：中年女性最大的转型障碍，是对自己的定义太窄了。",
+    action: "这周做一件事：列出三件你做起来不费力、但别人做起来很吃力的事。这就是你的天然优势，和任何头衔无关。",
+    platform: "「她说了算」每期简报里都有「身份重塑」版块，专门帮你拆解这个过程——带着真实案例，不是鸡汤。"
+  },
+  D: {
+    icon: "✨",
+    badge: "窗口期敏感型",
+    color: "#c4587a",
+    bg: "#f0dce8",
+    type: "你感受到了时机，现在需要一个出口",
+    slogan: "你的焦虑不是问题，是你的行动信号",
+    desc: "你已经感受到了变化的紧迫感——这是好事，说明你的直觉是清醒的。现在缺的不是「再想一想」，而是一个具体的第一步，以及能和你同频共振的人。孤军奋战会让你的焦虑持续放大，而找到对的社群，焦虑就变成了动力。",
+    action: "这周做一件事：找三个你觉得转型方向「有点感觉」的领域，不用分析，就凭直觉写下来。然后把这三个领域发给你最信任的朋友，问她：你觉得我在哪个方向最像我自己？",
+    platform: "「她说了算」就是那个社群——不是鸡汤群，是一群认真思考自己人生的女性，每半月一期简报，每月一次读书会，帮你把感觉变成方向。"
+  }
+};
+
+var qScores = {A:0, B:0, C:0, D:0};
+var KEYS = ['A','B','C','D'];
+
+function initQuiz() {
+  var box = document.getElementById('quiz-inner');
+  var html = '';
+  QUIZ.forEach(function(q, i) {
+    html += '<div class="quiz-q' + (i===0?' active':'') + '" id="qq'+i+'">';
+    html += '<div class="q-prog-row"><span class="q-prog-label">'+(i+1)+' / '+QUIZ.length+'</span><div class="q-prog-bar"><div class="q-prog-fill" style="width:'+Math.round(i/QUIZ.length*100)+'%"></div></div></div>';
+    if (q.scene) html += '<div class="q-scene">'+q.scene+'</div>';
+    html += '<div class="q-text">'+q.q+'</div>';
+    html += '<div class="opts">';
+    q.opts.forEach(function(o, j) {
+      html += '<button class="opt" onclick="qPick('+i+',\''+o.type+'\',this)">';
+      html += '<div class="opt-key">'+KEYS[j]+'</div>';
+      html += '<div class="opt-body"><div class="opt-text">'+o.t+'</div><div class="opt-sub">'+o.s+'</div></div>';
+      html += '</button>';
+    });
+    html += '</div></div>';
+  });
+  html += '<div class="quiz-result" id="qresult"></div>';
+  box.innerHTML = html;
+}
+
+function qPick(qi, type, btn) {
+  document.querySelectorAll('#qq'+qi+' .opt').forEach(function(o){o.classList.remove('chosen');});
+  btn.classList.add('chosen');
+  qScores[type]++;
+  setTimeout(function(){
+    document.getElementById('qq'+qi).classList.remove('active');
+    var next = qi + 1;
+    if (next < QUIZ.length) {
+      var el = document.getElementById('qq'+next);
+      el.classList.add('active');
+      var pf = el.querySelector('.q-prog-fill');
+      if (pf) pf.style.width = Math.round(next/QUIZ.length*100) + '%';
+    } else {
+      showResult();
+    }
+  }, 320);
+}
+
+function showResult() {
+  var winner = Object.entries(qScores).sort(function(a,b){return b[1]-a[1];})[0][0];
+  var r = RESULTS[winner];
+  var el = document.getElementById('qresult');
+  el.innerHTML =
+    '<span class="qr-icon">'+r.icon+'</span>' +
+    '<div class="qr-type-badge" style="background:'+r.bg+';color:'+r.color+'">'+r.badge+'</div>' +
+    '<div class="qr-type">'+r.type+'</div>' +
+    '<div class="qr-slogan">「'+r.slogan+'」</div>' +
+    '<div class="qr-desc">'+r.desc+'</div>' +
+    '<div class="qr-action"><div class="qra-label">✦ 这周一个行动</div><div class="qra-text">'+r.action+'</div></div>' +
+    '<div class="qr-platform"><strong>在「她说了算」，你能找到：</strong><br>'+r.platform+'</div>' +
+    '<button class="btn-restart" onclick="qRestart()">↩ 重新测一次</button>';
+  el.classList.add('show');
+}
+
+function qRestart() {
+  qScores = {A:0, B:0, C:0, D:0};
+  document.querySelectorAll('.quiz-q').forEach(function(q){q.classList.remove('active');});
+  document.getElementById('qresult').classList.remove('show');
+  var first = document.getElementById('qq0');
+  first.classList.add('active');
+  var pf = first.querySelector('.q-prog-fill');
+  if (pf) pf.style.width = '0%';
+}
+</script>
+
+<!-- ── MASTHEAD ── -->
+<header class="mast">
+  <div class="mast-deco">转</div>
+  <div class="mast-top">
+    <span class="mast-brand">她说了算 · She Decides</span>
+    <span class="mast-read-time">约14分钟阅读</span>
+  </div>
+  <div class="mast-body">
+    <div class="mast-vol">Volume 05 · 全球女性成长生态简报</div>
+    <h1 class="mast-h1">中女<em>转型</em></h1>
+    <p class="mast-sub">阅历 · 工具 · 第二曲线 · 人生由我</p>
+    <p class="mast-desc">不是所有的转型都是被迫的，但所有真正的转型，都是一次对自我的重新定义。35岁、45岁、55岁——这些数字不是截止日期，而是新的起点坐标。</p>
+    <div class="mast-tags">
+      <span class="mast-tag live">本期已发布</span>
+      <span class="mast-tag">中女转型</span>
+      <span class="mast-tag">梅耶马斯克</span>
+      <span class="mast-tag">第二曲线</span>
+      <span class="mast-tag">阅历变现</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── TAB NAV ── -->
+<nav class="tabnav">
+  <div class="tabnav-inner">
+    <button class="tab-btn active" onclick="scrollTo('brief')"><span class="tb-dot"></span>本期速读</button>
+    <button class="tab-btn" onclick="scrollTo('cog')"><span class="tb-dot"></span>认知套利</button>
+    <button class="tab-btn" onclick="scrollTo('stories')"><span class="tb-dot"></span>她们的故事</button>
+    <button class="tab-btn" onclick="scrollTo('books')"><span class="tb-dot"></span>她的书房</button>
+    <button class="tab-btn" onclick="scrollTo('quiz')"><span class="tb-dot"></span>转型坐标测试</button>
+    <button class="tab-btn" onclick="scrollTo('join')"><span class="tb-dot"></span>加入我们</button>
+  </div>
+</nav>
+
+<main class="page">
+
+<!-- ══ 本期速读 ══ -->
+<div id="brief" class="section">
+  <div class="sec-ey ey-amber reveal">本期速读</div>
+  <div class="sec-t reveal">一个问题，三个真相</div>
+  <p class="sec-sub reveal">这期简报，我们只想认真回答一个问题：30+、40+、50+ 的女性，现在转型——到底还来不来得及？</p>
+
+  <div class="prose reveal">
+    <p>《三联生活周刊》的《中女转型》专题里有一句话让我印象很深：<strong>「女人过了30岁就开始走下坡路，这本质上是社会对女性最刻板的偏见。」</strong></p>
+    <p>但偏见本身不值得我们花太多时间反驳。真正值得我们认真讨论的，是当偏见存在时，我们作为当事人，如何绕过它，找到属于自己的路。</p>
+    <p>这期简报，我们梳理了三个真相：</p>
+  </div>
+
+  <div class="insight-grid reveal">
+    <div class="insight-card">
+      <div class="ic-icon">💡</div>
+      <div class="ic-title">真相一：阅历是稀缺资产</div>
+      <div class="ic-body">互联网时代最需要的不是「年轻」，而是判断力、同理心和真实经验。这三样东西，都是时间才能给的。</div>
+    </div>
+    <div class="insight-card">
+      <div class="ic-icon">🔧</div>
+      <div class="ic-title">真相二：工具降低了门槛</div>
+      <div class="ic-body">AI、短视频、知识付费平台的出现，让「把经验变成收入」的技术门槛前所未有地低。你需要的是想法，不是技术。</div>
+    </div>
+    <div class="insight-card">
+      <div class="ic-icon">👥</div>
+      <div class="ic-title">真相三：同频社群是乘数</div>
+      <div class="ic-body">转型不是孤军奋战的事。一群彼此提醒、共同生长的人，能把你的焦虑变成动力，把你的想法变成行动。</div>
+    </div>
+    <div class="insight-card">
+      <div class="ic-icon">⏰</div>
+      <div class="ic-title">真相四：没有统一的时间表</div>
+      <div class="ic-body">梅耶马斯克69岁成为封面模特，退休后出版两本畅销书。不是因为她特别，而是因为她没有相信「太晚了」这件事。</div>
+    </div>
+  </div>
+
+  <div class="pq reveal">
+    <p>「真正的体面，从来不是你名片上印着什么，而是在朋友和大家的心目中，你到底是一个怎样的人。出来混，身份都是自己给的。」</p>
+    <span class="src">— 《三联生活周刊》· 中女转型</span>
+  </div>
+</div>
+
+<!-- ══ 认知套利 ══ -->
+<div id="cog" class="section">
+  <div class="sec-ey ey-amber reveal">认知套利</div>
+  <div class="sec-t reveal">数字告诉你：窗口还没关</div>
+  <p class="sec-sub reveal">你感受到的压力是真实的，但「已经太晚」这个判断是错的。用数据说话。</p>
+
+  <div class="data-row reveal">
+    <div class="data-card">
+      <div class="dc-n">69岁</div>
+      <div class="dc-l">梅耶马斯克成为<br>Sports Illustrated封面模特</div>
+      <div class="dc-src">2022年</div>
+    </div>
+    <div class="data-card">
+      <div class="dc-n">73%</div>
+      <div class="dc-l">知识付费用户认为创作者的<strong>经验深度</strong>比年龄更重要</div>
+      <div class="dc-src">艾媒咨询 2024</div>
+    </div>
+    <div class="data-card">
+      <div class="dc-n">2.4倍</div>
+      <div class="dc-l">35-55岁女性创业者<br>首年存活率高于25-35岁</div>
+      <div class="dc-src">麦肯锡 2024</div>
+    </div>
+  </div>
+
+  <div class="prose reveal">
+    <p>这组数据背后的逻辑其实很简单：<strong>成熟期女性的转型成功率更高，不是因为运气，而是因为她们的试错成本意识更强，人脉资源更厚，对失败的承受力也更好</strong>——而这些都是年轻人还没来得及建立的东西。</p>
+    <p>《三联》专题观察到的现象也印证了这一点：电商运营、知识付费、内容创作这些新兴领域，<strong>恰恰最需要阅历、同理心和判断力</strong>——这不是安慰，这是市场事实。</p>
+  </div>
+
+  <div class="pq reveal">
+    <p>「不急不躁，才是中年女性最顶级的修养。人生下半场，比的不是谁跑得快，而是谁的心态更稳，谁活得更通透。」</p>
+    <span class="src">— 《三联生活周刊》· 中女转型专题</span>
+  </div>
+</div>
+
+<!-- ══ 她们的故事 ══ -->
+<div id="stories" class="section">
+  <div class="sec-ey ey-rose reveal">她们的故事</div>
+  <div class="sec-t reveal">四种转型路径，点击切换</div>
+  <p class="sec-sub reveal">没有一条路是唯一正确的。但每一条路，都说明了同一件事——阅历本身，就是资产。</p>
+
+  <div class="person-tabs reveal">
+    <div class="pt-nav">
+      <button class="pt-btn active" onclick="switchPerson('maye',this)"><div class="pt-av av-maye">M</div>梅耶</button>
+      <button class="pt-btn" onclick="switchPerson('lin',this)"><div class="pt-av av-lin">林</div>林姐</button>
+      <button class="pt-btn" onclick="switchPerson('wang',this)"><div class="pt-av av-wang">王</div>王姐</button>
+      <button class="pt-btn" onclick="switchPerson('janet',this)"><div class="pt-av av-janet">J</div>Janet</button>
+    </div>
+    <div class="pt-panels">
+
+      <div class="pt-panel active" id="pp-maye">
+        <div class="pp-head">
+          <div class="pp-av av-maye">M</div>
+          <div>
+            <div class="pp-name">梅耶·马斯克</div>
+            <div class="pp-sub">营养师 · 模特 · 畅销书作者 · 埃隆·马斯克的母亲<br>1948年生，多次从零开始</div>
+          </div>
+        </div>
+        <div class="pp-body">
+          <p>梅耶的人生，是一份关于「转型从不嫌晚」的最有力的证明。她在南非、加拿大、美国、英国多个国家生活过，做过营养师、模特、演讲者，在60多岁时独自移居纽约，重新开始建立自己的事业。</p>
+          <p>她在自传《人生由我》里说：<strong>「我曾多次从零开始，没有一次是因为准备好了——而是因为没有别的选择。」</strong>但她没有等待。她说她最大的特点是：遇到障碍，解决问题，继续前进。</p>
+          <p>2022年，74岁的她登上 Sports Illustrated 泳装封面。不是因为她想证明什么，而是她一直没有停止工作。</p>
+          <div class="pp-verdict" style="background:var(--amber-l);">
+            <div class="pv-icon">✨</div>
+            <div class="pv-text">梅耶的核心逻辑：转型不需要「准备好」的信号。你只需要迈出下一步，然后继续解决出现的问题。<br><br>她的两本书都在「她说了算」书房里，本期重点导读。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-panel" id="pp-lin">
+        <div class="pp-head">
+          <div class="pp-av av-lin">林</div>
+          <div>
+            <div class="pp-name">林姐</div>
+            <div class="pp-sub">某知名房企品牌负责人 → 独立内容创作者<br>行业下行期主动离职，重找表达自由</div>
+          </div>
+        </div>
+        <div class="pp-body">
+          <p>林姐在房地产行业做了15年品牌，是她们那个圈子里公认的「文字高手」。当行业开始大规模收缩时，她没有等到被裁员，而是主动提出离职。</p>
+          <p>她说那个决定并不难——难的是此后那半年，她一边靠积蓄生活，一边寻找方向。<strong>她后来把多年的行业洞察转化成一个垂直公众号，第一年就积累了3万精准读者</strong>，开始做付费咨询。</p>
+          <p>她不是因为「掌握了流量密码」才成功的——她成功，是因为她终于找到了一个能让自己的经验被真正看见的出口。</p>
+          <div class="pp-verdict" style="background:var(--teal-l);">
+            <div class="pv-icon">🔑</div>
+            <div class="pv-text">林姐的核心逻辑：过往的经验不是包袱，是你在新赛道上的起点优势。转型的关键，是找到能承载这些经验的新容器。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-panel" id="pp-wang">
+        <div class="pp-head">
+          <div class="pp-av av-wang">王</div>
+          <div>
+            <div class="pp-name">王姐</div>
+            <div class="pp-sub">房地产策划 → 短视频创作者<br>用AI工具放大经验，不需要成为技术专家</div>
+          </div>
+        </div>
+        <div class="pp-body">
+          <p>王姐曾经觉得短视频是「年轻人的事」，她不上镜，也不懂技术，普通话都不够标准。</p>
+          <p>但她发现，那些真正有深度的内容，反而不需要完美的出镜或剪辑——<strong>她开始用AI生成脚本初稿，用剪映完成基础剪辑，把自己对房产市场15年的积累，转化成普通人能听懂的选房指南</strong>。</p>
+          <p>她说：「我不需要成为技术专家，我只需要利用工具，把我的经验传递出去。」这句话，某种意义上是整个「阅历+工具」转型公式最好的注脚。</p>
+          <div class="pp-verdict" style="background:var(--blush);">
+            <div class="pv-icon">🔧</div>
+            <div class="pv-text">王姐的核心逻辑：工具不是目的，是放大器。你的内容核心永远是你的判断力和经验，工具只是让这些东西被更多人看见。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-panel" id="pp-janet">
+        <div class="pp-head">
+          <div class="pp-av av-janet">J</div>
+          <div>
+            <div class="pp-name">Janet</div>
+            <div class="pp-sub">企业教练30年 · 「她说了算」联合创始人<br>用阅历创建女性成长平台</div>
+          </div>
+        </div>
+        <div class="pp-body">
+          <p>Janet做企业教练30年，服务过100多家企业的管理团队。她可以选择继续做企业端，安全、稳定、收入不错。</p>
+          <p>但她发现，她真正想服务的，是那些<strong>在职场里没有教练的普通女性</strong>——那些在深夜对着电脑屏幕发呆，不知道自己的下一步在哪里的人。</p>
+          <p>「她说了算」就是从这个问题开始的：<strong>如果那些在会议室里发生的认知升级，也能以某种方式送到更多女性手里，会怎么样？</strong></p>
+          <div class="pp-verdict" style="background:var(--pale);">
+            <div class="pv-icon">🌱</div>
+            <div class="pv-text">Janet的选择说明了一件事：转型最强的动力，不是「我必须谋生」，而是「我有一个问题，想解决它」。找到那个问题，你就找到了转型的方向。</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Maye 详细故事 -->
+  <div class="expand-card reveal" id="maye-card" onclick="toggleExpand('maye-card')">
+    <div class="ec-head">
+      <div class="ec-icon">📖</div>
+      <div class="ec-title">梅耶马斯克的时间线：每一次从零开始</div>
+      <div class="ec-toggle">+</div>
+    </div>
+    <div class="ec-preview"><p>她不是一次成功的——她是无数次重新开始的。点击展开梅耶完整的转型时间线……</p></div>
+    <div class="ec-body">
+      <div class="ec-body-inner">
+        <p><strong>1970s</strong>：在南非做模特，同时攻读营养学学位。那个年代，女性被告知不能两件事同时做。她做了。</p>
+        <p><strong>1980s</strong>：离开一段有暴力的婚姻，独自抚养三个孩子（包括后来的埃隆），在多个城市之间辗转。</p>
+        <p><strong>1990s</strong>：移居加拿大多伦多，重新建立营养咨询业务。同时继续接模特工作，当时已经40多岁。</p>
+        <p><strong>2000s</strong>：移居纽约，重建人脉和事业。她在回忆录里说，那段时间她住在一个很小的公寓里，靠节省和努力工作支撑自己。</p>
+        <p><strong>2017年（69岁）</strong>：出版第一本书《人生由我》（A Woman Makes a Plan），登上全球畅销书榜。</p>
+        <p><strong>2022年（74岁）</strong>：出版第二本书《永不过时》（Timeless），登上 Sports Illustrated 泳装封面。</p>
+        <div class="ec-lesson">💡 Janet 的注解：梅耶的故事最打动我的不是她有多成功，而是她从来没有让「现在几岁」成为她决策的变量。她的每一次「从零开始」，都带着上一阶段积累的判断力——这才是阅历真正的价值。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 她的书房 ══ -->
+<div id="books" class="section">
+  <div class="sec-ey ey-gold reveal">她的书房 · 本期精选</div>
+  <div class="sec-t reveal">梅耶马斯克的两本书，一本说方法，一本说心态</div>
+  <p class="sec-sub reveal">Janet 导读。读的不是励志，是一套真实可用的转型哲学。</p>
+
+  <div class="books-grid reveal">
+    <div class="book-card">
+      <div class="bk-spine" style="background:linear-gradient(135deg,#2a1008,#7a3c1a);">
+        <div class="bk-icon">📘</div>
+        <div class="bk-titles">
+          <div class="bk-name">人生由我</div>
+          <div class="bk-name-en">A Woman Makes a Plan</div>
+        </div>
+      </div>
+      <div class="bk-body">
+        <div class="bk-tag">梅耶·马斯克 · 2017</div>
+        <div class="bk-desc">这本书讲的不是她有多成功，而是她怎么在反复从零开始的过程中，保持对自己的笃定。适合所有正在转型、或者考虑转型的女性。</div>
+        <div class="bk-insight">Janet 导读摘要：梅耶有一句话是全书的核心——「我没有计划B，因为计划B会影响计划A的执行。」这不是盲目，这是一种把全部资源集中在当下选择上的勇气。</div>
+      </div>
+    </div>
+
+    <div class="book-card">
+      <div class="bk-spine" style="background:linear-gradient(135deg,#1a3d2b,#3d6a30);">
+        <div class="bk-icon">📗</div>
+        <div class="bk-titles">
+          <div class="bk-name">永不过时</div>
+          <div class="bk-name-en">Timeless</div>
+        </div>
+      </div>
+      <div class="bk-body">
+        <div class="bk-tag">梅耶·马斯克 · 2022</div>
+        <div class="bk-desc">如果说《人生由我》是转型路线图，《永不过时》就是心态升级手册。她在74岁写了一本关于「变老」和「不服老」的书——不是励志，是真实的生活哲学。</div>
+        <div class="bk-insight">Janet 导读摘要：「Timeless」这个词，梅耶给它的定义是：超越年龄的价值感。她说真正的「永不过时」，不是外表，而是你对自己经验的态度——你相信它有价值，它就有价值。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pq reveal" style="margin-top:24px;">
+    <p>「我不是在等待时机，我就是时机。」</p>
+    <span class="src">— 梅耶·马斯克《永不过时》</span>
+  </div>
+</div>
+
+<!-- ══ 转型坐标测试 ══ -->
+<div id="quiz" class="section">
+  <div class="sec-ey ey-amber reveal">配套测试 · 5分钟</div>
+  <div class="sec-t reveal">你现在处于转型的哪个阶段？</div>
+  <p class="sec-sub reveal">5道情景题，按直觉选。结果告诉你：你现在的核心障碍是什么，以及「她说了算」平台如何帮你跨过它。</p>
+
+  <div class="quiz-wrap reveal">
+    <div class="qw-head">
+      <div class="qwh-icon">🧭</div>
+      <div>
+        <div class="qwh-label">转型坐标测试 · 2026</div>
+        <div class="qwh-title">测出你的转型类型 · 找到你的第一步</div>
+      </div>
+    </div>
+    <div class="quiz-body" id="quiz-inner"></div>
+  </div>
+</div>
+
+<!-- ══ 加入我们 ══ -->
+<div id="join" class="section">
+  <div class="sec-ey ey-rose reveal">加入「她说了算」</div>
+  <div class="sec-t reveal">一个人走得快，一群人走得远</div>
+  <p class="sec-sub reveal">《三联》说的「彼此提醒、共同生长的人」——这就是我们在做的事。</p>
+
+  <div class="prose reveal">
+    <p>你刚才读到的这些——数据、故事、梅耶的转型时间线、测试结果——这只是「她说了算」每期简报的一部分。</p>
+    <p>我们每半月发一期，每期都有：全球女性商业视角、真实转型案例拆解、配套工具和行动手册，以及月度读书会。</p>
+    <p><strong>不是鸡汤，不是焦虑贩卖，是你在转型路上真正需要的信息和工具。</strong></p>
+  </div>
+
+  <div class="join-strip reveal">
+    <div class="js-left">
+      <div class="js-label">✦ 立即加入</div>
+      <div class="js-title">¥9.9 试读第一个月，不满意退款</div>
+      <div class="js-desc">已有 Vol.01—05 档案 · 全套工具箱 · 月度读书会 · 她的指南针</div>
+    </div>
+    <div class="js-ctas">
+      <a href="index.html#join" class="js-btn-main">立即加入</a>
+      <a href="jingwei.html" class="js-btn-sec">先看看</a>
+    </div>
+  </div>
+
+  <div class="next-issue">
+    <div class="ni-vol">06</div>
+    <div>
+      <div class="ni-label">下一期 · 2026年6月</div>
+      <div class="ni-title">她的出海——跨境机会与文化智慧</div>
+      <div class="ni-desc">历史上的她：宋美龄 · 配套工具：跨境资产配置入门</div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer class="brief-footer">
+  <div class="bf-brand">她说了算 · She Decides</div>
+  <div class="bf-rule"></div>
+  <div class="bf-note">全球女性成长生态简报 · 每半月一期 · 全年24期<br>Janet & Yilin · 2026 · 「遇见不同，创造可能。」</div>
+</footer>
+
+<script>
+// Reading progress
+window.addEventListener('scroll',function(){
+  var h=document.documentElement;
+  document.getElementById('rp').style.width=(window.scrollY/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+
+// Reveal
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:.06});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+
+// Tab nav
+var secs=['brief','cog','stories','books','quiz','join'];
+var tabs=document.querySelectorAll('.tab-btn');
+var secEls=secs.map(function(id){return document.getElementById(id);});
+var navObs=new IntersectionObserver(function(e){
+  e.forEach(function(x){
+    if(x.isIntersecting){
+      tabs.forEach(function(t){t.classList.remove('active');});
+      var idx=secs.indexOf(x.target.id);
+      if(idx>-1)tabs[idx].classList.add('active');
+    }
+  });
+},{threshold:.3});
+secEls.forEach(function(el){if(el)navObs.observe(el);});
+
+function scrollTo(id){
+  var el=document.getElementById(id);
+  if(el){var y=el.getBoundingClientRect().top+window.scrollY-56;window.scrollTo({top:y,behavior:'smooth'});}
+}
+
+// Person tabs
+function switchPerson(id,btn){
+  document.querySelectorAll('.pt-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.querySelectorAll('.pt-panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('pp-'+id).classList.add('active');
+}
+
+// Expand card
+function toggleExpand(id){
+  document.getElementById(id).classList.toggle('open');
+}
+
+// Init quiz
+document.addEventListener('DOMContentLoaded',function(){initQuiz();});
+</script>
+</body>
+</html>

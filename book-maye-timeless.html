@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>永不过时 · Timeless · 导读 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#1a3d2b;--moss:#2d6a4a;--sage:#52a87a;--mint:#d4ede2;--mint-pale:#f0f8f4;
+  --amber:#b8862c;--amber-l:#f5edd8;--gold:#c49a3c;
+  --cream:#fdfaf5;--sand:#f5ede4;--rule:#dde8e2;
+  --text:#1e2820;--mid:#4a6655;--light:#7a9988;--white:#fff;
+  --plum:#3d1536;--rose:#c4587a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
+.rpbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--forest),var(--sage));width:0%;z-index:300;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;transition:all .3s;}
+nav.scrolled{background:rgba(253,250,245,.96);border-bottom:1px solid var(--rule);backdrop-filter:blur(12px);}
+.nav-back{color:rgba(255,255,255,.5);font-size:12.5px;text-decoration:none;transition:color .2s;}
+nav.scrolled .nav-back{color:var(--light);}
+.nav-back:hover{color:#fff;}
+nav.scrolled .nav-back:hover{color:var(--forest);}
+.nav-brand{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:600;color:rgba(255,255,255,.6);}
+nav.scrolled .nav-brand{color:var(--forest);}
+.nav-link{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s;}
+nav.scrolled .nav-link{color:var(--light);}
+nav.scrolled .nav-link:hover{color:var(--sage);}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#0f2218 0%,#1a3d2b 100%);padding:76px 24px 56px;position:relative;overflow:hidden;}
+.hero::before{content:'"';position:absolute;right:-10px;top:20px;font-family:'Noto Serif SC',serif;font-size:360px;font-weight:700;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;}
+.hero-inner{max-width:760px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:40px;align-items:center;}
+.book-cover{width:120px;height:170px;border-radius:4px 10px 10px 4px;background:linear-gradient(160deg,#0f2218,#1a4a2a);display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 20px rgba(0,0,0,.4),-2px 0 8px rgba(0,0,0,.3);position:relative;}
+.book-cover::before{content:'';position:absolute;left:0;top:0;bottom:0;width:8px;background:rgba(0,0,0,.3);border-radius:4px 0 0 4px;}
+.book-cover-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:rgba(180,230,180,.9);text-align:center;line-height:1.4;padding:0 10px;}
+.book-meta{text-align:center;font-size:12px;color:rgba(255,255,255,.4);margin-top:10px;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(82,168,122,.2);border:1px solid rgba(82,168,122,.3);padding:4px 12px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(180,230,200,.88);margin-bottom:14px;}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4.5vw,38px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:8px;}
+.hero h1 em{font-style:italic;color:rgba(180,230,200,.88);}
+.hero-author{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px;}
+.hero-verdict{font-size:14px;color:rgba(255,255,255,.55);line-height:1.82;margin-bottom:20px;}
+.hero-tags{display:flex;gap:7px;flex-wrap:wrap;}
+.h-tag{font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);}
+
+/* PAGE */
+.page{max-width:760px;margin:0 auto;padding:0 24px;}
+.section{padding:44px 0;}
+.sec-label{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--rule);}
+.sec-h2{font-family:'Noto Serif SC',serif;font-size:clamp(18px,3vw,24px);font-weight:600;color:var(--forest);margin-bottom:8px;}
+.sec-sub{font-size:14px;color:var(--mid);line-height:1.78;margin-bottom:20px;}
+
+/* CORE QUOTES */
+.core-quote{background:var(--forest);border-radius:14px;padding:26px 24px;margin:16px 0;position:relative;overflow:hidden;}
+.cq-deco{position:absolute;right:-10px;top:-10px;font-size:120px;color:rgba(255,255,255,.04);font-family:serif;line-height:1;}
+.cq-text{font-family:'Noto Serif SC',serif;font-size:clamp(16px,2.8vw,20px);font-style:italic;color:rgba(210,240,220,.92);line-height:1.72;margin-bottom:10px;position:relative;}
+.cq-src{font-size:12px;color:rgba(255,255,255,.3);}
+
+/* CONCEPT CARDS */
+.concepts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
+.concept{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:18px 16px;transition:all .22s;}
+.concept:hover{border-color:var(--sage);transform:translateY(-2px);}
+.con-icon{font-size:24px;margin-bottom:8px;}
+.con-title{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--forest);margin-bottom:6px;}
+.con-body{font-size:13.5px;color:var(--mid);line-height:1.72;}
+.con-quote{margin-top:8px;font-size:12.5px;font-style:italic;color:var(--sage);border-left:3px solid var(--sage);padding-left:9px;line-height:1.6;}
+
+/* CHAPTERS */
+.chapters{display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+.chapter{border:1.5px solid var(--rule);border-radius:12px;overflow:hidden;cursor:pointer;transition:box-shadow .25s;}
+.chapter:hover{box-shadow:0 4px 20px rgba(26,61,43,.08);}
+.ch-head{padding:16px 18px;background:var(--mint-pale);border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:12px;}
+.ch-num{width:30px;height:30px;border-radius:50%;background:var(--forest);color:#fff;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.chapter.open .ch-num{background:var(--sage);}
+.ch-title{font-family:'Noto Serif SC',serif;font-size:15.5px;font-weight:600;color:var(--forest);flex:1;line-height:1.3;}
+.ch-toggle{font-size:18px;color:var(--light);transition:all .3s;}
+.chapter.open .ch-toggle{transform:rotate(45deg);color:var(--sage);}
+.ch-preview{padding:12px 18px;background:var(--white);}
+.ch-preview p{font-size:13.5px;color:var(--mid);line-height:1.72;font-style:italic;}
+.ch-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1);}
+.chapter.open .ch-body{max-height:600px;}
+.ch-body-inner{padding:0 18px 20px;border-top:1px solid var(--rule);background:var(--white);}
+.ch-body-inner p{font-size:14px;color:var(--text);line-height:1.88;margin-top:14px;margin-bottom:10px;}
+.ch-body-inner strong{color:var(--forest);font-weight:600;}
+.ch-quote{margin:12px 0;padding:12px 16px 12px 18px;border-left:4px solid var(--sage);background:var(--mint);border-radius:0 8px 8px 0;font-size:13.5px;font-style:italic;color:var(--forest);line-height:1.68;}
+.ch-janet{margin-top:12px;padding:11px 14px;background:var(--sand);border-radius:8px;font-size:13px;color:var(--mid);line-height:1.7;}
+.ch-janet strong{color:var(--forest);}
+.ch-expand-hint{padding:8px 18px 12px;background:var(--white);text-align:center;}
+.ch-expand-hint span{font-size:12px;color:var(--sage);font-weight:600;}
+.chapter.open .ch-expand-hint{display:none;}
+
+/* AGE MYTH BUSTERS */
+.myths{display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+.myth{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:16px 18px;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.myth-left{border-right:1px dashed var(--rule);padding-right:16px;}
+.myth-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);margin-bottom:5px;}
+.myth-text{font-size:13.5px;color:var(--mid);line-height:1.6;}
+.truth-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);margin-bottom:5px;}
+.truth-text{font-size:13.5px;color:var(--text);line-height:1.6;}
+
+/* REFLECTION */
+.reflection{background:var(--forest);border-radius:14px;padding:26px 24px;margin:20px 0;}
+.rf-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(82,168,122,.7);margin-bottom:12px;}
+.rf-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:#fff;margin-bottom:16px;}
+.rf-qs{display:flex;flex-direction:column;gap:10px;}
+.rf-q{background:rgba(255,255,255,.08);border-radius:8px;padding:13px 15px;font-size:14px;color:rgba(255,255,255,.75);line-height:1.65;}
+.rf-q-num{color:var(--sage);font-weight:700;margin-right:6px;}
+
+/* JANET NOTES */
+.janet-notes{background:var(--sand);border:1.5px solid var(--rule);border-radius:12px;padding:22px 20px;margin:20px 0;}
+.jn-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--rule);}
+.jn-av{width:40px;height:40px;border-radius:50%;background:var(--plum);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:16px;font-weight:700;color:#fff;flex-shrink:0;}
+.jn-name{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--forest);}
+.jn-role{font-size:11px;color:var(--light);margin-top:2px;}
+.jn-body p{font-size:14px;color:var(--mid);line-height:1.85;margin-bottom:12px;}
+.jn-body p:last-child{margin-bottom:0;}
+.jn-body strong{color:var(--forest);font-weight:600;}
+
+/* OTHER BOOK */
+.other-book{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:18px 18px;margin-top:20px;display:flex;gap:14px;align-items:center;text-decoration:none;color:var(--text);transition:all .22s;}
+.other-book:hover{border-color:var(--amber);transform:translateX(3px);}
+.ob-cover{width:44px;height:60px;border-radius:3px 6px 6px 3px;background:linear-gradient(135deg,#3d1a06,#7a3c1a);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:2px 2px 8px rgba(0,0,0,.15);}
+.ob-body{flex:1;}
+.ob-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;}
+.ob-title{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--forest);}
+.ob-desc{font-size:12.5px;color:var(--light);margin-top:2px;}
+.ob-arrow{font-size:18px;color:var(--light);flex-shrink:0;transition:all .2s;}
+.other-book:hover .ob-arrow{color:var(--amber);transform:translateX(3px);}
+
+/* BACK BAND */
+.back-band{background:var(--forest);padding:36px 24px;text-align:center;}
+.bb-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:rgba(210,240,220,.8);margin-bottom:8px;}
+.bb-ctas{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap;}
+.bb-btn{padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;}
+.bb-outline{border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);}
+.bb-outline:hover{color:#fff;border-color:#fff;}
+.bb-fill{background:rgba(82,168,122,.2);border:1px solid rgba(82,168,122,.3);color:rgba(180,230,200,.85);}
+.bb-fill:hover{background:rgba(82,168,122,.35);}
+
+footer{background:#0a1a10;padding:20px 24px;text-align:center;}
+.ft-note{font-size:11.5px;color:rgba(255,255,255,.22);}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(max-width:580px){.hero-inner{grid-template-columns:1fr;}.concepts{grid-template-columns:1fr;}.myth{grid-template-columns:1fr;}.myth-left{border-right:none;padding-right:0;border-bottom:1px dashed var(--rule);padding-bottom:12px;}}
+</style>
+</head>
+<body>
+<div class="rpbar" id="rp"></div>
+
+<nav id="nav">
+  <a href="book-maye-plan.html" class="nav-back">← 人生由我</a>
+  <span class="nav-brand">她说了算</span>
+  <a href="bookclub.html" class="nav-link">她的书房</a>
+</nav>
+
+<div class="hero">
+  <div style="max-width:760px;margin:0 auto;">
+    <div class="hero-inner">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div class="book-cover">
+          <div class="book-cover-title">永不过时</div>
+        </div>
+        <div class="book-meta">Maye Musk · 2022</div>
+      </div>
+      <div>
+        <div class="hero-badge">✦ 她的书房 · 专栏导读</div>
+        <h1>永不过时<br><em>Timeless</em></h1>
+        <div class="hero-author">Maye Musk 著 · 2022年出版 · Janet 导读</div>
+        <div class="hero-verdict">她在74岁写了一本关于「变老」的书。但它不是一本抵抗衰老的书——它是一本关于「不管几岁，你都有权力活得充分」的书。读完之后，你对年龄这件事的关注会下降，对「我现在能做什么」的关注会上升。</div>
+        <div class="hero-tags">
+          <span class="h-tag">内在力</span>
+          <span class="h-tag">身体智慧</span>
+          <span class="h-tag">年龄自由</span>
+          <span class="h-tag">生活哲学</span>
+          <span class="h-tag">中年女性</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="page">
+
+<!-- 核心引语 -->
+<div class="section reveal">
+  <div class="core-quote">
+    <div class="cq-deco">"</div>
+    <div class="cq-text">我不是在等待时机，我就是时机。</div>
+    <div class="cq-src">— Maye Musk《永不过时》</div>
+  </div>
+  <div class="core-quote" style="margin-top:12px;">
+    <div class="cq-deco">"</div>
+    <div class="cq-text">人们问我秘诀是什么。我说：没有秘诀。只有工作，健康，以及从不允许自己被年龄定义。</div>
+    <div class="cq-src">— Maye Musk《永不过时》</div>
+  </div>
+</div>
+
+<!-- 什么是 Timeless -->
+<div class="section reveal">
+  <div class="sec-label">「永不过时」是什么意思</div>
+  <h2 class="sec-h2">她重新定义了这个词</h2>
+  <p class="sec-sub">「Timeless」在时尚圈通常指某种经典款式——超越潮流，永不过时。梅耶把这个词用来描述一种人的状态：不被时间定义，而是用时间积累的一切来定义自己。</p>
+
+  <div class="concepts">
+    <div class="concept">
+      <div class="con-icon">🧠</div>
+      <div class="con-title">Timeless 不是外表</div>
+      <div class="con-body">她在69岁登上泳装封面，但她说这件事她本人并不觉得特别重要。重要的是：她一直在工作，一直在保持健康，然后机会来了她接受了。</div>
+      <div class="con-quote">「我从来没有觉得自己特别美丽。我只是一直在做我的工作。」</div>
+    </div>
+    <div class="concept">
+      <div class="con-icon">🌱</div>
+      <div class="con-title">Timeless 是一种态度</div>
+      <div class="con-body">她写这本书时74岁，书里没有「我这个年纪还能……」这样的句子。她只是在讲她现在的生活——工作、健康、关系、好奇心。年龄不是她叙述的框架。</div>
+      <div class="con-quote">「我不思考我几岁。这不是因为我否认，而是因为我真的不觉得这个数字有多重要。」</div>
+    </div>
+    <div class="concept">
+      <div class="con-icon">💡</div>
+      <div class="con-title">Timeless 是可以学的</div>
+      <div class="con-body">她在书里说这不是天生的乐观主义，而是一种选择——一种反复做出的、有时候需要努力的选择：不让年龄成为你不行动的理由。</div>
+      <div class="con-quote">「当有人告诉你太老了，他们其实是在告诉你关于他们自己的信念，不是关于你的事实。」</div>
+    </div>
+    <div class="concept">
+      <div class="con-icon">⏰</div>
+      <div class="con-title">Timeless 是积累的结果</div>
+      <div class="con-body">她的「永不过时」不是凭空而来的——是几十年的工作、学习、保持身体健康、保持好奇心的结果。这是一个她一直在建造的东西，不是突然拥有的。</div>
+      <div class="con-quote">「我现在的每一件好事，都是我过去某个决定的结果。包括那些看起来很小的决定。」</div>
+    </div>
+  </div>
+</div>
+
+<!-- 章节导读 -->
+<div class="section reveal">
+  <div class="sec-label">章节导读</div>
+  <h2 class="sec-h2">五个打破「年龄焦虑」的视角</h2>
+
+  <div class="chapters">
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="ch-head">
+        <div class="ch-num">01</div>
+        <div class="ch-title">健康是投资，不是维护</div>
+        <div class="ch-toggle">+</div>
+      </div>
+      <div class="ch-preview"><p>她从不谈「养生」，她谈的是系统性地管理自己的身体，像管理一项资产一样……</p></div>
+      <div class="ch-expand-hint"><span>展开阅读 ↓</span></div>
+      <div class="ch-body">
+        <div class="ch-body-inner">
+          <p>梅耶作为营养师，她对健康的理解和「养生」文化非常不同。她谈的不是「哪些食物抗衰老」，而是：<strong>你如何建立一套可持续的生活方式，让你的身体在几十年后仍然能支撑你想做的事情。</strong></p>
+          <p>她在书中特别反对两种极端：一是过度节制（她年轻时因为工作需要过度节食，后来明确指出这是错的），二是完全不在意（把健康问题留给「以后」处理）。</p>
+          <div class="ch-quote">「我锻炼不是为了看起来更年轻，我锻炼是因为它让我感觉更好，让我能继续工作。这是功能性的，不是装饰性的。」</div>
+          <div class="ch-janet"><strong>Janet 的注解：</strong>她把健康定义为「让你能做你想做的事情的能力」，而不是「看起来的样子」。这个定义，在任何年龄都是对的——只是我们通常要到40岁之后才真正明白它。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="ch-head">
+        <div class="ch-num">02</div>
+        <div class="ch-title">关于变老，她真正在说什么</div>
+        <div class="ch-toggle">+</div>
+      </div>
+      <div class="ch-preview"><p>这本书里最反常规的一个观点：她不是在说「年龄只是数字」——她是在说「年龄是真实的，但它不必是你的限制」……</p></div>
+      <div class="ch-expand-hint"><span>展开阅读 ↓</span></div>
+      <div class="ch-body">
+        <div class="ch-body-inner">
+          <p>梅耶在书里承认：她的身体确实在变化，有些事情确实比30岁的时候更难做了。她没有假装这不是真的。</p>
+          <p>但她同时说：<strong>你可以接受变化，同时拒绝把变化变成限制。</strong>这两件事不矛盾。</p>
+          <div class="ch-quote">「我的膝盖不如以前了，所以我改变了我锻炼的方式。这不是妥协，这是适应。聪明的人会适应，而不是停止。」</div>
+          <p>她最反对的一件事，是女性把「我年纪大了」作为不行动的理由——不是因为这句话不真实，而是因为这句话经常被用来提前结束一个还没真正开始的对话。</p>
+          <div class="ch-janet"><strong>Janet 的注解：</strong>在教练实践里，我见过最多的自我设限，不是「我没有能力」，而是「我年纪大了」。有意思的是，这句话在35岁的人口里和65岁的人口里说得一样多。年龄焦虑不是年龄本身造成的——是我们对年龄的叙事造成的。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="ch-head">
+        <div class="ch-num">03</div>
+        <div class="ch-title">好奇心是永不过时的真正秘诀</div>
+        <div class="ch-toggle">+</div>
+      </div>
+      <div class="ch-preview"><p>她在74岁仍然对新事物保持强烈的好奇心——不是因为这让她显得年轻，而是因为她觉得它本身就是生命质量的一部分……</p></div>
+      <div class="ch-expand-hint"><span>展开阅读 ↓</span></div>
+      <div class="ch-body">
+        <div class="ch-body-inner">
+          <p>梅耶在书里多次提到「好奇心」——对新领域的好奇、对不同人的好奇、对变化中的世界的好奇。她把好奇心描述为一种可以选择保持的状态，而不是年轻时才有的特权。</p>
+          <p><strong>她观察到一个现象：很多人在某个年龄之后停止了真正的好奇——他们开始用「我这个年纪了」来拒绝接触新事物。这个拒绝，才是真正让人老去的东西。</strong></p>
+          <div class="ch-quote">「当我不再对任何事情感到好奇的那一天，就是我真正老了的那一天。但那一天还没有来。」</div>
+          <div class="ch-janet"><strong>Janet 的注解：</strong>我认识很多「永不过时」的女性，她们有一个共同点：她们对世界保持着真实的好奇，不是表演出来的好奇，而是真正想知道「那是什么，我能不能了解一下」的那种好奇。这比任何抗衰老的产品都管用。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="ch-head">
+        <div class="ch-num">04</div>
+        <div class="ch-title">「Sports Illustrated 封面」那一章</div>
+        <div class="ch-toggle">+</div>
+      </div>
+      <div class="ch-preview"><p>很多人觉得这是整本书最「励志」的部分，但她写这件事的方式，和我们期待的完全不同……</p></div>
+      <div class="ch-expand-hint"><span>展开阅读 ↓</span></div>
+      <div class="ch-body">
+        <div class="ch-body-inner">
+          <p>当 Sports Illustrated 打电话给她时，她74岁。她在书里说，她当时的第一反应不是「我是不是太老了」，也不是「这太不可思议了」。</p>
+          <p>她的第一反应是：<strong>「让我查一下我的日程表。」</strong></p>
+          <p>她后来在采访里说，她没有花时间思考「他们为什么选我」或者「我应不应该接受」，因为这些问题的答案对她来说都是显而易见的：当然接受，因为为什么不呢。</p>
+          <div class="ch-quote">「如果我花时间想'我是不是够好'这个问题，我就会错过真正做事情的时间。我通常不思考这个问题。」</div>
+          <div class="ch-janet"><strong>Janet 的注解：</strong>这是我在书里最喜欢的一个细节。不是因为她登上了封面，而是因为她的反应是「查日程表」——这说明她已经完全活在了「我能做什么」的框架里，而不是「我够不够格」的框架里。这个转变，才是真正的「永不过时」。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" onclick="toggleChapter(this)">
+      <div class="ch-head">
+        <div class="ch-num">05</div>
+        <div class="ch-title">人际关系与社群——她怎么看「同龄人」</div>
+        <div class="ch-toggle">+</div>
+      </div>
+      <div class="ch-preview"><p>她对「同龄人圈子」有一个非常有趣的观点：她刻意保持了跨年龄的社交网络，而不是只和同龄人交往……</p></div>
+      <div class="ch-expand-hint"><span>展开阅读 ↓</span></div>
+      <div class="ch-body">
+        <div class="ch-body-inner">
+          <p>梅耶在书里说，她有意识地维持着一个跨年龄的社交网络——有比她年长的朋友（她能从他们身上看到可能的未来），有和她同龄的朋友（互相支持和理解），也有比她年轻很多的朋友（让她接触新的视角和能量）。</p>
+          <p><strong>她特别警惕一件事：把自己只封闭在「和我一样的人」里面。</strong>她认为，真正的活力，需要不同的刺激和挑战。</p>
+          <div class="ch-quote">「如果你只和同龄人说话，你只能看见同龄人看见的东西。这不是问题，但这不是全部。」</div>
+          <div class="ch-janet"><strong>Janet 的注解：</strong>「她说了算」想做的，正是这样一个跨年龄、跨背景的社群——不是一群「同类」在互相取暖，而是一群视角不同、但都在认真思考自己人生的女性，互相提醒、互相拓展视野。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 年龄迷思破解 -->
+<div class="section reveal">
+  <div class="sec-label">年龄迷思 · 她的回答</div>
+  <h2 class="sec-h2">那些「太晚了」的说法，她怎么看</h2>
+
+  <div class="myths">
+    <div class="myth">
+      <div class="myth-left">
+        <div class="myth-label">❌ 常见迷思</div>
+        <div class="myth-text">「过了40岁就很难再被重视了，职场对中年女性不友好。」</div>
+      </div>
+      <div>
+        <div class="truth-label">✓ 梅耶的视角</div>
+        <div class="truth-text">「那就不要在那些不重视你的地方寻求重视。找那些看重你经验的地方，或者自己创造那个地方。」</div>
+      </div>
+    </div>
+    <div class="myth">
+      <div class="myth-left">
+        <div class="myth-label">❌ 常见迷思</div>
+        <div class="myth-text">「转型太晚了，年轻人已经走在前面了，我学不过他们。」</div>
+      </div>
+      <div>
+        <div class="truth-label">✓ 梅耶的视角</div>
+        <div class="truth-text">「你不需要在所有方面超过年轻人，你只需要在你真正懂的领域比他们更深。深度和速度是两种不同的竞争优势。」</div>
+      </div>
+    </div>
+    <div class="myth">
+      <div class="myth-left">
+        <div class="myth-label">❌ 常见迷思</div>
+        <div class="myth-text">「我没有年轻时的精力了，转型需要消耗太多能量。」</div>
+      </div>
+      <div>
+        <div class="truth-label">✓ 梅耶的视角</div>
+        <div class="truth-text">「你的精力确实有限，所以你要更聪明地使用它——花在值得的事情上，而不是浪费在焦虑上。焦虑是最消耗精力的事情。」</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 反思练习 -->
+<div class="section reveal">
+  <div class="reflection">
+    <div class="rf-label">✦ 读完之后 · 三个问题</div>
+    <div class="rf-title">带着梅耶的问题，问自己</div>
+    <div class="rf-qs">
+      <div class="rf-q"><span class="rf-q-num">Q1</span>你在什么时候用「我年纪大了」来结束了一个还没真正开始的对话？那个对话现在还可以重新开始吗？</div>
+      <div class="rf-q"><span class="rf-q-num">Q2</span>你上一次因为真正的好奇心——不是「应该了解」，而是「我真的想知道」——去学一件新事情是什么时候？</div>
+      <div class="rf-q"><span class="rf-q-num">Q3</span>如果年龄不是变量，你现在最想做的一件事是什么？</div>
+    </div>
+  </div>
+</div>
+
+<!-- Janet 总导读 -->
+<div class="section reveal">
+  <div class="janet-notes">
+    <div class="jn-header">
+      <div class="jn-av">J</div>
+      <div>
+        <div class="jn-name">Janet · 导读总结</div>
+        <div class="jn-role">企业教练30年 · 她说了算联合创始人</div>
+      </div>
+    </div>
+    <div class="jn-body">
+      <p>《永不过时》和《人生由我》放在一起读，你会发现梅耶在用两本书回答同一个问题：我应该怎样活。第一本给了路线图，第二本给了心法。</p>
+      <p>我认为《永不过时》最重要的贡献，不是那些具体的健康建议，而是它改变了你对「年龄」这件事本身的态度。<strong>它把「年龄」从一个决定论的框架，变成了一个你可以选择与之对话的参数。</strong></p>
+      <p>你可以说：「我47岁了，所以某些事情我做起来需要更多时间或者不同的方式。」但你同时可以说：「我47岁了，所以我有20多年的判断力和经验，这是我最大的资产。」</p>
+      <p><strong>梅耶这本书教的，是后一种说法——不是否认前一种，而是在你的叙事里，让后一种占主导。</strong></p>
+    </div>
+  </div>
+
+  <a href="book-maye-plan.html" class="other-book">
+    <div class="ob-cover">📘</div>
+    <div class="ob-body">
+      <div class="ob-label">同一作者 · 配套阅读</div>
+      <div class="ob-title">人生由我 · A Woman Makes a Plan</div>
+      <div class="ob-desc">路线图——她怎么一次次从零开始</div>
+    </div>
+    <div class="ob-arrow">→</div>
+  </a>
+</div>
+
+</main>
+
+<div class="back-band">
+  <div class="bb-title">她的书房 · 每月精选导读</div>
+  <div class="bb-ctas">
+    <a href="bookclub.html" class="bb-btn bb-outline">← 返回书房</a>
+    <a href="vol5-brief.html" class="bb-btn bb-fill">阅读 Vol.05 中女转型简报 →</a>
+  </div>
+</div>
+
+<footer><div class="ft-note">她说了算 · 她的书房 · 永不过时导读 · Janet · 2026</div></footer>
+
+<script>
+window.addEventListener('scroll',function(){
+  var h=document.documentElement;
+  document.getElementById('rp').style.width=(window.scrollY/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+function toggleChapter(el){el.classList.toggle('open');}
+</script>
+</body>
+</html>
