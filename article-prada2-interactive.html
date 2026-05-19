@@ -293,254 +293,83 @@ const RESULTS = {
      risks:["容易被内容工作消耗","需要一个立场来锚定"],
      action:"你的能力需要一个「内容」来承载。这周做一件事：选一个你真正有观点的话题，写一段300字以内的东西，不为发布，只为看自己能不能说清楚。"},
 };
-</script>
 
-<!-- ══ HERO ══════════════════════════════════════════ -->
-<header class="hero">
-  <div class="hero-badge"><div class="hero-dot"></div>她说了算 · 专栏</div>
-  <h1>二十年后，Miranda、Andy、Emily<br>——谁活成了<em>自己想要的样子</em>？</h1>
-  <p class="hero-sub">《穿 Prada 的女魔头 2》上映，但真正值得聊的问题不是时装</p>
-  <div class="hero-meta">
-    <span>Janet</span><span>·</span><span>2026年5月5日</span><span>·</span>
-    <span class="hero-tag">身份重塑</span>
-    <span class="hero-tag">认知套利</span>
-  </div>
-</header>
+var scores = {K:0, N:0, X:0, C:0};
+var KEYS = ['A','B','C','D'];
 
-<main class="article">
-<div class="prose">
+function initQuiz() {
+  var box = document.getElementById("quizBox");
+  var html = "";
+  QUIZ.forEach(function(q, i) {
+    html += "<div class=\"quiz-q" + (i===0?" active":"") + "\" id=\"qq"+i+"\">"; 
+    html += "<div style=\"padding:18px 18px 0;\">";
+    html += "<div class=\"q-progress\">";
+    html += "<span style=\"font-family:'DM Mono',monospace;font-size:11px;color:var(--light);\">"+(i+1)+" / "+QUIZ.length+"</span>";
+    html += "<div class=\"q-prog-bar\"><div class=\"q-prog-fill\" style=\"width:"+Math.round(i/QUIZ.length*100)+"%\"></div></div>";
+    html += "</div>";
+    if(q.scene) html += "<div class=\"q-scene\">"+q.scene+"</div>";
+    html += "<div class=\"q-text\">"+q.q+"</div>";
+    html += "</div>";
+    html += "<div class=\"opts\">";
+    q.opts.forEach(function(o, j) {
+      html += '<button class="opt" onclick="pick('+i+',\''+o.type+'\',this)">';
+      html += "<div class=\"opt-key\">"+KEYS[j]+"</div>";
+      html += "<div class=\"opt-body\"><div class=\"opt-text\">"+o.t+"</div><div class=\"opt-sub\">"+o.s+"</div></div>";
+      html += "</button>";
+    });
+    html += "</div></div>";
+  });
+  html += "<div class=\"quiz-result\" id=\"quiz-result\" style=\"padding:20px 18px;\"></div>";
+  box.innerHTML = html;
+}
 
-<!-- Opening -->
-<p class="lead">这周《穿 Prada 的女魔头 2》上映了。</p>
-<p>我在电影院里看完，出来的时候脑子里只转着一个问题：二十年过去了，这三个女人，谁真正活成了自己想要的样子？</p>
+function pick(qIdx, type, btn) {
+  document.querySelectorAll("#qq"+qIdx+" .opt").forEach(function(o){ o.classList.remove("chosen"); });
+  btn.classList.add("chosen");
+  scores[type]++;
+  setTimeout(function() {
+    document.getElementById("qq"+qIdx).classList.remove("active");
+    var next = qIdx + 1;
+    if (next < QUIZ.length) {
+      var nextEl = document.getElementById("qq"+next);
+      nextEl.classList.add("active");
+      var pf = nextEl.querySelector(".q-prog-fill");
+      if (pf) pf.style.width = Math.round(next/QUIZ.length*100)+"%";
+      nextEl.scrollIntoView({behavior:"smooth", block:"nearest"});
+    } else { showResult(); }
+  }, 320);
+}
 
-<div class="pq reveal">
-  <blockquote>「不是最好看的，也不是最努力的，而是那个真正知道自己在经营什么的人。」</blockquote>
-  <cite>—— Janet，看完电影之后</cite>
-</div>
+function showResult() {
+  var winner = Object.entries(scores).sort(function(a,b){return b[1]-a[1];})[0][0];
+  var r = RESULTS[winner];
+  var rEl = document.getElementById("quiz-result");
+  var stHtml = r.strengths.map(function(s){return "<span class=\"qr-tag tag-g\">&#10003; "+s+"</span>";}).join("");
+  var riHtml = r.risks.map(function(s){return "<span class=\"qr-tag tag-w\">&#9651; "+s+"</span>";}).join("");
+  rEl.innerHTML =
+    "<span class=\"qr-icon\">"+r.icon+"</span>" +
+    "<div class=\"qr-type-badge\" style=\"background:"+r.bgBadge+";color:"+r.color+"\">"+r.badge+"</div>" +
+    "<div class=\"qr-type\">"+r.type+"</div>" +
+    "<div class=\"qr-slogan\">"+r.slogan+"</div>" +
+    "<div class=\"qr-desc\">"+r.desc+"</div>" +
+    "<div class=\"qr-tags\">"+stHtml+riHtml+"</div>" +
+    "<div class=\"qr-action\"><div class=\"qra-label\">&#10022; &#26412;&#21608;&#19968;&#20010;&#34892;&#21160;</div><div class=\"qra-text\">"+r.action+"</div></div>" +
+    "<div class=\"qr-share\"><strong>&#21457;&#32473;&#26092;&#21451;&#19968;&#36215;&#27979;</strong>&#8212;&#8212;&#30475;&#30475;&#20320;&#20204;&#26159;&#20160;&#20040;&#32452;&#21512;</div>" +
+    "<button class=\"btn-restart\" onclick=\"restartQuiz()\">&#8629; &#37325;&#26032;&#27979;&#19968;&#27425;</button>";
+  rEl.classList.add("show");
+  rEl.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
 
-<div class="divider reveal">· · ·</div>
+function restartQuiz() {
+  scores = {K:0,N:0,X:0,C:0};
+  document.querySelectorAll(".quiz-q").forEach(function(q){ q.classList.remove("active"); });
+  document.getElementById("quiz-result").classList.remove("show");
+  document.getElementById("qq0").classList.add("active");
+  var pf = document.querySelector("#qq0 .q-prog-fill");
+  if (pf) pf.style.width = "0%";
+}
 
-<!-- ── Miranda ── -->
-<div class="char-card reveal" id="card-m">
-  <div class="cc-header" onclick="toggleCard('card-m')">
-    <div class="cc-av av-m">M</div>
-    <div class="cc-info">
-      <div class="cc-name">Miranda Priestly</div>
-      <div class="cc-role">Runway 总编 · 符号 · 即将被时代替换</div>
-    </div>
-    <div class="cc-toggle">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </div>
-  </div>
-  <div class="cc-preview">
-    <p>二十年前，她是时尚界最不可一世的女人。二十年后，老板 Irv 绕开她，直接把 Andy 塞进来——这件事，她没有被咨询，也没有被通知。</p>
-  </div>
-  <div class="cc-expand-hint" onclick="toggleCard('card-m')">
-    <span>展开完整分析 ↓</span>
-  </div>
-  <div class="cc-body">
-    <div class="cc-body-inner">
-      <p>一句「就这样」让整个编辑部颤抖，一个眼神让设计师改稿到凌晨三点。</p>
-      <p>但 Runway 的纸质版没有人看了，编辑部在做短视频和点击农场。老板 Irv 直接把 Andy 塞进来做专题编辑，Miranda 没有被咨询，也没有被通知。</p>
-      <p>她以为自己是 Runway，结果 Runway 不需要她了。</p>
-      <div class="cc-verdict cv-m">
-        <div class="cv-icon">⚠️</div>
-        <div class="cv-text">Miranda 的问题：她把自己做成了一个符号，却忘了符号是可以被替换的。她的权力从来不是自己的——是平台借给她的。</div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- ── Emily ── -->
-<div class="char-card reveal" id="card-e">
-  <div class="cc-header" onclick="toggleCard('card-e')">
-    <div class="cc-av av-e">E</div>
-    <div class="cc-info">
-      <div class="cc-name">Emily Charlton</div>
-      <div class="cc-role">Dior 高管 · 前助手 · 如今是 Miranda 的竞争对手</div>
-    </div>
-    <div class="cc-toggle">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </div>
-  </div>
-  <div class="cc-preview">
-    <p>很多人低估了 Emily 这条线。二十年后，她不再是助手——而是 Miranda 最强劲的竞争对手。</p>
-  </div>
-  <div class="cc-expand-hint" onclick="toggleCard('card-e')">
-    <span>展开完整分析 ↓</span>
-  </div>
-  <div class="cc-body">
-    <div class="cc-body-inner">
-      <p>二十年前，她是 Miranda 最忠心的助手，为了能去巴黎时装周，饿到只吃一小块奶酪。她的整个自我，都压缩在「Miranda 身边那个人」这个定义里。</p>
-      <p>二十年后，她是 Dior 的高管。Miranda 的前助手，现在成了 Miranda 最强劲的竞争对手。</p>
-      <p>她花了二十年才完成的这件事——<strong>不再用「我在谁身边」来定义自己的价值</strong>——其实是很多职场女性一生都没有完成的功课。</p>
-      <div class="cc-verdict cv-e">
-        <div class="cv-icon">🔄</div>
-        <div class="cv-text">Emily 的逻辑：用第一份工作的积累换了新赛道。迟了二十年，但她做到了真正的「身份重塑」。</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── Andy ── -->
-<div class="char-card reveal" id="card-a">
-  <div class="cc-header" onclick="toggleCard('card-a')">
-    <div class="cc-av av-a">A</div>
-    <div class="cc-info">
-      <div class="cc-name">Andy Sachs</div>
-      <div class="cc-role">记者 · 被短信解雇 · 唯一「被需要地回来」的人</div>
-    </div>
-    <div class="cc-toggle">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </div>
-  </div>
-  <div class="cc-preview">
-    <p>Andy 是三个人里唯一一个当时「看起来走错了」，结果反而走得最对的人。二十年后，整个编辑部被一条短信解雇。但她能回去。</p>
-  </div>
-  <div class="cc-expand-hint" onclick="toggleCard('card-a')">
-    <span>展开完整分析 ↓</span>
-  </div>
-  <div class="cc-body">
-    <div class="cc-body-inner">
-      <p>她在工作巅峰时期离开了 Runway，放弃了所有人都羡慕的位置，回去做了一个认真的记者。</p>
-      <p>二十年后，她的整个编辑部被一条短信解雇。但——她能回去。</p>
-      <p>Irv 需要她，不是因为她在 Runway 工作过，而是因为她离开之后，真正建立了自己的东西：判断力、人脉、一个记者的信誉。这些是<strong>带得走的</strong>。</p>
-      <div class="cc-verdict cv-a">
-        <div class="cv-icon">💎</div>
-        <div class="cv-text">Andy 的资产：不附着在任何一个平台上。她的价值，是她这个人——不是她的头衔，不是她在哪里工作。</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="divider reveal">· · ·</div>
-
-<!-- ── Reality Box ── -->
-<div class="reality-box reveal">
-  <div class="rb-head">
-    <div class="rb-badge">📍 现实平行 · 2025年9月</div>
-    <div class="rb-title">Anna Wintour 主动选择了电影里 Miranda 最害怕的那件事</div>
-  </div>
-  <div class="rb-body">
-    <p>就在《穿 Prada 的女魔头 2》上映的同一周，真实版「Miranda」的接班人出现在了 Met Gala 的红毯上。</p>
-    <p>2025年9月，Anna Wintour 主动宣布卸任 Vogue 主编，把位置传给了 <strong>Chloe Malle，39岁</strong>——大概是 Wintour 1988年接任时的年纪。掌舵37年，在还有选择权的时候，选择了传承。</p>
-    <p><strong>Chloe Malle 说的第一句话：「产出一个'Anna lite'版本的人是不会成功的。我必须留下自己的印记。」</strong></p>
-    <p>Miranda 选择死守。Wintour 选择主动放手，掌控交接的方式。一个是电影，一个是现实——那个更有力量的选择，不言而喻。</p>
-  </div>
-</div>
-
-<!-- ── Brief Teaser ── -->
-<div class="brief-teaser reveal" id="brief-box">
-  <div class="bt-head" onclick="toggleBrief()">
-    <div class="bt-icon">📋</div>
-    <div>
-      <div class="bt-label">她说了算 · Vol.04 简报</div>
-      <div class="bt-title">想看全局数据？简报里有更多 ↓</div>
-    </div>
-    <div class="bt-arr">⌄</div>
-  </div>
-  <div class="bt-preview">
-    <p>Miranda 的困境不是个例。这期简报，我们拆解了「她的选择——决策质量与战略性放弃」，用数据说清楚：为什么有的女性越往上走越自由，有的反而越来越被困住。</p>
-    <div class="bt-stat-row">
-      <div class="bt-stat"><span class="n">$30K</span><span class="l">Met Gala 单人票价</span></div>
-      <div class="bt-stat"><span class="n">37年</span><span class="l">Wintour 掌舵时长</span></div>
-      <div class="bt-stat"><span class="n">39岁</span><span class="l">Chloe Malle 接任年龄</span></div>
-    </div>
-  </div>
-  <div class="bt-body">
-    <div class="bt-body-inner">
-      <p><strong>四种路径对比——谁走得最远？</strong></p>
-      <div class="path-grid">
-        <div class="path-card">
-          <div class="path-who">Miranda</div>
-          <div class="path-strategy">守住符号地位</div>
-          <div class="path-result">被老板绕过，权力是借来的</div>
-          <div class="path-verdict pv-w">⚠️ 平台依附型</div>
-        </div>
-        <div class="path-card">
-          <div class="path-who">Emily</div>
-          <div class="path-strategy">依附然后出走</div>
-          <div class="path-result">成了 Miranda 的竞争对手</div>
-          <div class="path-verdict pv-g">🔄 迟到的重塑</div>
-        </div>
-        <div class="path-card">
-          <div class="path-who">Andy</div>
-          <div class="path-strategy">在巅峰期离开</div>
-          <div class="path-result">被需要地回来</div>
-          <div class="path-verdict pv-g">💎 真正带得走的</div>
-        </div>
-        <div class="path-card">
-          <div class="path-who">Wintour（现实）</div>
-          <div class="path-strategy">掌舵37年后主动传承</div>
-          <div class="path-result">掌控离场方式</div>
-          <div class="path-verdict pv-g">✓ 主动决策型</div>
-        </div>
-      </div>
-      <p>本期还有：麦肯锡女性高管调研数据、历史上的她（Diana Vreeland）、以及配套工具「个人资产盘点表」。</p>
-      <div class="bt-cta">
-        <span class="bt-cta-text">进入 Vol.04 完整简报</span>
-        <a href="vol4-brief.html" class="bt-cta-link" target="_blank">立即阅读 →</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Three Choices -->
-<div class="sec-t reveal">三种选择，你更像哪一个？</div>
-
-<p class="reveal">Miranda、Andy、Emily，没有哪一条路是对的，也没有哪一条路是错的。但每一种选择背后，都藏着一种对「自己最值钱的资产是什么」的判断。</p>
-<p class="reveal">有时候，你已经知道自己是哪种人。有时候，你以为你是 Miranda，结果你其实更像 Emily。</p>
-
-<!-- ── Inline Quiz ── -->
-<div class="quiz-section reveal">
-  <div class="quiz-intro">
-    <div class="qi-eyebrow">她说了算 · 2分钟测试</div>
-    <div class="qi-title">测一测：你最值钱的那张牌</div>
-    <div class="qi-desc">6道情景题，按直觉选，选完自动跳。结果告诉你：你的核心资产类型是什么——不是你的职位，是你真正带得走的那个。</div>
-  </div>
-  <div class="quiz-container" id="quizBox">
-    <!-- Questions injected by JS -->
-  </div>
-</div>
-
-<div class="divider reveal">· · ·</div>
-
-<!-- Closing -->
-<div class="sec-t reveal">最后一个问题</div>
-
-<p class="reveal">如果你所在的平台明天消失，你还剩下什么？</p>
-<p class="reveal">不是你的头衔，不是你的名片，不是你办公室里那把椅子。</p>
-<p class="reveal">是你真正带得走的东西。</p>
-<p class="reveal">Miranda 花了二十年，在最不情愿的方式下被迫面对这个问题。Wintour 花了三十七年，在还有选择权的时候主动回答了它。</p>
-
-<div class="pq reveal">
-  <blockquote>「最好的时机，是你还不需要离开的时候，就已经想清楚了。」</blockquote>
-  <cite>—— Janet</cite>
-</div>
-
-<div class="closing-box reveal">
-  <h3>她说了算 · 身份重塑工具箱</h3>
-  <p>如果这篇文章触动了你，「她说了算」知识库里有一套工具帮你把思考变成行动：测完资产类型之后，用「个人资产盘点表」做深度挖掘，再用「谈薪准备器」把它转化成你下次谈判桌上的底气。第一步从那个2分钟的测试开始。</p>
-</div>
-
-</div><!-- /prose -->
-
-<footer class="art-footer">
-  <div class="af-brand">她说了算 · She Decides</div>
-  <div class="af-note">全球女性成长生态 · Janet & Yilin · 2026</div>
-  <div class="af-slogan">「遇见不同，创造可能。」</div>
-</footer>
-</main>
-
-<!-- ══ JS ══════════════════════════════════════════ -->
-<script>
 // Reading progress
 window.addEventListener('scroll', function() {
   var h = document.documentElement;
@@ -578,7 +407,7 @@ function buildQuiz() {
   QUIZ.forEach(function(q, i) {
     html += '<div class="quiz-q' + (i===0?' active':'') + '" id="qq'+i+'">';
     html += '<div style="padding:18px 18px 0;">';
-    html += '<div class="q-progress"><span style="font-family:\'DM Mono\',monospace">'+（i+1)+'/'+QUIZ.length+'</span><div class="q-prog-bar"><div class="q-prog-fill" style="width:'+(i/QUIZ.length*100)+'%"></div></div></div>';
+    html += '<div class="q-progress"><span style="font-family:\'DM Mono\',monospace">'+(i+1)+'/'+QUIZ.length+'</span><div class="q-prog-bar"><div class="q-prog-fill" style="width:'+(i/QUIZ.length*100)+'%"></div></div></div>';
     if(q.scene) html += '<div class="q-scene">'+q.scene+'</div>';
     html += '<div class="q-text">'+q.q+'</div>';
     html += '</div>';
@@ -653,34 +482,9 @@ function restartQuiz() {
   document.getElementById('quizBox').scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
-// Fix the progress label rendering
-(function() {
-  // Patch the quiz HTML to fix the (i+1) template issue
-  var box = document.getElementById('quizBox');
-  var html = '';
-  QUIZ.forEach(function(q, i) {
-    html += '<div class="quiz-q' + (i===0?' active':'') + '" id="qq'+i+'">';
-    html += '<div style="padding:18px 18px 0;">';
-    html += '<div class="q-progress">';
-    html += '<span style="font-family:\'DM Mono\',monospace;font-size:11px;color:var(--light);">'+(i+1)+' / '+QUIZ.length+'</span>';
-    html += '<div class="q-prog-bar"><div class="q-prog-fill" style="width:'+Math.round(i/QUIZ.length*100)+'%"></div></div>';
-    html += '</div>';
-    if(q.scene) html += '<div class="q-scene">'+q.scene+'</div>';
-    html += '<div class="q-text">'+q.q+'</div>';
-    html += '</div>';
-    html += '<div class="opts">';
-    q.opts.forEach(function(o, j) {
-      var encoded = JSON.stringify({type:o.type, qi:i}).replace(/"/g,'&quot;');
-      html += '<button class="opt" data-type="'+o.type+'" data-qi="'+i+'" onclick="pick('+i+',\''+o.type+'\',this)">';
-      html += '<div class="opt-key">'+KEYS[j]+'</div>';
-      html += '<div class="opt-body"><div class="opt-text">'+o.t+'</div><div class="opt-sub">'+o.s+'</div></div>';
-      html += '</button>';
-    });
-    html += '</div></div>';
-  });
-  html += '<div class="quiz-result" id="quiz-result" style="padding:20px 18px;"></div>';
-  box.innerHTML = html;
-})();
+
+
+document.addEventListener("DOMContentLoaded", function(){ initQuiz(); });
 </script>
 </body>
 </html>
