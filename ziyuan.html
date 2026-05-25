@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>转型资源中心 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#1A3D2B; --forest-d:#0F2218; --forest-l:#2A5E3F;
+  --sage:#52A87A; --sage-l:#D4EDE2;
+  --gold:#B8972A; --gold-l:#D4B24A; --gold-pale:#F5EDD8;
+  --cream:#FAF7F2; --warm:#F2EAD8;
+  --ink:#1A0E08; --mid:#6B4830; --light:#A88C70; --rule:#E2D4C0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;background:rgba(250,247,242,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);}
+.nav-brand{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:var(--forest);text-decoration:none;}
+.nav-back{font-size:13px;color:var(--light);text-decoration:none;display:flex;align-items:center;gap:6px;}
+.nav-back:hover{color:var(--forest);}
+
+/* HERO */
+.hero{background:var(--forest);padding:72px 80px 64px;position:relative;overflow:hidden;}
+.hero::after{content:'转';position:absolute;right:-30px;bottom:-60px;font-family:'Noto Serif SC',serif;font-size:400px;font-weight:700;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+.hero-tag::before{content:'';width:24px;height:1px;background:var(--sage);}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(36px,4vw,56px);font-weight:700;color:#fff;line-height:1.12;margin-bottom:16px;}
+.hero h1 em{font-style:normal;color:var(--gold-l);}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.45);line-height:1.8;max-width:520px;margin-bottom:36px;}
+.hero-search{display:flex;gap:0;max-width:480px;}
+.hero-search input{flex:1;padding:14px 20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-right:none;border-radius:6px 0 0 6px;color:#fff;font-size:14px;font-family:inherit;outline:none;}
+.hero-search input::placeholder{color:rgba(255,255,255,.3);}
+.hero-search button{padding:14px 24px;background:var(--gold);border:none;border-radius:0 6px 6px 0;color:var(--ink);font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;}
+
+/* STAGE NAV */
+.stage-nav{background:#fff;border-bottom:1px solid var(--rule);padding:0 80px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.stage-nav::-webkit-scrollbar{display:none;}
+.stage-btn{padding:18px 24px;font-size:13px;color:var(--light);border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;font-family:inherit;transition:all .18s;}
+.stage-btn:hover{color:var(--ink);}
+.stage-btn.active{color:var(--forest);border-bottom-color:var(--gold);font-weight:500;}
+
+/* MAIN */
+.main{max-width:1160px;margin:0 auto;padding:64px 48px 100px;}
+
+/* section */
+.resource-section{margin-bottom:72px;}
+.rs-header{display:flex;align-items:baseline;gap:16px;margin-bottom:32px;padding-bottom:16px;border-bottom:1.5px solid var(--ink);}
+.rs-num{font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;color:var(--gold);}
+.rs-title{font-family:'Noto Serif SC',serif;font-size:26px;font-weight:700;color:var(--ink);}
+.rs-sub{font-size:14px;color:var(--light);margin-left:auto;}
+
+/* cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+
+/* card */
+.card{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:28px 26px;display:flex;flex-direction:column;gap:12px;transition:all .2s;text-decoration:none;color:inherit;}
+.card:hover{border-color:var(--gold);box-shadow:0 6px 24px rgba(184,151,42,.1);transform:translateY(-2px);}
+.card-type{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);}
+.card-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.4;}
+.card-body{font-size:13.5px;color:var(--mid);line-height:1.75;flex:1;}
+.card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
+.card-badge{font-size:11px;padding:3px 10px;border-radius:20px;}
+.badge-free{background:var(--sage-l);color:var(--forest);}
+.badge-member{background:var(--gold-pale);color:var(--mid);}
+.badge-new{background:var(--forest);color:#fff;}
+.card-arrow{font-size:13px;color:var(--gold);font-weight:500;}
+
+/* featured card */
+.card-featured{grid-column:span 2;background:var(--forest);border-color:var(--forest);flex-direction:row;align-items:center;gap:32px;}
+.card-featured:hover{border-color:var(--forest-l);box-shadow:0 8px 32px rgba(26,61,43,.25);}
+.card-featured .card-type{color:var(--sage);}
+.card-featured .card-title{color:#fff;font-size:22px;}
+.card-featured .card-body{color:rgba(255,255,255,.5);}
+.card-featured .card-arrow{color:var(--gold-l);}
+.cf-left{flex:1;}
+.cf-right{flex-shrink:0;text-align:right;}
+.cf-stat-n{font-family:'Noto Serif SC',serif;font-size:44px;font-weight:700;color:var(--gold-l);line-height:1;}
+.cf-stat-l{font-size:12px;color:rgba(255,255,255,.35);margin-top:4px;}
+
+@media(max-width:680px){
+  .card-featured{grid-column:span 1;flex-direction:column;}
+  nav,nav.hero,.stage-nav,.main{padding-left:20px;padding-right:20px;}
+  .hero{padding:48px 20px 40px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">她说了算</a>
+  <a href="index.html" class="nav-back">← 返回首页</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-tag">转型资源中心</div>
+  <h1>找到你的<em>下一步</em><br>从这里开始</h1>
+  <p class="hero-sub">不按我们做了什么来组织，按你现在的问题来组织。找到你此刻最需要的东西。</p>
+  <div class="hero-search">
+    <input type="text" placeholder="搜索：谈薪 / 转行 / 法律 / 精力……" id="searchInput" oninput="filterCards()">
+    <button>搜索</button>
+  </div>
+</section>
+
+<div class="stage-nav">
+  <button class="stage-btn active" onclick="filterSection('all',this)">全部资源</button>
+  <button class="stage-btn" onclick="filterSection('direction',this)">搞清楚方向</button>
+  <button class="stage-btn" onclick="filterSection('asset',this)">盘点你的资产</button>
+  <button class="stage-btn" onclick="filterSection('career',this)">职场与收入</button>
+  <button class="stage-btn" onclick="filterSection('relation',this)">关系与财务</button>
+  <button class="stage-btn" onclick="filterSection('inner',this)">内在支撑</button>
+</div>
+
+<main class="main">
+
+  <!-- 01 搞清楚方向 -->
+  <div class="resource-section" data-section="direction">
+    <div class="rs-header">
+      <span class="rs-num">01</span>
+      <span class="rs-title">搞清楚方向</span>
+      <span class="rs-sub">先知道你在哪里，再谈去哪里</span>
+    </div>
+    <div class="cards-grid">
+      <a href="quiz-zhuanxing.html" class="card card-featured" data-tags="测试 转型 方向">
+        <div class="cf-left">
+          <div class="card-type">配套测试 · 免费 · 4分钟</div>
+          <div class="card-title">转型坐标测试</div>
+          <div class="card-body" style="max-width:400px">8道具体情景题，找到你现在真正卡在哪里——蓄势型、深潜型、破壳型还是重塑型？结果告诉你你的第一步。</div>
+          <div class="card-meta" style="margin-top:16px">
+            <span class="card-badge badge-free">免费</span>
+            <span class="card-arrow">开始测试 →</span>
+          </div>
+        </div>
+        <div class="cf-right">
+          <div class="cf-stat-n">8</div>
+          <div class="cf-stat-l">道情景题</div>
+        </div>
+      </a>
+      <a href="vol5-brief.html" class="card" data-tags="简报 转型 案例">
+        <div class="card-type">她的经纬 · Vol.05</div>
+        <div class="card-title">中女转型——四种真实路径</div>
+        <div class="card-body">梅耶马斯克、林姐、王姐——她们怎么走出下一步。含完整时间线与认知套利数据。</div>
+        <div class="card-meta">
+          <span class="card-badge badge-new">最新</span>
+          <span class="card-arrow">阅读 →</span>
+        </div>
+      </a>
+      <a href="vol4-brief.html" class="card" data-tags="简报 决策 放弃">
+        <div class="card-type">她的经纬 · Vol.04</div>
+        <div class="card-title">她的选择——决策质量与战略性放弃</div>
+        <div class="card-body">Anna Wintour 掌舵37年后主动传承，碧昂丝消失10年后选择此刻回来。最强的选择是什么？</div>
+        <div class="card-meta">
+          <span class="card-badge badge-free">免费</span>
+          <span class="card-arrow">阅读 →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 02 盘点资产 -->
+  <div class="resource-section" data-section="asset">
+    <div class="rs-header">
+      <span class="rs-num">02</span>
+      <span class="rs-title">盘点你的资产</span>
+      <span class="rs-sub">你真正带得走的东西是什么</span>
+    </div>
+    <div class="cards-grid">
+      <a href="shedecides/tool-assets.html" class="card" data-tags="工具 资产 盘点">
+        <div class="card-type">工具箱 · 会员</div>
+        <div class="card-title">个人资产盘点表</div>
+        <div class="card-body">把你15年的经验转化成市场语言。经验、判断力、人脉、技能——整理你真正拥有的东西。</div>
+        <div class="card-meta">
+          <span class="card-badge badge-member">会员</span>
+          <span class="card-arrow">查看工具 →</span>
+        </div>
+      </a>
+      <a href="quiz-asset-type.html" class="card" data-tags="测试 资产 类型">
+        <div class="card-type">测试 · 免费 · 2分钟</div>
+        <div class="card-title">资产类型测试</div>
+        <div class="card-body">你是「经验型」「关系型」还是「判断型」？找到你最核心的那张牌，再谈转型方向。</div>
+        <div class="card-meta">
+          <span class="card-badge badge-free">免费</span>
+          <span class="card-arrow">开始测试 →</span>
+        </div>
+      </a>
+      <a href="book-maye-plan.html" class="card" data-tags="书房 人生由我 资产">
+        <div class="card-type">她的书房 · Janet 导读</div>
+        <div class="card-title">《人生由我》A Woman Makes a Plan</div>
+        <div class="card-body">她31岁带三个孩子离婚，60岁独自移居纽约。她的「积累」是怎么被用起来的？</div>
+        <div class="card-meta">
+          <span class="card-badge badge-free">免费</span>
+          <span class="card-arrow">阅读导读 →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 03 职场与收入 -->
+  <div class="resource-section" data-section="career">
+    <div class="rs-header">
+      <span class="rs-num">03</span>
+      <span class="rs-title">职场与收入</span>
+      <span class="rs-sub">谈薪、转行、定价——让你的时间值更多</span>
+    </div>
+    <div class="cards-grid">
+      <a href="shedecides/tool-salary.html" class="card card-featured" data-tags="谈薪 工具 职场">
+        <div class="cf-left">
+          <div class="card-type">工具箱 · 会员</div>
+          <div class="card-title">谈薪准备器</div>
+          <div class="card-body" style="max-width:400px">不是话术，是框架。知道自己的底线、目标值和市场价，谈薪前先搞清楚这三件事。</div>
+          <div class="card-meta" style="margin-top:16px">
+            <span class="card-badge badge-member">会员</span>
+            <span class="card-arrow">使用工具 →</span>
+          </div>
+        </div>
+        <div class="cf-right">
+          <div class="cf-stat-n" style="font-size:36px;color:var(--gold-l)">3步</div>
+          <div class="cf-stat-l">谈薪准备框架</div>
+        </div>
+      </a>
+      <a href="compass-career.html" class="card" data-tags="指南针 职场 转行">
+        <div class="card-type">她的指南针 · 职场</div>
+        <div class="card-title">职场转型路径图</div>
+        <div class="card-body">换赛道的三种方式：内部转岗、行业平移、全新起步。每种的条件、风险和准备步骤。</div>
+        <div class="card-meta">
+          <span class="card-badge badge-free">免费</span>
+          <span class="card-arrow">查看 →</span>
+        </div>
+      </a>
+      <a href="book-negotiation.html" class="card" data-tags="书房 谈判 职场">
+        <div class="card-type">她的书房 · Janet 导读</div>
+        <div class="card-title">《谈判力》Getting to Yes</div>
+        <div class="card-body">不只用于谈薪。一套在任何谈判场景都能用的框架，包括和自己谈判。</div>
+        <div class="card-meta">
+          <span class="card-badge badge-member">会员</span>
+          <span class="card-arrow">阅读导读 →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 04 关系与财务 -->
+  <div class="resource-section" data-section="relation">
+    <div class="rs-header">
+      <span class="rs-num">04</span>
+      <span class="rs-title">关系与财务</span>
+      <span class="rs-sub">了解你的权益，才能真正做选择</span>
+    </div>
+    <div class="cards-grid">
+      <a href="compass-legal.html" class="card" data-tags="指南针 法律 婚姻 财产">
+        <div class="card-type">她的指南针 · 关系中的财产智慧</div>
+        <div class="card-title">婚前 · 婚内 · 关系变化时</div>
+        <div class="card-body">不是悲观，是清醒。了解婚前财产、共同财产和房产名字背后的逻辑，让你在关系中有真实的选择权。</div>
+        <div class="card-meta">
+          <span class="card-badge badge-free">免费</span>
+          <span class="card-arrow">查看指南针 →</span>
+        </div>
+      </a>
+      <a href="compass-finance.html" class="card" data-tags="指南针 理财 独立 存钱">
+        <div class="card-type">她的指南针 · 独立理财</div>
+        <div class="card-title">从第一笔「自己的钱」开始</div>
+        <div class="card-body">你存的每笔钱，都是「下次说不」的能力。不是理财建议，是一个关于钱和选择权的框架。</div>
+        <div class="card-meta">
+          <span class="card-badge badge-free">免费</span>
+          <span class="card-arrow">查看指南针 →</span>
+        </div>
+      </a>
+      <a href="book-maye-timeless.html" class="card" data-tags="书房 永不过时 独立">
+        <div class="card-type">她的书房 · Janet 导读</div>
+        <div class="card-title">《永不过时》Timeless</div>
+        <div class="card-body">「我需要自己的钱，因为自己的钱给我选择权。」她74岁写的不是抵抗衰老的书，是关于如何活得充分的书。</div>
+        <div class="card-meta">
+          <span class="card-badge badge-free">免费</span>
+          <span class="card-arrow">阅读导读 →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 05 内在支撑 -->
+  <div class="resource-section" data-section="inner">
+    <div class="rs-header">
+      <span class="rs-num">05</span>
+      <span class="rs-title">内在支撑</span>
+      <span class="rs-sub">稳住内在，才能看清方向</span>
+    </div>
+    <div class="cards-grid">
+      <a href="tool-healing-rx.html" class="card" data-tags="工具 疗愈 精力 测试">
+        <div class="card-type">工具箱 · 免费</div>
+        <div class="card-title">疗愈处方测试</div>
+        <div class="card-body">2分钟，找到你现在最需要的那种补给方式。不是「你需要休息」——是具体的下一步。</div>
+        <div class="card-meta">
+          <span class="card-badge badge-free">免费</span>
+          <span class="card-arrow">开始测试 →</span>
+        </div>
+      </a>
+      <a href="shedecides/tool-energy.html" class="card" data-tags="工具 精力 泄漏 诊断">
+        <div class="card-type">工具箱 · 会员</div>
+        <div class="card-title">精力泄漏诊断表</div>
+        <div class="card-body">找到在悄悄消耗你的东西。不是要你更努力，是帮你搞清楚什么东西可以停下来。</div>
+        <div class="card-meta">
+          <span class="card-badge badge-member">会员</span>
+          <span class="card-arrow">查看工具 →</span>
+        </div>
+      </a>
+      <a href="tool-solar-calendar.html" class="card" data-tags="工具 节气 精力 节律">
+        <div class="card-type">工具箱 · 免费</div>
+        <div class="card-title">节气精力历</div>
+        <div class="card-body">二十四节气与精力节律。什么时候全力冲，什么时候蓄力——不是迷信，是身体的规律。</div>
+        <div class="card-meta">
+          <span class="card-badge badge-free">免费</span>
+          <span class="card-arrow">查看 →</span>
+        </div>
+      </a>
+      <a href="article-tea-boundary.html" class="card" data-tags="文章 内在力 茶道 边界">
+        <div class="card-type">内在力 · Yilin</div>
+        <div class="card-title">茶道与边界感</div>
+        <div class="card-body">一杯茶，是给自己的仪式——不是待客的表演。含七天实践计划。</div>
+        <div class="card-meta">
+          <span class="card-badge badge-free">免费</span>
+          <span class="card-arrow">阅读 →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function filterSection(sec, btn){
+  document.querySelectorAll('.stage-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.resource-section').forEach(s=>{
+    s.style.display = (sec==='all'||s.dataset.section===sec) ? '' : 'none';
+  });
+}
+function filterCards(){
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  document.querySelectorAll('.card').forEach(c=>{
+    const tags = (c.dataset.tags||'').toLowerCase();
+    const text = c.textContent.toLowerCase();
+    c.style.display = (!q||tags.includes(q)||text.includes(q)) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
