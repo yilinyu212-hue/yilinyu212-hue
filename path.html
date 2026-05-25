@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>她的路径 · 她说了算</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --f:#1A3D2B;--fd:#0F2218;--fl:#2A5E3F;
+  --s:#52A87A;--sl:#D4EDE2;
+  --g:#B8972A;--gl:#D4B24A;--gp:#F5EDD8;
+  --c:#FAF7F2;--w:#F2EAD8;
+  --ink:#1A0E08;--mid:#6B4830;--lt:#A88C70;--rule:#E2D4C0;
+  --active:none;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--c);color:var(--ink);font-family:'DM Sans','PingFang SC',sans-serif;font-weight:300;overflow-x:hidden;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;height:60px;background:rgba(250,247,242,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;padding:0 48px;}
+.nav-brand{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:var(--f);text-decoration:none;}
+.nav-right{display:flex;align-items:center;gap:24px;}
+.nav-link{font-size:13px;color:var(--lt);text-decoration:none;transition:color .15s;}
+.nav-link:hover{color:var(--f);}
+.nav-btn{padding:8px 20px;background:var(--f);color:#fff;border-radius:4px;font-size:13px;text-decoration:none;transition:background .15s;}
+.nav-btn:hover{background:var(--fl);}
+
+/* HERO */
+.hero{background:var(--fd);padding:100px 80px 80px;position:relative;overflow:hidden;text-align:center;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 80%,rgba(82,168,122,.12),transparent 65%);pointer-events:none;}
+.hero-deco{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Noto Serif SC',serif;font-size:480px;font-weight:900;color:rgba(255,255,255,.018);pointer-events:none;white-space:nowrap;}
+.hero-inner{position:relative;z-index:1;max-width:680px;margin:0 auto;}
+.hero-tag{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--s);display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:20px;}
+.hero-tag::before,.hero-tag::after{content:'';width:20px;height:1px;background:var(--s);}
+.hero-h1{font-family:'Noto Serif SC',serif;font-size:clamp(40px,5vw,64px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:16px;}
+.hero-h1 em{font-style:normal;color:var(--gl);}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.45);line-height:1.8;margin-bottom:40px;}
+
+/* QUIZ CTA in hero */
+.quiz-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:32px 40px;display:flex;align-items:center;gap:32px;text-align:left;max-width:640px;margin:0 auto;}
+.qc-left{flex:1;}
+.qc-title{font-family:'Noto Serif SC',serif;font-size:18px;color:#fff;margin-bottom:6px;}
+.qc-sub{font-size:14px;color:rgba(255,255,255,.4);line-height:1.6;}
+.qc-right{flex-shrink:0;}
+.btn-gold{display:inline-block;padding:14px 28px;background:var(--g);color:var(--ink);border-radius:4px;font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;text-decoration:none;transition:all .2s;white-space:nowrap;}
+.btn-gold:hover{background:var(--gl);transform:translateY(-1px);}
+.btn-ghost-w{display:inline-block;padding:14px 28px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.65);border-radius:4px;font-size:14px;text-decoration:none;transition:all .2s;}
+.btn-ghost-w:hover{border-color:rgba(255,255,255,.5);color:#fff;}
+
+/* ALREADY KNOW TYPE */
+.type-selector{padding:64px 80px;background:#fff;border-bottom:1px solid var(--rule);}
+.ts-inner{max-width:1100px;margin:0 auto;}
+.ts-label{font-size:13px;color:var(--lt);text-align:center;margin-bottom:24px;}
+.ts-tabs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.ts-tab{padding:12px 24px;border:1.5px solid var(--rule);border-radius:100px;font-family:'Noto Serif SC',serif;font-size:15px;color:var(--mid);cursor:pointer;transition:all .2s;background:#fff;}
+.ts-tab:hover{border-color:var(--g);color:var(--f);}
+.ts-tab.active{background:var(--f);border-color:var(--f);color:#fff;}
+
+/* PATH SECTIONS */
+.paths{max-width:1100px;margin:0 auto;padding:0 80px 100px;}
+
+.path-section{display:none;padding-top:64px;}
+.path-section.visible{display:block;}
+
+/* path header */
+.path-header{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-bottom:56px;padding-bottom:48px;border-bottom:1.5px solid var(--ink);}
+.ph-label{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--s);display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+.ph-label::before{content:'';width:20px;height:1px;background:var(--s);}
+.ph-type{font-family:'Noto Serif SC',serif;font-size:clamp(36px,4vw,52px);font-weight:700;color:var(--ink);line-height:1.1;margin-bottom:8px;}
+.ph-type em{font-style:normal;}
+.ph-sub{font-size:16px;color:var(--mid);line-height:1.8;max-width:420px;}
+.ph-right{}
+.ph-insight{background:var(--gp);border-radius:12px;padding:28px 24px;border-left:3px solid var(--g);}
+.ph-insight-label{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:10px;}
+.ph-insight-text{font-family:'Noto Serif SC',serif;font-size:17px;color:var(--f);line-height:1.7;}
+.ph-insight-sub{font-size:13px;color:var(--lt);margin-top:8px;line-height:1.6;}
+
+/* JOURNEY STEPS */
+.journey{display:flex;flex-direction:column;gap:0;position:relative;}
+.journey::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--rule);}
+.step{display:grid;grid-template-columns:44px 1fr;gap:24px;align-items:start;padding:0 0 40px 0;position:relative;}
+.step:last-child{padding-bottom:0;}
+.step-dot{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--rule);background:#fff;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;flex-shrink:0;}
+.step-dot-n{font-family:'DM Mono',monospace;font-size:12px;font-weight:400;color:var(--lt);}
+.step.active .step-dot{background:var(--f);border-color:var(--f);}
+.step.active .step-dot-n{color:#fff;}
+.step-body{}
+.step-phase{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--s);margin-bottom:8px;}
+.step-title{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+.step-desc{font-size:14px;color:var(--mid);line-height:1.8;margin-bottom:16px;max-width:540px;}
+.step-resources{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+.step-res{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--rule);border-radius:100px;font-size:12.5px;color:var(--mid);text-decoration:none;background:#fff;transition:all .18s;}
+.step-res:hover{border-color:var(--g);color:var(--f);}
+.step-res-icon{font-size:13px;}
+.step-cta{margin-top:8px;}
+.step-cta a{font-size:13px;font-weight:500;color:var(--g);text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+.step-cta a::after{content:'→';transition:transform .15s;}
+.step-cta a:hover::after{transform:translateX(3px);}
+
+/* JANET CTA */
+.janet-cta{background:var(--f);border-radius:16px;padding:48px 44px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;margin-top:56px;}
+.jc-label{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--s);margin-bottom:10px;}
+.jc-title{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;}
+.jc-sub{font-size:14px;color:rgba(255,255,255,.45);line-height:1.7;}
+.jc-right{display:flex;flex-direction:column;gap:10px;flex-shrink:0;}
+
+/* MEMBER UPGRADE */
+.upgrade-bar{background:var(--gp);border:1px solid var(--rule);border-radius:12px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:24px;}
+.ub-left{}
+.ub-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;color:var(--ink);margin-bottom:4px;}
+.ub-sub{font-size:13px;color:var(--lt);}
+.ub-price{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--g);flex-shrink:0;}
+.btn-forest{display:inline-block;padding:12px 24px;background:var(--f);color:#fff;border-radius:4px;font-size:14px;font-weight:500;text-decoration:none;transition:background .15s;}
+.btn-forest:hover{background:var(--fl);}
+
+/* ALL TYPES overview */
+.all-types{padding:80px;background:var(--fd);}
+.at-inner{max-width:1100px;margin:0 auto;}
+.at-tag{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--s);display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+.at-tag::before{content:'';width:20px;height:1px;background:var(--s);}
+.at-h2{font-family:'Noto Serif SC',serif;font-size:36px;font-weight:700;color:#fff;margin-bottom:8px;}
+.at-h2 em{font-style:normal;color:var(--gl);}
+.at-sub{font-size:15px;color:rgba(255,255,255,.4);margin-bottom:40px;line-height:1.7;}
+.at-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.at-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:28px 26px;cursor:pointer;transition:all .2s;text-decoration:none;display:block;}
+.at-card:hover{background:rgba(255,255,255,.07);transform:translateY(-2px);}
+.at-card-icon{font-size:28px;margin-bottom:12px;}
+.at-card-name{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:4px;}
+.at-card-sub{font-size:13px;color:rgba(255,255,255,.4);margin-bottom:12px;}
+.at-card-desc{font-size:13.5px;color:rgba(255,255,255,.35);line-height:1.7;margin-bottom:16px;}
+.at-card-cta{font-size:13px;font-weight:500;color:var(--gl);display:flex;align-items:center;gap:6px;}
+.at-card-cta::after{content:'→';}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nav-right .nav-link{display:none;}
+  .hero{padding:64px 24px 48px;}
+  .quiz-card{flex-direction:column;padding:24px 20px;gap:20px;}
+  .type-selector{padding:40px 20px;}
+  .ts-tab{font-size:14px;padding:10px 18px;}
+  .paths{padding:0 20px 64px;}
+  .path-header{grid-template-columns:1fr;gap:32px;}
+  .journey::before{left:18px;}
+  .janet-cta{grid-template-columns:1fr;padding:32px 24px;}
+  .upgrade-bar{flex-direction:column;align-items:flex-start;}
+  .all-types{padding:64px 20px;}
+  .at-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">她说了算</a>
+  <div class="nav-right">
+    <a href="jingwei.html" class="nav-link">她的经纬</a>
+    <a href="shedecides/hub.html" class="nav-link">书房</a>
+    <a href="ziyuan.html" class="nav-link">资源中心</a>
+    <a href="shedecides/index.html" class="nav-btn">加入会员</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-deco">路</div>
+  <div class="hero-inner">
+    <div class="hero-tag">她的路径</div>
+    <h1 class="hero-h1">知道自己是哪种类型<br>之后，<em>然后呢？</em></h1>
+    <p class="hero-sub">测试告诉你你在哪里。这里告诉你，从那里出发，你的第一步是什么。</p>
+    <div class="quiz-card">
+      <div class="qc-left">
+        <div class="qc-title">还没做过转型坐标测试？</div>
+        <div class="qc-sub">8道情景题 · 4分钟 · 找到你的类型<br>做完再回来，找到属于你的那条路径</div>
+      </div>
+      <div class="qc-right">
+        <a href="quiz-zhuanxing.html" class="btn-gold">开始测试 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TYPE SELECTOR ══ -->
+<section class="type-selector">
+  <div class="ts-inner">
+    <div class="ts-label">已知道自己的类型？选择你的路径 ↓</div>
+    <div class="ts-tabs">
+      <button class="ts-tab" onclick="showPath('shushi')">🌊 蓄势型</button>
+      <button class="ts-tab" onclick="showPath('shenqian')">🌊 深潜型</button>
+      <button class="ts-tab" onclick="showPath('poke')">🔥 破壳型</button>
+      <button class="ts-tab" onclick="showPath('chongsu')">🧭 重塑型</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PATHS ══ -->
+<div class="paths">
+
+  <!-- 默认提示 -->
+  <div id="path-default" style="text-align:center;padding:80px 0;color:var(--lt);">
+    <div style="font-size:48px;margin-bottom:16px;">↑</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:20px;color:var(--mid);margin-bottom:8px;">选择你的类型，查看专属路径</div>
+    <div style="font-size:14px;">或者先做测试，4分钟找到你的类型</div>
+  </div>
+
+  <!-- ══ 蓄势型 ══ -->
+  <div class="path-section" id="path-shushi">
+    <div class="path-header">
+      <div>
+        <div class="ph-label">类型 01</div>
+        <h2 class="ph-type">蓄势型<br><em style="color:var(--g)">清楚方向，还没出发</em></h2>
+        <p class="ph-sub">你知道自己要什么。你的积累是真实的，你的方向是清晰的。卡住你的，不是能力，不是资源——是还没给自己一个出发的许可。</p>
+      </div>
+      <div>
+        <div class="ph-insight">
+          <div class="ph-insight-label">核心洞察</div>
+          <p class="ph-insight-text">「你不需要更多准备。你需要的是把『准备好了再开始』这句话，换成『开始了才会准备好』。」</p>
+          <p class="ph-insight-sub">— Janet，企业教练</p>
+        </div>
+      </div>
+    </div>
+    <div class="journey">
+      <div class="step active">
+        <div class="step-dot"><span class="step-dot-n">01</span></div>
+        <div class="step-body">
+          <div class="step-phase">现在就做</div>
+          <div class="step-title">写下你的「出发清单」</div>
+          <div class="step-desc">把你认为「还没准备好」的每一件事写下来。然后问自己：这件事是真正的障碍，还是我给自己的理由？通常，清单写完，障碍会少一半。</div>
+          <div class="step-resources">
+            <a href="shedecides/tool-assets.html" class="step-res"><span class="step-res-icon">📋</span>个人资产盘点表</a>
+            <a href="vol5-brief.html" class="step-res"><span class="step-res-icon">📖</span>Vol.05 蓄势型案例</a>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot"><span class="step-dot-n">02</span></div>
+        <div class="step-body">
+          <div class="step-phase">第一周</div>
+          <div class="step-title">和三个认识你超过五年的人聊一次</div>
+          <div class="step-desc">不是找人给建议，是找人帮你看见你自己的盲点。问她们：「你觉得我最厉害的一件事是什么？」你可能会听到一个让你意外的答案。</div>
+          <div class="step-resources">
+            <a href="compass.html" class="step-res"><span class="step-res-icon">🧭</span>指南针·职场</a>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot"><span class="step-dot-n">03</span></div>
+        <div class="step-body">
+          <div class="step-phase">第二周</div>
+          <div class="step-title">设定一个「最小行动」</div>
+          <div class="step-desc">不是「我要完整规划好所有步骤再开始」，而是「这周，我可以做的最小的一步是什么」。出发从这一步开始，不是从计划开始。</div>
+          <div class="step-resources">
+            <a href="book-maye-plan.html" class="step-res"><span class="step-res-icon">📚</span>《人生由我》导读</a>
+            <a href="tool-healing-rx.html" class="step-res"><span class="step-res-icon">🌿</span>疗愈处方测试</a>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot"><span class="step-dot-n">04</span></div>
+        <div class="step-body">
+          <div class="step-phase">第三到四周</div>
+          <div class="step-title">清晰力训练营（21天）</div>
+          <div class="step-desc">Janet 的核心课程。专门为「知道方向但还没行动」的人设计——不是给你更多信息，是帮你找到自己真正的起点。包含每天10分钟的情景练习。</div>
+          <div class="step-resources">
+            <a href="#" class="step-res"><span class="step-res-icon">🎯</span>清晰力21天训练营</a>
+          </div>
+          <div class="step-cta"><a href="#janet-cta-shushi">或者，私信 Janet 聊聊你的情况 →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="janet-cta" id="janet-cta-shushi">
+      <div>
+        <div class="jc-label">蓄势型专属</div>
+        <div class="jc-title">你已经准备好了。<br>缺的只是一个人帮你确认这件事。</div>
+        <div class="jc-sub">Janet 提供30分钟免费对话，专门为「清楚方向但还没出发」的人设计。聊完，你会知道你的第一步是什么。</div>
+      </div>
+      <div class="jc-right">
+        <a href="#" class="btn-gold">预约 Janet 对话</a>
+        <a href="shedecides/index.html" class="btn-ghost-w">加入会员</a>
+      </div>
+    </div>
+    <div class="upgrade-bar">
+      <div>
+        <div class="ub-title">会员解锁：蓄势型完整资源包</div>
+        <div class="ub-sub">清晰力训练营 · 个人资产盘点 · 书房导读全集 · 月度读书会</div>
+      </div>
+      <div class="ub-price">¥139 / 年</div>
+      <a href="shedecides/index.html" class="btn-forest">加入会员</a>
+    </div>
+  </div>
+
+  <!-- ══ 深潜型 ══ -->
+  <div class="path-section" id="path-shenqian">
+    <div class="path-header">
+      <div>
+        <div class="ph-label">类型 02</div>
+        <h2 class="ph-type">深潜型<br><em style="color:var(--g)">积累深厚，低估自己</em></h2>
+        <p class="ph-sub">你比别人看得更深，做得更扎实。但你一直在低估自己的市场价值——你觉得「这没什么」的东西，恰恰是别人愿意付钱买的东西。</p>
+      </div>
+      <div>
+        <div class="ph-insight">
+          <div class="ph-insight-label">核心洞察</div>
+          <p class="ph-insight-text">「你的问题不是积累不够。是你还没学会用市场语言，说出你已经拥有的东西的价值。」</p>
+          <p class="ph-insight-sub">— Janet，企业教练</p>
+        </div>
+      </div>
+    </div>
+    <div class="journey">
+      <div class="step active">
+        <div class="step-dot"><span class="step-dot-n">01</span></div>
+        <div class="step-body">
+          <div class="step-phase">现在就做</div>
+          <div class="step-title">完成个人资产盘点</div>
+          <div class="step-desc">把你15年的经验，按「经验」「判断力」「人脉」「技能」四个维度逐一写下来。不要评判「这有没有用」——先写，评估是下一步的事。</div>
+          <div class="step-resources">
+            <a href="shedecides/tool-assets.html" class="step-res"><span class="step-res-icon">📋</span>个人资产盘点表</a>
+            <a href="quiz-asset-type.html" class="step-res"><span class="step-res-icon">🧪</span>资产类型测试</a>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot"><span class="step-dot-n">02</span></div>
+        <div class="step-body">
+          <div class="step-phase">第一周</div>
+          <div class="step-title">找到你的「市场价值语言」</div>
+          <div class="step-desc">把你会的东西，翻译成市场能听懂的语言。不是「我做过XX管理工作」，而是「我帮一个20人团队在六个月内把这件事从头做到尾」。具体的，有结果的。</div>
+          <div class="step-resources">
+            <a href="compass.html" class="step-res"><span class="step-res-icon">🧭</span>指南针·职场</a>
+            <a href="shedecides/tool-salary.html" class="step-res"><span class="step-res-icon">💼</span>谈薪准备器</a>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot"><span class="step-dot-n">03</span></div>
+        <div class="step-body">
+          <div class="step-phase">第二到三周</div>
+          <div class="step-title">提升「可见度」，而不是能力</div>
+          <div class="step-desc">你不需要更多积累。你需要让对的人看见你已经有的东西。一篇文章、一次分享、一次主动联系——任何一件可以让你「从背景走到前景」的事。</div>
+          <div class="step-resources">
+            <a href="book-maye-plan.html" class="step-res"><span class="step-res-icon">📚</span>《人生由我》导读</a>
+            <a href="vol5-brief.html" class="step-res"><span class="step-res-icon">📖</span>Vol.05 深潜型案例</a>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot"><span class="step-dot-n">04</span></div>
+        <div class="step-body">
+          <div class="step-phase">持续</div>
+          <div class="step-title">Janet 深度对话：给你的价值定价</div>
+          <div class="step-desc">Janet 专门针对深潜型设计了一个「价值定价框架」——帮你搞清楚你的时间和经验在市场上值多少，以及如何让别人也这么认为。</div>
+          <div class="step-cta"><a href="#janet-cta-shenqian">预约 Janet 30分钟对话 →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="janet-cta" id="janet-cta-shenqian">
+      <div>
+        <div class="jc-label">深潜型专属</div>
+        <div class="jc-title">你的积累，<br>比你以为的值钱得多。</div>
+        <div class="jc-sub">Janet 帮你把你「觉得没什么」的东西，翻译成市场能听懂的价值语言。30分钟，免费，只聊你的情况。</div>
+      </div>
+      <div class="jc-right">
+        <a href="#" class="btn-gold">预约 Janet 对话</a>
+        <a href="shedecides/index.html" class="btn-ghost-w">加入会员</a>
+      </div>
+    </div>
+    <div class="upgrade-bar">
+      <div>
+        <div class="ub-title">会员解锁：深潜型完整资源包</div>
+        <div class="ub-sub">个人资产盘点 · 谈薪准备器 · 书房导读全集 · 月度读书会</div>
+      </div>
+      <div class="ub-price">¥139 / 年</div>
+      <a href="shedecides/index.html" class="btn-forest">加入会员</a>
+    </div>
+  </div>
+
+  <!-- ══ 破壳型 ══ -->
+  <div class="path-section" id="path-poke">
+    <div class="path-header">
+      <div>
+        <div class="ph-label">类型 03</div>
+        <h2 class="ph-type">破壳型<br><em style="color:var(--g)">正在最难那一段</em></h2>
+        <p class="ph-sub">旧的已经不够用了，新的还没成形。这是最消耗的阶段——不是因为你不努力，而是因为你正好处在两个世界之间。但它有终点。</p>
+      </div>
+      <div>
+        <div class="ph-insight">
+          <div class="ph-insight-label">核心洞察</div>
+          <p class="ph-insight-text">「黑暗处，离光最近。你感觉最迷失的时候，往往是你距离突破最近的时候。不要用力，要用心。」</p>
+          <p class="ph-insight-sub">— Janet，企业教练</p>
+        </div>
+      </div>
+    </div>
+    <div class="journey">
+      <div class="step active">
+        <div class="step-dot"><span class="step-dot-n">01</span></div>
+        <div class="step-body">
+          <div class="step-phase">现在就做</div>
+          <div class="step-title">先稳住内在，再谈方向</div>
+          <div class="step-desc">破壳型最容易犯的错误，是在内在还没稳住的情况下急着找方向。先做一个疗愈处方测试，知道你现在最需要的是什么补给——这比找方向更重要。</div>
+          <div class="step-resources">
+            <a href="tool-healing-rx.html" class="step-res"><span class="step-res-icon">🌿</span>疗愈处方测试</a>
+            <a href="shedecides/tool-energy.html" class="step-res"><span class="step-res-icon">⚡</span>精力泄漏诊断</a>
+            <a href="tool-solar-calendar.html" class="step-res"><span class="step-res-icon">🌙</span>节气精力历</a>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot"><span class="step-dot-n">02</span></div>
+        <div class="step-body">
+          <div class="step-phase">第一周</div>
+          <div class="step-title">找到你还剩下的「稳定核心」</div>
+          <div class="step-desc">不是旧的你，不是新的你——是无论什么阶段都还在的那一部分。盘点你的积累，找到那个「不管发生什么，这个还是我的」的东西。</div>
+          <div class="step-resources">
+            <a href="shedecides/tool-assets.html" class="step-res"><span class="step-res-icon">📋</span>个人资产盘点</a>
+            <a href="book-resilience.html" class="step-res"><span class="step-res-icon">📚</span>《反脆弱》导读</a>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot"><span class="step-dot-n">03</span></div>
+        <div class="step-body">
+          <div class="step-phase">第二到四周</div>
+          <div class="step-title">加入会员成长群：你不用一个人走这段</div>
+          <div class="step-desc">破壳型最需要的不是更多信息，是「有人陪」。会员群里有和你处在同一阶段的女性，月度读书会里有 Janet 的现场陪伴。这段路不用一个人走。</div>
+          <div class="step-resources">
+            <a href="shedecides/index.html" class="step-res"><span class="step-res-icon">🤝</span>加入会员社群</a>
+            <a href="vol5-brief.html" class="step-res"><span class="step-res-icon">📖</span>Vol.05 破壳型案例</a>
+          </div>
+          <div class="step-cta"><a href="#janet-cta-poke">或者，和 Janet 聊聊现在的处境 →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="janet-cta" id="janet-cta-poke">
+      <div>
+        <div class="jc-label">破壳型专属</div>
+        <div class="jc-title">你不需要现在就想清楚。<br>你只需要稳住。</div>
+        <div class="jc-sub">Janet 专为破壳阶段的女性提供陪伴型对话——不急着找答案，先帮你在这个中间地带站稳。30分钟，免费。</div>
+      </div>
+      <div class="jc-right">
+        <a href="#" class="btn-gold">预约 Janet 对话</a>
+        <a href="shedecides/index.html" class="btn-ghost-w">加入会员社群</a>
+      </div>
+    </div>
+    <div class="upgrade-bar">
+      <div>
+        <div class="ub-title">会员解锁：破壳型完整资源包</div>
+        <div class="ub-sub">疗愈处方 · 精力工具 · 社群陪伴 · 月度读书会 · Janet 现场分享</div>
+      </div>
+      <div class="ub-price">¥139 / 年</div>
+      <a href="shedecides/index.html" class="btn-forest">加入会员</a>
+    </div>
+  </div>
+
+  <!-- ══ 重塑型 ══ -->
+  <div class="path-section" id="path-chongsu">
+    <div class="path-header">
+      <div>
+        <div class="ph-label">类型 04</div>
+        <h2 class="ph-type">重塑型<br><em style="color:var(--g)">需要地图，不是信息</em></h2>
+        <p class="ph-sub">你已经在动了。方向感有了，勇气有了，但总感觉缺一张完整的地图——知道自己在走，但不确定路是不是对的。</p>
+      </div>
+      <div>
+        <div class="ph-insight">
+          <div class="ph-insight-label">核心洞察</div>
+          <p class="ph-insight-text">「你不是缺方向，是缺一个清晰的坐标系——让你知道自己现在在哪里，去哪里，以及这条路走不走得通。」</p>
+          <p class="ph-insight-sub">— Janet，企业教练</p>
+        </div>
+      </div>
+    </div>
+    <div class="journey">
+      <div class="step active">
+        <div class="step-dot"><span class="step-dot-n">01</span></div>
+        <div class="step-body">
+          <div class="step-phase">现在就做</div>
+          <div class="step-title">把你的「地图」画出来</div>
+          <div class="step-desc">把你现在正在做的事、想去的方向、以及你认为卡住的地方，写成三栏。很多时候，写下来之后你会发现：地图其实已经在你脑子里了。</div>
+          <div class="step-resources">
+            <a href="shedecides/tool-assets.html" class="step-res"><span class="step-res-icon">📋</span>个人资产盘点</a>
+            <a href="compass.html" class="step-res"><span class="step-res-icon">🧭</span>指南针·职场转型路径</a>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot"><span class="step-dot-n">02</span></div>
+        <div class="step-body">
+          <div class="step-phase">第一到二周</div>
+          <div class="step-title">完整阅读 Vol.05：四条真实路径</div>
+          <div class="step-desc">不是找一个可以照抄的路，而是从四个真实案例里，找到和你最像的处境——然后看她是怎么解决那个关键问题的。</div>
+          <div class="step-resources">
+            <a href="vol5-brief.html" class="step-res"><span class="step-res-icon">📖</span>Vol.05 中女转型</a>
+            <a href="book-maye-plan.html" class="step-res"><span class="step-res-icon">📚</span>《人生由我》导读</a>
+            <a href="book-maye-timeless.html" class="step-res"><span class="step-res-icon">📚</span>《永不过时》导读</a>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot"><span class="step-dot-n">03</span></div>
+        <div class="step-body">
+          <div class="step-phase">第三周起</div>
+          <div class="step-title">清晰力训练营：建立你自己的坐标系</div>
+          <div class="step-desc">Janet 的21天课程，专门帮助「已经在动但需要更清晰框架」的人。每天10分钟，21天之后，你会有一张真正属于你的地图。</div>
+          <div class="step-resources">
+            <a href="#" class="step-res"><span class="step-res-icon">🎯</span>清晰力21天训练营</a>
+          </div>
+          <div class="step-cta"><a href="#janet-cta-chongsu">或者，先和 Janet 聊聊你的地图 →</a></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot"><span class="step-dot-n">04</span></div>
+        <div class="step-body">
+          <div class="step-phase">持续</div>
+          <div class="step-title">指南针专家预约：补上你的知识盲点</div>
+          <div class="step-desc">重塑型最常遇到的障碍是「我不知道我不知道的事情」——法律、理财、职场——在关键决策点上，让专业人士帮你排除隐患。</div>
+          <div class="step-resources">
+            <a href="compass-legal.html" class="step-res"><span class="step-res-icon">⚖️</span>指南针·法律</a>
+            <a href="compass-finance.html" class="step-res"><span class="step-res-icon">💰</span>指南针·理财</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="janet-cta" id="janet-cta-chongsu">
+      <div>
+        <div class="jc-label">重塑型专属</div>
+        <div class="jc-title">你已经在路上了。<br>我们帮你把地图画清楚。</div>
+        <div class="jc-sub">Janet 为重塑型提供「路径审视」对话——不是给建议，是帮你把已经在做的事，放进一个更清晰的框架里。30分钟，免费。</div>
+      </div>
+      <div class="jc-right">
+        <a href="#" class="btn-gold">预约 Janet 对话</a>
+        <a href="shedecides/index.html" class="btn-ghost-w">加入会员</a>
+      </div>
+    </div>
+    <div class="upgrade-bar">
+      <div>
+        <div class="ub-title">会员解锁：重塑型完整资源包</div>
+        <div class="ub-sub">清晰力训练营 · 指南针全集 · 书房导读 · 月度读书会 · 专家预约</div>
+      </div>
+      <div class="ub-price">¥139 / 年</div>
+      <a href="shedecides/index.html" class="btn-forest">加入会员</a>
+    </div>
+  </div>
+
+</div><!-- end paths -->
+
+<!-- ══ ALL TYPES OVERVIEW ══ -->
+<section class="all-types">
+  <div class="at-inner">
+    <div class="at-tag">四种类型</div>
+    <h2 class="at-h2">不确定自己是哪种？<br><em>先做测试，再找路径</em></h2>
+    <p class="at-sub">你的类型不是标签，是你现在处境的地图——知道自己在哪里，才能找到对的下一步。</p>
+    <div class="at-grid">
+      <a href="#" class="at-card" onclick="showPath('shushi');return false;">
+        <div class="at-card-icon">🌊</div>
+        <div class="at-card-name">蓄势型</div>
+        <div class="at-card-sub">清楚方向，还没出发</div>
+        <div class="at-card-desc">你知道自己要什么。缺的只是一个出发的许可。卡住你的，不是能力，是等待。</div>
+        <div class="at-card-cta">查看路径</div>
+      </a>
+      <a href="#" class="at-card" onclick="showPath('shenqian');return false;">
+        <div class="at-card-icon">🌊</div>
+        <div class="at-card-name">深潜型</div>
+        <div class="at-card-sub">积累深厚，低估自己</div>
+        <div class="at-card-desc">你比别人看得更深，做得更扎实。但你还没学会用市场语言说出你的价值。</div>
+        <div class="at-card-cta">查看路径</div>
+      </a>
+      <a href="#" class="at-card" onclick="showPath('poke');return false;">
+        <div class="at-card-icon">🔥</div>
+        <div class="at-card-name">破壳型</div>
+        <div class="at-card-sub">正在最难那一段</div>
+        <div class="at-card-desc">旧的不够用，新的未成形。这不是失败，是转型最真实的样子——它有终点。</div>
+        <div class="at-card-cta">查看路径</div>
+      </a>
+      <a href="#" class="at-card" onclick="showPath('chongsu');return false;">
+        <div class="at-card-icon">🧭</div>
+        <div class="at-card-name">重塑型</div>
+        <div class="at-card-sub">需要地图，不是信息</div>
+        <div class="at-card-desc">你已经在动了。缺的是一张清晰的坐标系，让你知道这条路走不走得通。</div>
+        <div class="at-card-cta">查看路径</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+function showPath(type){
+  // hide default
+  document.getElementById('path-default').style.display='none';
+  // hide all paths
+  document.querySelectorAll('.path-section').forEach(s=>s.classList.remove('visible'));
+  // show selected
+  const target=document.getElementById('path-'+type);
+  if(target){
+    target.classList.add('visible');
+    // scroll to paths smoothly
+    setTimeout(()=>{
+      document.querySelector('.paths').scrollIntoView({behavior:'smooth',block:'start'});
+    },50);
+  }
+  // update tabs
+  document.querySelectorAll('.ts-tab').forEach(t=>t.classList.remove('active'));
+  const map={shushi:0,shenqian:1,poke:2,chongsu:3};
+  const tabs=document.querySelectorAll('.ts-tab');
+  if(tabs[map[type]])tabs[map[type]].classList.add('active');
+}
+
+// Check URL hash on load
+window.addEventListener('load',()=>{
+  const hash=window.location.hash.replace('#','');
+  if(['shushi','shenqian','poke','chongsu'].includes(hash)){
+    showPath(hash);
+  }
+});
+</script>
+</body>
+</html>
